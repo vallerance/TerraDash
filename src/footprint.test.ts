@@ -13,6 +13,7 @@ import {
   pathPoints,
   unwrapComponent,
   wrappedOffsets,
+  wrappedFootprintPositions,
   wrappedPathOffsets,
 } from './footprint';
 
@@ -153,11 +154,11 @@ describe('wrapped screen-space alignment', () => {
     expect(MAP_OVERLAP_REFERENCE_UNITS * 0.5).toBe(50);
     expect(MAP_OVERLAP_REFERENCE_UNITS * 2).toBe(200);
     const responsiveSeam = mapXForLongitude(MAP_SEAM_LONGITUDE, 720);
-    expect(wrappedOffsets(90, 110, 720, responsiveSeam)).toEqual([-20, 590]);
+    expect(wrappedOffsets(90, 110, 720, responsiveSeam)).toEqual([-20, 610]);
   });
 
   it('duplicates Hawaii at both edges from one source geometry', () => {
-    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([-40, 1290]);
+    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([-40, 1330]);
     const usaSourcePaths = map.features['ne:1159321369'].paths;
     expect(
       usaSourcePaths.filter(
@@ -165,6 +166,31 @@ describe('wrapped screen-space alignment', () => {
       ).length,
     ).toBeGreaterThan(0);
     expect(wrappedOffsets(500, 520, 1440, seamX)).toEqual([-40]);
+  });
+
+  it('places right-edge features visibly in the opposite left overlap', () => {
+    const sourcePath = 'M1400,100L1420,100L1420,120L1400,120Z';
+    const transforms = wrappedPathOffsets([sourcePath], 1440, seamX);
+    expect(transforms).toEqual([-40, -1400]);
+    const bounds = transforms.map((transform) => {
+      const xs = pathPoints([sourcePath]).map(([x]) => x + transform);
+      return [Math.min(...xs), Math.max(...xs)];
+    });
+    expect(bounds).toEqual([
+      [1360, 1380],
+      [0, 20],
+    ]);
+    expect(bounds.every(([min, max]) => min >= 0 && max <= 1440)).toBe(true);
+    expect(
+      wrappedFootprintPositions(
+        { kind: 'circle', center: [1410, 110], radius: 10 },
+        1440,
+        seamX,
+      ),
+    ).toEqual([
+      [1370, 110],
+      [10, 110],
+    ]);
   });
 
   it('keeps a non-overlapping feature single', () => {
@@ -203,7 +229,7 @@ describe('wrapped screen-space alignment', () => {
     });
     expect(bounds).toEqual([
       [50, 70],
-      [1380, 1400],
+      [1420, 1440],
     ]);
     expect(bounds.every(([min, max]) => min >= 0 && max <= 1440)).toBe(true);
     expect(document.querySelectorAll('[aria-label="Hawaii"]')).toHaveLength(1);

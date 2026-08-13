@@ -139,8 +139,8 @@ export function wrappedOffsets(
   const alignedMax = maxX - seamX;
   return [
     -seamX,
-    ...(alignedMin < overlap ? [width - seamX - maxX] : []),
-    ...(alignedMax > width - overlap ? [-seamX - minX] : []),
+    ...(alignedMin < overlap ? [width - maxX] : []),
+    ...(alignedMax > width - overlap ? [-minX] : []),
   ].filter(
     (transform, index, transforms) => transforms.indexOf(transform) === index,
   );
