@@ -176,12 +176,10 @@ function clusterFootprint(
 }
 
 function clusterScale(cluster: Component[], threshold: number) {
-  return Math.max(
-    1,
-    ...cluster.map(({ nativeRadius }) =>
-      nativeRadius ? threshold / (nativeRadius * 2) : 1,
-    ),
+  const largestRadius = Math.max(
+    ...cluster.map(({ nativeRadius }) => nativeRadius),
   );
+  return largestRadius ? Math.max(1, threshold / (largestRadius * 2)) : 1;
 }
 
 export function scaledComponentPaths(
