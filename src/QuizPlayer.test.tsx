@@ -65,6 +65,22 @@ describe('QuizPlayer integration', () => {
     );
     act(() =>
       input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
+      ),
+    );
+    expect(input.getAttribute('aria-activedescendant')).toBe(
+      'answer-option-iso:AAA',
+    );
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
+      ),
+    );
+    expect(input.getAttribute('aria-activedescendant')).toBe(
+      'answer-option-iso:BBB',
+    );
+    act(() =>
+      input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       ),
     );
@@ -118,9 +134,13 @@ describe('QuizPlayer integration', () => {
         .find((option) => option.textContent === 'Bravo')!
         .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
     );
-    await act(async () =>
-      (container.querySelector('form button') as HTMLButtonElement).click(),
-    );
+    await act(async () => {
+      const submit = container.querySelector(
+        'form button',
+      ) as HTMLButtonElement;
+      submit.click();
+      submit.click();
+    });
     expect(container.textContent).toContain('attempts remaining');
     await act(async () =>
       input.dispatchEvent(
