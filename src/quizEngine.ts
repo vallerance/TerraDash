@@ -29,8 +29,9 @@ export type QuizState = {
 };
 export type QuizEvent =
   | {
-      type: 'idle' | 'started' | 'elapsed' | 'accepted' | 'completed' | 'reset';
+      type: 'idle' | 'started' | 'elapsed' | 'completed' | 'reset';
     }
+  | { type: 'accepted'; result: 'wrong' | 'correct' | 'missed' }
   | { type: 'rejected'; reason: RejectionReason };
 export type RejectionReason =
   | 'already-active'
@@ -280,9 +281,9 @@ export function reduceQuiz(
           ...state,
           attempts,
           elapsedMs,
-          lastEvent: { type: 'accepted' },
+          lastEvent: { type: 'accepted', result: 'wrong' },
         },
-        event: { type: 'accepted' },
+        event: { type: 'accepted', result: 'wrong' },
       };
     outcomes[currentId] = { attempts: 3, status: 'missed', credit: 0 };
     const next = state.currentIndex + 1;
@@ -299,9 +300,9 @@ export function reduceQuiz(
         attempts: 0,
         elapsedMs,
         outcomes,
-        lastEvent: { type: 'accepted' },
+        lastEvent: { type: 'accepted', result: 'missed' },
       },
-      event: { type: 'accepted' },
+      event: { type: 'accepted', result: 'missed' },
     };
   }
   const credit = [1, 0.5, 0.25][attempts - 1];
@@ -321,8 +322,8 @@ export function reduceQuiz(
       outcomes,
       score,
       elapsedMs,
-      lastEvent: { type: 'accepted' },
+      lastEvent: { type: 'accepted', result: 'correct' },
     },
-    event: { type: 'accepted' },
+    event: { type: 'accepted', result: 'correct' },
   };
 }

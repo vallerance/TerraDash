@@ -53,7 +53,6 @@ export function QuizPlayer({
   }, [dispatch, now, state.phase]);
 
   const previousEvent = useRef(state.lastEvent);
-  const previousIndex = useRef(state.currentIndex);
   useEffect(() => {
     if (state.lastEvent === previousEvent.current) return;
     previousEvent.current = state.lastEvent;
@@ -65,12 +64,13 @@ export function QuizPlayer({
       );
     } else if (state.lastEvent.type === 'accepted') {
       setFeedback(
-        state.currentIndex !== previousIndex.current
+        state.lastEvent.result === 'correct'
           ? 'Correct. Next location.'
-          : 'Incorrect. Try again; the answer is not revealed.',
+          : state.lastEvent.result === 'missed'
+            ? 'Three attempts used. The answer is not revealed.'
+            : 'Incorrect. Try again; the answer is not revealed.',
       );
     }
-    previousIndex.current = state.currentIndex;
   }, [state.lastEvent]);
 
   useEffect(() => {
@@ -124,8 +124,13 @@ export function QuizPlayer({
       );
     } else if (event.key === 'Enter') {
       event.preventDefault();
-      const location = suggestions[activeSuggestion];
-      if (location) choose(location);
+      const exact = catalog.find(
+        (location) =>
+          location.name.trim().toLowerCase() === text.trim().toLowerCase(),
+      );
+      if (exact && (!selectedId || selectedId === exact.id)) submit();
+      else if (suggestions[activeSuggestion])
+        choose(suggestions[activeSuggestion]);
       else submit();
     } else if (event.key === 'Escape') {
       setText('');
