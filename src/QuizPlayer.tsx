@@ -44,6 +44,8 @@ export function QuizPlayer({
   const currentId =
     state.phase === 'active' ? state.order[state.currentIndex] : undefined;
   const currentLocation = catalog.find((location) => location.id === currentId);
+  const attemptsRemaining = 3 - state.attempts;
+  const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
 
   useEffect(() => {
     if (state.phase !== 'active') return;
@@ -204,7 +206,10 @@ export function QuizPlayer({
   }
 
   return (
-    <section className="player-card active-player" aria-labelledby="quiz-title">
+    <section
+      className={`player-card active-player ${attemptStateClass}`}
+      aria-labelledby="quiz-title"
+    >
       <div className="quiz-header">
         <div>
           <p className="eyebrow">TERRADASH · QUIZ</p>
@@ -222,8 +227,8 @@ export function QuizPlayer({
           {renderMap(currentLocation)}
         </div>
       )}
-      <div className="quiz-status" aria-live="polite">
-        {formatElapsed(state.elapsedMs)} · {3 - state.attempts} attempts
+      <div className={`quiz-status ${attemptStateClass}`} aria-live="polite">
+        {formatElapsed(state.elapsedMs)} · {attemptsRemaining} attempts
         remaining
       </div>
       <form

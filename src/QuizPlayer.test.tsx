@@ -113,6 +113,47 @@ describe('QuizPlayer integration', () => {
     expect(clearInterval).toHaveBeenCalled();
   });
 
+  it('shares attempt-state colors across the map and remaining-attempt status', async () => {
+    const oneLocationQuiz = { id: 'single', locationIds: ['iso:AAA'] };
+    const container = document.createElement('div');
+    document.body.append(container);
+    root = createRoot(container);
+    act(() => {
+      root!.render(
+        <QuizProvider quiz={oneLocationQuiz} catalog={catalog} rng={() => 0}>
+          <QuizPlayer
+            catalog={catalog}
+            renderMap={(location) => <div data-map-id={location.id} />}
+          />
+        </QuizProvider>,
+      );
+    });
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const player = container.querySelector('.active-player')!;
+    const status = container.querySelector('.quiz-status')!;
+    expect(player.classList.contains('attempts-remaining-3')).toBe(true);
+    expect(status.classList.contains('attempts-remaining-3')).toBe(true);
+
+    for (const remaining of [2, 1]) {
+      await act(async () =>
+        [...container.querySelectorAll('[role="option"]')]
+          .find((option) => option.textContent === 'Bravo')!
+          .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
+      );
+      await act(async () =>
+        (container.querySelector('form button') as HTMLButtonElement).click(),
+      );
+      expect(player.classList.contains(`attempts-remaining-${remaining}`)).toBe(
+        true,
+      );
+      expect(status.classList.contains(`attempts-remaining-${remaining}`)).toBe(
+        true,
+      );
+    }
+  });
+
   it('keeps invalid text attempt-free, scores a wrong-then-correct run, and restarts cleanly', async () => {
     const oneLocationQuiz = { id: 'single', locationIds: ['iso:AAA'] };
     const container = document.createElement('div');

@@ -8,6 +8,7 @@
     "build": "npm run generate && tsc -b && vite build",
     "generate": "node scripts/generate-map.mjs",
     "validate:data": "node scripts/validate-data.mjs",
+    "validate:branding": "node scripts/validate-branding.mjs",
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
