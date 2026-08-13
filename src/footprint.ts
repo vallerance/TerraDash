@@ -137,12 +137,28 @@ export function wrappedOffsets(
 ): number[] {
   const alignedMin = minX - seamX;
   const alignedMax = maxX - seamX;
-  return [
-    -seamX,
-    ...(alignedMin < overlap ? [width - maxX] : []),
-    ...(alignedMax > width - overlap ? [-minX] : []),
-  ].filter(
-    (transform, index, transforms) => transforms.indexOf(transform) === index,
+  const primary = seamX === 0 ? 0 : -seamX;
+  return [primary, primary - width, primary + width].filter((transform) => {
+    const transformedMin = minX + transform;
+    const transformedMax = maxX + transform;
+    return transformedMax >= -overlap && transformedMin <= width + overlap;
+  });
+}
+
+export function screenFootprintToMapCopies(
+  footprint: Footprint,
+  scale: number,
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): Footprint[] {
+  const mapFootprint: Footprint = {
+    ...footprint,
+    center: [footprint.center[0] / scale + seamX, footprint.center[1] / scale],
+    radius: footprint.radius / scale,
+  };
+  return wrappedFootprintPositions(mapFootprint, width, seamX, overlap).map(
+    (center) => ({ ...mapFootprint, center }),
   );
 }
 

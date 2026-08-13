@@ -7,9 +7,8 @@ import {
   MAP_OVERLAP_REFERENCE_UNITS,
   MAP_SEAM_LONGITUDE,
   mapXForLongitude,
+  screenFootprintToMapCopies,
   wrappedPathOffsets,
-  wrappedOffsets,
-  type Point,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
 import { defaultCatalog, defaultQuiz } from './quizContracts';
@@ -23,7 +22,8 @@ function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
-  const scale = viewportWidth / map.width;
+  const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
+  const scale = viewportWidth / renderedMapWidth;
   const footprints = deriveComponentFootprints(
     highlightedPaths,
     scale,
@@ -63,11 +63,16 @@ function MapView({ active }: { active: Location }) {
   return (
     <svg
       className="world-map"
-      viewBox={`0 0 ${map.width} ${map.height}`}
+      viewBox={`${-MAP_OVERLAP_REFERENCE_UNITS} 0 ${renderedMapWidth} ${map.height}`}
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >
-      <rect width={map.width} height={map.height} className="ocean" />
+      <rect
+        x={-MAP_OVERLAP_REFERENCE_UNITS}
+        width={renderedMapWidth}
+        height={map.height}
+        className="ocean"
+      />
       <g className="countries">
         {map.sourceFeatureIds.map((id) => {
           const feature = map.features[id as keyof typeof map.features];
@@ -93,19 +98,19 @@ function MapView({ active }: { active: Location }) {
       </g>
       {footprints.flatMap((footprint, index) =>
         footprint.kind === 'circle'
-          ? wrappedOffsets(
-              footprint.center[0] / scale + seamX - footprint.radius / scale,
-              footprint.center[0] / scale + seamX + footprint.radius / scale,
+          ? screenFootprintToMapCopies(
+              footprint,
+              scale,
               map.width,
               seamX,
               MAP_OVERLAP_REFERENCE_UNITS,
-            ).map((transform, copy) => (
+            ).map((copyFootprint, copy) => (
               <circle
                 key={`${index}:${copy}`}
                 className="minimum-footprint"
-                cx={(footprint.center[0] / scale + seamX + transform) * scale}
-                cy={footprint.center[1]}
-                r={footprint.radius / scale}
+                cx={copyFootprint.center[0]}
+                cy={copyFootprint.center[1]}
+                r={copyFootprint.radius}
                 aria-hidden="true"
               />
             ))

@@ -11,6 +11,7 @@ import {
   MAP_OVERLAP_REFERENCE_UNITS,
   MAP_SEAM_LONGITUDE,
   pathPoints,
+  screenFootprintToMapCopies,
   unwrapComponent,
   wrappedOffsets,
   wrappedFootprintPositions,
@@ -146,7 +147,7 @@ describe('screen-space component clustering', () => {
 describe('wrapped screen-space alignment', () => {
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
 
-  it('projects the configurable 170W seam to the reference map', () => {
+  it('projects the required 170W seam to the reference map', () => {
     expect(seamX).toBe(40);
   });
 
@@ -154,11 +155,11 @@ describe('wrapped screen-space alignment', () => {
     expect(MAP_OVERLAP_REFERENCE_UNITS * 0.5).toBe(50);
     expect(MAP_OVERLAP_REFERENCE_UNITS * 2).toBe(200);
     const responsiveSeam = mapXForLongitude(MAP_SEAM_LONGITUDE, 720);
-    expect(wrappedOffsets(90, 110, 720, responsiveSeam)).toEqual([-20, 610]);
+    expect(wrappedOffsets(90, 110, 720, responsiveSeam)).toEqual([-20, 700]);
   });
 
   it('duplicates Hawaii at both edges from one source geometry', () => {
-    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([-40, 1330]);
+    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([-40, 1400]);
     const usaSourcePaths = map.features['ne:1159321369'].paths;
     expect(
       usaSourcePaths.filter(
@@ -171,16 +172,16 @@ describe('wrapped screen-space alignment', () => {
   it('places right-edge features visibly in the opposite left overlap', () => {
     const sourcePath = 'M1400,100L1420,100L1420,120L1400,120Z';
     const transforms = wrappedPathOffsets([sourcePath], 1440, seamX);
-    expect(transforms).toEqual([-40, -1400]);
+    expect(transforms).toEqual([-40, -1480]);
     const bounds = transforms.map((transform) => {
       const xs = pathPoints([sourcePath]).map(([x]) => x + transform);
       return [Math.min(...xs), Math.max(...xs)];
     });
     expect(bounds).toEqual([
       [1360, 1380],
-      [0, 20],
+      [-80, -60],
     ]);
-    expect(bounds.every(([min, max]) => min >= 0 && max <= 1440)).toBe(true);
+    expect(bounds.every(([min, max]) => min >= -100 && max <= 1540)).toBe(true);
     expect(
       wrappedFootprintPositions(
         { kind: 'circle', center: [1410, 110], radius: 10 },
@@ -189,12 +190,27 @@ describe('wrapped screen-space alignment', () => {
       ),
     ).toEqual([
       [1370, 110],
-      [10, 110],
+      [-70, 110],
     ]);
   });
 
   it('keeps a non-overlapping feature single', () => {
     expect(wrappedOffsets(500, 600, 1440, seamX)).toEqual([-40]);
+  });
+
+  it('does not duplicate a large Alaska component near the seam', () => {
+    expect(wrappedOffsets(47.65, 199.9, 1440, seamX)).toEqual([-40, 1400]);
+  });
+
+  it('converts a responsive assist back to map coordinates once', () => {
+    expect(
+      screenFootprintToMapCopies(
+        { kind: 'circle', center: [97.5, 71], radius: 5 },
+        0.25,
+        1440,
+        seamX,
+      ),
+    ).toEqual([{ kind: 'circle', center: [390, 284], radius: 20 }]);
   });
 
   it('uses the same edge copies for active geometry and its footprint', () => {
@@ -229,9 +245,9 @@ describe('wrapped screen-space alignment', () => {
     });
     expect(bounds).toEqual([
       [50, 70],
-      [1420, 1440],
+      [1490, 1510],
     ]);
-    expect(bounds.every(([min, max]) => min >= 0 && max <= 1440)).toBe(true);
+    expect(bounds.every(([min, max]) => min >= -100 && max <= 1540)).toBe(true);
     expect(document.querySelectorAll('[aria-label="Hawaii"]')).toHaveLength(1);
     expect(document.querySelectorAll('path[aria-hidden="true"]')).toHaveLength(
       2,
