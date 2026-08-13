@@ -132,6 +132,27 @@ describe('deriveFootprint', () => {
     }
   });
 
+  it.each(['iso:BLZ', 'iso:HND', 'iso:PAN'])(
+    'does not let a tiny Central America fragment over-scale %s',
+    (id) => {
+      const item = catalog.find((entry) => entry.id === id)!;
+      const paths = item.geometryRefs.flatMap(
+        (ref) => map.features[ref as keyof typeof map.features].paths,
+      );
+      const footprints = deriveComponentFootprints(
+        paths,
+        0.25,
+        map.width,
+        undefined,
+        undefined,
+        mapXForLongitude(MAP_SEAM_LONGITUDE, map.width),
+      );
+      expect(footprints).toHaveLength(1);
+      expect(footprints[0].kind).toBe('circle');
+      expect(footprints[0].radius).toBeLessThan(6);
+    },
+  );
+
   it.each([
     ['iso:ATG', 2],
     ['iso:ARM', 3],
@@ -212,6 +233,19 @@ describe('screen-space component clustering', () => {
     expect(scaled).not.toEqual(paths);
   });
 
+  it('bases the common factor on the largest member, not a tiny fragment', () => {
+    const paths = ['M0,0L2,0L2,2L0,2Z', 'M12,0L16,0L16,4L12,4Z'];
+    const scaled = scaledComponentPaths(paths, 1, 1440);
+    const spans = scaled.map((path) => {
+      const points = pathPoints([path]);
+      return (
+        Math.max(...points.map(([x]) => x)) -
+        Math.min(...points.map(([x]) => x))
+      );
+    });
+    expect(spans).toEqual([5, 10]);
+  });
+
   it('leaves native-containing clusters at their original geometry', () => {
     const paths = ['M0,0L20,0L20,20L0,20Z', 'M21,9L23,9L23,11L21,11Z'];
     expect(scaledComponentPaths(paths, 1, 1440)).toEqual(paths);
@@ -226,7 +260,8 @@ describe('screen-space component clustering', () => {
       COMPONENT_CLUSTER_PROXIMITY_PX,
     );
     expect(result).toHaveLength(2);
-    expect(result[0].center).toEqual([8.5, 1.5]);
+    expect(result[0].center[0]).toBeCloseTo(8.0833333333);
+    expect(result[0].center[1]).toBe(1.5);
   });
 
   it('clusters touching geometry even when component centers exceed the gap', () => {
