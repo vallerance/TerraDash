@@ -8,10 +8,11 @@ const css = await readFile(
 
 if (/\b100vw\b|50vw/.test(css))
   throw new Error('layout must not use viewport breakout arithmetic');
+if (/scrollbar-gutter\s*:\s*stable/.test(css))
+  throw new Error('layout must not shrink scrollWidth with a stable gutter');
 for (const required of [
   '--page-gutter: clamp(1rem, 2vw, 2rem);',
   'overflow-y: scroll;',
-  'scrollbar-gutter: stable;',
   'width: calc(100% - 2 * var(--page-gutter));',
   'max-width: none;',
   '.active-player > :not(.full-bleed-map)',
