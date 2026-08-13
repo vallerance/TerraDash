@@ -47,6 +47,7 @@ describe('QuizPlayer integration', () => {
     ) as HTMLInputElement;
     expect(input.getAttribute('aria-controls')).toBe('answer-options');
     expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(input.tabIndex).toBe(0);
     expect(container.querySelectorAll('[role="option"]')).toHaveLength(2);
     expect(
       new Set(
@@ -91,6 +92,10 @@ describe('QuizPlayer integration', () => {
       ),
     );
     expect(container.textContent).toContain('2 / 2');
+    expect(document.activeElement).toBe(input);
+    expect(
+      document.getElementById(input.getAttribute('aria-activedescendant')!),
+    ).toBeTruthy();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
   });
 
