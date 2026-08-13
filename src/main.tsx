@@ -7,9 +7,8 @@ import {
   MAP_OVERLAP_REFERENCE_UNITS,
   MAP_SEAM_LONGITUDE,
   mapXForLongitude,
+  screenFootprintToMapCopies,
   wrappedPathOffsets,
-  wrappedOffsets,
-  type Point,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
 import { defaultCatalog, defaultQuiz } from './quizContracts';
@@ -93,19 +92,19 @@ function MapView({ active }: { active: Location }) {
       </g>
       {footprints.flatMap((footprint, index) =>
         footprint.kind === 'circle'
-          ? wrappedOffsets(
-              footprint.center[0] / scale + seamX - footprint.radius / scale,
-              footprint.center[0] / scale + seamX + footprint.radius / scale,
+          ? screenFootprintToMapCopies(
+              footprint,
+              scale,
               map.width,
               seamX,
               MAP_OVERLAP_REFERENCE_UNITS,
-            ).map((transform, copy) => (
+            ).map((copyFootprint, copy) => (
               <circle
                 key={`${index}:${copy}`}
                 className="minimum-footprint"
-                cx={(footprint.center[0] / scale + seamX + transform) * scale}
-                cy={footprint.center[1]}
-                r={footprint.radius / scale}
+                cx={copyFootprint.center[0]}
+                cy={copyFootprint.center[1]}
+                r={copyFootprint.radius}
                 aria-hidden="true"
               />
             ))

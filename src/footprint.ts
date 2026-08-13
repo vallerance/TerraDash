@@ -7,7 +7,7 @@ export type Footprint = {
 };
 export const MIN_FOOTPRINT_PX = 10;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
-export const MAP_SEAM_LONGITUDE = -170;
+export const MAP_SEAM_LONGITUDE = -180;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
 export function pathPoints(paths: string[]): Point[] {
   return paths.flatMap((path) =>
@@ -137,12 +137,30 @@ export function wrappedOffsets(
 ): number[] {
   const alignedMin = minX - seamX;
   const alignedMax = maxX - seamX;
+  const canDuplicate = maxX - minX <= overlap;
   return [
-    -seamX,
-    ...(alignedMin < overlap ? [width - maxX] : []),
-    ...(alignedMax > width - overlap ? [-minX] : []),
+    seamX === 0 ? 0 : -seamX,
+    ...(canDuplicate && alignedMin < overlap ? [width - maxX] : []),
+    ...(canDuplicate && alignedMax > width - overlap ? [-minX] : []),
   ].filter(
     (transform, index, transforms) => transforms.indexOf(transform) === index,
+  );
+}
+
+export function screenFootprintToMapCopies(
+  footprint: Footprint,
+  scale: number,
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): Footprint[] {
+  const mapFootprint: Footprint = {
+    ...footprint,
+    center: [footprint.center[0] / scale + seamX, footprint.center[1] / scale],
+    radius: footprint.radius / scale,
+  };
+  return wrappedFootprintPositions(mapFootprint, width, seamX, overlap).map(
+    (center) => ({ ...mapFootprint, center }),
   );
 }
 
