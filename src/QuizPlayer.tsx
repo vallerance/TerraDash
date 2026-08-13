@@ -81,6 +81,7 @@ export function QuizPlayer({
       setSelectedId(undefined);
       setActiveSuggestion(0);
       setSuggestionsOpen(true);
+      setFeedback('');
       answerRef.current?.focus();
     }
   }, [state.currentIndex, state.phase]);

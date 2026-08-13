@@ -92,6 +92,9 @@ describe('QuizPlayer integration', () => {
       ),
     );
     expect(container.textContent).toContain('2 / 2');
+    expect(
+      container.querySelector('[aria-live="assertive"]')?.textContent,
+    ).toBe('');
     expect(document.activeElement).toBe(input);
     expect(
       document.getElementById(input.getAttribute('aria-activedescendant')!),
@@ -151,6 +154,9 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
     ).toBe('iso:AAA');
+    expect(
+      container.querySelector('[aria-live="assertive"]')?.textContent,
+    ).toBe('Incorrect. Try again; the answer is not revealed.');
     await act(async () => Promise.resolve());
     await act(async () =>
       input.dispatchEvent(
@@ -175,6 +181,28 @@ describe('QuizPlayer integration', () => {
     });
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(input.getAttribute('aria-expanded')).toBe('false');
+    await act(async () => {
+      input.value = 'Bravo';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () =>
+      [...container.querySelectorAll('[role="option"]')]
+        .find((option) => option.textContent === 'Bravo')!
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
+    );
+    await act(async () => {
+      input.value = 'Bravo edited';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('2 attempts remaining');
+    expect(
+      container.querySelector('[aria-live="assertive"]')?.textContent,
+    ).toBe(
+      'Choose a canonical location from the suggestions or enter its exact name.',
+    );
     await act(async () => {
       input.value = 'Alpha';
       input.dispatchEvent(new Event('input', { bubbles: true }));
