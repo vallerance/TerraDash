@@ -19,6 +19,43 @@ import { highlightedGeometryPaths } from './mapGeometry';
 import './styles.css';
 
 type Location = (typeof catalog)[number];
+const CALLOUT_RADIUS_MIN_PX = 90;
+const CALLOUT_RADIUS_MAX_PX = 140;
+const CALLOUT_GAP_PX = 18;
+
+export function calloutLayout(
+  sourceCenter: Point,
+  sourceRadius: number,
+  viewportWidth: number,
+  renderedMapWidth: number,
+) {
+  const scale = viewportWidth / renderedMapWidth;
+  const radiusPx = Math.min(
+    CALLOUT_RADIUS_MAX_PX,
+    Math.max(CALLOUT_RADIUS_MIN_PX, viewportWidth * 0.09),
+  );
+  const radius = radiusPx / scale;
+  const gap = CALLOUT_GAP_PX / scale;
+  const leftEdge = -MAP_OVERLAP_REFERENCE_UNITS;
+  const rightEdge = map.width + MAP_OVERLAP_REFERENCE_UNITS;
+  const leftRoom = sourceCenter[0] - leftEdge;
+  const rightRoom = rightEdge - sourceCenter[0];
+  const direction = rightRoom >= leftRoom ? 1 : -1;
+  const idealX = sourceCenter[0] + direction * (sourceRadius + gap + radius);
+  const center: Point = [
+    Math.min(rightEdge - radius, Math.max(leftEdge + radius, idealX)),
+    Math.min(
+      map.height - radius - gap,
+      Math.max(radius + gap, sourceCenter[1]),
+    ),
+  ];
+  return {
+    center,
+    direction: Math.sign(center[0] - sourceCenter[0]) || 1,
+    radius,
+  };
+}
+
 export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
@@ -33,21 +70,16 @@ export function MapView({ active }: { active: Location }) {
     undefined,
     seamX,
   );
-  const cutoutRadius = Math.min(
-    map.height / 2 - 24,
-    Math.max(64 / scale, (viewportWidth * 0.22) / scale),
-  );
-  const cutoutCenter: Point = callout
-    ? [
-        callout.sourceCenter[0] < map.width / 2
-          ? map.width - cutoutRadius - 24
-          : cutoutRadius + 24,
-        Math.min(
-          map.height - cutoutRadius - 24,
-          Math.max(cutoutRadius + 24, callout.sourceCenter[1]),
-        ),
-      ]
-    : [0, 0];
+  const layout = callout
+    ? calloutLayout(
+        callout.sourceCenter,
+        callout.sourceRadius,
+        viewportWidth,
+        renderedMapWidth,
+      )
+    : undefined;
+  const cutoutRadius = layout?.radius ?? 0;
+  const cutoutCenter: Point = layout?.center ?? [0, 0];
   const zoom = 3;
   const wrappedPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
@@ -204,17 +236,23 @@ export function MapView({ active }: { active: Location }) {
           ))}
           <line
             className="callout-leader"
-            x1={callout.sourceCenter[0]}
+            x1={
+              callout.sourceCenter[0] +
+              layout!.direction * callout.sourceRadius * 0.9
+            }
             y1={callout.sourceCenter[1] - callout.sourceRadius * 0.4}
-            x2={cutoutCenter[0]}
-            y2={cutoutCenter[1] - cutoutRadius * 0.72}
+            x2={cutoutCenter[0] - layout!.direction * cutoutRadius * 0.92}
+            y2={cutoutCenter[1] - cutoutRadius * 0.38}
           />
           <line
             className="callout-leader"
-            x1={callout.sourceCenter[0]}
+            x1={
+              callout.sourceCenter[0] +
+              layout!.direction * callout.sourceRadius * 0.9
+            }
             y1={callout.sourceCenter[1] + callout.sourceRadius * 0.4}
-            x2={cutoutCenter[0]}
-            y2={cutoutCenter[1] + cutoutRadius * 0.72}
+            x2={cutoutCenter[0] - layout!.direction * cutoutRadius * 0.92}
+            y2={cutoutCenter[1] + cutoutRadius * 0.38}
           />
         </g>
       )}

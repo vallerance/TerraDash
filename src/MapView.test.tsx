@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
 import { highlightedGeometryPaths } from './mapGeometry';
-import { MapView } from './main';
+import { calloutLayout, MapView } from './main';
 
 let root: ReturnType<typeof createRoot> | undefined;
 class TestResizeObserver {
@@ -30,6 +30,26 @@ function renderLocation(id: string) {
 }
 
 describe('MapView small-region callout rendering', () => {
+  it.each([390, 1440])(
+    'keeps the cutout compact and adjacent at a %dpx viewport',
+    (viewportWidth) => {
+      const renderedMapWidth = 1400;
+      const sourceCenter: [number, number] = [700, 300];
+      const sourceRadius = 10;
+      const layout = calloutLayout(
+        sourceCenter,
+        sourceRadius,
+        viewportWidth,
+        renderedMapWidth,
+      );
+      const scale = viewportWidth / renderedMapWidth;
+      expect(layout.radius * 2 * scale).toBeLessThanOrEqual(280);
+      expect(Math.abs(layout.center[0] - sourceCenter[0]) * scale).toBeCloseTo(
+        layout.radius * scale + sourceRadius * scale + 18,
+      );
+    },
+  );
+
   it('keeps the source geometry unchanged and renders one contextual callout', () => {
     const frame = renderLocation('iso:ATG');
     const source = highlightedGeometryPaths(
