@@ -69,6 +69,12 @@ describe('QuizPlayer integration', () => {
       ),
     );
     expect(input.value).toBe('Bravo');
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      ),
+    );
+    expect(container.textContent).toContain('2 / 2');
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
   });
 
@@ -110,7 +116,7 @@ describe('QuizPlayer integration', () => {
     await act(async () =>
       [...container.querySelectorAll('[role="option"]')]
         .find((option) => option.textContent === 'Bravo')!
-        .dispatchEvent(new MouseEvent('mousedown', { bubbles: true })),
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
     );
     await act(async () =>
       (container.querySelector('form button') as HTMLButtonElement).click(),
@@ -124,15 +130,54 @@ describe('QuizPlayer integration', () => {
     await act(async () =>
       [...container.querySelectorAll('[role="option"]')]
         .find((option) => option.textContent === 'Alpha')!
-        .dispatchEvent(new MouseEvent('mousedown', { bubbles: true })),
+        .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
     );
-    act(() =>
+    await act(async () =>
       (container.querySelector('form button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('Run complete');
+    expect(container.textContent).toContain('50%');
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('Name every place');
+  });
+
+  it('advances after three valid misses without revealing the answer and stops the timer', async () => {
+    const clearInterval = vi.spyOn(window, 'clearInterval');
+    const container = document.createElement('div');
+    document.body.append(container);
+    root = createRoot(container);
+    act(() => {
+      root!.render(
+        <QuizProvider
+          quiz={{ id: 'single', locationIds: ['iso:AAA'] }}
+          catalog={catalog}
+          rng={() => 0}
+        >
+          <QuizPlayer
+            catalog={catalog}
+            renderMap={(location) => <div data-map-id={location.id} />}
+            now={() => 10}
+          />
+        </QuizProvider>,
+      );
+    });
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      await act(async () =>
+        [...container.querySelectorAll('[role="option"]')]
+          .find((option) => option.textContent === 'Bravo')!
+          .dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })),
+      );
+      await act(async () =>
+        (container.querySelector('form button') as HTMLButtonElement).click(),
+      );
+    }
+    expect(container.textContent).toContain('Three attempts used');
+    expect(container.textContent).not.toContain('Alpha');
+    expect(clearInterval).toHaveBeenCalled();
   });
 });
