@@ -11,6 +11,7 @@ import {
   MAP_OVERLAP_REFERENCE_UNITS,
   MAP_SEAM_LONGITUDE,
   pathPoints,
+  pathPointComponents,
   screenFootprintToMapCopies,
   unwrapComponent,
   wrappedOffsets,
@@ -114,6 +115,33 @@ describe('deriveFootprint', () => {
       expect(footprints[0].kind).toBe('polygon');
     }
   });
+
+  it.each(['iso:ATG', 'iso:ARM'])('retains assists for %s', (id) => {
+    const item = catalog.find((entry) => entry.id === id)!;
+    const paths = item.geometryRefs.flatMap(
+      (ref) => map.features[ref as keyof typeof map.features].paths,
+    );
+    for (const scale of [1, 0.25]) {
+      const footprints = deriveComponentFootprints(paths, scale, map.width);
+      expect(footprints.some((footprint) => footprint.kind === 'circle')).toBe(
+        true,
+      );
+    }
+  });
+
+  it.each([
+    ['iso:ATG', 2],
+    ['iso:ARM', 3],
+    ['iso:UZB', 4],
+  ])('retains generated subpath rings for %s', (id, expected) => {
+    const item = catalog.find((entry) => entry.id === id)!;
+    const paths = item.geometryRefs.flatMap(
+      (ref) => map.features[ref as keyof typeof map.features].paths,
+    );
+    expect(
+      paths.flatMap((path) => pathPointComponents(path, map.width)),
+    ).toHaveLength(expected);
+  });
 });
 
 describe('screen-space component clustering', () => {
@@ -143,6 +171,30 @@ describe('screen-space component clustering', () => {
     expect(result[0].kind).toBe('polygon');
   });
 
+  it('does not cluster overlapping boxes when polygon boundaries are separate', () => {
+    const result = deriveComponentFootprints(
+      ['M0,0L100,0L100,100L0,100Z', 'M49,49L51,49L51,51L49,51Z'],
+      1,
+      1440,
+      10,
+      24,
+    );
+    expect(result).toHaveLength(2);
+    expect(result.some((footprint) => footprint.kind === 'circle')).toBe(true);
+  });
+
+  it('clusters genuinely adjacent polygon boundaries', () => {
+    const result = deriveComponentFootprints(
+      ['M0,0L100,0L100,100L0,100Z', 'M101,49L103,49L103,51L101,51Z'],
+      1,
+      1440,
+      10,
+      24,
+    );
+    expect(result).toHaveLength(1);
+    expect(result[0].kind).toBe('polygon');
+  });
+
   it('uses one deterministic largest-anchor assist for an all-small cluster', () => {
     const result = deriveComponentFootprints(
       ['M0,0L2,2Z', 'M12,0L15,3Z', 'M40,0L42,2Z'],
@@ -157,7 +209,7 @@ describe('screen-space component clustering', () => {
 
   it('clusters touching geometry even when component centers exceed the gap', () => {
     const result = deriveComponentFootprints(
-      ['M0,0L40,40Z', 'M41,20L41,20Z'],
+      ['M0,0L40,40Z', 'M40,20L42,20L42,22L40,22Z'],
       1,
       1440,
       10,

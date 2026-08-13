@@ -8,8 +8,7 @@ export type Footprint = {
 type Component = {
   footprint: Footprint;
   nativeRadius: number;
-  bounds: { minX: number; maxX: number; minY: number; maxY: number };
-  index: number;
+  boundary: Point[];
 };
 export const MIN_FOOTPRINT_PX = 10;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
@@ -32,7 +31,12 @@ export function unwrapComponent(points: Point[], width: number): Point[] {
     const next = i + 1 < xs.length ? xs[i + 1] : xs[0] + width;
     if (next - xs[i] > largestGap) {
       largestGap = next - xs[i];
-      start = next % width;
+      const wrappedStart = next % width;
+      start = xs.reduce((closest, x) =>
+        Math.abs(x - wrappedStart) < Math.abs(closest - wrappedStart)
+          ? x
+          : closest,
+      );
     }
   }
   return points.map(([x, y]) => [x < start ? x + width : x, y]);
@@ -55,14 +59,9 @@ export function componentSpan(path: string, width: number): number {
   );
 }
 export function pathPointComponents(path: string, width: number): Point[][] {
-  const components: Point[][] = [[]];
-  for (const point of pathPoints([path])) {
-    const previous = components.at(-1)!.at(-1);
-    if (previous && Math.abs(point[0] - previous[0]) > width / 2)
-      components.push([]);
-    components.at(-1)!.push(point);
-  }
-  return components.filter((points) => points.length > 0);
+  return [...path.matchAll(/M-?[\d.]+,-?[\d.]+[^M]*/g)].map((match) => {
+    return pathPoints([match[0]]);
+  });
 }
 export function deriveComponentFootprints(
   paths: string[],
@@ -73,7 +72,7 @@ export function deriveComponentFootprints(
   seamX = 0,
 ): Footprint[] {
   const components: Component[] = paths.flatMap((path) =>
-    pathPointComponents(path, width).map((component, index) => {
+    pathPointComponents(path, width).map((component) => {
       const points = unwrapComponent(component, width);
       const aligned = points.map(
         ([x, y]) => [(x - seamX) * scale, y * scale] as Point,
@@ -88,13 +87,7 @@ export function deriveComponentFootprints(
       return {
         footprint: deriveFootprint(aligned, threshold),
         nativeRadius,
-        bounds: {
-          minX: Math.min(...xs),
-          maxX: Math.max(...xs),
-          minY: Math.min(...ys),
-          maxY: Math.max(...ys),
-        },
-        index,
+        boundary: aligned,
       };
     }),
   );
@@ -135,18 +128,121 @@ export function deriveComponentFootprints(
 function componentGap(left: Component, right: Component, worldWidth: number) {
   return Math.min(
     ...[-worldWidth, 0, worldWidth].map((shift) => {
-      const horizontal = Math.max(
-        left.bounds.minX - (right.bounds.maxX + shift),
-        right.bounds.minX + shift - left.bounds.maxX,
-        0,
+      if (
+        (isDegenerateBoundary(left.boundary) &&
+          right.footprint.kind === 'polygon') ||
+        (isDegenerateBoundary(right.boundary) &&
+          left.footprint.kind === 'polygon')
+      )
+        return Infinity;
+      return boundaryDistance(
+        left.boundary,
+        right.boundary.map(([x, y]) => [x + shift, y]),
       );
-      const vertical = Math.max(
-        left.bounds.minY - right.bounds.maxY,
-        right.bounds.minY - left.bounds.maxY,
-        0,
-      );
-      return Math.hypot(horizontal, vertical);
     }),
+  );
+}
+
+function boundaryDistance(left: Point[], right: Point[]) {
+  const leftPoint = degeneratePoint(left);
+  const rightPoint = degeneratePoint(right);
+  if (leftPoint && rightPoint)
+    return Math.hypot(
+      leftPoint[0] - rightPoint[0],
+      leftPoint[1] - rightPoint[1],
+    );
+  const leftSegments = boundarySegments(left);
+  const rightSegments = boundarySegments(right);
+  if (leftPoint)
+    return Math.min(
+      ...rightSegments.map((segment) =>
+        pointSegmentDistance(leftPoint, segment),
+      ),
+    );
+  if (rightPoint)
+    return Math.min(
+      ...leftSegments.map((segment) =>
+        pointSegmentDistance(rightPoint, segment),
+      ),
+    );
+  return Math.min(
+    ...leftSegments.flatMap((leftSegment) =>
+      rightSegments.map((rightSegment) =>
+        segmentDistance(leftSegment, rightSegment),
+      ),
+    ),
+  );
+}
+
+function degeneratePoint(points: Point[]): Point | undefined {
+  return isDegenerateBoundary(points) ? points[0] : undefined;
+}
+
+function isDegenerateBoundary(points: Point[]) {
+  return points.every(([x, y]) => x === points[0][0] && y === points[0][1]);
+}
+
+function boundarySegments(points: Point[]): [Point, Point][] {
+  if (points.length < 2) return [];
+  const segments = points
+    .slice(1)
+    .map((point, index) => [points[index], point] as [Point, Point]);
+  const first = points[0];
+  const last = points[points.length - 1];
+  if (first[0] !== last[0] || first[1] !== last[1])
+    segments.push([last, first]);
+  return segments;
+}
+
+function segmentDistance(left: [Point, Point], right: [Point, Point]) {
+  if (segmentsIntersect(left, right)) return 0;
+  return Math.min(
+    pointSegmentDistance(left[0], right),
+    pointSegmentDistance(left[1], right),
+    pointSegmentDistance(right[0], left),
+    pointSegmentDistance(right[1], left),
+  );
+}
+
+function segmentsIntersect(left: [Point, Point], right: [Point, Point]) {
+  const orientation = (a: Point, b: Point, c: Point) =>
+    (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+  const onSegment = (a: Point, b: Point, c: Point) =>
+    Math.min(a[0], c[0]) <= b[0] &&
+    b[0] <= Math.max(a[0], c[0]) &&
+    Math.min(a[1], c[1]) <= b[1] &&
+    b[1] <= Math.max(a[1], c[1]);
+  const [a, b] = left;
+  const [c, d] = right;
+  const abC = orientation(a, b, c);
+  const abD = orientation(a, b, d);
+  const cdA = orientation(c, d, a);
+  const cdB = orientation(c, d, b);
+  const epsilon = 1e-9;
+  return (
+    (((abC > epsilon && abD < -epsilon) || (abC < -epsilon && abD > epsilon)) &&
+      ((cdA > epsilon && cdB < -epsilon) ||
+        (cdA < -epsilon && cdB > epsilon))) ||
+    (Math.abs(abC) <= epsilon && onSegment(a, c, b)) ||
+    (Math.abs(abD) <= epsilon && onSegment(a, d, b)) ||
+    (Math.abs(cdA) <= epsilon && onSegment(c, a, d)) ||
+    (Math.abs(cdB) <= epsilon && onSegment(c, b, d))
+  );
+}
+
+function pointSegmentDistance(point: Point, segment: [Point, Point]) {
+  const [[x, y], [endX, endY]] = segment;
+  const dx = endX - x;
+  const dy = endY - y;
+  const lengthSquared = dx * dx + dy * dy;
+  if (!lengthSquared) return Math.hypot(point[0] - x, point[1] - y);
+  const projection = Math.max(
+    0,
+    Math.min(1, ((point[0] - x) * dx + (point[1] - y) * dy) / lengthSquared),
+  );
+  return Math.hypot(
+    point[0] - (x + projection * dx),
+    point[1] - (y + projection * dy),
   );
 }
 
