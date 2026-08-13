@@ -47,8 +47,11 @@ export type QuizAction =
   | { type: 'submit'; now: number; selectedId?: string; text?: string }
   | { type: 'reset' };
 export type EngineConfig = {
-  quiz: QuizDefinition;
-  catalog: CatalogLocation[];
+  readonly quiz: {
+    readonly id: string;
+    readonly locationIds: readonly string[];
+  };
+  readonly catalog: readonly Readonly<CatalogLocation>[];
   rng: () => number;
 };
 export type Transition = { state: QuizState; event: QuizEvent };
@@ -58,7 +61,12 @@ export function validateQuizInputs(
   quiz: QuizDefinition,
   catalog: CatalogLocation[],
 ): void {
-  if (!quiz || typeof quiz.id !== 'string' || !Array.isArray(quiz.locationIds))
+  if (
+    !quiz ||
+    typeof quiz.id !== 'string' ||
+    !quiz.id.trim() ||
+    !Array.isArray(quiz.locationIds)
+  )
     throw new TypeError(
       'Quiz definition must contain an id and locationIds array',
     );
@@ -66,7 +74,12 @@ export function validateQuizInputs(
   const catalogIds = new Set<string>();
   const names = new Set<string>();
   for (const location of catalog) {
-    if (!location || typeof location.id !== 'string' || !location.id)
+    if (
+      !location ||
+      typeof location.id !== 'string' ||
+      !location.id ||
+      typeof location.name !== 'string'
+    )
       throw new TypeError('Catalog locations require nonempty string IDs');
     if (catalogIds.has(location.id))
       throw new TypeError(`Duplicate catalog ID: ${location.id}`);
@@ -78,6 +91,8 @@ export function validateQuizInputs(
     catalogIds.add(location.id);
     names.add(name);
   }
+  if (quiz.locationIds.some((id) => typeof id !== 'string' || !id.trim()))
+    throw new TypeError('Quiz locationIds require nonempty string IDs');
   if (new Set(quiz.locationIds).size !== quiz.locationIds.length)
     throw new TypeError('Quiz locationIds must be unique');
   if (quiz.locationIds.some((id) => !catalogIds.has(id)))
@@ -89,21 +104,33 @@ export function createEngineConfig(
   rng: () => number = Math.random,
 ): EngineConfig {
   validateQuizInputs(quiz, catalog);
+  if (typeof rng !== 'function') throw new TypeError('RNG must be a function');
+  const copiedQuiz = Object.freeze({
+    id: quiz.id,
+    locationIds: Object.freeze([...quiz.locationIds]),
+  });
+  const copiedCatalog = Object.freeze(
+    catalog.map((location) =>
+      Object.freeze({ id: location.id, name: location.name }),
+    ),
+  );
   return {
-    quiz: { id: quiz.id, locationIds: [...quiz.locationIds] },
-    catalog: catalog.map((location) => ({
-      id: location.id,
-      name: location.name,
-    })),
+    quiz: copiedQuiz,
+    catalog: copiedCatalog,
     rng,
   };
 }
-export function shuffleIds(ids: string[], rng: () => number): string[] {
+export function shuffleIds(
+  ids: readonly string[],
+  rng: () => number,
+): string[] {
+  if (typeof rng !== 'function') throw new TypeError('RNG must be a function');
   const result = [...ids];
   for (let index = result.length - 1; index > 0; index -= 1) {
     const random = rng();
-    const bounded = Math.max(0, Math.min(0.9999999999999999, random));
-    const swapIndex = Math.floor(bounded * (index + 1));
+    if (!Number.isFinite(random) || random < 0 || random >= 1)
+      throw new RangeError('RNG must return a finite value in [0, 1)');
+    const swapIndex = Math.floor(random * (index + 1));
     [result[index], result[swapIndex]] = [result[swapIndex], result[index]];
   }
   return result;
@@ -129,7 +156,7 @@ export function currentLocationId(state: QuizState): string | null {
     : null;
 }
 export function normalizeText(value: string): string {
-  return value.trim().toLocaleLowerCase();
+  return value.trim().toLowerCase();
 }
 function reject(state: QuizState, reason: RejectionReason): Transition {
   return {

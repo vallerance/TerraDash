@@ -37,10 +37,18 @@ function submit(state: QuizState, text: string, now: number) {
 describe('quiz engine', () => {
   it('uses Fisher–Yates with deterministic boundary RNG values', () => {
     expect(shuffleIds(['a', 'b', 'c'], () => 0)).toEqual(['b', 'c', 'a']);
-    expect(shuffleIds(['a', 'b', 'c'], () => 1)).toEqual(['a', 'b', 'c']);
+    expect(shuffleIds(['a', 'b', 'c'], () => Number.MIN_VALUE)).toEqual([
+      'b',
+      'c',
+      'a',
+    ]);
     expect(shuffleIds(['a', 'b', 'c'], () => 0.25)).toEqual(
       shuffleIds(['a', 'b', 'c'], () => 0.25),
     );
+    expect(() => shuffleIds(['a', 'b'], () => 1)).toThrow(RangeError);
+    expect(() => shuffleIds(['a', 'b'], () => -0.1)).toThrow(RangeError);
+    expect(() => shuffleIds(['a', 'b'], () => Infinity)).toThrow(RangeError);
+    expect(() => shuffleIds(['a', 'b'], () => NaN)).toThrow(RangeError);
   });
   it('visits every configured ID exactly once', () => {
     const state = start();
@@ -239,6 +247,17 @@ describe('quiz engine', () => {
       ]),
     ).toThrow();
     expect(() =>
+      createEngineConfig({ id: ' ', locationIds: ['iso:AAA'] }, catalog),
+    ).toThrow();
+    expect(() =>
+      createEngineConfig({ id: 'bad', locationIds: [' '] }, catalog),
+    ).toThrow();
+    expect(() =>
+      createEngineConfig({ id: 'bad', locationIds: ['iso:AAA'] }, [
+        { id: 'iso:AAA', name: 3 as unknown as string },
+      ]),
+    ).toThrow();
+    expect(() =>
       createEngineConfig({ id: 'empty', locationIds: [] }, catalog),
     ).not.toThrow();
     const emptyConfig = createEngineConfig(
@@ -251,5 +270,20 @@ describe('quiz engine', () => {
       emptyConfig,
     );
     expect(empty.event).toEqual({ type: 'rejected', reason: 'empty-quiz' });
+  });
+  it('freezes copied configuration and isolates it from input mutation', () => {
+    const inputQuiz = { id: 'mutable', locationIds: ['iso:AAA', 'iso:BBB'] };
+    const inputCatalog = catalog.map((location) => ({ ...location }));
+    const isolated = createEngineConfig(inputQuiz, inputCatalog, () => 0);
+    inputQuiz.locationIds[0] = 'iso:CCC';
+    inputCatalog[0].name = 'Changed';
+    expect(isolated.quiz.locationIds).toEqual(['iso:AAA', 'iso:BBB']);
+    expect(isolated.catalog[0].name).toBe('Alpha');
+    expect(() =>
+      (isolated.quiz.locationIds as string[]).push('iso:CCC'),
+    ).toThrow();
+    expect(
+      () => ((isolated.catalog as CatalogLocation[])[0].name = 'Changed'),
+    ).toThrow();
   });
 });
