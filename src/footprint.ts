@@ -41,8 +41,8 @@ export function deriveCalloutLayout(
   // source/leader geometry appears to overlap.
   const availableRadiusPx = (mapHeight * scale - 48) / 2;
   const radiusPx = Math.min(
-    140,
-    Math.max(32, Math.min(viewportWidth * 0.2, availableRadiusPx)),
+    100,
+    Math.max(32, Math.min(viewportWidth * 0.14, availableRadiusPx)),
   );
   const radius = radiusPx / scale;
   const margin = 24 / scale;

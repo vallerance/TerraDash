@@ -86,7 +86,7 @@ describe('threshold and ring primitives', () => {
 });
 
 describe('callout selection and actual-boundary clustering', () => {
-  it('bounds the cutout to 280 CSS pixels and keeps it beside the source', () => {
+  it('bounds the cutout to 200 CSS pixels and keeps it beside the source', () => {
     const layout = deriveCalloutLayout(
       { sourceCenter: [240, 180], sourceRadius: 8, selectedPathIndices: [0] },
       1,
@@ -94,9 +94,9 @@ describe('callout selection and actual-boundary clustering', () => {
       720,
       1440,
     );
-    expect(layout.radius).toBe(140);
+    expect(layout.radius).toBe(100);
     expect(layout.center[0]).toBeGreaterThan(240);
-    expect(layout.center[0]).toBeLessThan(240 + 8 + 18 + 140 + 1);
+    expect(layout.center[0]).toBeLessThan(240 + 8 + 18 + 100 + 1);
     expect(layout.center[1]).toBe(180);
   });
 
@@ -108,10 +108,10 @@ describe('callout selection and actual-boundary clustering', () => {
       720,
       390,
     );
-    expect(layout.radius).toBe(78);
+    expect(layout.radius).toBeCloseTo(54.6);
     expect(layout.center[0]).toBeLessThan(1410);
-    expect(layout.center[1]).toBeGreaterThanOrEqual(102);
-    expect(layout.center[1]).toBeLessThanOrEqual(618);
+    expect(layout.center[1]).toBeGreaterThanOrEqual(78.6);
+    expect(layout.center[1]).toBeLessThanOrEqual(641.4);
   });
 
   it.each(['iso:ATG', 'iso:ARM'])('selects one callout for %s', (id) => {
