@@ -176,6 +176,12 @@ export function QuizPlayer({
             <dd>{results.missed}</dd>
           </div>
         </dl>
+        {state.lastEvent.type === 'completed' &&
+          state.lastEvent.result === 'missed' && (
+            <p className="feedback" aria-live="assertive">
+              Three attempts used. The answer is not revealed.
+            </p>
+          )}
         <button
           className="primary-action"
           type="button"
@@ -248,7 +254,7 @@ export function QuizPlayer({
                   key={location.id}
                   role="option"
                   aria-selected={index === activeSuggestion}
-                  onMouseDown={(event) => {
+                  onPointerDown={(event) => {
                     event.preventDefault();
                     choose(location);
                   }}
