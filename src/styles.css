@@ -12,6 +12,7 @@ body {
   margin: 0;
 }
 main {
+  width: min(100%, 1320px);
   max-width: 1320px;
   margin: 0 auto;
   padding: clamp(1.25rem, 4vw, 4rem);
@@ -68,17 +69,17 @@ h2 {
   margin: 1rem 0;
 }
 .active-player {
-  padding-left: 0;
-  padding-right: 0;
+  min-width: 0;
 }
 .active-player > :not(.full-bleed-map) {
-  width: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+  width: min(100%, 60ch);
   margin-right: auto;
   margin-left: auto;
 }
 .full-bleed-map {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
+  min-width: 0;
+  margin: 1rem 0;
 }
 .quiz-status {
   color: #dbeafe;
@@ -183,11 +184,6 @@ input {
   border: 1px solid #263650;
   border-radius: 0.75rem;
   box-shadow: 0 1rem 4rem #0005;
-}
-.full-bleed-map .map-frame {
-  border-right: 0;
-  border-left: 0;
-  border-radius: 0;
 }
 .world-map {
   display: block;
