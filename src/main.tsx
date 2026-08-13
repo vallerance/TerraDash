@@ -1,13 +1,15 @@
-import { StrictMode, useEffect, useMemo, useState } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import map from '../data/generated/map.json';
 import catalog from '../data/generated/catalog.json';
+import { QuizProvider } from './QuizContext';
+import { defaultCatalog, defaultQuiz } from './quizContracts';
+import { QuizPlayer } from './QuizPlayer';
 import { deriveComponentFootprints, type Point } from './footprint';
 import { highlightedGeometryPaths } from './mapGeometry';
 import './styles.css';
 
 type Location = (typeof catalog)[number];
-const demoIds = ['iso:FRA', 'iso:USA', 'iso:FJI', 'iso:PSE', 'iso:VAT'];
 function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
@@ -86,52 +88,24 @@ function MapView({ active }: { active: Location }) {
   );
 }
 function App() {
-  const [selectedId, setSelectedId] = useState('iso:FRA');
-  const active = useMemo(
-    () => catalog.find((item) => item.id === selectedId) ?? catalog[0],
-    [selectedId],
-  );
   return (
-    <main>
-      <header>
-        <p className="eyebrow">TERRADASH · FOUNDATION</p>
-        <h1>Know the world, one place at a time.</h1>
-        <p className="intro">
-          A responsive map foundation for a 195-location geography quiz.
+    <QuizProvider quiz={defaultQuiz} catalog={defaultCatalog}>
+      <main>
+        <QuizPlayer
+          catalog={defaultCatalog}
+          renderMap={(active) => (
+            <section className="map-frame">
+              <MapView active={active as Location} />
+            </section>
+          )}
+        />
+        <p className="disclaimer">
+          Map data: Natural Earth Admin 0 countries, v5.1.1, 1:50m. Public
+          domain. Boundaries are shown for gameplay visualization and do not
+          imply endorsement of any boundary claim.
         </p>
-      </header>
-      <section className="demo-panel" aria-labelledby="demo-title">
-        <div>
-          <h2 id="demo-title">Highlight fixture</h2>
-          <p id="status" aria-live="polite">
-            Selected: {active.name} ({active.id})
-          </p>
-        </div>
-        <label htmlFor="location">Location</label>
-        <select
-          id="location"
-          value={selectedId}
-          onChange={(event) => setSelectedId(event.target.value)}
-        >
-          {demoIds.map((id) => {
-            const item = catalog.find((entry) => entry.id === id)!;
-            return (
-              <option key={id} value={id}>
-                {item.name}
-              </option>
-            );
-          })}
-        </select>
-      </section>
-      <section className="map-frame">
-        <MapView active={active} />
-      </section>
-      <p className="disclaimer">
-        Map data: Natural Earth Admin 0 countries, v5.1.1, 1:50m. Public domain.
-        Boundaries are shown for gameplay visualization and do not imply
-        endorsement of any boundary claim.
-      </p>
-    </main>
+      </main>
+    </QuizProvider>
   );
 }
 createRoot(document.getElementById('root')!).render(
