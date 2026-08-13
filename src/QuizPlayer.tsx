@@ -239,8 +239,8 @@ export function QuizPlayer({
                 ? `answer-option-${suggestions[activeSuggestion].id}`
                 : undefined
             }
-            onChange={(event) => {
-              setText(event.target.value);
+            onInput={(event) => {
+              setText((event.target as HTMLInputElement).value);
               setSelectedId(undefined);
               setActiveSuggestion(0);
             }}
