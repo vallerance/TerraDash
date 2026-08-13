@@ -42,6 +42,16 @@ describe('MapView small-region callout rendering', () => {
     expect(frame.querySelectorAll('.callout-source')).toHaveLength(1);
     expect(frame.querySelectorAll('.callout-cutout')).toHaveLength(1);
     expect(frame.querySelectorAll('.callout-leader')).toHaveLength(2);
+    const sourceCenter = frame
+      .querySelector('.callout-source')
+      ?.getAttribute('cx');
+    expect(sourceCenter).toBeTruthy();
+    expect(frame.querySelector('.callout-leader')?.getAttribute('x1')).toBe(
+      sourceCenter,
+    );
+    expect(
+      frame.querySelector('.callout-context')?.getAttribute('transform'),
+    ).toContain(`translate(-${sourceCenter} `);
     expect(frame.querySelector('.callout-cutout')).toBeTruthy();
     expect(
       frame.querySelectorAll('.callout-context .country path').length,

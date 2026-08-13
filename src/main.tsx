@@ -33,8 +33,32 @@ export function MapView({ active }: { active: Location }) {
     undefined,
     seamX,
   );
-  const cutoutLayout = callout
-    ? deriveCalloutLayout(callout, scale, map.width, map.height, viewportWidth)
+  const sourceOffsets = callout
+    ? wrappedOffsets(
+        callout.sourceCenter[0] - callout.sourceRadius,
+        callout.sourceCenter[0] + callout.sourceRadius,
+        map.width,
+        seamX,
+        MAP_OVERLAP_REFERENCE_UNITS,
+      )
+    : [];
+  const displayedCallout = callout
+    ? {
+        ...callout,
+        sourceCenter: [
+          callout.sourceCenter[0] + (sourceOffsets[0] ?? 0),
+          callout.sourceCenter[1],
+        ] as [number, number],
+      }
+    : undefined;
+  const cutoutLayout = displayedCallout
+    ? deriveCalloutLayout(
+        displayedCallout,
+        scale,
+        map.width,
+        map.height,
+        viewportWidth,
+      )
     : undefined;
   const cutoutRadius = cutoutLayout?.radius ?? 0;
   const cutoutCenter = cutoutLayout?.center ?? [0, 0];
@@ -125,7 +149,7 @@ export function MapView({ active }: { active: Location }) {
           ),
         )}
       </g>
-      {callout && (
+      {callout && displayedCallout && (
         <g className="map-callout" aria-hidden="true">
           <defs>
             <clipPath id="map-callout-clip">
@@ -139,7 +163,7 @@ export function MapView({ active }: { active: Location }) {
           <g
             className="callout-context"
             clipPath="url(#map-callout-clip)"
-            transform={`translate(${cutoutCenter[0]} ${cutoutCenter[1]}) scale(${zoom}) translate(${-callout.sourceCenter[0]} ${-callout.sourceCenter[1]})`}
+            transform={`translate(${cutoutCenter[0]} ${cutoutCenter[1]}) scale(${zoom}) translate(${-displayedCallout.sourceCenter[0]} ${-displayedCallout.sourceCenter[1]})`}
           >
             {map.sourceFeatureIds.map((id) => {
               const feature = map.features[id as keyof typeof map.features];
@@ -177,13 +201,7 @@ export function MapView({ active }: { active: Location }) {
             cy={cutoutCenter[1]}
             r={cutoutRadius}
           />
-          {wrappedOffsets(
-            callout.sourceCenter[0] - callout.sourceRadius,
-            callout.sourceCenter[0] + callout.sourceRadius,
-            map.width,
-            seamX,
-            MAP_OVERLAP_REFERENCE_UNITS,
-          ).map((offset) => (
+          {sourceOffsets.map((offset) => (
             <circle
               key={offset}
               className="callout-source"
@@ -194,15 +212,15 @@ export function MapView({ active }: { active: Location }) {
           ))}
           <line
             className="callout-leader"
-            x1={callout.sourceCenter[0]}
-            y1={callout.sourceCenter[1] - callout.sourceRadius * 0.4}
+            x1={displayedCallout.sourceCenter[0]}
+            y1={displayedCallout.sourceCenter[1] - callout.sourceRadius * 0.4}
             x2={cutoutCenter[0]}
             y2={cutoutCenter[1] - cutoutRadius * 0.72}
           />
           <line
             className="callout-leader"
-            x1={callout.sourceCenter[0]}
-            y1={callout.sourceCenter[1] + callout.sourceRadius * 0.4}
+            x1={displayedCallout.sourceCenter[0]}
+            y1={displayedCallout.sourceCenter[1] + callout.sourceRadius * 0.4}
             x2={cutoutCenter[0]}
             y2={cutoutCenter[1] + cutoutRadius * 0.72}
           />
