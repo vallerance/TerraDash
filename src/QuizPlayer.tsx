@@ -274,12 +274,18 @@ export function QuizPlayer({
           <p className="eyebrow">TERRADASH · QUIZ</p>
           <h1 id="quiz-title">Where is this?</h1>
         </div>
-        <p
-          className="progress"
-          aria-label={`Correct answers ${correctCount} of ${state.order.length}`}
-        >
-          {correctCount} / {state.order.length}
-        </p>
+        <div className="quiz-status quiz-status-bar" aria-live="polite">
+          <span
+            className="progress"
+            aria-label={`Correct answers ${correctCount} of ${state.order.length}`}
+          >
+            {correctCount} / {state.order.length}
+          </span>
+          <span>{formatElapsed(state.elapsedMs)}</span>
+          <span className={`attempts-remaining-label ${attemptStateClass}`}>
+            {attemptsRemaining} guesses remaining
+          </span>
+        </div>
       </div>
       {currentLocation && (
         <div className="map-stage" ref={stageRef}>
@@ -291,24 +297,21 @@ export function QuizPlayer({
             className={`answer-panel ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
             style={{ left: panelPlacement.left, top: panelPlacement.top }}
           >
-            <div className="quiz-status" aria-live="polite">
-              {formatElapsed(state.elapsedMs)} ·{' '}
-              <span className={`attempts-remaining-label ${attemptStateClass}`}>
-                {attemptsRemaining} guesses remaining
-              </span>
-            </div>
             <form
               onSubmit={(event) => {
                 event.preventDefault();
                 submit();
               }}
             >
-              <label htmlFor="answer">Location name</label>
+              <label className="visually-hidden" htmlFor="answer">
+                Location name
+              </label>
               <div className="answer-row">
                 <div className="combobox-wrap">
                   <input
                     ref={answerRef}
                     id="answer"
+                    placeholder="Country name"
                     role="combobox"
                     value={text}
                     autoComplete="off"

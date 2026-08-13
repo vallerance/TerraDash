@@ -14,7 +14,7 @@ for (const required of [
   'scrollbar-gutter: stable;',
   'width: calc(100% - 2 * var(--page-gutter));',
   'max-width: none;',
-  '.active-player > :not(.full-bleed-map)',
+  '.active-player > :not(.full-bleed-map):not(.map-stage)',
   'width: min(100%, 720px);',
   '.full-bleed-map',
   'border-radius: 0.75rem;',
