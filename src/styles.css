@@ -38,32 +38,114 @@ h2 {
   color: #a9b8cc;
   font-size: 1.1rem;
 }
-.demo-panel {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 2rem 0 1rem;
-  padding: 1rem 1.25rem;
+.player-card {
+  margin: 0 auto 1rem;
+  padding: clamp(1rem, 3vw, 2rem);
   border: 1px solid #263650;
   border-radius: 0.75rem;
   background: #111c2e;
 }
-.demo-panel p {
-  margin: 0.25rem 0 0;
+.player-card > p {
+  max-width: 60ch;
   color: #a9b8cc;
+}
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.quiz-header h1 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+}
+.progress {
+  color: #7dd3fc;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.map-slot {
+  margin: 1rem 0;
+}
+.quiz-status {
+  color: #dbeafe;
+  font-variant-numeric: tabular-nums;
+  margin: 0.75rem 0;
 }
 label {
   color: #a9b8cc;
   font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.35rem;
 }
-select {
-  min-width: 12rem;
+.combobox-wrap {
+  position: relative;
+}
+input {
+  width: 100%;
   padding: 0.6rem 0.75rem;
   color: #e8eef7;
   background: #182942;
   border: 1px solid #486384;
   border-radius: 0.4rem;
+  font: inherit;
+}
+.suggestions {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  left: 0;
+  max-height: 16rem;
+  overflow: auto;
+  margin: 0.25rem 0 0;
+  padding: 0.25rem;
+  list-style: none;
+  border: 1px solid #486384;
+  border-radius: 0.4rem;
+  background: #182942;
+}
+.suggestions li {
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+.suggestions li[aria-selected='true'] {
+  background: #2a4668;
+}
+.primary-action {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  color: #08111f;
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  border-radius: 0.4rem;
+  background: #7dd3fc;
+  cursor: pointer;
+}
+.feedback {
+  min-height: 1.5em;
+  color: #fbbf24 !important;
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.results-grid div {
+  padding: 0.75rem;
+  border: 1px solid #263650;
+  border-radius: 0.4rem;
+}
+.results-grid dt {
+  color: #a9b8cc;
+  font-size: 0.8rem;
+}
+.results-grid dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 .map-frame {
   overflow: hidden;
@@ -123,11 +205,7 @@ select {
   }
 }
 @media (max-width: 600px) {
-  .demo-panel {
-    align-items: stretch;
-    flex-direction: column;
-  }
-  select {
-    width: 100%;
+  .results-grid {
+    grid-template-columns: 1fr;
   }
 }
