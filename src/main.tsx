@@ -140,7 +140,7 @@ function App() {
   return (
     <QuizProvider quiz={defaultQuiz} catalog={defaultCatalog}>
       <main>
-          <QuizPlayer
+        <QuizPlayer
           catalog={defaultCatalog}
           renderMap={(active) => (
             <section className="map-frame">
