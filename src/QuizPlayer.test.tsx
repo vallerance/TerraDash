@@ -80,4 +80,59 @@ describe('QuizPlayer integration', () => {
     act(() => root?.unmount());
     expect(clearInterval).toHaveBeenCalled();
   });
+
+  it('keeps invalid text attempt-free, scores a wrong-then-correct run, and restarts cleanly', async () => {
+    const oneLocationQuiz = { id: 'single', locationIds: ['iso:AAA'] };
+    const container = document.createElement('div');
+    document.body.append(container);
+    root = createRoot(container);
+    act(() => {
+      root!.render(
+        <QuizProvider quiz={oneLocationQuiz} catalog={catalog} rng={() => 0}>
+          <QuizPlayer
+            catalog={catalog}
+            renderMap={(location) => <div data-map-id={location.id} />}
+            now={() => 10}
+          />
+        </QuizProvider>,
+      );
+    });
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('canonical location');
+    await act(async () =>
+      [...container.querySelectorAll('[role="option"]')]
+        .find((option) => option.textContent === 'Bravo')!
+        .dispatchEvent(new MouseEvent('mousedown', { bubbles: true })),
+    );
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('attempts remaining');
+    await act(async () =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+      ),
+    );
+    await act(async () =>
+      [...container.querySelectorAll('[role="option"]')]
+        .find((option) => option.textContent === 'Alpha')!
+        .dispatchEvent(new MouseEvent('mousedown', { bubbles: true })),
+    );
+    act(() =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('Run complete');
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('Name every place');
+  });
 });

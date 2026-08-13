@@ -5,6 +5,7 @@ import catalog from '../data/generated/catalog.json';
 import { QuizProvider } from './QuizContext';
 import { defaultCatalog, defaultQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
+import { mapLocationForQuizId } from './quizMapBoundary';
 import { deriveComponentFootprints, type Point } from './footprint';
 import { highlightedGeometryPaths } from './mapGeometry';
 import './styles.css';
@@ -95,7 +96,7 @@ function App() {
           catalog={defaultCatalog}
           renderMap={(active) => (
             <section className="map-frame">
-              <MapView active={active as Location} />
+              <MapView active={mapLocationForQuizId(active.id)! as Location} />
             </section>
           )}
         />
