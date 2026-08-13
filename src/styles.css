@@ -195,6 +195,18 @@ input {
   width: 100%;
   height: auto;
 }
+.diagnostics-card select {
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  padding: 0.65rem;
+  color: #e8eef8;
+  background: #1c314d;
+  border: 1px solid #4b6b8e;
+  border-radius: 0.4rem;
+}
+.diagnostics-map {
+  width: 100%;
+}
 .ocean {
   fill: #10233c;
 }
