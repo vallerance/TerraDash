@@ -67,6 +67,19 @@ h2 {
 .map-slot {
   margin: 1rem 0;
 }
+.active-player {
+  padding-left: 0;
+  padding-right: 0;
+}
+.active-player > :not(.full-bleed-map) {
+  width: calc(100% - 2 * clamp(1rem, 3vw, 2rem));
+  margin-right: auto;
+  margin-left: auto;
+}
+.full-bleed-map {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
 .quiz-status {
   color: #dbeafe;
   font-variant-numeric: tabular-nums;
@@ -152,6 +165,11 @@ input {
   border: 1px solid #263650;
   border-radius: 0.75rem;
   box-shadow: 0 1rem 4rem #0005;
+}
+.full-bleed-map .map-frame {
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
 }
 .world-map {
   display: block;

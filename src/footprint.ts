@@ -5,6 +5,12 @@ export type Footprint = {
   center: Point;
   radius: number;
 };
+type Component = {
+  footprint: Footprint;
+  nativeRadius: number;
+  bounds: { minX: number; maxX: number; minY: number; maxY: number };
+  index: number;
+};
 export const MIN_FOOTPRINT_PX = 10;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
 export const MAP_SEAM_LONGITUDE = -170;
@@ -66,7 +72,7 @@ export function deriveComponentFootprints(
   proximity = COMPONENT_CLUSTER_PROXIMITY_PX,
   seamX = 0,
 ): Footprint[] {
-  const components = paths.flatMap((path) =>
+  const components: Component[] = paths.flatMap((path) =>
     pathPointComponents(path, width).map((component, index) => {
       const points = unwrapComponent(component, width);
       const aligned = points.map(
@@ -82,6 +88,12 @@ export function deriveComponentFootprints(
       return {
         footprint: deriveFootprint(aligned, threshold),
         nativeRadius,
+        bounds: {
+          minX: Math.min(...xs),
+          maxX: Math.max(...xs),
+          minY: Math.min(...ys),
+          maxY: Math.max(...ys),
+        },
         index,
       };
     }),
@@ -97,12 +109,8 @@ export function deriveComponentFootprints(
   for (let left = 0; left < components.length; left++)
     for (let right = left + 1; right < components.length; right++)
       if (
-        Math.hypot(
-          components[left].footprint.center[0] -
-            components[right].footprint.center[0],
-          components[left].footprint.center[1] -
-            components[right].footprint.center[1],
-        ) <= proximity
+        componentGap(components[left], components[right], width * scale) <=
+        proximity
       )
         join(left, right);
   const clusterMap = new Map<number, typeof components>();
@@ -122,6 +130,24 @@ export function deriveComponentFootprints(
       ).footprint,
     ];
   });
+}
+
+function componentGap(left: Component, right: Component, worldWidth: number) {
+  return Math.min(
+    ...[-worldWidth, 0, worldWidth].map((shift) => {
+      const horizontal = Math.max(
+        left.bounds.minX - (right.bounds.maxX + shift),
+        right.bounds.minX + shift - left.bounds.maxX,
+        0,
+      );
+      const vertical = Math.max(
+        left.bounds.minY - right.bounds.maxY,
+        right.bounds.minY - left.bounds.maxY,
+        0,
+      );
+      return Math.hypot(horizontal, vertical);
+    }),
+  );
 }
 
 export function mapXForLongitude(longitude: number, width: number): number {

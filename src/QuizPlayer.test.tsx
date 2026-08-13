@@ -41,6 +41,8 @@ function renderPlayer() {
 describe('QuizPlayer integration', () => {
   it('starts with accessible combobox wiring and restores focus on a new question', () => {
     const container = renderPlayer();
+    expect(container.querySelector('.active-player')).toBeNull();
+    expect(container.querySelector('.full-bleed-map')).toBeNull();
     act(() => (container.querySelector('button') as HTMLButtonElement).click());
     const input = container.querySelector(
       '[role="combobox"]',
@@ -154,6 +156,8 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
     ).toBe('iso:AAA');
+    expect(container.querySelector('.active-player')).toBeTruthy();
+    expect(container.querySelector('.full-bleed-map')).toBeTruthy();
     expect(
       container.querySelector('[aria-live="assertive"]')?.textContent,
     ).toBe('Incorrect. Try again; the answer is not revealed.');
@@ -222,6 +226,8 @@ describe('QuizPlayer integration', () => {
       0,
     );
     expect(container.textContent).toContain('Run complete');
+    expect(container.querySelector('.active-player')).toBeNull();
+    expect(container.querySelector('.full-bleed-map')).toBeNull();
     expect(container.textContent).toContain('50%');
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),

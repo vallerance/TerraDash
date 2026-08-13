@@ -204,7 +204,7 @@ export function QuizPlayer({
   }
 
   return (
-    <section className="player-card" aria-labelledby="quiz-title">
+    <section className="player-card active-player" aria-labelledby="quiz-title">
       <div className="quiz-header">
         <div>
           <p className="eyebrow">TERRADASH · QUIZ</p>
@@ -218,7 +218,9 @@ export function QuizPlayer({
         </p>
       </div>
       {currentLocation && (
-        <div className="map-slot">{renderMap(currentLocation)}</div>
+        <div className="map-slot full-bleed-map">
+          {renderMap(currentLocation)}
+        </div>
       )}
       <div className="quiz-status" aria-live="polite">
         {formatElapsed(state.elapsedMs)} · {3 - state.attempts} attempts

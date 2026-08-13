@@ -102,6 +102,18 @@ describe('deriveFootprint', () => {
       true,
     );
   });
+
+  it('combines Uzbekistan fragments with its main footprint', () => {
+    const item = catalog.find((entry) => entry.id === 'iso:UZB')!;
+    const paths = item.geometryRefs.flatMap(
+      (ref) => map.features[ref as keyof typeof map.features].paths,
+    );
+    for (const scale of [1, 0.25]) {
+      const footprints = deriveComponentFootprints(paths, scale, map.width);
+      expect(footprints).toHaveLength(1);
+      expect(footprints[0].kind).toBe('polygon');
+    }
+  });
 });
 
 describe('screen-space component clustering', () => {
@@ -141,6 +153,29 @@ describe('screen-space component clustering', () => {
     );
     expect(result).toHaveLength(2);
     expect(result[0].center).toEqual([13.5, 1.5]);
+  });
+
+  it('clusters touching geometry even when component centers exceed the gap', () => {
+    const result = deriveComponentFootprints(
+      ['M0,0L40,40Z', 'M41,20L41,20Z'],
+      1,
+      1440,
+      10,
+      24,
+    );
+    expect(result).toHaveLength(1);
+    expect(result[0].kind).toBe('polygon');
+  });
+
+  it('clusters fragments across the wrapped world boundary', () => {
+    const result = deriveComponentFootprints(
+      ['M1439,0L1439,2Z', 'M1,0L1,2Z'],
+      1,
+      1440,
+      10,
+      4,
+    );
+    expect(result).toHaveLength(1);
   });
 });
 
