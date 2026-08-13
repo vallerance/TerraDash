@@ -8,6 +8,7 @@ import {
   MAP_SEAM_LONGITUDE,
   mapXForLongitude,
   screenFootprintToMapCopies,
+  scaledComponentPaths,
   wrappedPathOffsets,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
@@ -18,13 +19,21 @@ import { highlightedGeometryPaths } from './mapGeometry';
 import './styles.css';
 
 type Location = (typeof catalog)[number];
-function MapView({ active }: { active: Location }) {
+export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const scale = viewportWidth / renderedMapWidth;
   const footprints = deriveComponentFootprints(
+    highlightedPaths,
+    scale,
+    map.width,
+    undefined,
+    undefined,
+    seamX,
+  );
+  const renderedHighlightedPaths = scaledComponentPaths(
     highlightedPaths,
     scale,
     map.width,
@@ -117,7 +126,7 @@ function MapView({ active }: { active: Location }) {
           : [],
       )}
       <g className="active-fill" aria-hidden="true">
-        {wrappedPathCopies(highlightedPaths).map(
+        {wrappedPathCopies(renderedHighlightedPaths).map(
           ({ path, transform }, index) => (
             <path
               key={`${transform}:${index}`}
@@ -128,7 +137,7 @@ function MapView({ active }: { active: Location }) {
         )}
       </g>
       <g className="active-outline" aria-hidden="true">
-        {wrappedPathCopies(highlightedPaths).map(
+        {wrappedPathCopies(renderedHighlightedPaths).map(
           ({ path, transform }, index) => (
             <path
               key={`${transform}:${index}`}
@@ -162,8 +171,10 @@ function App() {
     </QuizProvider>
   );
 }
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const rootElement = document.getElementById('root');
+if (rootElement)
+  createRoot(rootElement).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );

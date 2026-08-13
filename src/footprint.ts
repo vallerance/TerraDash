@@ -6,6 +6,9 @@ export type Footprint = {
   radius: number;
 };
 type Component = {
+  pathIndex: number;
+  ringIndex: number;
+  points: Point[];
   footprint: Footprint;
   nativeRadius: number;
   boundary: Point[];
@@ -71,8 +74,21 @@ export function deriveComponentFootprints(
   proximity = COMPONENT_CLUSTER_PROXIMITY_PX,
   seamX = 0,
 ): Footprint[] {
-  const components: Component[] = paths.flatMap((path) =>
-    pathPointComponents(path, width).map((component) => {
+  const components = deriveComponents(paths, scale, width, threshold, seamX);
+  return componentClusters(components, width * scale, proximity).flatMap(
+    (cluster) => clusterFootprint(cluster, threshold),
+  );
+}
+
+function deriveComponents(
+  paths: string[],
+  scale: number,
+  width: number,
+  threshold: number,
+  seamX: number,
+): Component[] {
+  return paths.flatMap((path, pathIndex) =>
+    pathPointComponents(path, width).map((component, ringIndex) => {
       const points = unwrapComponent(component, width);
       const aligned = points.map(
         ([x, y]) => [(x - seamX) * scale, y * scale] as Point,
@@ -85,12 +101,22 @@ export function deriveComponentFootprints(
           Math.max(...ys) - Math.min(...ys),
         ) / 2;
       return {
+        pathIndex,
+        ringIndex,
+        points,
         footprint: deriveFootprint(aligned, threshold),
         nativeRadius,
         boundary: aligned,
       };
     }),
   );
+}
+
+function componentClusters(
+  components: Component[],
+  worldWidth: number,
+  proximity: number,
+): Component[][] {
   const parent = components.map((_, index) => index);
   const find = (index: number): number =>
     parent[index] === index ? index : (parent[index] = find(parent[index]));
@@ -102,7 +128,7 @@ export function deriveComponentFootprints(
   for (let left = 0; left < components.length; left++)
     for (let right = left + 1; right < components.length; right++)
       if (
-        componentGap(components[left], components[right], width * scale) <=
+        componentGap(components[left], components[right], worldWidth) <=
         proximity
       )
         join(left, right);
@@ -111,17 +137,95 @@ export function deriveComponentFootprints(
     const root = find(index);
     clusterMap.set(root, [...(clusterMap.get(root) ?? []), component]);
   });
-  const clusters = [...clusterMap.values()];
-  return clusters.flatMap((cluster) => {
-    const native = cluster.filter(
-      ({ footprint }) => footprint.kind === 'polygon',
-    );
-    if (native.length) return native.map(({ footprint }) => footprint);
-    return [
-      cluster.reduce((largest, component) =>
-        component.nativeRadius > largest.nativeRadius ? component : largest,
-      ).footprint,
-    ];
+  return [...clusterMap.values()];
+}
+
+function clusterFootprint(
+  cluster: Component[],
+  threshold: number,
+): Footprint[] {
+  if (cluster.some(({ footprint }) => footprint.kind === 'polygon'))
+    return cluster
+      .filter(({ footprint }) => footprint.kind === 'polygon')
+      .map(({ footprint }) => footprint);
+  const factor = clusterScale(cluster, threshold);
+  const points = cluster.flatMap(({ boundary, footprint }) =>
+    boundary.map(([x, y]) => {
+      const [centerX, centerY] = footprint.center;
+      return [
+        centerX + (x - centerX) * factor,
+        centerY + (y - centerY) * factor,
+      ] as Point;
+    }),
+  );
+  const minX = Math.min(...points.map(([x]) => x));
+  const maxX = Math.max(...points.map(([x]) => x));
+  const minY = Math.min(...points.map(([, y]) => y));
+  const maxY = Math.max(...points.map(([, y]) => y));
+  const center: Point = [(minX + maxX) / 2, (minY + maxY) / 2];
+  return [
+    {
+      kind: 'circle',
+      center,
+      radius: Math.max(
+        threshold / 2,
+        ...points.map(([x, y]) => Math.hypot(x - center[0], y - center[1])),
+      ),
+    },
+  ];
+}
+
+function clusterScale(cluster: Component[], threshold: number) {
+  return Math.max(
+    1,
+    ...cluster.map(({ nativeRadius }) =>
+      nativeRadius ? threshold / (nativeRadius * 2) : 1,
+    ),
+  );
+}
+
+export function scaledComponentPaths(
+  paths: string[],
+  scale: number,
+  width: number,
+  threshold = MIN_FOOTPRINT_PX,
+  proximity = COMPONENT_CLUSTER_PROXIMITY_PX,
+  seamX = 0,
+): string[] {
+  const components = deriveComponents(paths, scale, width, threshold, seamX);
+  const transforms = new Map<
+    string,
+    { points: Point[]; center: Point; factor: number }
+  >();
+  componentClusters(components, width * scale, proximity).forEach((cluster) => {
+    const factor = cluster.some(({ footprint }) => footprint.kind === 'polygon')
+      ? 1
+      : clusterScale(cluster, threshold);
+    cluster.forEach((component) => {
+      transforms.set(`${component.pathIndex}:${component.ringIndex}`, {
+        points: component.points,
+        center: [
+          component.footprint.center[0] / scale + seamX,
+          component.footprint.center[1] / scale,
+        ],
+        factor,
+      });
+    });
+  });
+  return paths.map((path, pathIndex) => {
+    let ringIndex = 0;
+    return path.replace(/M-?[\d.]+,-?[\d.]+[^M]*/g, (ring) => {
+      const transform = transforms.get(`${pathIndex}:${ringIndex++}`);
+      if (!transform || transform.factor === 1) return ring;
+      let pointIndex = 0;
+      return ring.replace(/[ML](-?[\d.]+),(-?[\d.]+)/g, (command) => {
+        const [x, y] = transform.points[pointIndex++];
+        const [centerX, centerY] = transform.center;
+        const nextX = centerX + (x - centerX) * transform.factor;
+        const nextY = centerY + (y - centerY) * transform.factor;
+        return `${command[0]}${nextX},${nextY}`;
+      });
+    });
   });
 }
 

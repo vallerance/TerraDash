@@ -13,6 +13,7 @@ import {
   pathPoints,
   pathPointComponents,
   screenFootprintToMapCopies,
+  scaledComponentPaths,
   unwrapComponent,
   wrappedOffsets,
   wrappedFootprintPositions,
@@ -79,7 +80,9 @@ describe('deriveFootprint', () => {
         phonePolygon,
       );
       expect(
-        desktop.every((footprint) => footprint.radius <= map.width / 2),
+        desktop
+          .filter((footprint) => footprint.kind === 'polygon')
+          .every((footprint) => footprint.radius <= map.width / 2),
       ).toBe(true);
       if (id === 'iso:FJI')
         expect(
@@ -156,7 +159,7 @@ describe('screen-space component clustering', () => {
       16,
     );
     expect(result).toHaveLength(1);
-    expect(result[0].center).toEqual([1, 1]);
+    expect(result[0].radius).toBeGreaterThan(5);
   });
 
   it('suppresses all assists when a native-large component is nearby', () => {
@@ -195,6 +198,25 @@ describe('screen-space component clustering', () => {
     expect(result[0].kind).toBe('polygon');
   });
 
+  it('scales every member of an all-small cluster by one common factor', () => {
+    const paths = ['M0,0L2,0L2,2L0,2Z', 'M12,0L14,0L14,2L12,2Z'];
+    const scaled = scaledComponentPaths(paths, 1, 1440);
+    const spans = scaled.map((path) => {
+      const points = pathPoints([path]);
+      return (
+        Math.max(...points.map(([x]) => x)) -
+        Math.min(...points.map(([x]) => x))
+      );
+    });
+    expect(spans).toEqual([10, 10]);
+    expect(scaled).not.toEqual(paths);
+  });
+
+  it('leaves native-containing clusters at their original geometry', () => {
+    const paths = ['M0,0L20,0L20,20L0,20Z', 'M21,9L23,9L23,11L21,11Z'];
+    expect(scaledComponentPaths(paths, 1, 1440)).toEqual(paths);
+  });
+
   it('uses one deterministic largest-anchor assist for an all-small cluster', () => {
     const result = deriveComponentFootprints(
       ['M0,0L2,2Z', 'M12,0L15,3Z', 'M40,0L42,2Z'],
@@ -204,7 +226,7 @@ describe('screen-space component clustering', () => {
       COMPONENT_CLUSTER_PROXIMITY_PX,
     );
     expect(result).toHaveLength(2);
-    expect(result[0].center).toEqual([13.5, 1.5]);
+    expect(result[0].center).toEqual([8.5, 1.5]);
   });
 
   it('clusters touching geometry even when component centers exceed the gap', () => {

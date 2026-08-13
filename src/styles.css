@@ -205,7 +205,8 @@ input {
   vector-effect: non-scaling-stroke;
 }
 .country.active path {
-  fill: var(--attempt-color, #f59e0b);
+  fill: none;
+  stroke: none;
 }
 .active-outline path {
   fill: none;
