@@ -166,6 +166,11 @@ describe('QuizPlayer integration', () => {
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('Name every place');
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('1 / 1');
+    expect(container.textContent).toContain('0:00');
   });
 
   it('advances after three valid misses without revealing the answer and stops the timer', async () => {
