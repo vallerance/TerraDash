@@ -138,10 +138,12 @@ export function wrappedOffsets(
   const alignedMin = minX - seamX;
   const alignedMax = maxX - seamX;
   return [
-    0,
-    ...(alignedMin < overlap ? [width] : []),
-    ...(alignedMax > width - overlap ? [-width] : []),
-  ];
+    -seamX,
+    ...(alignedMin < overlap ? [width - seamX - maxX] : []),
+    ...(alignedMax > width - overlap ? [-seamX - minX] : []),
+  ].filter(
+    (transform, index, transforms) => transforms.indexOf(transform) === index,
+  );
 }
 
 export function wrappedPointPositions(
@@ -151,7 +153,7 @@ export function wrappedPointPositions(
   overlap = MAP_OVERLAP_REFERENCE_UNITS,
 ): Point[] {
   return wrappedOffsets(point[0], point[0], width, seamX, overlap).map(
-    (offset) => [point[0] - seamX + offset, point[1]],
+    (transform) => [point[0] + transform, point[1]],
   );
 }
 
@@ -183,10 +185,7 @@ export function wrappedFootprintPositions(
     width,
     seamX,
     overlap,
-  ).map((offset) => [
-    footprint.center[0] - seamX + offset,
-    footprint.center[1],
-  ]);
+  ).map((offset) => [footprint.center[0] + offset, footprint.center[1]]);
 }
 export function deriveFootprint(
   points: Point[],

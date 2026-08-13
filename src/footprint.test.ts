@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import catalog from '../data/generated/catalog.json';
 import map from '../data/generated/map.json';
@@ -151,34 +152,64 @@ describe('wrapped screen-space alignment', () => {
   it('scales the 100-reference-unit overlap with the responsive map', () => {
     expect(MAP_OVERLAP_REFERENCE_UNITS * 0.5).toBe(50);
     expect(MAP_OVERLAP_REFERENCE_UNITS * 2).toBe(200);
+    const responsiveSeam = mapXForLongitude(MAP_SEAM_LONGITUDE, 720);
+    expect(wrappedOffsets(90, 110, 720, responsiveSeam)).toEqual([-20, 590]);
   });
 
   it('duplicates Hawaii at both edges from one source geometry', () => {
-    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([0, 1440]);
+    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([-40, 1290]);
     const usaSourcePaths = map.features['ne:1159321369'].paths;
     expect(
       usaSourcePaths.filter(
         (path) => wrappedPathOffsets([path], 1440, seamX).length === 2,
       ).length,
     ).toBeGreaterThan(0);
-    expect(wrappedOffsets(500, 520, 1440, seamX)).toEqual([0]);
+    expect(wrappedOffsets(500, 520, 1440, seamX)).toEqual([-40]);
   });
 
   it('keeps a non-overlapping feature single', () => {
-    expect(wrappedOffsets(500, 600, 1440, seamX)).toEqual([0]);
+    expect(wrappedOffsets(500, 600, 1440, seamX)).toEqual([-40]);
   });
 
   it('uses the same edge copies for active geometry and its footprint', () => {
     const bounds = [90, 110] as const;
     expect(
       wrappedPathOffsets([`M${bounds[0]},0L${bounds[1]},10Z`], 1440, seamX),
-    ).toEqual(wrappedOffsets(100, 100, 1440, seamX));
+    ).toEqual(wrappedOffsets(bounds[0], bounds[1], 1440, seamX));
   });
 
-  it('keeps semantic labels singular when visuals wrap', () => {
-    const labels = ['Hawaii'];
-    const visualCopies = wrappedOffsets(90, 110, 1440, seamX);
-    expect(visualCopies).toHaveLength(2);
-    expect(new Set(labels).size).toBe(1);
+  it('proves two visible DOM copies and one semantic label', () => {
+    const sourcePath = 'M90,100L110,100L110,120L90,120Z';
+    const label = document.createElement('span');
+    label.setAttribute('aria-label', 'Hawaii');
+    document.body.append(label);
+    const copies = wrappedOffsets(90, 110, 1440, seamX).map((transform) => {
+      const path = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path',
+      );
+      path.setAttribute('d', sourcePath);
+      path.setAttribute('transform', `translate(${transform} 0)`);
+      path.setAttribute('aria-hidden', 'true');
+      document.body.append(path);
+      return path;
+    });
+    const bounds = copies.map((path) => {
+      const transform = Number(
+        path.getAttribute('transform')!.match(/-?[0-9.]+/)![0],
+      );
+      const xs = pathPoints([sourcePath]).map(([x]) => x + transform);
+      return [Math.min(...xs), Math.max(...xs)];
+    });
+    expect(bounds).toEqual([
+      [50, 70],
+      [1380, 1400],
+    ]);
+    expect(bounds.every(([min, max]) => min >= 0 && max <= 1440)).toBe(true);
+    expect(document.querySelectorAll('[aria-label="Hawaii"]')).toHaveLength(1);
+    expect(document.querySelectorAll('path[aria-hidden="true"]')).toHaveLength(
+      2,
+    );
+    document.body.replaceChildren();
   });
 });

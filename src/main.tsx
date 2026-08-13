@@ -36,7 +36,7 @@ function MapView({ active }: { active: Location }) {
         map.width,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
-      ).map((offset) => ({ path, offset })),
+      ).map((transform) => ({ path, transform })),
     );
   useEffect(() => {
     const frame = document.querySelector('.map-frame');
@@ -47,9 +47,10 @@ function MapView({ active }: { active: Location }) {
     const observer = new ResizeObserver(update);
     observer.observe(frame);
     const mutations = new MutationObserver(update);
-    mutations.observe(frame, {
+    mutations.observe(frame.parentElement ?? frame, {
       attributes: true,
-      attributeFilter: ['class', 'style'],
+      subtree: true,
+      attributeFilter: ['class', 'style', 'transform'],
     });
     return () => {
       observer.disconnect();
@@ -76,11 +77,11 @@ function MapView({ active }: { active: Location }) {
                 active.geometryRefs.includes(id) ? 'country active' : 'country'
               }
             >
-              {copies.map(({ path, offset }, index) => (
+              {copies.map(({ path, transform }, index) => (
                 <path
-                  key={`${offset}:${index}`}
+                  key={`${transform}:${index}`}
                   d={path}
-                  transform={`translate(${offset - seamX} 0)`}
+                  transform={`translate(${transform} 0)`}
                 />
               ))}
             </g>
@@ -95,11 +96,11 @@ function MapView({ active }: { active: Location }) {
               map.width,
               seamX,
               MAP_OVERLAP_REFERENCE_UNITS,
-            ).map((offset, copy) => (
+            ).map((transform, copy) => (
               <circle
                 key={`${index}:${copy}`}
                 className="minimum-footprint"
-                cx={footprint.center[0] + offset * scale}
+                cx={(footprint.center[0] / scale + seamX + transform) * scale}
                 cy={footprint.center[1]}
                 r={footprint.radius / scale}
                 aria-hidden="true"
@@ -108,22 +109,26 @@ function MapView({ active }: { active: Location }) {
           : [],
       )}
       <g className="active-fill" aria-hidden="true">
-        {wrappedPathCopies(highlightedPaths).map(({ path, offset }, index) => (
-          <path
-            key={`${offset}:${index}`}
-            d={path}
-            transform={`translate(${offset - seamX} 0)`}
-          />
-        ))}
+        {wrappedPathCopies(highlightedPaths).map(
+          ({ path, transform }, index) => (
+            <path
+              key={`${transform}:${index}`}
+              d={path}
+              transform={`translate(${transform} 0)`}
+            />
+          ),
+        )}
       </g>
       <g className="active-outline" aria-hidden="true">
-        {wrappedPathCopies(highlightedPaths).map(({ path, offset }, index) => (
-          <path
-            key={`${offset}:${index}`}
-            d={path}
-            transform={`translate(${offset - seamX} 0)`}
-          />
-        ))}
+        {wrappedPathCopies(highlightedPaths).map(
+          ({ path, transform }, index) => (
+            <path
+              key={`${transform}:${index}`}
+              d={path}
+              transform={`translate(${transform} 0)`}
+            />
+          ),
+        )}
       </g>
     </svg>
   );
