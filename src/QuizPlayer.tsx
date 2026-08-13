@@ -32,6 +32,7 @@ export function QuizPlayer({
   const [text, setText] = useState('');
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [suggestionsOpen, setSuggestionsOpen] = useState(true);
   const [feedback, setFeedback] = useState('');
   const answerRef = useRef<HTMLInputElement>(null);
   const submitting = useRef(false);
@@ -39,6 +40,7 @@ export function QuizPlayer({
     () => suggestionsFor(catalog, text),
     [catalog, text],
   );
+  const visibleSuggestions = suggestionsOpen ? suggestions : [];
   const currentId =
     state.phase === 'active' ? state.order[state.currentIndex] : undefined;
   const currentLocation = catalog.find((location) => location.id === currentId);
@@ -78,6 +80,7 @@ export function QuizPlayer({
       setText('');
       setSelectedId(undefined);
       setActiveSuggestion(0);
+      setSuggestionsOpen(true);
       answerRef.current?.focus();
     }
   }, [state.currentIndex, state.phase]);
@@ -107,6 +110,7 @@ export function QuizPlayer({
     setText(location.name);
     setSelectedId(location.id);
     setActiveSuggestion(0);
+    setSuggestionsOpen(true);
     answerRef.current?.focus();
   }
 
@@ -114,13 +118,14 @@ export function QuizPlayer({
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       setActiveSuggestion(
-        (index) => (index + 1) % Math.max(1, suggestions.length),
+        (index) => (index + 1) % Math.max(1, visibleSuggestions.length),
       );
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       setActiveSuggestion(
         (index) =>
-          (index - 1 + suggestions.length) % Math.max(1, suggestions.length),
+          (index - 1 + visibleSuggestions.length) %
+          Math.max(1, visibleSuggestions.length),
       );
     } else if (event.key === 'Enter') {
       event.preventDefault();
@@ -129,13 +134,14 @@ export function QuizPlayer({
           location.name.trim().toLowerCase() === text.trim().toLowerCase(),
       );
       if (exact && (!selectedId || selectedId === exact.id)) submit();
-      else if (suggestions[activeSuggestion])
-        choose(suggestions[activeSuggestion]);
+      else if (visibleSuggestions[activeSuggestion])
+        choose(visibleSuggestions[activeSuggestion]);
       else submit();
     } else if (event.key === 'Escape') {
       setText('');
       setSelectedId(undefined);
       setActiveSuggestion(0);
+      setSuggestionsOpen(false);
     }
   }
 
@@ -233,22 +239,23 @@ export function QuizPlayer({
             autoComplete="off"
             aria-autocomplete="list"
             aria-controls="answer-options"
-            aria-expanded={suggestions.length > 0}
+            aria-expanded={visibleSuggestions.length > 0}
             aria-activedescendant={
-              suggestions[activeSuggestion]
-                ? `answer-option-${suggestions[activeSuggestion].id}`
+              visibleSuggestions[activeSuggestion]
+                ? `answer-option-${visibleSuggestions[activeSuggestion].id}`
                 : undefined
             }
             onInput={(event) => {
               setText((event.target as HTMLInputElement).value);
               setSelectedId(undefined);
               setActiveSuggestion(0);
+              setSuggestionsOpen(true);
             }}
             onKeyDown={onKeyDown}
           />
-          {suggestions.length > 0 && (
+          {visibleSuggestions.length > 0 && (
             <ul id="answer-options" role="listbox" className="suggestions">
-              {suggestions.map((location, index) => (
+              {visibleSuggestions.map((location, index) => (
                 <li
                   id={`answer-option-${location.id}`}
                   key={location.id}

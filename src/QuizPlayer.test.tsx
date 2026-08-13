@@ -146,11 +146,41 @@ describe('QuizPlayer integration', () => {
       submit.click();
       submit.click();
     });
-    expect(container.textContent).toContain('attempts remaining');
+    expect(container.textContent).toContain('2 attempts remaining');
+    expect(container.textContent).toContain('1 / 1');
+    expect(
+      container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
+    ).toBe('iso:AAA');
+    await act(async () => Promise.resolve());
     await act(async () =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
       ),
+    );
+    expect(input.value).toBe('');
+    expect(input.getAttribute('aria-activedescendant')).toBeNull();
+    await act(async () => {
+      input.value = 'Br';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-activedescendant')).toBe(
+      'answer-option-iso:BBB',
+    );
+    expect(
+      document.getElementById(input.getAttribute('aria-activedescendant')!),
+    ).toBeTruthy();
+    await act(async () => {
+      input.value = 'Z';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-activedescendant')).toBeNull();
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    await act(async () => {
+      input.value = 'Alpha';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(container.querySelectorAll('[aria-live="assertive"]')).toHaveLength(
+      1,
     );
     await act(async () =>
       [...container.querySelectorAll('[role="option"]')]
@@ -159,6 +189,9 @@ describe('QuizPlayer integration', () => {
     );
     await act(async () =>
       (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelectorAll('[aria-live="assertive"]')).toHaveLength(
+      0,
     );
     expect(container.textContent).toContain('Run complete');
     expect(container.textContent).toContain('50%');
@@ -209,5 +242,63 @@ describe('QuizPlayer integration', () => {
     expect(container.textContent).toContain('Three attempts used');
     expect(container.textContent).not.toContain('Alpha');
     expect(clearInterval).toHaveBeenCalled();
+  });
+
+  it('starts a second shuffled run with fresh attempts and ordering', async () => {
+    const rngValues = [0, 0.999];
+    const container = document.createElement('div');
+    document.body.append(container);
+    root = createRoot(container);
+    act(() => {
+      root!.render(
+        <QuizProvider
+          quiz={quiz}
+          catalog={catalog}
+          rng={() => rngValues.shift() ?? 0}
+        >
+          <QuizPlayer
+            catalog={catalog}
+            renderMap={(location) => <div data-map-id={location.id} />}
+            now={() => 10}
+          />
+        </QuizProvider>,
+      );
+    });
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const firstRunOrder: string[] = [];
+    for (let index = 0; index < 2; index += 1) {
+      const currentId = container
+        .querySelector('[data-map-id]')!
+        .getAttribute('data-map-id')!;
+      firstRunOrder.push(currentId);
+      const name = catalog.find((location) => location.id === currentId)!.name;
+      const input = container.querySelector(
+        '[role="combobox"]',
+      ) as HTMLInputElement;
+      await act(async () => {
+        input.value = name;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      await act(async () =>
+        (container.querySelector('form button') as HTMLButtonElement).click(),
+      );
+    }
+    expect(container.textContent).toContain('Run complete');
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    expect(container.textContent).toContain('3 attempts remaining');
+    expect(container.textContent).toContain('1 / 2');
+    expect(
+      container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
+    ).toBe(firstRunOrder[1]);
+    expect(
+      container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
+    ).not.toBe(firstRunOrder[0]);
   });
 });
