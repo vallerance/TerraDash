@@ -198,8 +198,12 @@ describe('wrapped screen-space alignment', () => {
     expect(wrappedOffsets(500, 600, 1440, seamX)).toEqual([-40]);
   });
 
-  it('does not duplicate a large Alaska component near the seam', () => {
+  it('wraps the Alaska component into the visible right overlap', () => {
     expect(wrappedOffsets(47.65, 199.9, 1440, seamX)).toEqual([-40, 1400]);
+  });
+
+  it('wraps the Russia component into the visible left overlap', () => {
+    expect(wrappedOffsets(829.42, 1440, 1440, seamX)).toEqual([-40, -1480]);
   });
 
   it('converts a responsive assist back to map coordinates once', () => {
