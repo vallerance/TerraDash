@@ -2,7 +2,15 @@ import { StrictMode, useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import map from '../data/generated/map.json';
 import catalog from '../data/generated/catalog.json';
-import { deriveComponentFootprints, type Point } from './footprint';
+import {
+  deriveComponentFootprints,
+  MAP_OVERLAP_REFERENCE_UNITS,
+  MAP_SEAM_LONGITUDE,
+  mapXForLongitude,
+  wrappedPathOffsets,
+  wrappedOffsets,
+  type Point,
+} from './footprint';
 import { highlightedGeometryPaths } from './mapGeometry';
 import './styles.css';
 
@@ -11,12 +19,25 @@ const demoIds = ['iso:FRA', 'iso:USA', 'iso:FJI', 'iso:PSE', 'iso:VAT'];
 function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
+  const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
   const scale = viewportWidth / map.width;
   const footprints = deriveComponentFootprints(
     highlightedPaths,
     scale,
     map.width,
+    undefined,
+    undefined,
+    seamX,
   );
+  const wrappedPathCopies = (paths: string[]) =>
+    paths.flatMap((path) =>
+      wrappedPathOffsets(
+        [path],
+        map.width,
+        seamX,
+        MAP_OVERLAP_REFERENCE_UNITS,
+      ).map((offset) => ({ path, offset })),
+    );
   useEffect(() => {
     const frame = document.querySelector('.map-frame');
     if (!frame) return;
@@ -25,7 +46,15 @@ function MapView({ active }: { active: Location }) {
     update();
     const observer = new ResizeObserver(update);
     observer.observe(frame);
-    return () => observer.disconnect();
+    const mutations = new MutationObserver(update);
+    mutations.observe(frame, {
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+    });
+    return () => {
+      observer.disconnect();
+      mutations.disconnect();
+    };
   }, []);
   return (
     <svg
@@ -38,6 +67,7 @@ function MapView({ active }: { active: Location }) {
       <g className="countries">
         {map.sourceFeatureIds.map((id) => {
           const feature = map.features[id as keyof typeof map.features];
+          const copies = wrappedPathCopies(feature.paths);
           return (
             <g
               key={id}
@@ -46,40 +76,53 @@ function MapView({ active }: { active: Location }) {
                 active.geometryRefs.includes(id) ? 'country active' : 'country'
               }
             >
-              {feature.paths.map((path, index) => (
-                <path key={index} d={path} />
+              {copies.map(({ path, offset }, index) => (
+                <path
+                  key={`${offset}:${index}`}
+                  d={path}
+                  transform={`translate(${offset - seamX} 0)`}
+                />
               ))}
             </g>
           );
         })}
       </g>
-      {footprints
-        .filter((footprint) => footprint.kind === 'circle')
-        .map((footprint, index) => {
-          const circleCenter: Point = [
-            (((footprint.center[0] / scale) % map.width) + map.width) %
+      {footprints.flatMap((footprint, index) =>
+        footprint.kind === 'circle'
+          ? wrappedOffsets(
+              footprint.center[0] / scale + seamX - footprint.radius / scale,
+              footprint.center[0] / scale + seamX + footprint.radius / scale,
               map.width,
-            footprint.center[1] / scale,
-          ];
-          return (
-            <circle
-              key={index}
-              className="minimum-footprint"
-              cx={circleCenter[0]}
-              cy={circleCenter[1]}
-              r={footprint.radius / scale}
-              aria-hidden="true"
-            />
-          );
-        })}
+              seamX,
+              MAP_OVERLAP_REFERENCE_UNITS,
+            ).map((offset, copy) => (
+              <circle
+                key={`${index}:${copy}`}
+                className="minimum-footprint"
+                cx={footprint.center[0] + offset * scale}
+                cy={footprint.center[1]}
+                r={footprint.radius / scale}
+                aria-hidden="true"
+              />
+            ))
+          : [],
+      )}
       <g className="active-fill" aria-hidden="true">
-        {highlightedPaths.map((path, index) => (
-          <path key={index} d={path} />
+        {wrappedPathCopies(highlightedPaths).map(({ path, offset }, index) => (
+          <path
+            key={`${offset}:${index}`}
+            d={path}
+            transform={`translate(${offset - seamX} 0)`}
+          />
         ))}
       </g>
       <g className="active-outline" aria-hidden="true">
-        {highlightedPaths.map((path, index) => (
-          <path key={index} d={path} />
+        {wrappedPathCopies(highlightedPaths).map(({ path, offset }, index) => (
+          <path
+            key={`${offset}:${index}`}
+            d={path}
+            transform={`translate(${offset - seamX} 0)`}
+          />
         ))}
       </g>
     </svg>

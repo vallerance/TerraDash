@@ -3,10 +3,16 @@ import catalog from '../data/generated/catalog.json';
 import map from '../data/generated/map.json';
 import {
   componentSpan,
+  COMPONENT_CLUSTER_PROXIMITY_PX,
   deriveComponentFootprints,
   deriveFootprint,
+  mapXForLongitude,
+  MAP_OVERLAP_REFERENCE_UNITS,
+  MAP_SEAM_LONGITUDE,
   pathPoints,
   unwrapComponent,
+  wrappedOffsets,
+  wrappedPathOffsets,
 } from './footprint';
 
 describe('deriveFootprint', () => {
@@ -92,5 +98,87 @@ describe('deriveFootprint', () => {
     expect(palestine?.geometryRefs.every((ref) => ref.includes(':part:'))).toBe(
       true,
     );
+  });
+});
+
+describe('screen-space component clustering', () => {
+  const small = (x: number) => `M${x},0L${x + 2},2Z`;
+
+  it('clusters transitively in CSS pixels', () => {
+    const result = deriveComponentFootprints(
+      [small(0), small(15), small(30)],
+      1,
+      1440,
+      10,
+      16,
+    );
+    expect(result).toHaveLength(1);
+    expect(result[0].center).toEqual([1, 1]);
+  });
+
+  it('suppresses all assists when a native-large component is nearby', () => {
+    const result = deriveComponentFootprints(
+      ['M0,0L20,0L20,20Z', small(25)],
+      1,
+      1440,
+      10,
+      24,
+    );
+    expect(result).toHaveLength(1);
+    expect(result[0].kind).toBe('polygon');
+  });
+
+  it('uses one deterministic largest-anchor assist for an all-small cluster', () => {
+    const result = deriveComponentFootprints(
+      ['M0,0L2,2Z', 'M12,0L15,3Z', 'M40,0L42,2Z'],
+      1,
+      1440,
+      10,
+      COMPONENT_CLUSTER_PROXIMITY_PX,
+    );
+    expect(result).toHaveLength(2);
+    expect(result[0].center).toEqual([13.5, 1.5]);
+  });
+});
+
+describe('wrapped screen-space alignment', () => {
+  const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
+
+  it('projects the configurable 170W seam to the reference map', () => {
+    expect(seamX).toBe(40);
+  });
+
+  it('scales the 100-reference-unit overlap with the responsive map', () => {
+    expect(MAP_OVERLAP_REFERENCE_UNITS * 0.5).toBe(50);
+    expect(MAP_OVERLAP_REFERENCE_UNITS * 2).toBe(200);
+  });
+
+  it('duplicates Hawaii at both edges from one source geometry', () => {
+    expect(wrappedOffsets(90, 110, 1440, seamX)).toEqual([0, 1440]);
+    const usaSourcePaths = map.features['ne:1159321369'].paths;
+    expect(
+      usaSourcePaths.filter(
+        (path) => wrappedPathOffsets([path], 1440, seamX).length === 2,
+      ).length,
+    ).toBeGreaterThan(0);
+    expect(wrappedOffsets(500, 520, 1440, seamX)).toEqual([0]);
+  });
+
+  it('keeps a non-overlapping feature single', () => {
+    expect(wrappedOffsets(500, 600, 1440, seamX)).toEqual([0]);
+  });
+
+  it('uses the same edge copies for active geometry and its footprint', () => {
+    const bounds = [90, 110] as const;
+    expect(
+      wrappedPathOffsets([`M${bounds[0]},0L${bounds[1]},10Z`], 1440, seamX),
+    ).toEqual(wrappedOffsets(100, 100, 1440, seamX));
+  });
+
+  it('keeps semantic labels singular when visuals wrap', () => {
+    const labels = ['Hawaii'];
+    const visualCopies = wrappedOffsets(90, 110, 1440, seamX);
+    expect(visualCopies).toHaveLength(2);
+    expect(new Set(labels).size).toBe(1);
   });
 });

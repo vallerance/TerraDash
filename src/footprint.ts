@@ -6,6 +6,9 @@ export type Footprint = {
   radius: number;
 };
 export const MIN_FOOTPRINT_PX = 10;
+export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
+export const MAP_SEAM_LONGITUDE = -170;
+export const MAP_OVERLAP_REFERENCE_UNITS = 100;
 export function pathPoints(paths: string[]): Point[] {
   return paths.flatMap((path) =>
     [...path.matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(([, x, y]) => [
@@ -60,16 +63,130 @@ export function deriveComponentFootprints(
   scale: number,
   width: number,
   threshold = MIN_FOOTPRINT_PX,
+  proximity = COMPONENT_CLUSTER_PROXIMITY_PX,
+  seamX = 0,
 ): Footprint[] {
-  return paths.flatMap((path) =>
-    pathPointComponents(path, width).map((component) => {
+  const components = paths.flatMap((path) =>
+    pathPointComponents(path, width).map((component, index) => {
       const points = unwrapComponent(component, width);
-      return deriveFootprint(
-        points.map(([x, y]) => [x * scale, y * scale]),
-        threshold,
+      const aligned = points.map(
+        ([x, y]) => [(x - seamX) * scale, y * scale] as Point,
       );
+      const xs = aligned.map(([x]) => x);
+      const ys = aligned.map(([, y]) => y);
+      const nativeRadius =
+        Math.max(
+          Math.max(...xs) - Math.min(...xs),
+          Math.max(...ys) - Math.min(...ys),
+        ) / 2;
+      return {
+        footprint: deriveFootprint(aligned, threshold),
+        nativeRadius,
+        index,
+      };
     }),
   );
+  const parent = components.map((_, index) => index);
+  const find = (index: number): number =>
+    parent[index] === index ? index : (parent[index] = find(parent[index]));
+  const join = (left: number, right: number) => {
+    const a = find(left);
+    const b = find(right);
+    if (a !== b) parent[b] = a;
+  };
+  for (let left = 0; left < components.length; left++)
+    for (let right = left + 1; right < components.length; right++)
+      if (
+        Math.hypot(
+          components[left].footprint.center[0] -
+            components[right].footprint.center[0],
+          components[left].footprint.center[1] -
+            components[right].footprint.center[1],
+        ) <= proximity
+      )
+        join(left, right);
+  const clusterMap = new Map<number, typeof components>();
+  components.forEach((component, index) => {
+    const root = find(index);
+    clusterMap.set(root, [...(clusterMap.get(root) ?? []), component]);
+  });
+  const clusters = [...clusterMap.values()];
+  return clusters.flatMap((cluster) => {
+    const native = cluster.filter(
+      ({ footprint }) => footprint.kind === 'polygon',
+    );
+    if (native.length) return native.map(({ footprint }) => footprint);
+    return [
+      cluster.reduce((largest, component) =>
+        component.nativeRadius > largest.nativeRadius ? component : largest,
+      ).footprint,
+    ];
+  });
+}
+
+export function mapXForLongitude(longitude: number, width: number): number {
+  return ((longitude + 180) / 360) * width;
+}
+
+export function wrappedOffsets(
+  minX: number,
+  maxX: number,
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): number[] {
+  const alignedMin = minX - seamX;
+  const alignedMax = maxX - seamX;
+  return [
+    0,
+    ...(alignedMin < overlap ? [width] : []),
+    ...(alignedMax > width - overlap ? [-width] : []),
+  ];
+}
+
+export function wrappedPointPositions(
+  point: Point,
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): Point[] {
+  return wrappedOffsets(point[0], point[0], width, seamX, overlap).map(
+    (offset) => [point[0] - seamX + offset, point[1]],
+  );
+}
+
+export function wrappedPathOffsets(
+  paths: string[],
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): number[] {
+  const xs = pathPoints(paths).map(([x]) => x);
+  return wrappedOffsets(
+    Math.min(...xs),
+    Math.max(...xs),
+    width,
+    seamX,
+    overlap,
+  );
+}
+
+export function wrappedFootprintPositions(
+  footprint: Footprint,
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): Point[] {
+  return wrappedOffsets(
+    footprint.center[0] - footprint.radius,
+    footprint.center[0] + footprint.radius,
+    width,
+    seamX,
+    overlap,
+  ).map((offset) => [
+    footprint.center[0] - seamX + offset,
+    footprint.center[1],
+  ]);
 }
 export function deriveFootprint(
   points: Point[],
