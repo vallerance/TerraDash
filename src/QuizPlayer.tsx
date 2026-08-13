@@ -227,9 +227,11 @@ export function QuizPlayer({
           {renderMap(currentLocation)}
         </div>
       )}
-      <div className={`quiz-status ${attemptStateClass}`} aria-live="polite">
-        {formatElapsed(state.elapsedMs)} · {attemptsRemaining} attempts
-        remaining
+      <div className="quiz-status" aria-live="polite">
+        {formatElapsed(state.elapsedMs)} ·{' '}
+        <span className={`attempts-remaining-label ${attemptStateClass}`}>
+          {attemptsRemaining} attempts remaining
+        </span>
       </div>
       <form
         onSubmit={(event) => {

@@ -100,7 +100,7 @@ h2 {
   --attempt-color-soft: #f8717155;
   --attempt-outline: #fecaca;
 }
-.active-player .quiz-status {
+.attempts-remaining-label {
   color: var(--attempt-color);
 }
 label {

@@ -133,8 +133,10 @@ describe('QuizPlayer integration', () => {
     );
     const player = container.querySelector('.active-player')!;
     const status = container.querySelector('.quiz-status')!;
+    const attempts = container.querySelector('.attempts-remaining-label')!;
     expect(player.classList.contains('attempts-remaining-3')).toBe(true);
-    expect(status.classList.contains('attempts-remaining-3')).toBe(true);
+    expect(status.classList.contains('attempts-remaining-3')).toBe(false);
+    expect(attempts.classList.contains('attempts-remaining-3')).toBe(true);
 
     for (const remaining of [2, 1]) {
       await act(async () =>
@@ -148,9 +150,9 @@ describe('QuizPlayer integration', () => {
       expect(player.classList.contains(`attempts-remaining-${remaining}`)).toBe(
         true,
       );
-      expect(status.classList.contains(`attempts-remaining-${remaining}`)).toBe(
-        true,
-      );
+      expect(
+        attempts.classList.contains(`attempts-remaining-${remaining}`),
+      ).toBe(true);
     }
   });
 
