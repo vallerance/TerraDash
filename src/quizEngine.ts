@@ -52,7 +52,7 @@ export type EngineConfig = {
     readonly locationIds: readonly string[];
   };
   readonly catalog: readonly Readonly<CatalogLocation>[];
-  rng: () => number;
+  readonly rng: () => number;
 };
 export type Transition = { state: QuizState; event: QuizEvent };
 
@@ -77,7 +77,7 @@ export function validateQuizInputs(
     if (
       !location ||
       typeof location.id !== 'string' ||
-      !location.id ||
+      !location.id.trim() ||
       typeof location.name !== 'string'
     )
       throw new TypeError('Catalog locations require nonempty string IDs');
@@ -114,11 +114,11 @@ export function createEngineConfig(
       Object.freeze({ id: location.id, name: location.name }),
     ),
   );
-  return {
+  return Object.freeze({
     quiz: copiedQuiz,
     catalog: copiedCatalog,
     rng,
-  };
+  });
 }
 export function shuffleIds(
   ids: readonly string[],

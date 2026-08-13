@@ -37,10 +37,10 @@ function submit(state: QuizState, text: string, now: number) {
 describe('quiz engine', () => {
   it('uses Fisher–Yates with deterministic boundary RNG values', () => {
     expect(shuffleIds(['a', 'b', 'c'], () => 0)).toEqual(['b', 'c', 'a']);
-    expect(shuffleIds(['a', 'b', 'c'], () => Number.MIN_VALUE)).toEqual([
+    expect(shuffleIds(['a', 'b', 'c'], () => 1 - Number.EPSILON)).toEqual([
+      'a',
       'b',
       'c',
-      'a',
     ]);
     expect(shuffleIds(['a', 'b', 'c'], () => 0.25)).toEqual(
       shuffleIds(['a', 'b', 'c'], () => 0.25),
@@ -258,6 +258,11 @@ describe('quiz engine', () => {
       ]),
     ).toThrow();
     expect(() =>
+      createEngineConfig({ id: 'bad', locationIds: ['iso:AAA'] }, [
+        { id: '   ', name: 'Blank ID' },
+      ]),
+    ).toThrow();
+    expect(() =>
       createEngineConfig({ id: 'empty', locationIds: [] }, catalog),
     ).not.toThrow();
     const emptyConfig = createEngineConfig(
@@ -284,6 +289,9 @@ describe('quiz engine', () => {
     ).toThrow();
     expect(
       () => ((isolated.catalog as CatalogLocation[])[0].name = 'Changed'),
+    ).toThrow();
+    expect(
+      () => ((isolated as { rng: () => number }).rng = () => 0.9),
     ).toThrow();
   });
 });
