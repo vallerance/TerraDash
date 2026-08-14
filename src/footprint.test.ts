@@ -53,6 +53,28 @@ describe('threshold and ring primitives', () => {
     ).toBeUndefined();
   });
 
+  it('keeps a dateline-spanning Fiji cluster local to its source copy', () => {
+    const fiji = catalog.find((entry) => entry.id === 'iso:FJI')!;
+    const model = deriveCalloutModel(
+      fiji.geometryRefs.flatMap(
+        (ref) => map.features[ref as keyof typeof map.features].paths,
+      ),
+      1,
+      map.width,
+    )!;
+    expect(model.sourceRadius).toBeLessThan(100);
+    expect(model.sourceCenter[0]).toBeGreaterThan(1400);
+    expect(model.clusterBounds![2] - model.clusterBounds![0]).toBeLessThan(100);
+    expect(
+      calloutLeaderLines(
+        model.sourceCenter,
+        model.sourceRadius,
+        [1200, model.sourceCenter[1]],
+        100,
+      ),
+    ).toHaveLength(2);
+  });
+
   it('classifies real projected paths without turning points into area', () => {
     expect(pathArea('M0,0L4,0L4,3L0,3Z')).toBe(12);
     expect(hasRenderableArea('M0,0L0,0Z')).toBe(false);

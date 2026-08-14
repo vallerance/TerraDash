@@ -12,7 +12,7 @@ function Diagnostics() {
   const [locationId, setLocationId] = useState(initialLocation.id);
   const location = catalog.find(({ id }) => id === locationId)!;
   return (
-    <main>
+    <main className="diagnostics-page">
       <section className="player-card diagnostics-card">
         <p className="eyebrow">TerraDash · Map diagnostics</p>
         <h1>Inspect a location</h1>

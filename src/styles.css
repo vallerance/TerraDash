@@ -502,22 +502,28 @@ input {
 }
 .diagnostics-card {
   display: flex;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   flex-direction: column;
   width: min(100%, 1200px);
   min-height: 0;
   margin: 0 auto;
+  overflow: hidden;
+}
+.diagnostics-card > p {
+  margin-block: 0.15rem;
 }
 .diagnostics-card h1 {
-  margin-bottom: 1rem;
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(1.35rem, 4vw, 2.5rem);
 }
 .diagnostics-map {
-  display: block;
+  display: flex;
+  flex: 1 1 auto;
   width: 100%;
   min-height: 0;
 }
 .diagnostics-map .world-map {
-  height: auto;
+  height: 100%;
 }
 .ocean {
   fill: #10233c;

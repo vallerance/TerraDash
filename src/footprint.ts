@@ -23,6 +23,7 @@ export type CalloutModel = {
 export type CalloutLayout = {
   center: Point;
   radius: number;
+  sourceCenter: Point;
 };
 // The threshold is a linear projected screen span. It is not an area
 // threshold; components with either rendered dimension at least 25px bypass
@@ -79,7 +80,15 @@ export function deriveCalloutLayout(
   const minY = radius + margin;
   const maxY = mapHeight - radius - margin;
   const centerY = Math.max(minY, Math.min(maxY, sourceY));
-  return { center: [centerX, centerY], radius };
+  const boundedSourceY = Math.max(
+    callout.sourceRadius,
+    Math.min(mapHeight - callout.sourceRadius, sourceY),
+  );
+  return {
+    center: [centerX, centerY],
+    radius,
+    sourceCenter: [sourceX, boundedSourceY],
+  };
 }
 export function pathPoints(paths: string[]): Point[] {
   return paths.flatMap((path) =>
@@ -239,7 +248,22 @@ export function deriveCalloutModel(
   );
   const cluster = clusters.find((members) => members.includes(anchor));
   if (!cluster) return undefined;
-  const points = cluster.flatMap(({ boundary }) => boundary);
+  // A dateline cluster can contain components rendered at both x=0 and
+  // x=width. componentGap correctly joins those copies, but taking raw
+  // bounds here would turn the seam-adjacent cluster into a world-spanning
+  // source circle. Re-anchor every member to the largest component's copy
+  // before deriving the source bounds.
+  const anchorX = anchor.footprint.center[0];
+  const points = cluster.flatMap(({ boundary }) =>
+    boundary.map(([x, y]) => {
+      let alignedX = x;
+      while (alignedX - anchorX > (width * scale) / 2)
+        alignedX -= width * scale;
+      while (anchorX - alignedX > (width * scale) / 2)
+        alignedX += width * scale;
+      return [alignedX, y] as Point;
+    }),
+  );
   const minX = Math.min(...points.map(([x]) => x));
   const maxX = Math.max(...points.map(([x]) => x));
   const minY = Math.min(...points.map(([, y]) => y));

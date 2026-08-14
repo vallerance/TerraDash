@@ -27,6 +27,7 @@ import './styles.css';
 type Location = (typeof catalog)[number];
 export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
+  const [viewportHeight, setViewportHeight] = useState(map.height);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
   const insetSelectedPaths = classifyInsetGeometryPaths(active.id);
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
@@ -78,24 +79,28 @@ export function MapView({ active }: { active: Location }) {
         displayedCallout,
         scale,
         map.width,
-        map.height,
+        viewportHeight / scale,
         viewportWidth,
       )
     : undefined;
+  const positionedCallout =
+    displayedCallout && cutoutLayout
+      ? { ...displayedCallout, sourceCenter: cutoutLayout.sourceCenter }
+      : displayedCallout;
   const cutoutRadius = cutoutLayout?.radius ?? 0;
   const cutoutCenter = cutoutLayout?.center ?? [0, 0];
   // The nested viewBox is the exact source-circle extent in the shared map
   // coordinate system. The outer cutout is independently sized in rendered
   // map units, so the same geography is shown at a larger pixel scale.
   const insetViewBox = sharedInsetViewBox(
-    displayedCallout?.sourceCenter ?? [0, 0],
-    displayedCallout?.sourceRadius ?? 1,
+    positionedCallout?.sourceCenter ?? [0, 0],
+    positionedCallout?.sourceRadius ?? 1,
   );
   const insetStrokeWidth = Math.max(1.2, insetViewBox.size * 0.04);
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
-        displayedCallout.sourceCenter,
-        displayedCallout.sourceRadius,
+        positionedCallout!.sourceCenter,
+        positionedCallout!.sourceRadius,
         cutoutCenter,
         cutoutRadius,
       )
@@ -121,8 +126,11 @@ export function MapView({ active }: { active: Location }) {
   useEffect(() => {
     const frame = document.querySelector('.map-frame');
     if (!frame) return;
-    const update = () =>
-      setViewportWidth(frame.getBoundingClientRect().width || map.width);
+    const update = () => {
+      const bounds = frame.getBoundingClientRect();
+      setViewportWidth(bounds.width || map.width);
+      setViewportHeight(bounds.height || map.height);
+    };
     update();
     const observer = new ResizeObserver(update);
     observer.observe(frame);
@@ -276,9 +284,9 @@ export function MapView({ active }: { active: Location }) {
           />
           <circle
             className="callout-source"
-            cx={displayedCallout.sourceCenter[0]}
-            cy={displayedCallout.sourceCenter[1]}
-            r={displayedCallout.sourceRadius}
+            cx={positionedCallout!.sourceCenter[0]}
+            cy={positionedCallout!.sourceCenter[1]}
+            r={positionedCallout!.sourceRadius}
           />
           {leaderLines.map((line, index) => (
             <line key={index} className="callout-leader" {...line} />
