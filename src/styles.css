@@ -574,11 +574,20 @@ input {
   stroke-width: 0.7;
 }
 .callout-inset .callout-selected path {
-  fill: none;
+  fill: var(--attempt-color, #f59e0b);
   stroke: var(--attempt-color, #f59e0b);
   vector-effect: none;
 }
+.callout-inset .callout-selected .inset-selected-artifact,
 .callout-inset .callout-selected .inset-selected-degenerate {
+  fill: none;
+  stroke: none;
+}
+.callout-inset .callout-selected .inset-selected-degenerate {
+  fill: none;
+  stroke: none;
+}
+.callout-inset .callout-selected .inset-selected-artifact {
   fill: none;
   stroke: none;
 }
