@@ -79,7 +79,7 @@ export function QuizPlayer({
   const completedCount = Object.keys(state.outcomes).length;
   const countriesRemaining = state.order.length - completedCount;
   const accuracy = completedCount
-    ? Math.round((correctCount / completedCount) * 100)
+    ? Math.round((state.score / completedCount) * 100)
     : 0;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;

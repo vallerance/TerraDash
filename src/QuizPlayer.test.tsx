@@ -129,6 +129,41 @@ describe('QuizPlayer integration', () => {
       'Correct. Next location.',
     );
   });
+
+  it('shows attempt-weighted live accuracy after a second-attempt answer', async () => {
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const currentId = container
+      .querySelector('[data-map-id]')
+      ?.getAttribute('data-map-id');
+    const correct = catalog.find(({ id }) => id === currentId)!;
+    const wrong = catalog.find(({ id }) => id !== currentId)!;
+    const submitAnswer = async (name: string) => {
+      const input = container.querySelector(
+        '[role="combobox"]',
+      ) as HTMLInputElement;
+      await act(async () => {
+        input.value = name;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      await act(async () =>
+        (container.querySelector('form button') as HTMLButtonElement).click(),
+      );
+    };
+
+    await submitAnswer(wrong.name);
+    await submitAnswer(correct.name);
+
+    expect(container.querySelector('.status-correct strong')?.textContent).toBe(
+      '1/1',
+    );
+    expect(
+      container.querySelector('.status-accuracy strong')?.textContent,
+    ).toBe('50%');
+  });
+
   it('shows correct answers over total and increments only after a correct completion', async () => {
     const container = renderPlayer();
     await act(async () =>
