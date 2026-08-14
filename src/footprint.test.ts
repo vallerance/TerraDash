@@ -6,6 +6,7 @@ import {
   COMPONENT_CLUSTER_PROXIMITY_PX,
   CALLOUT_RADIUS_SCALE,
   CALLOUT_MAGNIFICATION_RATIO,
+  CALLOUT_GAP_PX,
   calloutLeaderLines,
   deriveCalloutLayout,
   deriveCalloutModel,
@@ -173,6 +174,44 @@ describe('callout selection and actual-boundary clustering', () => {
       expect(layout.radius / layout.sourceRadius).toBe(
         CALLOUT_MAGNIFICATION_RATIO,
       );
+  });
+
+  it('keeps the source-to-cutout edge gap constant in rendered pixels', () => {
+    const callout = {
+      sourceCenter: [240, 180] as [number, number],
+      selectedPathIndices: [0],
+    };
+    for (const scale of [1, 0.5]) {
+      const layout = deriveCalloutLayout(
+        callout,
+        scale,
+        1440,
+        720,
+        1440 * scale,
+      );
+      const renderedGap =
+        (layout.center[0] -
+          callout.sourceCenter[0] -
+          layout.sourceRadius -
+          layout.radius) *
+        scale;
+      expect(renderedGap).toBeCloseTo(CALLOUT_GAP_PX);
+    }
+  });
+
+  it('keeps the gap when the map is reduced to a phone-sized scale', () => {
+    const scale = 358 / 1640;
+    const callout = {
+      sourceCenter: [720, 360] as [number, number],
+      selectedPathIndices: [0],
+    };
+    const layout = deriveCalloutLayout(callout, scale, 1440, 720, 358);
+    const renderedGap =
+      (Math.abs(layout.center[0] - callout.sourceCenter[0]) -
+        layout.sourceRadius -
+        layout.radius) *
+      scale;
+    expect(renderedGap).toBeCloseTo(CALLOUT_GAP_PX);
   });
 
   it('flips and clamps the cutout when the preferred side has no room', () => {

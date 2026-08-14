@@ -27,6 +27,7 @@ export const MIN_FOOTPRINT_PX = 25;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
 export const MAP_SEAM_LONGITUDE = -170;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
+export const CALLOUT_GAP_PX = 72;
 export const CALLOUT_AREA_SCALE = 2;
 export const CALLOUT_RADIUS_SCALE = Math.sqrt(CALLOUT_AREA_SCALE);
 export const CALLOUT_MAGNIFICATION_RATIO = 5;
@@ -52,15 +53,23 @@ export function deriveCalloutLayout(
   // into viewBox units; otherwise a phone-width map clips the callout and its
   // source/leader geometry appears to overlap.
   const availableRadiusPx = Math.max(24, (mapHeight * scale - 48) / 2);
+  const gapPx = CALLOUT_GAP_PX;
+  const widthBoundRadiusPx = Math.max(
+    16,
+    ((mapWidth + MAP_OVERLAP_REFERENCE_UNITS * 2) * scale - 48 - gapPx * 2) /
+      (4 * CALLOUT_RADIUS_SCALE +
+        (2 * CALLOUT_RADIUS_SCALE) / CALLOUT_MAGNIFICATION_RATIO),
+  );
   const radiusPx =
     Math.min(
       100,
-      Math.max(32, Math.min(viewportWidth * 0.14, availableRadiusPx)),
+      widthBoundRadiusPx,
+      Math.max(16, Math.min(viewportWidth * 0.14, availableRadiusPx)),
     ) * CALLOUT_RADIUS_SCALE;
   const radius = radiusPx / scale;
   const sourceRadius = radius / CALLOUT_MAGNIFICATION_RATIO;
   const margin = 24 / scale;
-  const gap = 72 / scale;
+  const gap = CALLOUT_GAP_PX / scale;
   const sourceX = Math.max(
     sourceRadius,
     Math.min(mapWidth - sourceRadius, callout.sourceCenter[0]),
@@ -71,8 +80,8 @@ export function deriveCalloutLayout(
     sourceX + (rightSide ? 1 : -1) * (sourceRadius + gap + radius);
   const opposite =
     sourceX + (rightSide ? -1 : 1) * (sourceRadius + gap + radius);
-  const minX = radius + margin;
-  const maxX = mapWidth - radius - margin;
+  const minX = -MAP_OVERLAP_REFERENCE_UNITS + radius + margin;
+  const maxX = mapWidth + MAP_OVERLAP_REFERENCE_UNITS - radius - margin;
   const preferredFits = preferred >= minX && preferred <= maxX;
   const initialCenterX = preferredFits
     ? preferred

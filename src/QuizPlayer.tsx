@@ -17,6 +17,7 @@ import {
   type PanelPlacement,
   unionRects,
 } from './panelPlacement';
+import { mapWidthForStage } from './mapLayout';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -277,7 +278,7 @@ export function QuizPlayer({
       if (stage) {
         stage.style.setProperty(
           '--map-width',
-          `${Math.min(stage.clientWidth, (stage.clientHeight * 41) / 18)}px`,
+          `${mapWidthForStage(stage.clientWidth, stage.clientHeight)}px`,
         );
       }
       if (manualPlacement.current) return;
