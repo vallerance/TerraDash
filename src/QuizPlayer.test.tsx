@@ -163,6 +163,33 @@ describe('QuizPlayer integration', () => {
     expect(clearInterval).toHaveBeenCalled();
   });
 
+  it('clears transient correct feedback despite elapsed-time updates', async () => {
+    vi.useFakeTimers();
+    const container = renderPlayer();
+    act(() => (container.querySelector('button') as HTMLButtonElement).click());
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    const currentId = container
+      .querySelector('[data-map-id]')
+      ?.getAttribute('data-map-id');
+    input.value = catalog.find((location) => location.id === currentId)!.name;
+    await act(async () => {
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () => {
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      );
+    });
+    expect(container.querySelector('.feedback')?.textContent).toBe(
+      'Correct. Next location.',
+    );
+    act(() => vi.advanceTimersByTime(1300));
+    expect(container.querySelector('.feedback')?.textContent).toBe('');
+    expect(container.querySelector('.answer-result')).toBeNull();
+  });
+
   it('shares attempt-state colors across the map and remaining-attempt status', async () => {
     const oneLocationQuiz = { id: 'single', locationIds: ['iso:AAA'] };
     const container = document.createElement('div');

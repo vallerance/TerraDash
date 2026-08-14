@@ -89,17 +89,26 @@ export function QuizPlayer({
     return () => window.clearInterval(timer);
   }, [dispatch, now, state.phase]);
 
-  const previousEvent = useRef(state.lastEvent);
+  const feedbackEventKey =
+    state.lastEvent.type === 'accepted' || state.lastEvent.type === 'completed'
+      ? `${state.lastEvent.type}:${state.lastEvent.result}`
+      : state.lastEvent.type === 'rejected'
+        ? `${state.lastEvent.type}:${state.lastEvent.reason}`
+        : state.lastEvent.type;
+  const previousEventKey = useRef(feedbackEventKey);
   useEffect(() => {
-    if (state.lastEvent === previousEvent.current) return;
-    previousEvent.current = state.lastEvent;
+    if (feedbackEventKey === previousEventKey.current) return;
+    previousEventKey.current = feedbackEventKey;
     if (state.lastEvent.type === 'rejected') {
       setFeedback(
         state.lastEvent.reason === 'invalid-answer'
           ? 'Choose a canonical location from the suggestions or enter its exact name.'
           : 'That action is not available right now.',
       );
-    } else if (state.lastEvent.type === 'accepted') {
+    } else if (
+      state.lastEvent.type === 'accepted' ||
+      state.lastEvent.type === 'completed'
+    ) {
       const tone =
         state.lastEvent.result === 'correct'
           ? 'correct'
@@ -120,7 +129,7 @@ export function QuizPlayer({
       }, 1200);
       return () => window.clearTimeout(timer);
     }
-  }, [state.lastEvent]);
+  }, [feedbackEventKey, state.lastEvent]);
 
   useEffect(() => {
     if (state.phase === 'active') {
