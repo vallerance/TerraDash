@@ -77,4 +77,24 @@ describe('MapView small-region callout rendering', () => {
     expect(frame.querySelectorAll('.callout-source')).toHaveLength(0);
     expect(frame.querySelectorAll('[aria-label]')).toHaveLength(1);
   });
+
+  it.each(['iso:ATG', 'iso:VAT', 'iso:ARM'])(
+    'does not fabricate selected area for %s',
+    (id) => {
+      const frame = renderLocation(id);
+      expect(frame.querySelectorAll('.callout-selected-point')).toHaveLength(0);
+      expect(
+        frame.querySelectorAll('.callout-selected .inset-selected-polygon'),
+      ).toHaveLength(id === 'iso:VAT' ? 0 : 2);
+      expect(
+        frame.querySelectorAll('.callout-selected .inset-selected-degenerate')
+          .length,
+      ).toBeGreaterThanOrEqual(id === 'iso:VAT' ? 1 : 0);
+      expect(
+        [...frame.querySelectorAll('.callout-selected path')].every(
+          (path) => !path.getAttribute('fill') && !path.getAttribute('stroke'),
+        ),
+      ).toBe(true);
+    },
+  );
 });

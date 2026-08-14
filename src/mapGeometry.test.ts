@@ -5,6 +5,7 @@ import inset from '../data/generated/inset.json';
 import {
   baseGeometryPaths,
   highlightedGeometryPaths,
+  classifyInsetGeometryPaths,
   insetGeometryPaths,
 } from './mapGeometry';
 
@@ -53,5 +54,17 @@ describe('map geometry resolution', () => {
     expect(insetGeometryPaths(atg.id).join('').length).toBeGreaterThan(
       highlightedGeometryPaths(atg.geometryRefs).join('').length,
     );
+  });
+
+  it('retains inset path identity while classifying polygon and degenerate artifacts', () => {
+    expect(
+      classifyInsetGeometryPaths('iso:ATG').map(({ kind }) => kind),
+    ).toEqual(['polygon', 'polygon', 'degenerate']);
+    expect(
+      classifyInsetGeometryPaths('iso:VAT').map(({ kind }) => kind),
+    ).toEqual(['degenerate']);
+    expect(
+      classifyInsetGeometryPaths('iso:ARM').map(({ kind }) => kind),
+    ).toEqual(['polygon', 'degenerate', 'degenerate', 'polygon']);
   });
 });

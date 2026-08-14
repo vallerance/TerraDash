@@ -24,7 +24,9 @@ export type CalloutLayout = {
   center: Point;
   radius: number;
 };
-export const MIN_FOOTPRINT_PX = 10;
+// The threshold is a linear projected screen span. Five times the deployed
+// 10px minimum is 50px; it is not an area threshold.
+export const MIN_FOOTPRINT_PX = 50;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
 export const MAP_SEAM_LONGITUDE = -170;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
@@ -85,6 +87,22 @@ export function pathPoints(paths: string[]): Point[] {
       +y,
     ]),
   );
+}
+
+/** Signed projected area of the first ring in a generated SVG path. */
+export function pathArea(path: string): number {
+  const points = pathPoints([path]);
+  if (points.length < 3) return 0;
+  return (
+    points.reduce((area, point, index) => {
+      const next = points[(index + 1) % points.length];
+      return area + point[0] * next[1] - next[0] * point[1];
+    }, 0) / 2
+  );
+}
+
+export function hasRenderableArea(path: string): boolean {
+  return Math.abs(pathArea(path)) > Number.EPSILON;
 }
 export function unwrapComponent(points: Point[], width: number): Point[] {
   if (points.length < 2) return points;

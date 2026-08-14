@@ -528,15 +528,13 @@ input {
   stroke-width: 0.7;
 }
 .callout-inset .callout-selected path {
-  fill: var(--attempt-color, #f59e0b);
+  fill: none;
   stroke: var(--attempt-color, #f59e0b);
   vector-effect: none;
 }
-.callout-selected-point {
+.callout-inset .callout-selected .inset-selected-degenerate {
   fill: none;
-  stroke: var(--attempt-outline, #fff);
-  stroke-width: 0.8;
-  vector-effect: none;
+  stroke: none;
 }
 .callout-cutout {
   fill: none;

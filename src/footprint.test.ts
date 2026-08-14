@@ -9,6 +9,9 @@ import {
   deriveCalloutModel,
   deriveComponentFootprints,
   deriveFootprint,
+  hasRenderableArea,
+  pathArea,
+  MIN_FOOTPRINT_PX,
   mapXForLongitude,
   MAP_SEAM_LONGITUDE,
   pathPoints,
@@ -30,15 +33,30 @@ describe('threshold and ring primitives', () => {
     expect(
       deriveFootprint([
         [0, 0],
-        [10, 10],
+        [MIN_FOOTPRINT_PX, MIN_FOOTPRINT_PX],
       ]).kind,
     ).toBe('polygon');
     expect(
       deriveFootprint([
         [5, 5],
-        [6, 6],
+        [MIN_FOOTPRINT_PX - 0.01, 5],
       ]).kind,
     ).toBe('circle');
+  });
+
+  it('uses the 50px linear boundary for newly routed callouts', () => {
+    expect(
+      deriveCalloutModel([`M0,0L${MIN_FOOTPRINT_PX - 0.01},0L0,1Z`], 1, 1440),
+    ).toBeDefined();
+    expect(
+      deriveCalloutModel([`M0,0L${MIN_FOOTPRINT_PX},0L0,1Z`], 1, 1440),
+    ).toBeUndefined();
+  });
+
+  it('classifies real projected paths without turning points into area', () => {
+    expect(pathArea('M0,0L4,0L4,3L0,3Z')).toBe(12);
+    expect(hasRenderableArea('M0,0L0,0Z')).toBe(false);
+    expect(hasRenderableArea('M0,0L4,0L4,3L0,3Z')).toBe(true);
   });
 
   it('preserves each M/Z subpath as an independent ring', () => {

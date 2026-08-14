@@ -29,7 +29,6 @@ for (const required of [
   'border: 0;',
   '.diagnostics-card',
   'min-height: 0;',
-  '.callout-selected-point',
 ]) {
   if (!css.includes(required))
     throw new Error(`layout contract is missing: ${required}`);

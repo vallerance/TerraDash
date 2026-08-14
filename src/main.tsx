@@ -18,14 +18,17 @@ import { QuizProvider } from './QuizContext';
 import { defaultCatalog, defaultQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
 import { mapLocationForQuizId } from './quizMapBoundary';
-import { highlightedGeometryPaths, insetGeometryPaths } from './mapGeometry';
+import {
+  classifyInsetGeometryPaths,
+  highlightedGeometryPaths,
+} from './mapGeometry';
 import './styles.css';
 
 type Location = (typeof catalog)[number];
 export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
-  const insetSelectedPaths = insetGeometryPaths(active.id);
+  const insetSelectedPaths = classifyInsetGeometryPaths(active.id);
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const scale = viewportWidth / renderedMapWidth;
@@ -89,7 +92,6 @@ export function MapView({ active }: { active: Location }) {
     displayedCallout?.sourceRadius ?? 1,
   );
   const insetStrokeWidth = Math.max(1.2, insetViewBox.size * 0.04);
-  const insetSelectedPointRadius = Math.min(1.25, insetViewBox.size * 0.025);
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
         displayedCallout.sourceCenter,
@@ -244,28 +246,25 @@ export function MapView({ active }: { active: Location }) {
                 );
               })}
               <g className="callout-selected">
-                {wrappedInsetPathCopies(insetSelectedPaths).map(
-                  ({ path, transform }, index) => (
-                    <path
-                      key={`${transform}:${index}`}
-                      d={path}
-                      transform={`translate(${transform} 0)`}
-                      strokeWidth={insetStrokeWidth}
-                      vectorEffect="none"
-                      style={{
-                        strokeWidth: insetStrokeWidth,
-                        vectorEffect: 'none',
-                      }}
-                    />
+                {insetSelectedPaths.flatMap(({ path, kind }) =>
+                  wrappedInsetPathCopies([path]).map(
+                    ({ path: wrappedPath, transform }, index) => (
+                      <path
+                        key={`${kind}:${transform}:${index}`}
+                        className={`inset-selected-${kind}`}
+                        d={wrappedPath}
+                        transform={`translate(${transform} 0)`}
+                        strokeWidth={insetStrokeWidth}
+                        vectorEffect="none"
+                        style={{
+                          strokeWidth: insetStrokeWidth,
+                          vectorEffect: 'none',
+                        }}
+                      />
+                    ),
                   ),
                 )}
               </g>
-              <circle
-                className="callout-selected-point"
-                cx={(displayedCallout?.focusCenter ?? [0, 0])[0]}
-                cy={(displayedCallout?.focusCenter ?? [0, 0])[1]}
-                r={insetSelectedPointRadius}
-              />
             </svg>
           </g>
           <circle
