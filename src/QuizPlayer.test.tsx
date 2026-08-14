@@ -70,7 +70,7 @@ describe('QuizPlayer integration', () => {
     expect(container.textContent).toContain('1 country remaining');
   });
 
-  it('keeps the dropdown closed for an empty value and visible for exact matches', async () => {
+  it('closes for empty and case-insensitive exact values, while partial values stay open', async () => {
     const container = renderPlayer();
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),
@@ -84,10 +84,43 @@ describe('QuizPlayer integration', () => {
       input.value = 'alpha';
       input.dispatchEvent(new Event('input', { bubbles: true }));
     });
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(container.querySelectorAll('[role="option"]')).toHaveLength(0);
+    await act(async () => {
+      input.value = 'alp';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
     expect(input.getAttribute('aria-expanded')).toBe('true');
     expect(container.querySelector('[role="option"]')?.textContent).toBe(
       'Alpha',
     );
+  });
+
+  it('submits an exact-match value from the closed dropdown', async () => {
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    const currentId = container
+      .querySelector('[data-map-id]')
+      ?.getAttribute('data-map-id');
+    const exactName = catalog.find(
+      (location) => location.id === currentId,
+    )!.name;
+    await act(async () => {
+      input.value = exactName.toUpperCase();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    await act(async () =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      ),
+    );
+    expect(container.textContent).toContain('Correct. Next location.');
   });
 
   it('keeps a no-match dropdown visible without making its message selectable', async () => {
@@ -252,6 +285,10 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[aria-label="Move answer form"]'),
     ).toBeTruthy();
+    expect(
+      container.querySelector('.submit-arrow[aria-label="Submit answer"]'),
+    ).toBeTruthy();
+    expect(container.querySelector('.submit-arrow .submit-icon')).toBeTruthy();
     expect(input.getAttribute('aria-expanded')).toBe('false');
     expect(input.tabIndex).toBe(0);
     act(() => {
@@ -311,6 +348,62 @@ describe('QuizPlayer integration', () => {
     expect(document.activeElement).toBe(input);
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
+  });
+
+  it('keeps the highlighted suggestion inside its own scroll viewport', () => {
+    const container = renderPlayer();
+    act(() => (container.querySelector('button') as HTMLButtonElement).click());
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    act(() => {
+      input.value = 'a';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    const list = container.querySelector('.suggestions') as HTMLUListElement;
+    const options = [...container.querySelectorAll('[role="option"]')];
+    Object.defineProperties(list, {
+      clientHeight: { configurable: true, value: 20 },
+      scrollTop: { configurable: true, writable: true, value: 0 },
+    });
+    options.forEach((option, index) => {
+      Object.defineProperties(option, {
+        offsetTop: { configurable: true, value: index * 20 },
+        offsetHeight: { configurable: true, value: 20 },
+      });
+    });
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(20);
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id);
+    const documentScroll = document.documentElement.scrollTop;
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(0);
+    expect(document.documentElement.scrollTop).toBe(documentScroll);
+    list.scrollTop = 40;
+    act(() => {
+      input.value = 'br';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    const firstResult = container.querySelector(
+      '[role="option"]',
+    ) as HTMLElement;
+    Object.defineProperties(firstResult, {
+      offsetTop: { configurable: true, value: 0 },
+      offsetHeight: { configurable: true, value: 20 },
+    });
+    act(() => {
+      input.value = 'a';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(list.scrollTop).toBe(0);
   });
 
   it('cleans the monotonic timer interval on unmount', () => {
