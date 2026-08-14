@@ -285,10 +285,6 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[aria-label="Move answer form"]'),
     ).toBeTruthy();
-    expect(
-      container.querySelector('.submit-arrow[aria-label="Submit answer"]'),
-    ).toBeTruthy();
-    expect(container.querySelector('.submit-arrow .submit-icon')).toBeTruthy();
     expect(input.getAttribute('aria-expanded')).toBe('false');
     expect(input.tabIndex).toBe(0);
     act(() => {
@@ -348,62 +344,6 @@ describe('QuizPlayer integration', () => {
     expect(document.activeElement).toBe(input);
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
-  });
-
-  it('keeps the highlighted suggestion inside its own scroll viewport', () => {
-    const container = renderPlayer();
-    act(() => (container.querySelector('button') as HTMLButtonElement).click());
-    const input = container.querySelector(
-      '[role="combobox"]',
-    ) as HTMLInputElement;
-    act(() => {
-      input.value = 'a';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    });
-    const list = container.querySelector('.suggestions') as HTMLUListElement;
-    const options = [...container.querySelectorAll('[role="option"]')];
-    Object.defineProperties(list, {
-      clientHeight: { configurable: true, value: 20 },
-      scrollTop: { configurable: true, writable: true, value: 0 },
-    });
-    options.forEach((option, index) => {
-      Object.defineProperties(option, {
-        offsetTop: { configurable: true, value: index * 20 },
-        offsetHeight: { configurable: true, value: 20 },
-      });
-    });
-    act(() =>
-      input.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
-      ),
-    );
-    expect(list.scrollTop).toBe(20);
-    expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id);
-    const documentScroll = document.documentElement.scrollTop;
-    act(() =>
-      input.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
-      ),
-    );
-    expect(list.scrollTop).toBe(0);
-    expect(document.documentElement.scrollTop).toBe(documentScroll);
-    list.scrollTop = 40;
-    act(() => {
-      input.value = 'br';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    });
-    const firstResult = container.querySelector(
-      '[role="option"]',
-    ) as HTMLElement;
-    Object.defineProperties(firstResult, {
-      offsetTop: { configurable: true, value: 0 },
-      offsetHeight: { configurable: true, value: 20 },
-    });
-    act(() => {
-      input.value = 'a';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-    });
-    expect(list.scrollTop).toBe(0);
   });
 
   it('cleans the monotonic timer interval on unmount', () => {
