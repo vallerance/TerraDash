@@ -13,6 +13,7 @@ import {
   sharedInsetViewBox,
   wrappedOffsets,
   wrappedPathOffsets,
+  wrappedViewportBounds,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
 import { defaultCatalog, defaultQuiz } from './quizContracts';
@@ -32,6 +33,7 @@ export function MapView({ active }: { active: Location }) {
   const insetSelectedPaths = classifyInsetGeometryPaths(active.id);
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
+  const [renderedMapStart] = wrappedViewportBounds(map.width, seamX);
   const scale = viewportWidth / renderedMapWidth;
   const callout = deriveCalloutModel(
     highlightedPaths,
@@ -150,12 +152,12 @@ export function MapView({ active }: { active: Location }) {
   return (
     <svg
       className="world-map"
-      viewBox={`${-MAP_OVERLAP_REFERENCE_UNITS} 0 ${renderedMapWidth} ${map.height}`}
+      viewBox={`${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`}
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >
       <rect
-        x={-MAP_OVERLAP_REFERENCE_UNITS}
+        x={renderedMapStart}
         width={renderedMapWidth}
         height={map.height}
         className="ocean"

@@ -475,6 +475,15 @@ export function mapXForLongitude(longitude: number, width: number): number {
   return ((longitude + 180) / 360) * width;
 }
 
+export function wrappedViewportBounds(
+  width: number,
+  seamX: number,
+  overlap = MAP_OVERLAP_REFERENCE_UNITS,
+): [number, number] {
+  const primary = seamX === 0 ? 0 : -seamX;
+  return [primary - overlap, primary + width + overlap];
+}
+
 export function wrappedOffsets(
   minX: number,
   maxX: number,
@@ -485,10 +494,15 @@ export function wrappedOffsets(
   const alignedMin = minX - seamX;
   const alignedMax = maxX - seamX;
   const primary = seamX === 0 ? 0 : -seamX;
+  const [viewportMin, viewportMax] = wrappedViewportBounds(
+    width,
+    seamX,
+    overlap,
+  );
   return [primary, primary - width, primary + width].filter((transform) => {
     const transformedMin = minX + transform;
     const transformedMax = maxX + transform;
-    return transformedMax >= -overlap && transformedMin <= width + overlap;
+    return transformedMax >= viewportMin && transformedMin <= viewportMax;
   });
 }
 
