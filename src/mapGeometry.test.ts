@@ -59,12 +59,24 @@ describe('map geometry resolution', () => {
   it('retains inset path identity while classifying polygon and degenerate artifacts', () => {
     expect(
       classifyInsetGeometryPaths('iso:ATG').map(({ kind }) => kind),
-    ).toEqual(['polygon', 'polygon', 'degenerate']);
+    ).toEqual(['polygon', 'artifact', 'degenerate']);
     expect(
       classifyInsetGeometryPaths('iso:VAT').map(({ kind }) => kind),
     ).toEqual(['degenerate']);
     expect(
       classifyInsetGeometryPaths('iso:ARM').map(({ kind }) => kind),
     ).toEqual(['polygon', 'degenerate', 'degenerate', 'polygon']);
+  });
+
+  it('keeps valid polygon fill while isolating the reviewed malformed ATG ring', () => {
+    const atg = classifyInsetGeometryPaths('iso:ATG');
+    expect(atg.filter(({ kind }) => kind === 'polygon')).toHaveLength(1);
+    expect(atg.filter(({ kind }) => kind === 'artifact')).toHaveLength(1);
+    expect(atg.filter(({ kind }) => kind === 'degenerate')).toHaveLength(1);
+    expect(
+      classifyInsetGeometryPaths('iso:VAT').every(
+        ({ kind }) => kind === 'degenerate',
+      ),
+    ).toBe(true);
   });
 });

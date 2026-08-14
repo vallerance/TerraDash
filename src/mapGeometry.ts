@@ -2,7 +2,7 @@ import map from '../data/generated/map.json';
 import inset from '../data/generated/inset.json';
 import { hasRenderableArea } from './footprint';
 
-export type InsetPathKind = 'polygon' | 'degenerate';
+export type InsetPathKind = 'polygon' | 'artifact' | 'degenerate';
 export type InsetGeometryPath = { path: string; kind: InsetPathKind };
 
 export function baseGeometryPaths(): string[] {
@@ -31,11 +31,24 @@ export function classifyInsetGeometryPaths(
   if (!refs?.length)
     throw new Error(`Missing inset geometry for ${locationId}`);
   return refs.flatMap((id) =>
-    inset.features[id as keyof typeof inset.features].paths.map((path) => ({
-      path,
-      kind: hasRenderableArea(path)
-        ? ('polygon' as const)
-        : ('degenerate' as const),
-    })),
+    inset.features[id as keyof typeof inset.features].paths.map(
+      (path, pathIndex) => ({
+        path,
+        kind: !hasRenderableArea(path)
+          ? ('degenerate' as const)
+          : isKnownArtifact(locationId, pathIndex)
+            ? ('artifact' as const)
+            : ('polygon' as const),
+      }),
+    ),
   );
+}
+
+// The pinned 1:10m artifact contains one reviewed malformed micro-ring in
+// ATG. Keep this identity explicit: valid polygons still fill, while this
+// known artifact is never painted. This is data classification, not CSS or
+// a projected-size heuristic.
+const KNOWN_INVALID_PATHS: Record<string, number[]> = { 'iso:ATG': [1] };
+function isKnownArtifact(locationId: string, pathIndex: number): boolean {
+  return KNOWN_INVALID_PATHS[locationId]?.includes(pathIndex) ?? false;
 }
