@@ -109,6 +109,40 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelectorAll('[role="option"]')).toHaveLength(0);
   });
 
+  it('keeps result feedback in the subheader for three seconds without panel graphics', async () => {
+    vi.useFakeTimers();
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const currentId = container
+      .querySelector('[data-map-id]')
+      ?.getAttribute('data-map-id');
+    const answer = catalog.find((location) => location.id === currentId)!.name;
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    await act(async () => {
+      input.value = answer;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelector('.quiz-feedback')?.textContent).toBe(
+      'Correct. Next location.',
+    );
+    expect(container.querySelector('.answer-panel .feedback')).toBeNull();
+    expect(container.querySelector('.answer-result')).toBeNull();
+    await act(async () => Promise.resolve());
+    await act(async () => vi.advanceTimersByTime(2999));
+    expect(container.querySelector('.quiz-feedback')?.textContent).toBe(
+      'Correct. Next location.',
+    );
+    await act(async () => vi.runOnlyPendingTimers());
+    expect(container.querySelector('.quiz-feedback')?.textContent).toBe('');
+  });
+
   it('starts with accessible combobox wiring and restores focus on a new question', () => {
     const container = renderPlayer();
     expect(container.querySelector('.active-player')).toBeNull();
@@ -173,9 +207,10 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[aria-live="assertive"]')?.textContent,
     ).toBe('Correct. Next location.');
-    expect(container.querySelector('.answer-result-correct')?.textContent).toBe(
-      '✓',
+    expect(container.querySelector('.quiz-feedback')?.textContent).toBe(
+      'Correct. Next location.',
     );
+    expect(container.querySelector('.answer-result')).toBeNull();
     expect(document.activeElement).toBe(input);
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();

@@ -24,6 +24,9 @@ for (const required of [
   '.home-page',
   'padding-inline: var(--content-gutter);',
   'border-top: 0;',
+  '.diagnostics-card',
+  'min-height: 0;',
+  '.callout-selected-point',
 ]) {
   if (!css.includes(required))
     throw new Error(`layout contract is missing: ${required}`);

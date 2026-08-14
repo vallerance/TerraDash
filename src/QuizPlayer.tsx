@@ -38,6 +38,7 @@ export function QuizPlayer({
   const [feedbackTone, setFeedbackTone] = useState<'correct' | 'missed' | ''>(
     '',
   );
+  const feedbackTimer = useRef<number | undefined>(undefined);
   const [panelPlacement, setPanelPlacement] = useState<PanelPlacement>({
     left: 16,
     top: 16,
@@ -87,6 +88,15 @@ export function QuizPlayer({
   useEffect(() => {
     if (state.lastEvent === previousEvent.current) return;
     previousEvent.current = state.lastEvent;
+    if (
+      state.lastEvent.type !== 'accepted' &&
+      state.lastEvent.type !== 'rejected'
+    )
+      return;
+    if (feedbackTimer.current !== undefined) {
+      window.clearTimeout(feedbackTimer.current);
+      feedbackTimer.current = undefined;
+    }
     if (state.lastEvent.type === 'rejected') {
       setFeedback(
         state.lastEvent.reason === 'invalid-answer'
@@ -108,13 +118,23 @@ export function QuizPlayer({
             ? 'Three attempts used. The answer is not revealed.'
             : 'Incorrect. Try again; the answer is not revealed.',
       );
-      const timer = window.setTimeout(() => {
+      if (feedbackTimer.current !== undefined)
+        window.clearTimeout(feedbackTimer.current);
+      feedbackTimer.current = window.setTimeout(() => {
         setFeedback('');
         setFeedbackTone('');
-      }, 1200);
-      return () => window.clearTimeout(timer);
+        feedbackTimer.current = undefined;
+      }, 3000);
     }
   }, [state.lastEvent]);
+
+  useEffect(
+    () => () => {
+      if (feedbackTimer.current !== undefined)
+        window.clearTimeout(feedbackTimer.current);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (state.phase === 'active') {
@@ -293,6 +313,12 @@ export function QuizPlayer({
           <span className={`attempts-remaining-label ${attemptStateClass}`}>
             {attemptsRemaining} guesses remaining
           </span>
+          <p
+            className={`quiz-feedback ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
+            aria-live="assertive"
+          >
+            {feedback}
+          </p>
         </div>
         <div className="quiz-status quiz-status-bar" aria-live="polite">
           <span
@@ -315,17 +341,9 @@ export function QuizPlayer({
           </div>
           <div
             ref={panelRef}
-            className={`answer-panel ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
+            className="answer-panel"
             style={{ left: panelPlacement.left, top: panelPlacement.top }}
           >
-            {feedbackTone && (
-              <div
-                className={`answer-result answer-result-${feedbackTone}`}
-                aria-hidden="true"
-              >
-                {feedbackTone === 'correct' ? '✓' : '×'}
-              </div>
-            )}
             <button
               className="panel-move-handle"
               type="button"
@@ -433,12 +451,6 @@ export function QuizPlayer({
                 </button>
               </div>
             </form>
-            <p
-              className={`feedback ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
-              aria-live="assertive"
-            >
-              {feedback}
-            </p>
           </div>
         </div>
       )}
