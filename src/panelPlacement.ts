@@ -5,7 +5,7 @@ export function derivePanelPlacement(
   target: Rect,
   panel: Pick<Rect, 'width' | 'height'>,
   map: Pick<Rect, 'width' | 'height'>,
-  gap = 16,
+  gap = 48,
 ): PanelPlacement {
   const candidates = [
     {

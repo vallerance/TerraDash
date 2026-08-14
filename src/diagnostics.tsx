@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalog from '../data/generated/catalog.json';
-import { MapView } from './main';
+import { AppFooter, MapView } from './main';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
@@ -40,6 +40,7 @@ function Diagnostics() {
           <MapView active={location} />
         </section>
       </section>
+      <AppFooter />
     </main>
   );
 }

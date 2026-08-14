@@ -58,16 +58,39 @@ describe('QuizPlayer integration', () => {
       input.value = answer;
       input.dispatchEvent(new Event('input', { bubbles: true }));
     });
-    await act(async () => {
+    await act(async () =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
-      );
-    });
+      ),
+    );
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
     expect(progress()).toBe('1 / 1 countries correct');
     expect(container.textContent).toContain('1 country remaining');
   });
 
-  it('suppresses exact matches before Enter routing', async () => {
+  it('keeps the dropdown closed for an empty value and visible for exact matches', async () => {
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(container.querySelectorAll('[role="option"]')).toHaveLength(0);
+    await act(async () => {
+      input.value = 'alpha';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(container.querySelector('[role="option"]')?.textContent).toBe(
+      'Alpha',
+    );
+  });
+
+  it('keeps a no-match dropdown visible without making its message selectable', async () => {
     const container = renderPlayer();
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),
@@ -76,10 +99,13 @@ describe('QuizPlayer integration', () => {
       '[role="combobox"]',
     ) as HTMLInputElement;
     await act(async () => {
-      input.value = 'alpha';
+      input.value = 'not-a-location';
       input.dispatchEvent(new Event('input', { bubbles: true }));
     });
-    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(container.querySelector('[role="status"]')?.textContent).toBe(
+      'No matches',
+    );
     expect(container.querySelectorAll('[role="option"]')).toHaveLength(0);
   });
 
@@ -95,8 +121,13 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[aria-label="Move answer form"]'),
     ).toBeTruthy();
-    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(input.getAttribute('aria-expanded')).toBe('false');
     expect(input.tabIndex).toBe(0);
+    act(() => {
+      input.value = 'a';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-expanded')).toBe('true');
     expect(container.querySelectorAll('[role="option"]')).toHaveLength(2);
     expect(
       new Set(
@@ -136,9 +167,7 @@ describe('QuizPlayer integration', () => {
     );
     expect(input.value).toBe('Bravo');
     act(() =>
-      input.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
-      ),
+      (container.querySelector('form button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('1 / 1 countries correct');
     expect(
@@ -148,9 +177,7 @@ describe('QuizPlayer integration', () => {
       '✓',
     );
     expect(document.activeElement).toBe(input);
-    expect(
-      document.getElementById(input.getAttribute('aria-activedescendant')!),
-    ).toBeTruthy();
+    expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
   });
 
@@ -239,6 +266,10 @@ describe('QuizPlayer integration', () => {
       (container.querySelector('form button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('canonical location');
+    await act(async () => {
+      input.value = 'Br';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
     await act(async () =>
       [...container.querySelectorAll('[role="option"]')]
         .find((option) => option.textContent === 'Bravo')!
@@ -284,7 +315,10 @@ describe('QuizPlayer integration', () => {
       input.dispatchEvent(new Event('input', { bubbles: true }));
     });
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
-    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(input.getAttribute('aria-expanded')).toBe('true');
+    expect(container.querySelector('[role="status"]')?.textContent).toBe(
+      'No matches',
+    );
     await act(async () => {
       input.value = 'Br';
       input.dispatchEvent(new Event('input', { bubbles: true }));

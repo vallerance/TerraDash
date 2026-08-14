@@ -12,7 +12,7 @@ describe('derivePanelPlacement', () => {
         panel,
         map,
       ),
-    ).toEqual({ left: 64, top: 74 });
+    ).toEqual({ left: 32, top: 42 });
   });
   it('chooses the opposite side when the preferred side is clipped', () => {
     expect(
@@ -21,7 +21,7 @@ describe('derivePanelPlacement', () => {
         panel,
         map,
       ),
-    ).toEqual({ left: 46, top: 74 });
+    ).toEqual({ left: 78, top: 42 });
   });
   it('clamps a panel larger than the available edge space', () => {
     expect(
