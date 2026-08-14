@@ -4,6 +4,7 @@ import catalog from '../data/generated/catalog.json';
 import map from '../data/generated/map.json';
 import {
   COMPONENT_CLUSTER_PROXIMITY_PX,
+  CALLOUT_RADIUS_SCALE,
   calloutLeaderLines,
   deriveCalloutLayout,
   deriveCalloutModel,
@@ -159,7 +160,7 @@ describe('callout selection and actual-boundary clustering', () => {
     }
   });
 
-  it('bounds the cutout to 200 CSS pixels with a 36px source gap', () => {
+  it('doubles cutout area with a 72px source gap', () => {
     const layout = deriveCalloutLayout(
       { sourceCenter: [240, 180], sourceRadius: 8, selectedPathIndices: [0] },
       1,
@@ -167,9 +168,9 @@ describe('callout selection and actual-boundary clustering', () => {
       720,
       1440,
     );
-    expect(layout.radius).toBe(100);
+    expect(layout.radius).toBe(100 * CALLOUT_RADIUS_SCALE);
     expect(layout.center[0]).toBeGreaterThan(240);
-    expect(layout.center[0]).toBe(240 + 8 + 36 + 100);
+    expect(layout.center[0]).toBe(240 + 8 + 72 + 100 * CALLOUT_RADIUS_SCALE);
     expect(layout.center[1]).toBe(180);
   });
 
@@ -181,10 +182,14 @@ describe('callout selection and actual-boundary clustering', () => {
       720,
       390,
     );
-    expect(layout.radius).toBeCloseTo(54.6);
+    expect(layout.radius).toBeCloseTo(54.6 * CALLOUT_RADIUS_SCALE);
     expect(layout.center[0]).toBeLessThan(1410);
-    expect(layout.center[1]).toBeGreaterThanOrEqual(78.6);
-    expect(layout.center[1]).toBeLessThanOrEqual(641.4);
+    expect(layout.center[1]).toBeGreaterThanOrEqual(
+      54.6 * CALLOUT_RADIUS_SCALE + 24,
+    );
+    expect(layout.center[1]).toBeLessThanOrEqual(
+      720 - 54.6 * CALLOUT_RADIUS_SCALE - 24,
+    );
   });
 
   it.each(['iso:ATG', 'iso:ARM'])('selects one callout for %s', (id) => {

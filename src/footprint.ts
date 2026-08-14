@@ -33,6 +33,8 @@ export const MIN_FOOTPRINT_PX = 25;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
 export const MAP_SEAM_LONGITUDE = -170;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
+export const CALLOUT_AREA_SCALE = 2;
+export const CALLOUT_RADIUS_SCALE = Math.sqrt(CALLOUT_AREA_SCALE);
 
 export function sharedInsetViewBox(center: Point, radius: number) {
   return {
@@ -55,13 +57,14 @@ export function deriveCalloutLayout(
   // into viewBox units; otherwise a phone-width map clips the callout and its
   // source/leader geometry appears to overlap.
   const availableRadiusPx = Math.max(24, (mapHeight * scale - 48) / 2);
-  const radiusPx = Math.min(
-    100,
-    Math.max(32, Math.min(viewportWidth * 0.14, availableRadiusPx)),
-  );
+  const radiusPx =
+    Math.min(
+      100,
+      Math.max(32, Math.min(viewportWidth * 0.14, availableRadiusPx)),
+    ) * CALLOUT_RADIUS_SCALE;
   const radius = radiusPx / scale;
   const margin = 24 / scale;
-  const gap = 36 / scale;
+  const gap = 72 / scale;
   const sourceX = Math.max(
     callout.sourceRadius,
     Math.min(mapWidth - callout.sourceRadius, callout.sourceCenter[0]),
@@ -75,12 +78,49 @@ export function deriveCalloutLayout(
   const minX = radius + margin;
   const maxX = mapWidth - radius - margin;
   const preferredFits = preferred >= minX && preferred <= maxX;
-  const centerX = preferredFits
+  const initialCenterX = preferredFits
     ? preferred
     : Math.max(minX, Math.min(maxX, opposite));
   const minY = radius + margin;
   const maxY = mapHeight - radius - margin;
-  const centerY = Math.max(minY, Math.min(maxY, sourceY));
+  const initialCenterY = Math.max(minY, Math.min(maxY, sourceY));
+  const requiredDistance = callout.sourceRadius + gap + radius;
+  const candidates: Point[] = [
+    [initialCenterX, initialCenterY],
+    [minX, initialCenterY],
+    [maxX, initialCenterY],
+    [minX, minY],
+    [minX, maxY],
+    [maxX, minY],
+    [maxX, maxY],
+  ];
+  for (const x of [minX, maxX]) {
+    const dx = x - sourceX;
+    if (Math.abs(dx) <= requiredDistance) {
+      const dy = Math.sqrt(requiredDistance ** 2 - dx ** 2);
+      for (const y of [sourceY - dy, sourceY + dy])
+        if (y >= minY && y <= maxY) candidates.push([x, y]);
+    }
+  }
+  for (const y of [minY, maxY]) {
+    const dy = y - sourceY;
+    if (Math.abs(dy) <= requiredDistance) {
+      const dx = Math.sqrt(requiredDistance ** 2 - dy ** 2);
+      for (const x of [sourceX - dx, sourceX + dx])
+        if (x >= minX && x <= maxX) candidates.push([x, y]);
+    }
+  }
+  const fittingCandidates = candidates.filter(
+    ([x, y]) => Math.hypot(x - sourceX, y - sourceY) >= requiredDistance,
+  );
+  const [centerX, centerY] = fittingCandidates.reduce(
+    (best, candidate) =>
+      Math.hypot(candidate[0] - preferred, candidate[1] - sourceY) <
+      Math.hypot(best[0] - preferred, best[1] - sourceY)
+        ? candidate
+        : best,
+    fittingCandidates[0] ?? [initialCenterX, initialCenterY],
+  );
   const boundedSourceY = Math.max(
     callout.sourceRadius,
     Math.min(mapHeight - callout.sourceRadius, sourceY),
@@ -281,7 +321,9 @@ export function deriveCalloutModel(
       maxX / scale + seamX,
       maxY / scale,
     ],
-    sourceRadius: (Math.max(maxX - minX, maxY - minY) / 2 + 8) / scale,
+    sourceRadius:
+      ((Math.max(maxX - minX, maxY - minY) / 2 + 8) * CALLOUT_RADIUS_SCALE) /
+      scale,
     selectedPathIndices: [
       ...new Set(cluster.map(({ pathIndex }) => pathIndex)),
     ],
