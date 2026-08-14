@@ -326,11 +326,27 @@ input {
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
 }
-.callout-selected-marker {
+.callout-inset {
+  pointer-events: none;
+  overflow: hidden;
+}
+.callout-inset-ocean {
+  fill: #10233c;
+}
+.callout-inset .country path {
+  fill: #35506e;
+  stroke: #14263d;
+  stroke-width: 0.7;
+}
+.callout-inset .callout-selected path {
   fill: var(--attempt-color, #f59e0b);
-  fill-opacity: 0.9;
+  stroke: var(--attempt-color, #f59e0b);
+  vector-effect: none;
+}
+.callout-selected-point {
+  fill: var(--attempt-color, #f59e0b);
   stroke: var(--attempt-outline, #fff);
-  stroke-width: 2;
+  stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 .callout-cutout {

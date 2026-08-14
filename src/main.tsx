@@ -78,6 +78,25 @@ export function MapView({ active }: { active: Location }) {
     : undefined;
   const cutoutRadius = cutoutLayout?.radius ?? 0;
   const cutoutCenter = cutoutLayout?.center ?? [0, 0];
+  const clusterBounds = displayedCallout?.clusterBounds ?? [
+    (displayedCallout?.focusCenter ?? [0, 0])[0] - 1,
+    (displayedCallout?.focusCenter ?? [0, 0])[1] - 1,
+    (displayedCallout?.focusCenter ?? [0, 0])[0] + 1,
+    (displayedCallout?.focusCenter ?? [0, 0])[1] + 1,
+  ];
+  const clusterSpan = Math.max(
+    clusterBounds[2] - clusterBounds[0],
+    clusterBounds[3] - clusterBounds[1],
+  );
+  const insetContextMargin = Math.max(14, clusterSpan * 1.8);
+  const insetSize = Math.max(32, clusterSpan + insetContextMargin * 2);
+  const insetViewBox = {
+    x: (displayedCallout?.focusCenter ?? [0, 0])[0] - insetSize / 2,
+    y: (displayedCallout?.focusCenter ?? [0, 0])[1] - insetSize / 2,
+    size: insetSize,
+  };
+  const insetStrokeWidth = Math.max(1.2, insetSize * 0.04);
+  const insetSelectedPointRadius = Math.min(2.5, insetSize * 0.08);
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
         displayedCallout.sourceCenter,
@@ -86,14 +105,6 @@ export function MapView({ active }: { active: Location }) {
         cutoutRadius,
       )
     : [];
-  const zoom = 5;
-  const selectedZoom = 4;
-  // Natural Earth microstates can collapse to a nearly degenerate SVG ring.
-  // Give the real selected boundary a small, scale-aware paint width so it
-  // remains visibly identifiable in the cutout at both desktop and phone
-  // sizes without changing its position or the surrounding context.
-  const selectedStrokeWidth = 6 / (scale * zoom * selectedZoom);
-  const selectedMarkerRadius = Math.min(cutoutRadius * 0.2, 8 / scale);
   const wrappedPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
@@ -193,55 +204,68 @@ export function MapView({ active }: { active: Location }) {
               />
             </clipPath>
           </defs>
-          <circle
-            className="callout-selected-marker"
-            cx={cutoutCenter[0]}
-            cy={cutoutCenter[1]}
-            r={selectedMarkerRadius}
-          />
           <g
-            className="callout-context"
+            className="callout-inset-clip"
             clipPath={`url(#map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')})`}
-            transform={`translate(${cutoutCenter[0]} ${cutoutCenter[1]}) scale(${zoom}) translate(${-displayedCallout.focusCenter[0]} ${-displayedCallout.focusCenter[1]})`}
           >
-            {map.sourceFeatureIds.map((id) => {
-              const feature = map.features[id as keyof typeof map.features];
-              return (
-                <g key={id} className="country">
-                  {wrappedPathCopies(feature.paths).map(
+            <svg
+              className="callout-inset"
+              x={cutoutCenter[0] - cutoutRadius}
+              y={cutoutCenter[1] - cutoutRadius}
+              width={cutoutRadius * 2}
+              height={cutoutRadius * 2}
+              viewBox={`${insetViewBox.x} ${insetViewBox.y} ${insetViewBox.size} ${insetViewBox.size}`}
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <rect
+                className="callout-inset-ocean"
+                x={insetViewBox.x}
+                y={insetViewBox.y}
+                width={insetViewBox.size}
+                height={insetViewBox.size}
+              />
+              {map.sourceFeatureIds.map((id) => {
+                const feature = map.features[id as keyof typeof map.features];
+                return (
+                  <g key={id} className="country">
+                    {wrappedPathCopies(feature.paths).map(
+                      ({ path, transform }, index) => (
+                        <path
+                          key={`${id}:${transform}:${index}`}
+                          d={path}
+                          transform={`translate(${transform} 0)`}
+                        />
+                      ),
+                    )}
+                  </g>
+                );
+              })}
+              <g className="callout-selected">
+                {callout.selectedPathIndices.flatMap((pathIndex) =>
+                  wrappedPathCopies([highlightedPaths[pathIndex]]).map(
                     ({ path, transform }, index) => (
                       <path
-                        key={`${id}:${transform}:${index}`}
+                        key={`${pathIndex}:${transform}:${index}`}
                         d={path}
                         transform={`translate(${transform} 0)`}
+                        strokeWidth={insetStrokeWidth}
+                        vectorEffect="none"
+                        style={{
+                          strokeWidth: insetStrokeWidth,
+                          vectorEffect: 'none',
+                        }}
                       />
                     ),
-                  )}
-                </g>
-              );
-            })}
-            <g
-              className="callout-selected"
-              transform={`translate(${displayedCallout.focusCenter[0]} ${displayedCallout.focusCenter[1]}) scale(${selectedZoom}) translate(${-displayedCallout.focusCenter[0]} ${-displayedCallout.focusCenter[1]})`}
-            >
-              {callout.selectedPathIndices.flatMap((pathIndex) =>
-                wrappedPathCopies([highlightedPaths[pathIndex]]).map(
-                  ({ path, transform }, index) => (
-                    <path
-                      key={`${pathIndex}:${transform}:${index}`}
-                      d={path}
-                      transform={`translate(${transform} 0)`}
-                      strokeWidth={selectedStrokeWidth}
-                      vectorEffect="none"
-                      style={{
-                        strokeWidth: selectedStrokeWidth,
-                        vectorEffect: 'none',
-                      }}
-                    />
                   ),
-                ),
-              )}
-            </g>
+                )}
+              </g>
+              <circle
+                className="callout-selected-point"
+                cx={(displayedCallout?.focusCenter ?? [0, 0])[0]}
+                cy={(displayedCallout?.focusCenter ?? [0, 0])[1]}
+                r={insetSelectedPointRadius}
+              />
+            </svg>
           </g>
           <circle
             className="callout-cutout"

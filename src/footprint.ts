@@ -16,6 +16,7 @@ type Component = {
 export type CalloutModel = {
   sourceCenter: Point;
   focusCenter?: Point;
+  clusterBounds?: [number, number, number, number];
   sourceRadius: number;
   selectedPathIndices: number[];
 };
@@ -222,6 +223,12 @@ export function deriveCalloutModel(
   return {
     sourceCenter: [center[0] / scale + seamX, center[1] / scale],
     focusCenter: [anchorCenter[0] / scale + seamX, anchorCenter[1] / scale],
+    clusterBounds: [
+      minX / scale + seamX,
+      minY / scale,
+      maxX / scale + seamX,
+      maxY / scale,
+    ],
     sourceRadius:
       (Math.max(maxX - minX, maxY - minY) / 2 + minimumRadius + 8) / scale,
     selectedPathIndices: [

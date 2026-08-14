@@ -57,12 +57,13 @@ describe('MapView small-region callout rendering', () => {
         Number(leader.getAttribute('y1')) - sourceY,
       ),
     ).toBeCloseTo(sourceRadius);
+    expect(frame.querySelector('.callout-inset')).toBeTruthy();
     expect(
-      frame.querySelector('.callout-context')?.getAttribute('transform'),
-    ).toContain(`translate(-${sourceCenter} `);
+      frame.querySelector('.callout-inset')?.getAttribute('viewBox'),
+    ).toBeTruthy();
     expect(frame.querySelector('.callout-cutout')).toBeTruthy();
     expect(
-      frame.querySelectorAll('.callout-context .country path').length,
+      frame.querySelectorAll('.callout-inset .country path').length,
     ).toBeGreaterThan(source.length);
     expect(
       frame.querySelector('.map-callout')?.getAttribute('aria-hidden'),
