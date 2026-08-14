@@ -134,10 +134,13 @@ export function QuizPlayer({
     }
   }, [feedbackEventKey, state.lastEvent]);
 
-  useEffect(() => () => {
-    if (feedbackTimerRef.current !== undefined)
-      window.clearTimeout(feedbackTimerRef.current);
-  });
+  useEffect(
+    () => () => {
+      if (feedbackTimerRef.current !== undefined)
+        window.clearTimeout(feedbackTimerRef.current);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (state.phase === 'active') {
