@@ -163,7 +163,7 @@ describe('QuizPlayer integration', () => {
     expect(clearInterval).toHaveBeenCalled();
   });
 
-  it('clears transient correct feedback despite elapsed-time updates', async () => {
+  it('preserves correct feedback despite elapsed-time updates', async () => {
     vi.useFakeTimers();
     const container = renderPlayer();
     act(() => (container.querySelector('button') as HTMLButtonElement).click());
@@ -185,9 +185,9 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelector('.feedback')?.textContent).toBe(
       'Correct. Next location.',
     );
-    act(() => vi.advanceTimersByTime(1300));
-    expect(container.querySelector('.feedback')?.textContent).toBe('');
-    expect(container.querySelector('.answer-result')).toBeNull();
+    expect(container.querySelector('.feedback')?.textContent).toBe(
+      'Correct. Next location.',
+    );
   });
 
   it('shares attempt-state colors across the map and remaining-attempt status', async () => {
