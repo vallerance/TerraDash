@@ -246,11 +246,11 @@ export function MapView({ active }: { active: Location }) {
                 );
               })}
               <g className="callout-selected">
-                {insetSelectedPaths.flatMap(({ path, kind }) =>
+                {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
                   wrappedInsetPathCopies([path]).map(
                     ({ path: wrappedPath, transform }, index) => (
                       <path
-                        key={`${kind}:${transform}:${index}`}
+                        key={`${pathIndex}:${kind}:${transform}:${index}`}
                         className={`inset-selected-${kind}`}
                         d={wrappedPath}
                         transform={`translate(${transform} 0)`}
