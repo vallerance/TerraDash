@@ -85,15 +85,13 @@ describe('MapView small-region callout rendering', () => {
       expect(frame.querySelectorAll('.callout-selected-point')).toHaveLength(0);
       expect(
         frame.querySelectorAll('.callout-selected .inset-selected-polygon'),
-      ).toHaveLength(id === 'iso:VAT' ? 0 : id === 'iso:ATG' ? 1 : 2);
+      ).toHaveLength(id === 'iso:VAT' ? 1 : id === 'iso:ATG' ? 3 : 2);
       expect(
-        frame.querySelectorAll('.callout-selected .inset-selected-degenerate')
-          .length,
-      ).toBeGreaterThanOrEqual(id === 'iso:VAT' ? 1 : 0);
-      if (id === 'iso:ATG')
-        expect(frame.querySelectorAll('.inset-selected-artifact')).toHaveLength(
-          1,
-        );
+        frame.querySelectorAll('.callout-selected .inset-selected-degenerate'),
+      ).toHaveLength(0);
+      expect(
+        frame.querySelectorAll('.callout-selected path[fill-rule="evenodd"]'),
+      ).toHaveLength(id === 'iso:VAT' ? 1 : id === 'iso:ATG' ? 3 : 2);
     },
   );
 });

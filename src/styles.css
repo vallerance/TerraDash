@@ -10,6 +10,7 @@
 html {
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
 }
 * {
   box-sizing: border-box;

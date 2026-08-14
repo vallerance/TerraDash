@@ -254,6 +254,7 @@ export function MapView({ active }: { active: Location }) {
                         className={`inset-selected-${kind}`}
                         d={wrappedPath}
                         transform={`translate(${transform} 0)`}
+                        fillRule="evenodd"
                         strokeWidth={insetStrokeWidth}
                         vectorEffect="none"
                         style={{
