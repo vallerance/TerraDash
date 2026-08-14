@@ -121,7 +121,7 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 3.25rem;
+  min-height: 4.25rem;
   padding-inline: 0.65rem;
 }
 .quiz-header h1 {
@@ -135,29 +135,45 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.9rem;
-  color: #dbeafe;
-  font-size: 0.85rem;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
   font-variant-numeric: tabular-nums;
+}
+.quiz-prompt-group {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.7rem;
 }
 .quiz-prompt {
   display: grid;
-  gap: 0.05rem;
+  gap: 0.3rem;
 }
 .quiz-prompt .attempts-remaining-label {
   font-size: 0.75rem;
 }
 .quiz-feedback {
-  min-height: 1.5em;
-  margin: 0.2rem 0 0;
-  color: #fbbf24;
-  font-size: 0.8rem;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
-.quiz-feedback.feedback-correct {
+.quiz-feedback-icon {
+  display: inline-flex;
+  flex: 0 0 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.quiz-feedback-icon.feedback-correct {
   color: #34d399;
 }
-.quiz-feedback.feedback-missed {
+.quiz-feedback-icon.feedback-missed {
   color: #f87171;
 }
 .progress {
@@ -189,6 +205,32 @@ h2 {
   border: 1px solid #263650;
   border-radius: 0.75rem;
   background: #111c2e;
+}
+.status-item {
+  display: grid;
+  justify-items: end;
+  gap: 0.1rem;
+  min-width: max-content;
+  text-align: right;
+}
+.status-item strong {
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1;
+}
+.status-item small {
+  color: #9fb0c5;
+  font-size: 0.62rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.status-time strong {
+  color: #7dd3fc;
+}
+.status-correct strong {
+  color: #34d399;
+}
+.status-remaining strong {
+  color: #facc15;
 }
 .map-stage {
   position: relative;
@@ -595,8 +637,9 @@ input {
   }
   .quiz-status-bar {
     max-width: none;
-    justify-content: flex-start;
-    font-size: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 0.85rem;
+    gap: 0.75rem;
   }
   .map-stage {
     flex: 0 0 auto;
