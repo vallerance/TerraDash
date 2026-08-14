@@ -29,6 +29,7 @@ for (const required of [
   'border: 0;',
   '.diagnostics-card',
   'min-height: 0;',
+  'aspect-ratio: 41 / 18;',
 ]) {
   if (!css.includes(required))
     throw new Error(`layout contract is missing: ${required}`);
