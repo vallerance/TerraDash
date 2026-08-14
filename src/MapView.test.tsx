@@ -97,6 +97,30 @@ describe('MapView small-region callout rendering', () => {
     expect(new Set(radii.map(([, cutout]) => cutout)).size).toBe(1);
   });
 
+  it('supplements sub-2px inset geometry with one dot without hiding the geometry', () => {
+    const holySee = renderLocation('iso:VAT');
+    expect(
+      holySee.querySelectorAll('.callout-selected .inset-selected-polygon'),
+    ).toHaveLength(1);
+    expect(
+      holySee.querySelectorAll('.callout-selected .inset-selected-dot'),
+    ).toHaveLength(1);
+    const dotRadius = Number(
+      holySee
+        .querySelector('.callout-selected .inset-selected-dot')
+        ?.getAttribute('r'),
+    );
+    expect(dotRadius * (1440 / 1640) * 5 * 2).toBeCloseTo(2);
+
+    const antigua = renderLocation('iso:ATG');
+    expect(
+      antigua.querySelectorAll('.callout-selected .inset-selected-polygon'),
+    ).toHaveLength(3);
+    expect(
+      antigua.querySelectorAll('.callout-selected .inset-selected-dot'),
+    ).toHaveLength(0);
+  });
+
   it.each(['iso:ATG', 'iso:VAT', 'iso:ARM'])(
     'does not fabricate selected area for %s',
     (id) => {

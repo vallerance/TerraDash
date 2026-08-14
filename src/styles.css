@@ -629,6 +629,10 @@ input {
   fill: var(--attempt-color, #f59e0b);
   stroke: none;
 }
+.callout-inset .callout-selected .inset-selected-dot {
+  fill: var(--attempt-color, #f59e0b);
+  stroke: none;
+}
 .callout-inset .callout-selected .inset-selected-artifact,
 .callout-inset .callout-selected .inset-selected-degenerate {
   fill: none;

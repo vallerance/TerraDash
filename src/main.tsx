@@ -12,6 +12,7 @@ import {
   mapXForLongitude,
   sharedInsetViewBox,
   wrappedOffsets,
+  wrappedPointPositions,
   wrappedPathOffsets,
   wrappedViewportBounds,
 } from './footprint';
@@ -22,6 +23,7 @@ import { mapLocationForQuizId } from './quizMapBoundary';
 import {
   classifyInsetGeometryPaths,
   highlightedGeometryPaths,
+  tinyInsetDot,
 } from './mapGeometry';
 import './styles.css';
 
@@ -101,6 +103,23 @@ export function MapView({ active }: { active: Location }) {
     positionedCallout?.sourceCenter ?? [0, 0],
     cutoutLayout?.sourceRadius ?? 1,
   );
+  const insetRenderedScale = cutoutLayout
+    ? (cutoutRadius * scale) / cutoutLayout.sourceRadius
+    : 0;
+  const insetDot = tinyInsetDot(insetSelectedPaths, insetRenderedScale);
+  const insetDotCenter = insetDot
+    ? wrappedPointPositions(
+        insetDot.center,
+        inset.width,
+        seamX,
+        MAP_OVERLAP_REFERENCE_UNITS,
+      ).reduce((best, point) =>
+        Math.abs(point[0] - insetViewBox.x - insetViewBox.size / 2) <
+        Math.abs(best[0] - insetViewBox.x - insetViewBox.size / 2)
+          ? point
+          : best,
+      )
+    : undefined;
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
         positionedCallout!.sourceCenter,
@@ -270,6 +289,14 @@ export function MapView({ active }: { active: Location }) {
                       />
                     ),
                   ),
+                )}
+                {insetDot && insetDotCenter && (
+                  <circle
+                    className="inset-selected-dot"
+                    cx={insetDotCenter[0]}
+                    cy={insetDotCenter[1]}
+                    r={insetDot.diameter / 2 / insetRenderedScale}
+                  />
                 )}
               </g>
             </svg>
