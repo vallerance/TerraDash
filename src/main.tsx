@@ -88,6 +88,12 @@ export function MapView({ active }: { active: Location }) {
     : [];
   const zoom = 5;
   const selectedZoom = 4;
+  // Natural Earth microstates can collapse to a nearly degenerate SVG ring.
+  // Give the real selected boundary a small, scale-aware paint width so it
+  // remains visibly identifiable in the cutout at both desktop and phone
+  // sizes without changing its position or the surrounding context.
+  const selectedStrokeWidth = 6 / (scale * zoom * selectedZoom);
+  const selectedMarkerRadius = Math.min(cutoutRadius * 0.2, 8 / scale);
   const wrappedPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
@@ -187,6 +193,12 @@ export function MapView({ active }: { active: Location }) {
               />
             </clipPath>
           </defs>
+          <circle
+            className="callout-selected-marker"
+            cx={cutoutCenter[0]}
+            cy={cutoutCenter[1]}
+            r={selectedMarkerRadius}
+          />
           <g
             className="callout-context"
             clipPath={`url(#map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')})`}
@@ -219,6 +231,12 @@ export function MapView({ active }: { active: Location }) {
                       key={`${pathIndex}:${transform}:${index}`}
                       d={path}
                       transform={`translate(${transform} 0)`}
+                      strokeWidth={selectedStrokeWidth}
+                      vectorEffect="none"
+                      style={{
+                        strokeWidth: selectedStrokeWidth,
+                        vectorEffect: 'none',
+                      }}
                     />
                   ),
                 ),

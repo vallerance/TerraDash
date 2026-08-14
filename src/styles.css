@@ -326,6 +326,13 @@ input {
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
 }
+.callout-selected-marker {
+  fill: var(--attempt-color, #f59e0b);
+  fill-opacity: 0.9;
+  stroke: var(--attempt-outline, #fff);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
 .callout-cutout {
   fill: none;
   stroke: var(--attempt-outline, #fff);
