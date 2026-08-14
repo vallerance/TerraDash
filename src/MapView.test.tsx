@@ -30,6 +30,13 @@ function renderLocation(id: string) {
 }
 
 describe('MapView small-region callout rendering', () => {
+  it('fills the map frame so edge copies cannot paint into side letterboxing', () => {
+    const frame = renderLocation('iso:UZB');
+    const worldMap = frame.querySelector('.world-map');
+    expect(worldMap?.getAttribute('preserveAspectRatio')).toBe('none');
+    expect(worldMap?.getAttribute('viewBox')).toBe('-140 0 1640 720');
+  });
+
   it('keeps the source geometry unchanged and renders one contextual callout', () => {
     const frame = renderLocation('iso:ATG');
     const source = highlightedGeometryPaths(

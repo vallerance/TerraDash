@@ -153,6 +153,7 @@ export function MapView({ active }: { active: Location }) {
     <svg
       className="world-map"
       viewBox={`${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`}
+      preserveAspectRatio="none"
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >

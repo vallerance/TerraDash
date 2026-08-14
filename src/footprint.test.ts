@@ -31,12 +31,12 @@ function pathsFor(id: string) {
 }
 
 describe('threshold and ring primitives', () => {
-  it('limits the duplicated world at each map edge to 50 reference units', () => {
-    expect(MAP_OVERLAP_REFERENCE_UNITS).toBe(50);
+  it('retains the original 100-unit wrapped geometry band', () => {
+    expect(MAP_OVERLAP_REFERENCE_UNITS).toBe(100);
     const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
-    expect(wrappedViewportBounds(1440, seamX)).toEqual([-90, 1450]);
-    expect(wrappedOffsets(1390, 1410, 1440, seamX)).toContain(-1480);
-    expect(wrappedOffsets(30, 50, 1440, seamX)).toContain(1400);
+    expect(wrappedViewportBounds(1440, seamX)).toEqual([-140, 1500]);
+    expect(wrappedOffsets(1340, 1380, 1440, seamX)).toContain(-1480);
+    expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1400);
   });
 
   it('uses the 25px linear boundary for newly routed callouts', () => {
