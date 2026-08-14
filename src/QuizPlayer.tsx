@@ -11,7 +11,12 @@ import { suggestionsFor } from './autocomplete';
 import { countryNameKey } from './countryName';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
-import { derivePanelPlacement, type PanelPlacement } from './panelPlacement';
+import {
+  derivePanelPlacement,
+  panelPlacementTargets,
+  type PanelPlacement,
+  unionRects,
+} from './panelPlacement';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -270,10 +275,13 @@ export function QuizPlayer({
       if (manualPlacement.current) return;
       const stage = stageRef.current;
       const panel = panelRef.current;
-      const target = stage?.querySelector<SVGGraphicsElement>('.active-fill');
-      if (!stage || !panel || !target) return;
+      const targets = stage ? panelPlacementTargets(stage) : [];
+      if (!stage || !panel || targets.length === 0) return;
       const stageRect = stage.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
+      const targetRect = unionRects(
+        targets.map((target) => target.getBoundingClientRect()),
+      );
+      if (!targetRect) return;
       const suggestionsElement = suggestionsRef.current;
       const suggestionsStyle = suggestionsElement
         ? window.getComputedStyle(suggestionsElement)

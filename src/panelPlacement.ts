@@ -1,6 +1,27 @@
 export type Rect = { left: number; top: number; width: number; height: number };
 export type PanelPlacement = { left: number; top: number };
 
+export function panelPlacementTargets(stage: ParentNode): SVGGraphicsElement[] {
+  const calloutCircles = [
+    stage.querySelector<SVGGraphicsElement>('.callout-source'),
+    stage.querySelector<SVGGraphicsElement>('.callout-cutout'),
+  ];
+  if (calloutCircles.every((circle) => circle !== null)) {
+    return calloutCircles as SVGGraphicsElement[];
+  }
+  const activeFill = stage.querySelector<SVGGraphicsElement>('.active-fill');
+  return activeFill ? [activeFill] : [];
+}
+
+export function unionRects(rects: readonly Rect[]): Rect | null {
+  if (rects.length === 0) return null;
+  const left = Math.min(...rects.map((rect) => rect.left));
+  const top = Math.min(...rects.map((rect) => rect.top));
+  const right = Math.max(...rects.map((rect) => rect.left + rect.width));
+  const bottom = Math.max(...rects.map((rect) => rect.top + rect.height));
+  return { left, top, width: right - left, height: bottom - top };
+}
+
 export function derivePanelPlacement(
   target: Rect,
   panel: Pick<Rect, 'width' | 'height'>,
