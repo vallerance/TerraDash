@@ -11,7 +11,11 @@ import { suggestionsFor } from './autocomplete';
 import { countryNameKey } from './countryName';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
-import { derivePanelPlacement, type PanelPlacement } from './panelPlacement';
+import {
+  derivePanelPlacement,
+  unionRects,
+  type PanelPlacement,
+} from './panelPlacement';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -270,10 +274,25 @@ export function QuizPlayer({
       if (manualPlacement.current) return;
       const stage = stageRef.current;
       const panel = panelRef.current;
-      const target = stage?.querySelector<SVGGraphicsElement>('.active-fill');
-      if (!stage || !panel || !target) return;
+      if (!stage || !panel) return;
       const stageRect = stage.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
+      const callout = stage.querySelector<SVGGraphicsElement>('.map-callout');
+      const calloutRects = callout
+        ? [
+            callout.querySelector<SVGGraphicsElement>('.callout-cutout'),
+            callout.querySelector<SVGGraphicsElement>('.callout-source'),
+          ]
+            .filter(
+              (element): element is SVGGraphicsElement => element !== null,
+            )
+            .map((element) => element.getBoundingClientRect())
+        : [];
+      const targetRect =
+        unionRects(calloutRects) ??
+        stage
+          .querySelector<SVGGraphicsElement>('.active-fill')
+          ?.getBoundingClientRect();
+      if (!targetRect) return;
       const suggestionsElement = suggestionsRef.current;
       const suggestionsStyle = suggestionsElement
         ? window.getComputedStyle(suggestionsElement)

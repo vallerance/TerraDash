@@ -1,6 +1,15 @@
 export type Rect = { left: number; top: number; width: number; height: number };
 export type PanelPlacement = { left: number; top: number };
 
+export function unionRects(rects: readonly Rect[]): Rect | undefined {
+  if (rects.length === 0) return undefined;
+  const right = Math.max(...rects.map((rect) => rect.left + rect.width));
+  const bottom = Math.max(...rects.map((rect) => rect.top + rect.height));
+  const left = Math.min(...rects.map((rect) => rect.left));
+  const top = Math.min(...rects.map((rect) => rect.top));
+  return { left, top, width: right - left, height: bottom - top };
+}
+
 export function derivePanelPlacement(
   target: Rect,
   panel: Pick<Rect, 'width' | 'height'>,

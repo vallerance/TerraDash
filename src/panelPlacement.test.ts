@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { derivePanelPlacement } from './panelPlacement';
+import { derivePanelPlacement, unionRects } from './panelPlacement';
 
 describe('derivePanelPlacement', () => {
   const panel = { width: 100, height: 60 };
@@ -40,5 +40,20 @@ describe('derivePanelPlacement', () => {
         map,
       ),
     ).toEqual({ left: 32, top: 0 });
+  });
+});
+
+describe('unionRects', () => {
+  it('returns the combined visible envelope of separate callout circles', () => {
+    expect(
+      unionRects([
+        { left: 100, top: 120, width: 80, height: 80 },
+        { left: 300, top: 100, width: 240, height: 240 },
+      ]),
+    ).toEqual({ left: 100, top: 100, width: 440, height: 240 });
+  });
+
+  it('returns undefined when no target rectangles are available', () => {
+    expect(unionRects([])).toBeUndefined();
   });
 });
