@@ -230,6 +230,9 @@ h2 {
 .status-correct strong {
   color: #34d399;
 }
+.status-accuracy strong {
+  color: #c4b5fd;
+}
 .status-remaining strong {
   color: #facc15;
 }

@@ -78,6 +78,9 @@ export function QuizPlayer({
   ).length;
   const completedCount = Object.keys(state.outcomes).length;
   const countriesRemaining = state.order.length - completedCount;
+  const accuracy = completedCount
+    ? Math.round((correctCount / completedCount) * 100)
+    : 0;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
 
@@ -386,11 +389,20 @@ export function QuizPlayer({
             className="status-item status-correct"
             aria-label={`${correctCount} correct countries of ${completedCount} completed`}
           >
-            <strong>{correctCount}</strong>
+            <strong>
+              {correctCount}/{completedCount}
+            </strong>
             <small>Countries correct</small>
             <span className="progress visually-hidden">
               {correctCount} / {completedCount} countries correct
             </span>
+          </div>
+          <div
+            className="status-item status-accuracy"
+            aria-label={`${accuracy}% accuracy`}
+          >
+            <strong>{accuracy}%</strong>
+            <small>Accuracy</small>
           </div>
           <div className="status-item status-remaining">
             <strong>{countriesRemaining}</strong>

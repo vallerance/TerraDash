@@ -74,7 +74,7 @@ describe('QuizPlayer integration', () => {
     expect(container.textContent).toContain('Correct. Next location.');
   });
 
-  it('renders one standalone header surface, three labeled status columns, and visual-only feedback', async () => {
+  it('renders one standalone header surface, four labeled status columns, and visual-only feedback', async () => {
     vi.useFakeTimers();
     const container = renderPlayer();
     await act(async () =>
@@ -83,9 +83,16 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelectorAll('.active-player > .quiz-header'),
     ).toHaveLength(1);
-    expect(container.querySelectorAll('.status-item')).toHaveLength(3);
+    expect(container.querySelectorAll('.status-item')).toHaveLength(4);
     expect(container.textContent).toContain('Countries correct');
     expect(container.textContent).toContain('Countries remaining');
+    expect(container.textContent).toContain('Accuracy');
+    expect(container.querySelector('.status-correct strong')?.textContent).toBe(
+      '0/0',
+    );
+    expect(
+      container.querySelector('.status-accuracy strong')?.textContent,
+    ).toBe('0%');
     const input = container.querySelector(
       '[role="combobox"]',
     ) as HTMLInputElement;
@@ -104,6 +111,12 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelector('.quiz-feedback-icon')?.textContent).toBe(
       '✓',
     );
+    expect(container.querySelector('.status-correct strong')?.textContent).toBe(
+      '1/1',
+    );
+    expect(
+      container.querySelector('.status-accuracy strong')?.textContent,
+    ).toBe('100%');
     expect(
       container
         .querySelector('.quiz-feedback-icon')
