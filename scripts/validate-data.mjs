@@ -54,12 +54,48 @@ for (const item of catalog) {
   if (!refs?.length || refs.some((id) => !inset.features[id]))
     throw new Error(`Missing inset geometry reference for ${item.id}`);
 }
+let insetRingCount = 0;
+let sourceInvalidRingCount = 0;
+let generatorInducedDegenerateCount = 0;
 for (const [featureId, feature] of Object.entries(inset.features)) {
-  if (!feature.paths.length || !feature.bounds || feature.bounds.length !== 4)
+  if (
+    !feature.paths.length ||
+    !feature.polygons?.length ||
+    !feature.bounds ||
+    feature.bounds.length !== 4
+  )
     throw new Error(`Invalid inset feature ${featureId}`);
   for (const path of feature.paths)
     if (!/^M[-0-9.,]+(?:L[-0-9.,]+)*Z$/.test(path))
       throw new Error(`Invalid inset path for ${featureId}`);
+  for (const polygon of feature.polygons) {
+    if (!polygon.id || !polygon.path || !polygon.rings?.length)
+      throw new Error(`Invalid inset polygon for ${featureId}`);
+    if (typeof polygon.island !== 'boolean')
+      throw new Error(`Missing island topology for ${featureId}`);
+    for (const ring of polygon.rings) {
+      insetRingCount++;
+      if (!ring.sourceValid) sourceInvalidRingCount++;
+      if (ring.generatorInducedDegenerate) generatorInducedDegenerateCount++;
+      if (
+        !ring.id ||
+        !['exterior', 'interior'].includes(ring.role) ||
+        (ring.role === 'exterior' && ring.containmentParentRingId !== null) ||
+        (ring.role === 'interior' && !ring.containmentParentRingId) ||
+        !ring.path ||
+        !Number.isInteger(ring.sourceVertexCount) ||
+        !Number.isFinite(ring.signedArea) ||
+        typeof ring.sourceClosed !== 'boolean' ||
+        typeof ring.sourceValid !== 'boolean' ||
+        typeof ring.projectedValid !== 'boolean' ||
+        typeof ring.generatorInducedDegenerate !== 'boolean' ||
+        typeof ring.valid !== 'boolean'
+      )
+        throw new Error(`Invalid inset ring for ${featureId}`);
+      if (ring.generatorInducedDegenerate)
+        throw new Error(`Generator-induced inset degeneracy in ${featureId}`);
+    }
+  }
 }
 for (const [locationId, refs] of Object.entries(overrides)) {
   if (
@@ -76,5 +112,5 @@ for (const fixture of ['iso:FRA', 'iso:USA', 'iso:FJI', 'iso:PSE', 'iso:VAT']) {
     throw new Error(`Missing fixture ${fixture}`);
 }
 console.log(
-  `Data validation passed: ${catalog.length} quiz locations and ${source.features.length} base features.`,
+  `Data validation passed: ${catalog.length} quiz locations, ${source.features.length} base features, ${insetRingCount} inset rings (source-invalid: ${sourceInvalidRingCount}, generator-induced: ${generatorInducedDegenerateCount}).`,
 );

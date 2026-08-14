@@ -8,6 +8,7 @@ import {
   classifyInsetGeometryPaths,
   insetGeometryPaths,
 } from './mapGeometry';
+import { pathPoints } from './footprint';
 
 describe('map geometry resolution', () => {
   it('renders each parent source feature once and excludes generated parts from the base layer', () => {
@@ -45,37 +46,58 @@ describe('map geometry resolution', () => {
       ),
     );
     expect(insetGeometryPaths(atg.id)).toEqual(
-      inset.locationFeatureIds[
-        atg.id as keyof typeof inset.locationFeatureIds
-      ].flatMap(
-        (id) => inset.features[id as keyof typeof inset.features].paths,
-      ),
+      classifyInsetGeometryPaths(atg.id).map(({ path }) => path),
     );
     expect(insetGeometryPaths(atg.id).join('').length).toBeGreaterThan(
       highlightedGeometryPaths(atg.geometryRefs).join('').length,
     );
   });
 
-  it('retains inset path identity while classifying polygon and degenerate artifacts', () => {
+  it('retains explicit polygon/ring identity while classifying source geometry', () => {
     expect(
       classifyInsetGeometryPaths('iso:ATG').map(({ kind }) => kind),
-    ).toEqual(['polygon', 'artifact', 'degenerate']);
+    ).toEqual(['polygon', 'polygon', 'polygon']);
     expect(
       classifyInsetGeometryPaths('iso:VAT').map(({ kind }) => kind),
-    ).toEqual(['degenerate']);
+    ).toEqual(['polygon']);
     expect(
       classifyInsetGeometryPaths('iso:ARM').map(({ kind }) => kind),
-    ).toEqual(['polygon', 'degenerate', 'degenerate', 'polygon']);
+    ).toEqual(['polygon', 'polygon']);
   });
 
-  it('keeps valid polygon fill while isolating the reviewed malformed ATG ring', () => {
+  it('preserves exact 1:10m rings without generator-induced degenerates', () => {
     const atg = classifyInsetGeometryPaths('iso:ATG');
-    expect(atg.filter(({ kind }) => kind === 'polygon')).toHaveLength(1);
-    expect(atg.filter(({ kind }) => kind === 'artifact')).toHaveLength(1);
-    expect(atg.filter(({ kind }) => kind === 'degenerate')).toHaveLength(1);
+    expect(atg).toHaveLength(3);
+    expect(atg.flatMap(({ ringIds }) => ringIds)).toHaveLength(3);
+    expect(atg.every(({ kind }) => kind === 'polygon')).toBe(true);
+    const fiji = inset.features['ne:1159320625'];
+    expect(fiji.polygons).toHaveLength(44);
     expect(
-      classifyInsetGeometryPaths('iso:VAT').every(
-        ({ kind }) => kind === 'degenerate',
+      fiji.polygons
+        .flatMap((polygon) => polygon.rings)
+        .every((ring) => ring.valid),
+    ).toBe(true);
+    expect(
+      fiji.polygons
+        .flatMap((polygon) => polygon.rings)
+        .some((ring) => ring.sourceVertexCount <= 3),
+    ).toBe(false);
+    const rings = Object.values(inset.features).flatMap((feature) =>
+      feature.polygons.flatMap((polygon) => polygon.rings),
+    );
+    expect(rings).toHaveLength(4293);
+    expect(rings.every((ring) => ring.sourceClosed)).toBe(true);
+    expect(rings.every((ring) => ring.sourceValid)).toBe(true);
+    expect(rings.every((ring) => ring.projectedValid)).toBe(true);
+    expect(rings.every((ring) => !ring.generatorInducedDegenerate)).toBe(true);
+    expect(
+      rings.every(
+        (ring) => pathPoints([ring.path]).length === ring.sourceVertexCount,
+      ),
+    ).toBe(true);
+    expect(
+      Object.values(inset.features).some((feature) =>
+        feature.polygons.some((polygon) => polygon.island),
       ),
     ).toBe(true);
   });

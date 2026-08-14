@@ -44,7 +44,7 @@ describe('threshold and ring primitives', () => {
     ).toBe('circle');
   });
 
-  it('uses the 50px linear boundary for newly routed callouts', () => {
+  it('uses the 25px linear boundary for newly routed callouts', () => {
     expect(
       deriveCalloutModel([`M0,0L${MIN_FOOTPRINT_PX - 0.01},0L0,1Z`], 1, 1440),
     ).toBeDefined();
