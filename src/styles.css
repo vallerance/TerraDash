@@ -258,16 +258,29 @@ h2 {
   min-width: 0;
 }
 .submit-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.35rem;
   height: 2.35rem;
   padding: 0;
   color: #08111f;
   font-size: 1.35rem;
   font-weight: 800;
+  line-height: 0;
   border: 0;
   border-radius: 0.4rem;
   background: #7dd3fc;
   cursor: pointer;
+}
+.submit-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
 }
 .answer-panel .feedback {
   display: none;

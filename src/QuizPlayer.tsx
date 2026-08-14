@@ -44,6 +44,7 @@ export function QuizPlayer({
     top: 16,
   });
   const answerRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLUListElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const manualPlacement = useRef(false);
@@ -79,6 +80,17 @@ export function QuizPlayer({
   const countriesRemaining = state.order.length - completedCount;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
+
+  useEffect(() => {
+    const list = suggestionsRef.current;
+    const option = list?.children[activeSuggestion] as HTMLElement | undefined;
+    if (!list || !option) return;
+    const top = option.offsetTop;
+    const bottom = top + option.offsetHeight;
+    if (top < list.scrollTop) list.scrollTop = top;
+    else if (bottom > list.scrollTop + list.clientHeight)
+      list.scrollTop = bottom - list.clientHeight;
+  }, [activeSuggestion, text, visibleSuggestions.length]);
 
   useEffect(() => {
     if (state.phase !== 'active') return;
@@ -433,6 +445,7 @@ export function QuizPlayer({
                   />
                   {dropdownOpen && (
                     <ul
+                      ref={suggestionsRef}
                       id="answer-options"
                       role="listbox"
                       className="suggestions"
@@ -466,7 +479,14 @@ export function QuizPlayer({
                   aria-label="Submit answer"
                   title="Submit answer"
                 >
-                  →
+                  <svg
+                    aria-hidden="true"
+                    className="submit-icon"
+                    viewBox="0 0 24 24"
+                    focusable="false"
+                  >
+                    <path d="M4 12h15m-6-6 6 6-6 6" />
+                  </svg>
                 </button>
               </div>
             </form>

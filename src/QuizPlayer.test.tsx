@@ -9,6 +9,11 @@ const catalog = [
   { id: 'iso:AAA', name: 'Alpha' },
   { id: 'iso:BBB', name: 'Bravo' },
 ];
+const longCatalog = [
+  ...catalog,
+  { id: 'iso:CCC', name: 'Charlie' },
+  { id: 'iso:DDD', name: 'Delta' },
+];
 const quiz = { id: 'fixture', locationIds: catalog.map(({ id }) => id) };
 let root: ReturnType<typeof createRoot> | undefined;
 (
@@ -21,15 +26,22 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-function renderPlayer() {
+function renderPlayer(catalogOverride = catalog) {
   const container = document.createElement('div');
   document.body.append(container);
   root = createRoot(container);
   act(() => {
     root!.render(
-      <QuizProvider quiz={quiz} catalog={catalog} rng={() => 0}>
+      <QuizProvider
+        quiz={{
+          id: 'fixture',
+          locationIds: catalogOverride.map(({ id }) => id),
+        }}
+        catalog={catalogOverride}
+        rng={() => 0}
+      >
         <QuizPlayer
-          catalog={catalog}
+          catalog={catalogOverride}
           renderMap={(location) => <div data-map-id={location.id} />}
         />
       </QuizProvider>,
@@ -285,6 +297,10 @@ describe('QuizPlayer integration', () => {
     expect(
       container.querySelector('[aria-label="Move answer form"]'),
     ).toBeTruthy();
+    expect(
+      container.querySelector('.submit-arrow[aria-label="Submit answer"]'),
+    ).toBeTruthy();
+    expect(container.querySelector('.submit-arrow .submit-icon')).toBeTruthy();
     expect(input.getAttribute('aria-expanded')).toBe('false');
     expect(input.tabIndex).toBe(0);
     act(() => {
@@ -344,6 +360,59 @@ describe('QuizPlayer integration', () => {
     expect(document.activeElement).toBe(input);
     expect(input.getAttribute('aria-activedescendant')).toBeNull();
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
+  });
+
+  it('keeps highlighted options inside the list and resets its scroll without moving the document', () => {
+    const container = renderPlayer(longCatalog);
+    act(() => (container.querySelector('button') as HTMLButtonElement).click());
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    act(() => {
+      input.value = 'a';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    const list = container.querySelector('.suggestions') as HTMLUListElement;
+    const options = [...container.querySelectorAll('[role="option"]')];
+    Object.defineProperties(list, {
+      clientHeight: { configurable: true, value: 40 },
+      scrollTop: { configurable: true, writable: true, value: 0 },
+    });
+    options.forEach((option, index) => {
+      Object.defineProperties(option, {
+        offsetTop: { configurable: true, value: index * 20 },
+        offsetHeight: { configurable: true, value: 20 },
+      });
+    });
+    const documentScroll = document.documentElement.scrollTop;
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(0);
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(20);
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(40);
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[3].id);
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(40);
+    act(() => input.dispatchEvent(new Event('input', { bubbles: true })));
+    expect(list.scrollTop).toBe(0);
+    expect(document.documentElement.scrollTop).toBe(documentScroll);
   });
 
   it('cleans the monotonic timer interval on unmount', () => {
