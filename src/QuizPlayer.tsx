@@ -90,6 +90,7 @@ export function QuizPlayer({
     previousEvent.current = state.lastEvent;
     if (
       state.lastEvent.type !== 'accepted' &&
+      state.lastEvent.type !== 'completed' &&
       state.lastEvent.type !== 'rejected'
     )
       return;
@@ -103,7 +104,10 @@ export function QuizPlayer({
           ? 'Choose a canonical location from the suggestions or enter its exact name.'
           : 'That action is not available right now.',
       );
-    } else if (state.lastEvent.type === 'accepted') {
+    } else if (
+      state.lastEvent.type === 'accepted' ||
+      state.lastEvent.type === 'completed'
+    ) {
       const tone =
         state.lastEvent.result === 'correct'
           ? 'correct'
@@ -267,7 +271,17 @@ export function QuizPlayer({
     return (
       <section className="player-card" aria-labelledby="results-title">
         <p className="eyebrow">TERRADASH · RESULTS</p>
-        <h1 id="results-title">Run complete</h1>
+        <div className="quiz-header completion-header">
+          <div className="quiz-prompt">
+            <h1 id="results-title">Run complete</h1>
+            <p
+              className={`quiz-feedback ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
+              aria-live="assertive"
+            >
+              {feedback}
+            </p>
+          </div>
+        </div>
         <dl className="results-grid">
           <div>
             <dt>Time</dt>
