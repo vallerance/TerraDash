@@ -90,6 +90,9 @@ describe('QuizPlayer integration', () => {
       '[role="combobox"]',
     ) as HTMLInputElement;
     expect(input.getAttribute('aria-controls')).toBe('answer-options');
+    expect(
+      container.querySelector('[aria-label="Move answer form"]'),
+    ).toBeTruthy();
     expect(input.getAttribute('aria-expanded')).toBe('true');
     expect(input.tabIndex).toBe(0);
     expect(container.querySelectorAll('[role="option"]')).toHaveLength(2);

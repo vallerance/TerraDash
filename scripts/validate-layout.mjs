@@ -10,8 +10,8 @@ if (/\b100vw\b|50vw/.test(css))
   throw new Error('layout must not use viewport breakout arithmetic');
 for (const required of [
   '--page-gutter: clamp(1rem, 2vw, 2rem);',
-  'overflow-y: scroll;',
-  'scrollbar-gutter: stable;',
+  'height: 100dvh;',
+  'overflow: hidden;',
   'width: calc(100% - 2 * var(--page-gutter));',
   'max-width: none;',
   '.active-player > :not(.full-bleed-map):not(.map-stage)',
@@ -24,5 +24,5 @@ for (const required of [
 }
 
 console.log(
-  'Layout validation passed: map is wide, guttered, and scrollbar-safe.',
+  'Layout validation passed: quiz is wide, viewport-bound, and overflow-safe.',
 );

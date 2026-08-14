@@ -7,20 +7,29 @@
   font-synthesis: none;
 }
 html {
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
+  height: 100%;
+  overflow: hidden;
 }
 * {
   box-sizing: border-box;
 }
 body {
+  height: 100%;
   margin: 0;
+  overflow: hidden;
+}
+#root {
+  height: 100%;
 }
 main {
   width: calc(100% - 2 * var(--page-gutter));
   max-width: none;
   margin-inline: auto;
-  padding-block: clamp(0.5rem, 1.2vw, 1.25rem);
+  height: 100dvh;
+  padding-block: clamp(0.25rem, 0.6vw, 0.6rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 header {
   max-width: 720px;
@@ -66,7 +75,7 @@ h2 {
   margin: 0.1rem 0 0.35rem;
 }
 .quiz-header .eyebrow {
-  margin: 0;
+  display: none;
 }
 .quiz-status-bar {
   display: flex;
@@ -88,26 +97,65 @@ h2 {
   margin: 1rem 0;
 }
 .active-player {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
   min-width: 0;
+  min-height: 0;
+  margin-inline: 0;
 }
 .map-stage {
   position: relative;
+  flex: 1 1 auto;
   width: 100%;
   min-width: 0;
+  min-height: 0;
+}
+.map-stage .map-slot,
+.map-stage .map-frame {
+  height: 100%;
+}
+.map-stage .map-slot {
+  margin: 0;
+}
+.map-stage .map-frame {
+  display: flex;
+  width: 100%;
+}
+.map-stage .world-map {
+  height: 100%;
 }
 .answer-panel {
   position: absolute;
   z-index: 3;
   width: min(16.5rem, calc(100% - 1rem));
-  padding: 0.45rem;
+  padding: 0.5rem;
   border: 1px solid #486384;
   border-radius: 0.65rem;
   background: #111c2eee;
   box-shadow: 0 0.75rem 2rem #0008;
   backdrop-filter: blur(8px);
 }
+.panel-move-handle {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 1.65rem;
+  height: 1.35rem;
+  padding: 0;
+  border: 1px solid #486384;
+  border-radius: 0 0.6rem 0 0.45rem;
+  color: #c9d8eb;
+  font-size: 0.85rem;
+  line-height: 1;
+  background: #263d5d;
+  cursor: move;
+  touch-action: none;
+}
 .answer-panel form {
   margin: 0;
+  padding-right: 1.35rem;
 }
 .answer-row {
   display: flex;
@@ -402,7 +450,13 @@ input {
     font-size: 0.75rem;
   }
   .map-stage {
+    flex: 0 0 auto;
     padding-bottom: 9rem;
+  }
+  .map-stage .map-slot,
+  .map-stage .map-frame,
+  .map-stage .world-map {
+    height: auto;
   }
   .answer-panel {
     width: min(15.5rem, calc(100% - 1rem));

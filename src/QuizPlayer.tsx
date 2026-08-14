@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   type KeyboardEvent,
+  type PointerEvent,
   type ReactNode,
 } from 'react';
 import { suggestionsFor } from './autocomplete';
@@ -45,6 +46,17 @@ export function QuizPlayer({
   const answerRef = useRef<HTMLInputElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const manualPlacement = useRef(false);
+  const dragRef = useRef<
+    | {
+        pointerId: number;
+        startX: number;
+        startY: number;
+        left: number;
+        top: number;
+      }
+    | undefined
+  >(undefined);
   const submitting = useRef(false);
   const suggestions = useMemo(
     () => suggestionsFor(catalog, text),
@@ -110,6 +122,7 @@ export function QuizPlayer({
 
   useEffect(() => {
     if (state.phase === 'active') {
+      manualPlacement.current = false;
       setText('');
       setSelectedId(undefined);
       setActiveSuggestion(0);
@@ -178,6 +191,7 @@ export function QuizPlayer({
   useEffect(() => {
     if (state.phase !== 'active') return;
     const update = () => {
+      if (manualPlacement.current) return;
       const stage = stageRef.current;
       const panel = panelRef.current;
       const target = stage?.querySelector<SVGGraphicsElement>('.active-fill');
@@ -206,6 +220,19 @@ export function QuizPlayer({
       observer?.disconnect();
     };
   }, [state.currentIndex, state.phase, visibleSuggestions.length]);
+
+  function movePanel(event: PointerEvent<HTMLButtonElement>) {
+    const drag = dragRef.current;
+    const stage = stageRef.current;
+    const panel = panelRef.current;
+    if (!drag || drag.pointerId !== event.pointerId || !stage || !panel) return;
+    const left = drag.left + event.clientX - drag.startX;
+    const top = drag.top + event.clientY - drag.startY;
+    setPanelPlacement({
+      left: Math.max(0, Math.min(stage.clientWidth - panel.offsetWidth, left)),
+      top: Math.max(0, Math.min(stage.clientHeight - panel.offsetHeight, top)),
+    });
+  }
 
   if (state.phase === 'idle') {
     return (
@@ -297,6 +324,34 @@ export function QuizPlayer({
             className={`answer-panel ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
             style={{ left: panelPlacement.left, top: panelPlacement.top }}
           >
+            <button
+              className="panel-move-handle"
+              type="button"
+              aria-label="Move answer form"
+              title="Drag to move answer form"
+              onPointerDown={(event) => {
+                manualPlacement.current = true;
+                dragRef.current = {
+                  pointerId: event.pointerId,
+                  startX: event.clientX,
+                  startY: event.clientY,
+                  left: panelPlacement.left,
+                  top: panelPlacement.top,
+                };
+                event.currentTarget.setPointerCapture(event.pointerId);
+              }}
+              onPointerMove={movePanel}
+              onPointerUp={(event) => {
+                if (event.currentTarget.hasPointerCapture(event.pointerId))
+                  event.currentTarget.releasePointerCapture(event.pointerId);
+                dragRef.current = undefined;
+              }}
+              onPointerCancel={() => {
+                dragRef.current = undefined;
+              }}
+            >
+              <span aria-hidden="true">✥</span>
+            </button>
             <form
               onSubmit={(event) => {
                 event.preventDefault();
