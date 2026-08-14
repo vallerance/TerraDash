@@ -75,6 +75,8 @@ export function QuizPlayer({
   const correctCount = Object.values(state.outcomes).filter(
     (outcome) => outcome.status === 'correct',
   ).length;
+  const completedCount = Object.keys(state.outcomes).length;
+  const countriesRemaining = state.order.length - completedCount;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
 
@@ -127,8 +129,6 @@ export function QuizPlayer({
       setSelectedId(undefined);
       setActiveSuggestion(0);
       setSuggestionsOpen(true);
-      setFeedback('');
-      setFeedbackTone('');
       answerRef.current?.focus();
     }
   }, [state.currentIndex, state.phase]);
@@ -304,13 +304,17 @@ export function QuizPlayer({
         <div className="quiz-status quiz-status-bar" aria-live="polite">
           <span
             className="progress"
-            aria-label={`Correct answers ${correctCount} of ${state.order.length}`}
+            aria-label={`${correctCount} correct countries of ${completedCount} completed`}
           >
-            {correctCount} / {state.order.length}
+            {correctCount} / {completedCount} countries correct
           </span>
           <span>{formatElapsed(state.elapsedMs)}</span>
           <span className={`attempts-remaining-label ${attemptStateClass}`}>
             {attemptsRemaining} guesses remaining
+          </span>
+          <span>
+            {countriesRemaining}{' '}
+            {countriesRemaining === 1 ? 'country' : 'countries'} remaining
           </span>
         </div>
       </div>
@@ -324,6 +328,14 @@ export function QuizPlayer({
             className={`answer-panel ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
             style={{ left: panelPlacement.left, top: panelPlacement.top }}
           >
+            {feedbackTone && (
+              <div
+                className={`answer-result answer-result-${feedbackTone}`}
+                aria-hidden="true"
+              >
+                {feedbackTone === 'correct' ? '✓' : '×'}
+              </div>
+            )}
             <button
               className="panel-move-handle"
               type="button"

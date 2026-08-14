@@ -45,7 +45,8 @@ describe('QuizPlayer integration', () => {
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
     const progress = () => container.querySelector('.progress')?.textContent;
-    expect(progress()).toBe('0 / 2');
+    expect(progress()).toBe('0 / 0 countries correct');
+    expect(container.textContent).toContain('2 countries remaining');
     const currentId = container
       .querySelector('[data-map-id]')
       ?.getAttribute('data-map-id');
@@ -62,7 +63,8 @@ describe('QuizPlayer integration', () => {
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       );
     });
-    expect(progress()).toBe('1 / 2');
+    expect(progress()).toBe('1 / 1 countries correct');
+    expect(container.textContent).toContain('1 country remaining');
   });
 
   it('suppresses exact matches before Enter routing', async () => {
@@ -138,10 +140,13 @@ describe('QuizPlayer integration', () => {
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       ),
     );
-    expect(container.textContent).toContain('1 / 2');
+    expect(container.textContent).toContain('1 / 1 countries correct');
     expect(
       container.querySelector('[aria-live="assertive"]')?.textContent,
-    ).toBe('');
+    ).toBe('Correct. Next location.');
+    expect(container.querySelector('.answer-result-correct')?.textContent).toBe(
+      '✓',
+    );
     expect(document.activeElement).toBe(input);
     expect(
       document.getElementById(input.getAttribute('aria-activedescendant')!),
@@ -247,7 +252,7 @@ describe('QuizPlayer integration', () => {
       submit.click();
     });
     expect(container.textContent).toContain('2 guesses remaining');
-    expect(container.textContent).toContain('0 / 1');
+    expect(container.textContent).toContain('0 / 0 countries correct');
     expect(
       container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
     ).toBe('iso:AAA');
@@ -331,7 +336,7 @@ describe('QuizPlayer integration', () => {
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
-    expect(container.textContent).toContain('0 / 1');
+    expect(container.textContent).toContain('0 / 0 countries correct');
     expect(container.textContent).toContain('0:00');
   });
 
@@ -429,7 +434,7 @@ describe('QuizPlayer integration', () => {
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
     expect(container.textContent).toContain('3 guesses remaining');
-    expect(container.textContent).toContain('0 / 2');
+    expect(container.textContent).toContain('0 / 0 countries correct');
     expect(
       container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
     ).toBe(firstRunOrder[1]);
