@@ -130,7 +130,7 @@ h2 {
   position: absolute;
   z-index: 3;
   width: min(16.5rem, calc(100% - 1rem));
-  padding: 0.5rem;
+  padding: 0.45rem;
   border: 1px solid #486384;
   border-radius: 0.65rem;
   background: #111c2eee;
@@ -139,15 +139,17 @@ h2 {
 }
 .panel-move-handle {
   position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 1.65rem;
-  height: 1.35rem;
+  top: -1.4rem;
+  right: 0.45rem;
+  width: 2.75rem;
+  height: 1.4rem;
   padding: 0;
   border: 1px solid #486384;
-  border-radius: 0 0.6rem 0 0.45rem;
+  border-radius: 0.45rem 0.45rem 0 0;
   color: #c9d8eb;
-  font-size: 0.85rem;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   line-height: 1;
   background: #263d5d;
   cursor: move;
@@ -155,19 +157,19 @@ h2 {
 }
 .answer-panel form {
   margin: 0;
-  padding-right: 1.35rem;
 }
 .answer-row {
-  display: flex;
-  align-items: end;
-  gap: 0.4rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.35rem;
+  align-items: stretch;
+  gap: 0.45rem;
 }
 .answer-row .combobox-wrap {
   flex: 1;
   min-width: 0;
 }
 .submit-arrow {
-  flex: 0 0 2.35rem;
+  width: 2.35rem;
   height: 2.35rem;
   padding: 0;
   color: #08111f;
@@ -232,7 +234,8 @@ label {
 }
 input {
   width: 100%;
-  padding: 0.42rem 0.6rem;
+  height: 2.35rem;
+  padding: 0 0.65rem;
   color: #e8eef7;
   background: #182942;
   border: 1px solid #486384;
@@ -252,6 +255,22 @@ input {
   border: 1px solid #486384;
   border-radius: 0.4rem;
   background: #182942;
+  scrollbar-width: thin;
+  scrollbar-color: #486384 #111c2e;
+}
+.suggestions::-webkit-scrollbar {
+  width: 0.55rem;
+}
+.suggestions::-webkit-scrollbar-track {
+  background: #111c2e;
+}
+.suggestions::-webkit-scrollbar-thumb {
+  border: 2px solid #111c2e;
+  border-radius: 999px;
+  background: #486384;
+}
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #5f7fa5;
 }
 .suggestions {
   max-width: 100%;

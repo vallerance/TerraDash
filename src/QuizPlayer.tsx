@@ -350,7 +350,7 @@ export function QuizPlayer({
                 dragRef.current = undefined;
               }}
             >
-              <span aria-hidden="true">✥</span>
+              <span aria-hidden="true">MOVE</span>
             </button>
             <form
               onSubmit={(event) => {
