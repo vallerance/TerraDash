@@ -233,6 +233,17 @@ function App() {
   return (
     <QuizProvider quiz={defaultQuiz} catalog={defaultCatalog}>
       <main>
+        <header className="app-header">
+          <a className="app-brand" href="./">
+            TerraDash
+          </a>
+          <nav aria-label="Primary navigation">
+            <a aria-current="page" href="./">
+              Quiz
+            </a>
+            <a href="./diagnostics.html">Diagnostics</a>
+          </nav>
+        </header>
         <QuizPlayer
           catalog={defaultCatalog}
           renderMap={(active) => (

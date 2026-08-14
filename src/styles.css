@@ -31,8 +31,33 @@ main {
   flex-direction: column;
   overflow: hidden;
 }
-header {
-  max-width: 720px;
+.app-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2.25rem;
+  padding: 0 0.65rem;
+  border-bottom: 1px solid #263650;
+}
+.app-brand {
+  color: #e8eef7;
+  font-size: 1rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+.app-header nav {
+  display: flex;
+  gap: 1rem;
+}
+.app-header nav a {
+  color: #a9b8cc;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.app-header nav a:hover,
+.app-header nav a[aria-current='page'] {
+  color: #7dd3fc;
 }
 .eyebrow {
   color: #7dd3fc;
@@ -69,10 +94,12 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  min-height: 3.25rem;
+  padding-inline: 0.65rem;
 }
 .quiz-header h1 {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  margin: 0.1rem 0 0.35rem;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  margin: 0;
 }
 .quiz-header .eyebrow {
   display: none;
@@ -86,6 +113,13 @@ h2 {
   color: #dbeafe;
   font-size: 0.85rem;
   font-variant-numeric: tabular-nums;
+}
+.quiz-prompt {
+  display: grid;
+  gap: 0.05rem;
+}
+.quiz-prompt .attempts-remaining-label {
+  font-size: 0.75rem;
 }
 .progress {
   color: #7dd3fc;
