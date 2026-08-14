@@ -230,6 +230,16 @@ export function QuizPlayer({
       if (!stage || !panel || !target) return;
       const stageRect = stage.getBoundingClientRect();
       const targetRect = target.getBoundingClientRect();
+      const suggestionsElement = suggestionsRef.current;
+      const suggestionsStyle = suggestionsElement
+        ? window.getComputedStyle(suggestionsElement)
+        : null;
+      const suggestionsMaxHeight = suggestionsStyle
+        ? Number.parseFloat(suggestionsStyle.maxHeight) || 0
+        : 0;
+      const suggestionsMarginTop = suggestionsStyle
+        ? Number.parseFloat(suggestionsStyle.marginTop) || 0
+        : 0;
       setPanelPlacement(
         derivePanelPlacement(
           {
@@ -238,7 +248,11 @@ export function QuizPlayer({
             width: targetRect.width,
             height: targetRect.height,
           },
-          { width: panel.offsetWidth, height: panel.offsetHeight },
+          {
+            width: panel.offsetWidth,
+            height:
+              panel.offsetHeight + suggestionsMaxHeight + suggestionsMarginTop,
+          },
           { width: stage.clientWidth, height: stage.clientHeight },
         ),
       );

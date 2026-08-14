@@ -32,4 +32,13 @@ describe('derivePanelPlacement', () => {
       ),
     ).toEqual({ left: 0, top: 0 });
   });
+  it('clamps using the autocomplete dropdown height instead of the form alone', () => {
+    expect(
+      derivePanelPlacement(
+        { left: 180, top: 150, width: 20, height: 20 },
+        { width: 100, height: 220 },
+        map,
+      ),
+    ).toEqual({ left: 32, top: 0 });
+  });
 });
