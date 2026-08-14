@@ -161,20 +161,61 @@ h2 {
 }
 .quiz-feedback-icon {
   display: inline-flex;
-  flex: 0 0 1.5rem;
+  flex: 0 0 2.4rem;
   align-items: center;
   justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.35rem;
-  font-weight: 800;
-  line-height: 1;
+  width: 2.4rem;
+  height: 2.4rem;
 }
-.quiz-feedback-icon.feedback-correct {
-  color: #34d399;
+.quiz-feedback-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: feedback-disc-in 320ms cubic-bezier(0.2, 0.9, 0.25, 1.35) both;
 }
-.quiz-feedback-icon.feedback-missed {
-  color: #f87171;
+.feedback-disc {
+  fill: #34d399;
+}
+.feedback-incorrect .feedback-disc {
+  fill: #facc15;
+}
+.feedback-missed .feedback-disc {
+  fill: #ef4444;
+}
+.feedback-symbol {
+  fill: none;
+  stroke: #08111f;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: feedback-symbol-draw 380ms ease-out forwards;
+}
+.feedback-check {
+  animation-delay: 180ms;
+}
+.feedback-x-first {
+  animation-delay: 160ms;
+}
+.feedback-x-second {
+  animation-delay: 330ms;
+}
+@keyframes feedback-disc-in {
+  from {
+    opacity: 0;
+    transform: scale(0.35) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes feedback-symbol-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 .progress {
   color: #7dd3fc;
@@ -540,9 +581,7 @@ input {
 }
 .active-outline path {
   fill: none;
-  stroke: var(--attempt-outline, #fff);
-  stroke-width: 2.5;
-  vector-effect: non-scaling-stroke;
+  stroke: none;
 }
 .active-fill path {
   fill: var(--attempt-color, #f59e0b);
@@ -580,8 +619,7 @@ input {
 }
 .callout-inset .callout-selected path {
   fill: var(--attempt-color, #f59e0b);
-  stroke: var(--attempt-color, #f59e0b);
-  vector-effect: none;
+  stroke: none;
 }
 .callout-inset .callout-selected .inset-selected-artifact,
 .callout-inset .callout-selected .inset-selected-degenerate {

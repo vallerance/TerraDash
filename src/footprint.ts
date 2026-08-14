@@ -1,7 +1,7 @@
 export type Point = [number, number];
 export type Footprint = {
-  kind: 'polygon' | 'circle';
-  points?: Point[];
+  kind: 'polygon';
+  points: Point[];
   center: Point;
   radius: number;
 };
@@ -11,6 +11,7 @@ type Component = {
   points: Point[];
   footprint: Footprint;
   nativeRadius: number;
+  belowThreshold: boolean;
   boundary: Point[];
 };
 export type CalloutModel = {
@@ -60,7 +61,7 @@ export function deriveCalloutLayout(
   );
   const radius = radiusPx / scale;
   const margin = 24 / scale;
-  const gap = 18 / scale;
+  const gap = 36 / scale;
   const sourceX = Math.max(
     callout.sourceRadius,
     Math.min(mapWidth - callout.sourceRadius, callout.sourceCenter[0]),
@@ -192,8 +193,9 @@ function deriveComponents(
         pathIndex,
         ringIndex,
         points,
-        footprint: deriveFootprint(aligned, threshold),
+        footprint: deriveFootprint(aligned),
         nativeRadius,
+        belowThreshold: nativeRadius * 2 < threshold,
         boundary: aligned,
       };
     }),
@@ -239,7 +241,7 @@ export function deriveCalloutModel(
   const components = deriveComponents(paths, scale, width, threshold, seamX);
   if (
     !components.length ||
-    components.some(({ footprint }) => footprint.kind === 'polygon')
+    components.some(({ belowThreshold }) => !belowThreshold)
   )
     return undefined;
   const clusters = componentClusters(components, width * scale, proximity);
@@ -270,7 +272,6 @@ export function deriveCalloutModel(
   const maxY = Math.max(...points.map(([, y]) => y));
   const center: Point = [(minX + maxX) / 2, (minY + maxY) / 2];
   const anchorCenter = anchor.footprint.center;
-  const minimumRadius = threshold / 2;
   return {
     sourceCenter: [center[0] / scale + seamX, center[1] / scale],
     focusCenter: [anchorCenter[0] / scale + seamX, anchorCenter[1] / scale],
@@ -280,8 +281,7 @@ export function deriveCalloutModel(
       maxX / scale + seamX,
       maxY / scale,
     ],
-    sourceRadius:
-      (Math.max(maxX - minX, maxY - minY) / 2 + minimumRadius + 8) / scale,
+    sourceRadius: (Math.max(maxX - minX, maxY - minY) / 2 + 8) / scale,
     selectedPathIndices: [
       ...new Set(cluster.map(({ pathIndex }) => pathIndex)),
     ],
@@ -329,9 +329,9 @@ function componentGap(left: Component, right: Component, worldWidth: number) {
     ...[-worldWidth, 0, worldWidth].map((shift) => {
       if (
         (isDegenerateBoundary(left.boundary) &&
-          right.footprint.kind === 'polygon') ||
+          !isDegenerateBoundary(right.boundary)) ||
         (isDegenerateBoundary(right.boundary) &&
-          left.footprint.kind === 'polygon')
+          !isDegenerateBoundary(left.boundary))
       )
         return Infinity;
       return boundaryDistance(
@@ -524,10 +524,7 @@ export function wrappedFootprintPositions(
     overlap,
   ).map((offset) => [footprint.center[0] + offset, footprint.center[1]]);
 }
-export function deriveFootprint(
-  points: Point[],
-  threshold = MIN_FOOTPRINT_PX,
-): Footprint {
+export function deriveFootprint(points: Point[]): Footprint {
   const xs = points.map(([x]) => x);
   const ys = points.map(([, y]) => y);
   const minX = Math.min(...xs);
@@ -536,7 +533,5 @@ export function deriveFootprint(
   const maxY = Math.max(...ys);
   const center: Point = [(minX + maxX) / 2, (minY + maxY) / 2];
   const radius = Math.max(maxX - minX, maxY - minY) / 2;
-  return radius * 2 >= threshold
-    ? { kind: 'polygon', points, center, radius }
-    : { kind: 'circle', center, radius: threshold / 2 };
+  return { kind: 'polygon', points, center, radius };
 }

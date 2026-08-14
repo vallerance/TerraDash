@@ -19,6 +19,47 @@ type QuizPlayerProps = {
   now?: () => number;
 };
 
+type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
+
+function FeedbackIcon({
+  tone,
+  animationKey,
+}: {
+  tone: FeedbackTone;
+  animationKey: number;
+}) {
+  return (
+    <span
+      key={animationKey}
+      className={`quiz-feedback-icon ${tone ? `feedback-${tone}` : ''}`}
+      aria-hidden="true"
+    >
+      {tone && (
+        <svg viewBox="0 0 48 48" focusable="false">
+          <circle className="feedback-disc" cx="24" cy="24" r="22" />
+          {tone === 'correct' ? (
+            <path
+              className="feedback-symbol feedback-check"
+              d="M13 25l7 7 15-17"
+            />
+          ) : (
+            <>
+              <path
+                className="feedback-symbol feedback-x-first"
+                d="M16 16l16 16"
+              />
+              <path
+                className="feedback-symbol feedback-x-second"
+                d="M32 16L16 32"
+              />
+            </>
+          )}
+        </svg>
+      )}
+    </span>
+  );
+}
+
 const monotonicNow = () => performance.now();
 
 function formatElapsed(milliseconds: number): string {
@@ -36,9 +77,8 @@ export function QuizPlayer({
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [feedback, setFeedback] = useState('');
-  const [feedbackTone, setFeedbackTone] = useState<'correct' | 'missed' | ''>(
-    '',
-  );
+  const [feedbackTone, setFeedbackTone] = useState<FeedbackTone>('');
+  const [feedbackAnimationKey, setFeedbackAnimationKey] = useState(0);
   const feedbackTimer = useRef<number | undefined>(undefined);
   const [panelPlacement, setPanelPlacement] = useState<PanelPlacement>({
     left: 16,
@@ -77,7 +117,7 @@ export function QuizPlayer({
     (outcome) => outcome.status === 'correct',
   ).length;
   const completedCount = Object.keys(state.outcomes).length;
-  const countriesRemaining = state.order.length - completedCount;
+  const locationsRemaining = state.order.length - completedCount;
   const accuracy = completedCount
     ? Math.round((state.score / completedCount) * 100)
     : 0;
@@ -133,8 +173,9 @@ export function QuizPlayer({
           ? 'correct'
           : state.lastEvent.result === 'missed'
             ? 'missed'
-            : '';
+            : 'incorrect';
       setFeedbackTone(tone);
+      setFeedbackAnimationKey((value) => value + 1);
       setFeedback(
         state.lastEvent.result === 'correct'
           ? 'Correct. Next location.'
@@ -310,16 +351,10 @@ export function QuizPlayer({
             <div className="quiz-prompt">
               <h1 id="results-title">Run complete</h1>
             </div>
-            <span
-              className={`quiz-feedback-icon ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
-              aria-hidden="true"
-            >
-              {feedbackTone === 'correct'
-                ? '✓'
-                : feedbackTone === 'missed'
-                  ? '×'
-                  : ''}
-            </span>
+            <FeedbackIcon
+              tone={feedbackTone}
+              animationKey={feedbackAnimationKey}
+            />
             <span className="quiz-feedback" aria-live="assertive">
               {feedback}
             </span>
@@ -361,21 +396,15 @@ export function QuizPlayer({
       <div className="quiz-header">
         <div className="quiz-prompt-group">
           <div className="quiz-prompt">
-            <h1 id="quiz-title">Type the name of this country</h1>
+            <h1 id="quiz-title">Type the name of this location</h1>
             <span className={`attempts-remaining-label ${attemptStateClass}`}>
               {attemptsRemaining} guesses remaining
             </span>
           </div>
-          <span
-            className={`quiz-feedback-icon ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
-            aria-hidden="true"
-          >
-            {feedbackTone === 'correct'
-              ? '✓'
-              : feedbackTone === 'missed'
-                ? '×'
-                : ''}
-          </span>
+          <FeedbackIcon
+            tone={feedbackTone}
+            animationKey={feedbackAnimationKey}
+          />
           <span className="quiz-feedback" aria-live="assertive">
             {feedback}
           </span>
@@ -387,14 +416,14 @@ export function QuizPlayer({
           </div>
           <div
             className="status-item status-correct"
-            aria-label={`${correctCount} correct countries of ${completedCount} completed`}
+            aria-label={`${correctCount} correct locations of ${completedCount} completed`}
           >
             <strong>
               {correctCount}/{completedCount}
             </strong>
-            <small>Countries correct</small>
+            <small>Locations correct</small>
             <span className="progress visually-hidden">
-              {correctCount} / {completedCount} countries correct
+              {correctCount} / {completedCount} locations correct
             </span>
           </div>
           <div
@@ -405,11 +434,11 @@ export function QuizPlayer({
             <small>Accuracy</small>
           </div>
           <div className="status-item status-remaining">
-            <strong>{countriesRemaining}</strong>
-            <small>Countries remaining</small>
+            <strong>{locationsRemaining}</strong>
+            <small>Locations remaining</small>
             <span className="visually-hidden">
-              {countriesRemaining}{' '}
-              {countriesRemaining === 1 ? 'country' : 'countries'} remaining
+              {locationsRemaining}{' '}
+              {locationsRemaining === 1 ? 'location' : 'locations'} remaining
             </span>
           </div>
         </div>
@@ -473,7 +502,7 @@ export function QuizPlayer({
                   <input
                     ref={answerRef}
                     id="answer"
-                    placeholder="Country name"
+                    placeholder="Location name"
                     role="combobox"
                     value={text}
                     autoComplete="off"

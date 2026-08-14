@@ -96,7 +96,6 @@ export function MapView({ active }: { active: Location }) {
     positionedCallout?.sourceCenter ?? [0, 0],
     positionedCallout?.sourceRadius ?? 1,
   );
-  const insetStrokeWidth = Math.max(1.2, insetViewBox.size * 0.04);
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
         positionedCallout!.sourceCenter,
@@ -263,12 +262,6 @@ export function MapView({ active }: { active: Location }) {
                         d={wrappedPath}
                         transform={`translate(${transform} 0)`}
                         fillRule="evenodd"
-                        strokeWidth={insetStrokeWidth}
-                        vectorEffect="none"
-                        style={{
-                          strokeWidth: insetStrokeWidth,
-                          vectorEffect: 'none',
-                        }}
                       />
                     ),
                   ),
@@ -330,8 +323,8 @@ function App() {
           )}
         />
         <p className="disclaimer">
-          Map data: Natural Earth Admin 0 countries, v5.1.1, 1:50m main map and
-          1:10m inset. Public domain. Boundaries are shown for gameplay
+          Map data: Natural Earth Admin 0 boundary data, v5.1.1, 1:50m main map
+          and 1:10m inset. Public domain. Boundaries are shown for gameplay
           visualization and do not imply endorsement of any boundary claim.
         </p>
         <AppFooter />

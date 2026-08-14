@@ -29,7 +29,7 @@ function pathsFor(id: string) {
 }
 
 describe('threshold and ring primitives', () => {
-  it('keeps native geometry at the threshold and uses a circle below it', () => {
+  it('keeps native geometry unchanged on both sides of the threshold', () => {
     expect(
       deriveFootprint([
         [0, 0],
@@ -40,8 +40,15 @@ describe('threshold and ring primitives', () => {
       deriveFootprint([
         [5, 5],
         [MIN_FOOTPRINT_PX - 0.01, 5],
-      ]).kind,
-    ).toBe('circle');
+      ]),
+    ).toMatchObject({
+      kind: 'polygon',
+      points: [
+        [5, 5],
+        [MIN_FOOTPRINT_PX - 0.01, 5],
+      ],
+      radius: (MIN_FOOTPRINT_PX - 0.01 - 5) / 2,
+    });
   });
 
   it('uses the 25px linear boundary for newly routed callouts', () => {
@@ -152,7 +159,7 @@ describe('callout selection and actual-boundary clustering', () => {
     }
   });
 
-  it('bounds the cutout to 200 CSS pixels and keeps it beside the source', () => {
+  it('bounds the cutout to 200 CSS pixels with a 36px source gap', () => {
     const layout = deriveCalloutLayout(
       { sourceCenter: [240, 180], sourceRadius: 8, selectedPathIndices: [0] },
       1,
@@ -162,7 +169,7 @@ describe('callout selection and actual-boundary clustering', () => {
     );
     expect(layout.radius).toBe(100);
     expect(layout.center[0]).toBeGreaterThan(240);
-    expect(layout.center[0]).toBeLessThan(240 + 8 + 18 + 100 + 1);
+    expect(layout.center[0]).toBe(240 + 8 + 36 + 100);
     expect(layout.center[1]).toBe(180);
   });
 
