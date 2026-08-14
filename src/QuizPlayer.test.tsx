@@ -185,9 +185,17 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelector('.feedback')?.textContent).toBe(
       'Correct. Next location.',
     );
+    await act(async () => {
+      vi.advanceTimersByTime(250);
+    });
     expect(container.querySelector('.feedback')?.textContent).toBe(
       'Correct. Next location.',
     );
+    await act(async () => {
+      vi.advanceTimersByTime(1000);
+    });
+    expect(container.querySelector('.feedback')?.textContent).toBe('');
+    expect(container.querySelector('.answer-result')).toBeNull();
   });
 
   it('shares attempt-state colors across the map and remaining-attempt status', async () => {
