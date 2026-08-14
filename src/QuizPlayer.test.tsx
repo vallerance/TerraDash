@@ -374,6 +374,7 @@ describe('QuizPlayer integration', () => {
     });
     const list = container.querySelector('.suggestions') as HTMLUListElement;
     const options = [...container.querySelectorAll('[role="option"]')];
+    input.focus();
     Object.defineProperties(list, {
       clientHeight: { configurable: true, value: 40 },
       scrollTop: { configurable: true, writable: true, value: 0 },
@@ -384,19 +385,31 @@ describe('QuizPlayer integration', () => {
         offsetHeight: { configurable: true, value: 20 },
       });
     });
-    const documentScroll = document.documentElement.scrollTop;
+    const documentScroll = [
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop,
+    ];
+    const expectStable = () => {
+      expect(document.activeElement).toBe(input);
+      expect([
+        document.documentElement.scrollLeft,
+        document.documentElement.scrollTop,
+      ]).toEqual(documentScroll);
+    };
     act(() =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
       ),
     );
     expect(list.scrollTop).toBe(0);
+    expectStable();
     act(() =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
       ),
     );
     expect(list.scrollTop).toBe(20);
+    expectStable();
     act(() =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }),
@@ -404,15 +417,26 @@ describe('QuizPlayer integration', () => {
     );
     expect(list.scrollTop).toBe(40);
     expect(input.getAttribute('aria-activedescendant')).toBe(options[3].id);
+    expectStable();
     act(() =>
       input.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
       ),
     );
     expect(list.scrollTop).toBe(40);
+    expectStable();
+    act(() =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }),
+      ),
+    );
+    expect(list.scrollTop).toBe(20);
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[1].id);
+    expectStable();
     act(() => input.dispatchEvent(new Event('input', { bubbles: true })));
     expect(list.scrollTop).toBe(0);
-    expect(document.documentElement.scrollTop).toBe(documentScroll);
+    expect(input.getAttribute('aria-activedescendant')).toBe(options[0].id);
+    expectStable();
   });
 
   it('cleans the monotonic timer interval on unmount', () => {
