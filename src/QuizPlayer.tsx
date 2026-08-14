@@ -58,6 +58,7 @@ export function QuizPlayer({
     | undefined
   >(undefined);
   const submitting = useRef(false);
+  const feedbackTimerRef = useRef<number | undefined>(undefined);
   const suggestions = useMemo(
     () => suggestionsFor(catalog, text),
     [catalog, text],
@@ -121,15 +122,24 @@ export function QuizPlayer({
           ? 'Correct. Next location.'
           : state.lastEvent.result === 'missed'
             ? 'Three attempts used. The answer is not revealed.'
-            : 'Incorrect. Try again; the answer is not revealed.',
+          : 'Incorrect. Try again; the answer is not revealed.',
       );
-      const timer = window.setTimeout(() => {
+      if (feedbackTimerRef.current !== undefined)
+        window.clearTimeout(feedbackTimerRef.current);
+      feedbackTimerRef.current = window.setTimeout(() => {
         setFeedback('');
         setFeedbackTone('');
+        feedbackTimerRef.current = undefined;
       }, 1200);
-      return () => window.clearTimeout(timer);
     }
   }, [feedbackEventKey, state.lastEvent]);
+
+  useEffect(
+    () => () => {
+      if (feedbackTimerRef.current !== undefined)
+        window.clearTimeout(feedbackTimerRef.current);
+    },
+  );
 
   useEffect(() => {
     if (state.phase === 'active') {
