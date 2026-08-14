@@ -157,6 +157,34 @@ describe('quiz engine', () => {
     });
     expect(invalid.state.attempts).toBe(0);
   });
+  it('resolves accented and punctuated answers through the shared key', () => {
+    const localized = [{ id: 'iso:AAA', name: 'Côte d’Ivoire' }];
+    const localizedQuiz = { id: 'localized', locationIds: ['iso:AAA'] };
+    const localizedConfig = createEngineConfig(
+      localizedQuiz,
+      localized,
+      () => 0,
+    );
+    const state = reduceQuiz(
+      createIdleState(),
+      { type: 'start', now: 1 },
+      localizedConfig,
+    ).state;
+    expect(
+      reduceQuiz(
+        state,
+        { type: 'submit', text: "cote d'ivoire", now: 2 },
+        localizedConfig,
+      ).event.type,
+    ).toBe('completed');
+    expect(
+      reduceQuiz(
+        state,
+        { type: 'submit', text: 'cote ivoire', now: 2 },
+        localizedConfig,
+      ).event,
+    ).toEqual({ type: 'rejected', reason: 'invalid-answer' });
+  });
   it('freezes mixed-run results and accuracy', () => {
     let state = start(() => 0);
     const first = currentLocationId(state)!;

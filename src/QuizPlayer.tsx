@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { suggestionsFor } from './autocomplete';
+import { countryNameKey } from './countryName';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
 import { derivePanelPlacement, type PanelPlacement } from './panelPlacement';
@@ -65,8 +66,7 @@ export function QuizPlayer({
   );
   const hasQuery = text.trim().length > 0;
   const exactMatch = suggestions.some(
-    (location) =>
-      location.name.trim().toLowerCase() === text.trim().toLowerCase(),
+    (location) => countryNameKey(location.name) === countryNameKey(text),
   );
   const dropdownOpen = hasQuery && !exactMatch;
   const visibleSuggestions = dropdownOpen ? suggestions : [];
@@ -179,7 +179,7 @@ export function QuizPlayer({
       selectedId && catalog.find((location) => location.id === selectedId);
     const action =
       exactSelected &&
-      exactSelected.name.trim().toLowerCase() === text.trim().toLowerCase()
+      countryNameKey(exactSelected.name) === countryNameKey(text)
         ? { type: 'submit' as const, selectedId, now: now() }
         : { type: 'submit' as const, text, now: now() };
     dispatch(action);

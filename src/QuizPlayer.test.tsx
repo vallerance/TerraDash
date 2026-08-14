@@ -51,6 +51,28 @@ function renderPlayer(catalogOverride = catalog) {
 }
 
 describe('QuizPlayer integration', () => {
+  it('uses accent and punctuation-insensitive exact closure and Enter submission while preserving display', async () => {
+    const localized = [{ id: 'iso:AAA', name: 'Côte d’Ivoire' }];
+    const container = renderPlayer(localized);
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    await act(async () => {
+      input.value = "cote d'ivoire";
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    expect(input.getAttribute('aria-expanded')).toBe('false');
+    expect(input.value).toBe("cote d'ivoire");
+    await act(async () =>
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+      ),
+    );
+    expect(container.textContent).toContain('Correct. Next location.');
+  });
   it('shows correct answers over total and increments only after a correct completion', async () => {
     const container = renderPlayer();
     await act(async () =>

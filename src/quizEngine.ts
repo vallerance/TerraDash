@@ -57,6 +57,7 @@ export type EngineConfig = {
   readonly rng: () => number;
 };
 export type Transition = { state: QuizState; event: QuizEvent };
+import { countryNameKey } from './countryName';
 
 const idleEvent: QuizEvent = { type: 'idle' };
 export function validateQuizInputs(
@@ -85,7 +86,7 @@ export function validateQuizInputs(
       throw new TypeError('Catalog locations require nonempty string IDs');
     if (catalogIds.has(location.id))
       throw new TypeError(`Duplicate catalog ID: ${location.id}`);
-    const name = normalizeText(location.name);
+    const name = countryNameKey(location.name);
     if (!name)
       throw new TypeError(`Catalog location has an empty name: ${location.id}`);
     if (names.has(name))
@@ -158,7 +159,7 @@ export function currentLocationId(state: QuizState): string | null {
     : null;
 }
 export function normalizeText(value: string): string {
-  return value.trim().toLowerCase();
+  return countryNameKey(value);
 }
 function reject(state: QuizState, reason: RejectionReason): Transition {
   return {
@@ -184,7 +185,7 @@ function resolveAnswer(
       : null;
   }
   if (action.text === undefined) return null;
-  const normalized = normalizeText(action.text);
+  const normalized = countryNameKey(action.text);
   return (
     config.catalog.find(
       (location) => normalizeText(location.name) === normalized,

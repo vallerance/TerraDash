@@ -28,4 +28,13 @@ describe('autocomplete suggestions', () => {
       'c',
     ]);
   });
+  it('uses the shared key for accents and punctuation without changing labels', () => {
+    const localized = [{ id: 'x', name: 'Côte d’Ivoire' }];
+    expect(suggestionsFor(localized, "cote d'ivoire")).toEqual(localized);
+    expect(suggestionsFor(localized, "cote d'ivoire")[0].name).toBe(
+      'Côte d’Ivoire',
+    );
+    expect(suggestionsFor(localized, 'cote divoire')).toEqual(localized);
+    expect(suggestionsFor(localized, 'cote ivoire')).toEqual([]);
+  });
 });
