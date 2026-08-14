@@ -78,6 +78,18 @@ describe('MapView small-region callout rendering', () => {
     expect(frame.querySelectorAll('[aria-label]')).toHaveLength(1);
   });
 
+  it('uses the same source and cutout radii for every callout location', () => {
+    const radii = ['iso:ATG', 'iso:VAT', 'iso:FJI'].map((id) => {
+      const frame = renderLocation(id);
+      return [
+        frame.querySelector('.callout-source')?.getAttribute('r'),
+        frame.querySelector('.callout-cutout')?.getAttribute('r'),
+      ];
+    });
+    expect(new Set(radii.map(([source]) => source)).size).toBe(1);
+    expect(new Set(radii.map(([, cutout]) => cutout)).size).toBe(1);
+  });
+
   it.each(['iso:ATG', 'iso:VAT', 'iso:ARM'])(
     'does not fabricate selected area for %s',
     (id) => {

@@ -43,8 +43,8 @@ export function MapView({ active }: { active: Location }) {
   );
   const sourceOffsets = callout
     ? wrappedOffsets(
-        callout.sourceCenter[0] - callout.sourceRadius,
-        callout.sourceCenter[0] + callout.sourceRadius,
+        callout.sourceCenter[0],
+        callout.sourceCenter[0],
         map.width,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
@@ -85,7 +85,10 @@ export function MapView({ active }: { active: Location }) {
     : undefined;
   const positionedCallout =
     displayedCallout && cutoutLayout
-      ? { ...displayedCallout, sourceCenter: cutoutLayout.sourceCenter }
+      ? {
+          ...displayedCallout,
+          sourceCenter: cutoutLayout.sourceCenter,
+        }
       : displayedCallout;
   const cutoutRadius = cutoutLayout?.radius ?? 0;
   const cutoutCenter = cutoutLayout?.center ?? [0, 0];
@@ -94,12 +97,12 @@ export function MapView({ active }: { active: Location }) {
   // map units, so the same geography is shown at a larger pixel scale.
   const insetViewBox = sharedInsetViewBox(
     positionedCallout?.sourceCenter ?? [0, 0],
-    positionedCallout?.sourceRadius ?? 1,
+    cutoutLayout?.sourceRadius ?? 1,
   );
   const leaderLines = displayedCallout
     ? calloutLeaderLines(
         positionedCallout!.sourceCenter,
-        positionedCallout!.sourceRadius,
+        cutoutLayout!.sourceRadius,
         cutoutCenter,
         cutoutRadius,
       )
@@ -279,7 +282,7 @@ export function MapView({ active }: { active: Location }) {
             className="callout-source"
             cx={positionedCallout!.sourceCenter[0]}
             cy={positionedCallout!.sourceCenter[1]}
-            r={positionedCallout!.sourceRadius}
+            r={cutoutLayout!.sourceRadius}
           />
           {leaderLines.map((line, index) => (
             <line key={index} className="callout-leader" {...line} />

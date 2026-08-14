@@ -5,11 +5,10 @@ import map from '../data/generated/map.json';
 import {
   COMPONENT_CLUSTER_PROXIMITY_PX,
   CALLOUT_RADIUS_SCALE,
+  CALLOUT_MAGNIFICATION_RATIO,
   calloutLeaderLines,
   deriveCalloutLayout,
   deriveCalloutModel,
-  deriveComponentFootprints,
-  deriveFootprint,
   hasRenderableArea,
   pathArea,
   MIN_FOOTPRINT_PX,
@@ -30,28 +29,6 @@ function pathsFor(id: string) {
 }
 
 describe('threshold and ring primitives', () => {
-  it('keeps native geometry unchanged on both sides of the threshold', () => {
-    expect(
-      deriveFootprint([
-        [0, 0],
-        [MIN_FOOTPRINT_PX, MIN_FOOTPRINT_PX],
-      ]).kind,
-    ).toBe('polygon');
-    expect(
-      deriveFootprint([
-        [5, 5],
-        [MIN_FOOTPRINT_PX - 0.01, 5],
-      ]),
-    ).toMatchObject({
-      kind: 'polygon',
-      points: [
-        [5, 5],
-        [MIN_FOOTPRINT_PX - 0.01, 5],
-      ],
-      radius: (MIN_FOOTPRINT_PX - 0.01 - 5) / 2,
-    });
-  });
-
   it('uses the 25px linear boundary for newly routed callouts', () => {
     expect(
       deriveCalloutModel([`M0,0L${MIN_FOOTPRINT_PX - 0.01},0L0,1Z`], 1, 1440),
@@ -70,17 +47,8 @@ describe('threshold and ring primitives', () => {
       1,
       map.width,
     )!;
-    expect(model.sourceRadius).toBeLessThan(100);
     expect(model.sourceCenter[0]).toBeGreaterThan(1400);
     expect(model.clusterBounds![2] - model.clusterBounds![0]).toBeLessThan(100);
-    expect(
-      calloutLeaderLines(
-        model.sourceCenter,
-        model.sourceRadius,
-        [1200, model.sourceCenter[1]],
-        100,
-      ),
-    ).toHaveLength(2);
   });
 
   it('classifies real projected paths without turning points into area', () => {
@@ -162,21 +130,44 @@ describe('callout selection and actual-boundary clustering', () => {
 
   it('doubles cutout area with a 72px source gap', () => {
     const layout = deriveCalloutLayout(
-      { sourceCenter: [240, 180], sourceRadius: 8, selectedPathIndices: [0] },
+      { sourceCenter: [240, 180], selectedPathIndices: [0] },
       1,
       1440,
       720,
       1440,
     );
     expect(layout.radius).toBe(100 * CALLOUT_RADIUS_SCALE);
+    expect(layout.sourceRadius).toBe(
+      (100 * CALLOUT_RADIUS_SCALE) / CALLOUT_MAGNIFICATION_RATIO,
+    );
     expect(layout.center[0]).toBeGreaterThan(240);
-    expect(layout.center[0]).toBe(240 + 8 + 72 + 100 * CALLOUT_RADIUS_SCALE);
+    expect(layout.center[0]).toBe(
+      240 + layout.sourceRadius + 72 + 100 * CALLOUT_RADIUS_SCALE,
+    );
     expect(layout.center[1]).toBe(180);
+  });
+
+  it('uses identical circle sizes and magnification for every region', () => {
+    const layouts = [
+      deriveCalloutModel(pathsFor('iso:ATG'), 0.25, map.width)!,
+      deriveCalloutModel(pathsFor('iso:VAT'), 0.25, map.width)!,
+      deriveCalloutModel(pathsFor('iso:FJI'), 0.25, map.width)!,
+    ].map((model) =>
+      deriveCalloutLayout(model, 0.25, map.width, map.height, 410),
+    );
+    expect(new Set(layouts.map(({ radius }) => radius)).size).toBe(1);
+    expect(new Set(layouts.map(({ sourceRadius }) => sourceRadius)).size).toBe(
+      1,
+    );
+    for (const layout of layouts)
+      expect(layout.radius / layout.sourceRadius).toBe(
+        CALLOUT_MAGNIFICATION_RATIO,
+      );
   });
 
   it('flips and clamps the cutout when the preferred side has no room', () => {
     const layout = deriveCalloutLayout(
-      { sourceCenter: [1410, 40], sourceRadius: 8, selectedPathIndices: [0] },
+      { sourceCenter: [1410, 40], selectedPathIndices: [0] },
       1,
       1440,
       720,
@@ -236,12 +227,9 @@ describe('callout selection and actual-boundary clustering', () => {
 
   it('clusters true boundary neighbors and supports seam copies', () => {
     expect(
-      deriveComponentFootprints(
-        ['M0,0L20,0L20,20L0,20Z', 'M21,9L23,9L23,11L21,11Z'],
-        1,
-        1440,
-      ),
-    ).toHaveLength(2);
+      deriveCalloutModel(['M0,0L2,0L2,2L0,2Z', 'M3,0L5,0L5,2L3,2Z'], 1, 1440)
+        ?.selectedPathIndices,
+    ).toEqual([0, 1]);
     expect(wrappedOffsets(1438, 1442, 1440, 40)).toContain(-1480);
   });
 

@@ -1,15 +1,9 @@
 export type Point = [number, number];
-export type Footprint = {
-  kind: 'polygon';
-  points: Point[];
-  center: Point;
-  radius: number;
-};
 type Component = {
   pathIndex: number;
   ringIndex: number;
   points: Point[];
-  footprint: Footprint;
+  center: Point;
   nativeRadius: number;
   belowThreshold: boolean;
   boundary: Point[];
@@ -18,13 +12,13 @@ export type CalloutModel = {
   sourceCenter: Point;
   focusCenter?: Point;
   clusterBounds?: [number, number, number, number];
-  sourceRadius: number;
   selectedPathIndices: number[];
 };
 export type CalloutLayout = {
   center: Point;
   radius: number;
   sourceCenter: Point;
+  sourceRadius: number;
 };
 // The threshold is a linear projected screen span. It is not an area
 // threshold; components with either rendered dimension at least 25px bypass
@@ -35,6 +29,7 @@ export const MAP_SEAM_LONGITUDE = -170;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
 export const CALLOUT_AREA_SCALE = 2;
 export const CALLOUT_RADIUS_SCALE = Math.sqrt(CALLOUT_AREA_SCALE);
+export const CALLOUT_MAGNIFICATION_RATIO = 5;
 
 export function sharedInsetViewBox(center: Point, radius: number) {
   return {
@@ -63,18 +58,19 @@ export function deriveCalloutLayout(
       Math.max(32, Math.min(viewportWidth * 0.14, availableRadiusPx)),
     ) * CALLOUT_RADIUS_SCALE;
   const radius = radiusPx / scale;
+  const sourceRadius = radius / CALLOUT_MAGNIFICATION_RATIO;
   const margin = 24 / scale;
   const gap = 72 / scale;
   const sourceX = Math.max(
-    callout.sourceRadius,
-    Math.min(mapWidth - callout.sourceRadius, callout.sourceCenter[0]),
+    sourceRadius,
+    Math.min(mapWidth - sourceRadius, callout.sourceCenter[0]),
   );
   const sourceY = callout.sourceCenter[1];
   const rightSide = sourceX <= mapWidth / 2;
   const preferred =
-    sourceX + (rightSide ? 1 : -1) * (callout.sourceRadius + gap + radius);
+    sourceX + (rightSide ? 1 : -1) * (sourceRadius + gap + radius);
   const opposite =
-    sourceX + (rightSide ? -1 : 1) * (callout.sourceRadius + gap + radius);
+    sourceX + (rightSide ? -1 : 1) * (sourceRadius + gap + radius);
   const minX = radius + margin;
   const maxX = mapWidth - radius - margin;
   const preferredFits = preferred >= minX && preferred <= maxX;
@@ -84,7 +80,7 @@ export function deriveCalloutLayout(
   const minY = radius + margin;
   const maxY = mapHeight - radius - margin;
   const initialCenterY = Math.max(minY, Math.min(maxY, sourceY));
-  const requiredDistance = callout.sourceRadius + gap + radius;
+  const requiredDistance = sourceRadius + gap + radius;
   const candidates: Point[] = [
     [initialCenterX, initialCenterY],
     [minX, initialCenterY],
@@ -122,13 +118,14 @@ export function deriveCalloutLayout(
     fittingCandidates[0] ?? [initialCenterX, initialCenterY],
   );
   const boundedSourceY = Math.max(
-    callout.sourceRadius,
-    Math.min(mapHeight - callout.sourceRadius, sourceY),
+    sourceRadius,
+    Math.min(mapHeight - sourceRadius, sourceY),
   );
   return {
     center: [centerX, centerY],
     radius,
     sourceCenter: [sourceX, boundedSourceY],
+    sourceRadius,
   };
 }
 export function pathPoints(paths: string[]): Point[] {
@@ -196,19 +193,6 @@ export function pathPointComponents(path: string, width: number): Point[][] {
     return pathPoints([match[0]]);
   });
 }
-export function deriveComponentFootprints(
-  paths: string[],
-  scale: number,
-  width: number,
-  threshold = MIN_FOOTPRINT_PX,
-  proximity = COMPONENT_CLUSTER_PROXIMITY_PX,
-  seamX = 0,
-): Footprint[] {
-  const components = deriveComponents(paths, scale, width, threshold, seamX);
-  componentClusters(components, width * scale, proximity);
-  return components.map(({ footprint }) => footprint);
-}
-
 function deriveComponents(
   paths: string[],
   scale: number,
@@ -233,7 +217,10 @@ function deriveComponents(
         pathIndex,
         ringIndex,
         points,
-        footprint: deriveFootprint(aligned),
+        center: [
+          (Math.min(...xs) + Math.max(...xs)) / 2,
+          (Math.min(...ys) + Math.max(...ys)) / 2,
+        ] as Point,
         nativeRadius,
         belowThreshold: nativeRadius * 2 < threshold,
         boundary: aligned,
@@ -295,7 +282,7 @@ export function deriveCalloutModel(
   // bounds here would turn the seam-adjacent cluster into a world-spanning
   // source circle. Re-anchor every member to the largest component's copy
   // before deriving the source bounds.
-  const anchorX = anchor.footprint.center[0];
+  const anchorX = anchor.center[0];
   const points = cluster.flatMap(({ boundary }) =>
     boundary.map(([x, y]) => {
       let alignedX = x;
@@ -311,7 +298,7 @@ export function deriveCalloutModel(
   const minY = Math.min(...points.map(([, y]) => y));
   const maxY = Math.max(...points.map(([, y]) => y));
   const center: Point = [(minX + maxX) / 2, (minY + maxY) / 2];
-  const anchorCenter = anchor.footprint.center;
+  const anchorCenter = anchor.center;
   return {
     sourceCenter: [center[0] / scale + seamX, center[1] / scale],
     focusCenter: [anchorCenter[0] / scale + seamX, anchorCenter[1] / scale],
@@ -321,9 +308,6 @@ export function deriveCalloutModel(
       maxX / scale + seamX,
       maxY / scale,
     ],
-    sourceRadius:
-      ((Math.max(maxX - minX, maxY - minY) / 2 + 8) * CALLOUT_RADIUS_SCALE) /
-      scale,
     selectedPathIndices: [
       ...new Set(cluster.map(({ pathIndex }) => pathIndex)),
     ],
@@ -508,23 +492,6 @@ export function wrappedOffsets(
   });
 }
 
-export function screenFootprintToMapCopies(
-  footprint: Footprint,
-  scale: number,
-  width: number,
-  seamX: number,
-  overlap = MAP_OVERLAP_REFERENCE_UNITS,
-): Footprint[] {
-  const mapFootprint: Footprint = {
-    ...footprint,
-    center: [footprint.center[0] / scale + seamX, footprint.center[1] / scale],
-    radius: footprint.radius / scale,
-  };
-  return wrappedFootprintPositions(mapFootprint, width, seamX, overlap).map(
-    (center) => ({ ...mapFootprint, center }),
-  );
-}
-
 export function wrappedPointPositions(
   point: Point,
   width: number,
@@ -550,30 +517,4 @@ export function wrappedPathOffsets(
     seamX,
     overlap,
   );
-}
-
-export function wrappedFootprintPositions(
-  footprint: Footprint,
-  width: number,
-  seamX: number,
-  overlap = MAP_OVERLAP_REFERENCE_UNITS,
-): Point[] {
-  return wrappedOffsets(
-    footprint.center[0] - footprint.radius,
-    footprint.center[0] + footprint.radius,
-    width,
-    seamX,
-    overlap,
-  ).map((offset) => [footprint.center[0] + offset, footprint.center[1]]);
-}
-export function deriveFootprint(points: Point[]): Footprint {
-  const xs = points.map(([x]) => x);
-  const ys = points.map(([, y]) => y);
-  const minX = Math.min(...xs);
-  const maxX = Math.max(...xs);
-  const minY = Math.min(...ys);
-  const maxY = Math.max(...ys);
-  const center: Point = [(minX + maxX) / 2, (minY + maxY) / 2];
-  const radius = Math.max(maxX - minX, maxY - minY) / 2;
-  return { kind: 'polygon', points, center, radius };
 }
