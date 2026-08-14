@@ -73,6 +73,49 @@ describe('QuizPlayer integration', () => {
     );
     expect(container.textContent).toContain('Correct. Next location.');
   });
+
+  it('renders one standalone header surface, three labeled status columns, and visual-only feedback', async () => {
+    vi.useFakeTimers();
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    expect(
+      container.querySelectorAll('.active-player > .quiz-header'),
+    ).toHaveLength(1);
+    expect(container.querySelectorAll('.status-item')).toHaveLength(3);
+    expect(container.textContent).toContain('Countries correct');
+    expect(container.textContent).toContain('Countries remaining');
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    const answer = catalog.find(
+      (item) =>
+        item.id ===
+        container.querySelector('[data-map-id]')?.getAttribute('data-map-id'),
+    )!.name;
+    await act(async () => {
+      input.value = answer;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelector('.quiz-feedback-icon')?.textContent).toBe(
+      '✓',
+    );
+    expect(
+      container
+        .querySelector('.quiz-feedback-icon')
+        ?.getAttribute('aria-hidden'),
+    ).toBe('true');
+    expect(
+      container.querySelector('.quiz-feedback')?.getAttribute('aria-live'),
+    ).toBe('assertive');
+    expect(container.querySelector('.quiz-feedback')?.textContent).toBe(
+      'Correct. Next location.',
+    );
+  });
   it('shows correct answers over total and increments only after a correct completion', async () => {
     const container = renderPlayer();
     await act(async () =>

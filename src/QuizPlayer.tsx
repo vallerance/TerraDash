@@ -289,14 +289,23 @@ export function QuizPlayer({
       <section className="player-card" aria-labelledby="results-title">
         <p className="eyebrow">TERRADASH · RESULTS</p>
         <div className="quiz-header completion-header">
-          <div className="quiz-prompt">
-            <h1 id="results-title">Run complete</h1>
-            <p
-              className={`quiz-feedback ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
-              aria-live="assertive"
+          <div className="quiz-prompt-group">
+            <div className="quiz-prompt">
+              <h1 id="results-title">Run complete</h1>
+            </div>
+            <span
+              className={`quiz-feedback-icon ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
+              aria-hidden="true"
             >
+              {feedbackTone === 'correct'
+                ? '✓'
+                : feedbackTone === 'missed'
+                  ? '×'
+                  : ''}
+            </span>
+            <span className="quiz-feedback" aria-live="assertive">
               {feedback}
-            </p>
+            </span>
           </div>
         </div>
         <dl className="results-grid">
@@ -313,12 +322,6 @@ export function QuizPlayer({
             <dd>{results.missed}</dd>
           </div>
         </dl>
-        {state.lastEvent.type === 'completed' &&
-          state.lastEvent.result === 'missed' && (
-            <p className="feedback" aria-live="assertive">
-              Three attempts used. The answer is not revealed.
-            </p>
-          )}
         <button
           className="primary-action"
           type="button"
@@ -339,30 +342,50 @@ export function QuizPlayer({
       aria-labelledby="quiz-title"
     >
       <div className="quiz-header">
-        <div className="quiz-prompt">
-          <h1 id="quiz-title">Type the name of this country</h1>
-          <span className={`attempts-remaining-label ${attemptStateClass}`}>
-            {attemptsRemaining} guesses remaining
-          </span>
-          <p
-            className={`quiz-feedback ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
-            aria-live="assertive"
+        <div className="quiz-prompt-group">
+          <div className="quiz-prompt">
+            <h1 id="quiz-title">Type the name of this country</h1>
+            <span className={`attempts-remaining-label ${attemptStateClass}`}>
+              {attemptsRemaining} guesses remaining
+            </span>
+          </div>
+          <span
+            className={`quiz-feedback-icon ${feedbackTone ? `feedback-${feedbackTone}` : ''}`}
+            aria-hidden="true"
           >
+            {feedbackTone === 'correct'
+              ? '✓'
+              : feedbackTone === 'missed'
+                ? '×'
+                : ''}
+          </span>
+          <span className="quiz-feedback" aria-live="assertive">
             {feedback}
-          </p>
+          </span>
         </div>
         <div className="quiz-status quiz-status-bar" aria-live="polite">
-          <span
-            className="progress"
+          <div className="status-item status-time">
+            <strong>{formatElapsed(state.elapsedMs)}</strong>
+            <small>Time</small>
+          </div>
+          <div
+            className="status-item status-correct"
             aria-label={`${correctCount} correct countries of ${completedCount} completed`}
           >
-            {correctCount} / {completedCount} countries correct
-          </span>
-          <span>{formatElapsed(state.elapsedMs)}</span>
-          <span>
-            {countriesRemaining}{' '}
-            {countriesRemaining === 1 ? 'country' : 'countries'} remaining
-          </span>
+            <strong>{correctCount}</strong>
+            <small>Countries correct</small>
+            <span className="progress visually-hidden">
+              {correctCount} / {completedCount} countries correct
+            </span>
+          </div>
+          <div className="status-item status-remaining">
+            <strong>{countriesRemaining}</strong>
+            <small>Countries remaining</small>
+            <span className="visually-hidden">
+              {countriesRemaining}{' '}
+              {countriesRemaining === 1 ? 'country' : 'countries'} remaining
+            </span>
+          </div>
         </div>
       </div>
       {currentLocation && (
