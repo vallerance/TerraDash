@@ -35,9 +35,15 @@ describe('threshold and ring primitives', () => {
   it('retains the original 100-unit wrapped geometry band', () => {
     expect(MAP_OVERLAP_REFERENCE_UNITS).toBe(100);
     const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
-    expect(wrappedViewportBounds(1440, seamX)).toEqual([-140, 1500]);
-    expect(wrappedOffsets(1340, 1380, 1440, seamX)).toContain(-1480);
-    expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1400);
+    const bounds = wrappedViewportBounds(1440, seamX);
+    expect(bounds).toEqual([-412, 1228]);
+    expect(bounds[1]).toBe(mapXForLongitude(127, 1440));
+    expect(-seamX - bounds[0]).toBe(MAP_OVERLAP_REFERENCE_UNITS);
+    expect(bounds[1] - (-seamX + 1440)).toBe(
+      MAP_OVERLAP_REFERENCE_UNITS,
+    );
+    expect(wrappedOffsets(1340, 1380, 1440, seamX)).toContain(-1752);
+    expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1128);
   });
 
   it('uses the 25px linear boundary for newly routed callouts', () => {
