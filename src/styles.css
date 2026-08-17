@@ -599,12 +599,13 @@ input {
 }
 .diagnostics-card {
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 0 calc(4.25rem + 0.5rem);
   flex-direction: column;
   width: min(100%, 1200px);
+  height: calc(4.25rem + 0.5rem);
   min-height: 0;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: auto;
 }
 .diagnostics-card > p {
   margin-block: 0.15rem;

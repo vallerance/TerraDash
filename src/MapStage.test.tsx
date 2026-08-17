@@ -42,4 +42,27 @@ describe('MapStage shared map-box contract', () => {
     ).toBeTruthy();
     expect(stage.lastElementChild?.getAttribute('data-testid')).toBe('overlay');
   });
+
+  it('uses the same resize-driven sizing contract for every consumer', () => {
+    const host = document.createElement('main');
+    document.body.append(host);
+    root = createRoot(host);
+    act(() =>
+      root!.render(
+        <>
+          <MapStage content={<svg className="world-map" />} />
+          <MapStage content={<svg className="world-map" />} />
+        </>,
+      ),
+    );
+
+    const stages = [...host.querySelectorAll<HTMLElement>('.map-stage')];
+    expect(stages).toHaveLength(2);
+    expect(
+      stages.map((stage) => stage.querySelector('.map-slot')?.className),
+    ).toEqual(['map-slot full-bleed-map', 'map-slot full-bleed-map']);
+    expect(
+      stages.map((stage) => stage.querySelector('.map-frame')?.className),
+    ).toEqual(['map-frame', 'map-frame']);
+  });
 });
