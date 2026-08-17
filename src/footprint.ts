@@ -40,6 +40,21 @@ export function sharedInsetViewBox(center: Point, radius: number) {
   };
 }
 
+export function calloutEdgeGapPx(
+  source: Point,
+  sourceRadius: number,
+  cutout: Point,
+  cutoutRadius: number,
+  scale: number,
+) {
+  return (
+    (Math.hypot(cutout[0] - source[0], cutout[1] - source[1]) -
+      sourceRadius -
+      cutoutRadius) *
+    scale
+  );
+}
+
 /** Return a bounded, source-adjacent callout layout in map/viewBox units. */
 export function deriveCalloutLayout(
   callout: CalloutModel,
@@ -116,15 +131,35 @@ export function deriveCalloutLayout(
     }
   }
   const fittingCandidates = candidates.filter(
-    ([x, y]) => Math.hypot(x - sourceX, y - sourceY) >= requiredDistance,
+    ([x, y]) =>
+      calloutEdgeGapPx(
+        [sourceX, sourceY],
+        sourceRadius,
+        [x, y],
+        radius,
+        scale,
+      ) >= CALLOUT_GAP_PX,
   );
-  const [centerX, centerY] = fittingCandidates.reduce(
+  const preferredCandidate = fittingCandidates.reduce(
     (best, candidate) =>
       Math.hypot(candidate[0] - preferred, candidate[1] - sourceY) <
       Math.hypot(best[0] - preferred, best[1] - sourceY)
         ? candidate
         : best,
     fittingCandidates[0] ?? [initialCenterX, initialCenterY],
+  );
+  const candidateDistance = Math.hypot(
+    preferredCandidate[0] - sourceX,
+    preferredCandidate[1] - sourceY,
+  );
+  const distanceScale =
+    candidateDistance > requiredDistance
+      ? requiredDistance / candidateDistance
+      : 1;
+  const centerX = sourceX + (preferredCandidate[0] - sourceX) * distanceScale;
+  const centerY = Math.max(
+    minY,
+    Math.min(maxY, sourceY + (preferredCandidate[1] - sourceY) * distanceScale),
   );
   const boundedSourceY = Math.max(
     sourceRadius,

@@ -8,6 +8,7 @@ import {
   CALLOUT_MAGNIFICATION_RATIO,
   CALLOUT_GAP_PX,
   calloutLeaderLines,
+  calloutEdgeGapPx,
   deriveCalloutLayout,
   deriveCalloutModel,
   hasRenderableArea,
@@ -181,7 +182,7 @@ describe('callout selection and actual-boundary clustering', () => {
       sourceCenter: [240, 180] as [number, number],
       selectedPathIndices: [0],
     };
-    for (const scale of [1, 0.5]) {
+    for (const scale of [1, 0.5, 358 / 1640, 954 / 1640]) {
       const layout = deriveCalloutLayout(
         callout,
         scale,
@@ -189,13 +190,24 @@ describe('callout selection and actual-boundary clustering', () => {
         720,
         1440 * scale,
       );
-      const renderedGap =
-        (layout.center[0] -
-          callout.sourceCenter[0] -
-          layout.sourceRadius -
-          layout.radius) *
-        scale;
-      expect(renderedGap).toBeCloseTo(CALLOUT_GAP_PX);
+      expect(
+        calloutEdgeGapPx(
+          callout.sourceCenter,
+          layout.sourceRadius,
+          layout.center,
+          layout.radius,
+          scale,
+        ),
+      ).toBeGreaterThanOrEqual(CALLOUT_GAP_PX);
+      expect(
+        calloutEdgeGapPx(
+          callout.sourceCenter,
+          layout.sourceRadius,
+          layout.center,
+          layout.radius,
+          scale,
+        ),
+      ).toBeLessThanOrEqual(CALLOUT_GAP_PX + 1.5);
     }
   });
 
@@ -206,12 +218,15 @@ describe('callout selection and actual-boundary clustering', () => {
       selectedPathIndices: [0],
     };
     const layout = deriveCalloutLayout(callout, scale, 1440, 720, 358);
-    const renderedGap =
-      (Math.abs(layout.center[0] - callout.sourceCenter[0]) -
-        layout.sourceRadius -
-        layout.radius) *
-      scale;
-    expect(renderedGap).toBeCloseTo(CALLOUT_GAP_PX);
+    expect(
+      calloutEdgeGapPx(
+        callout.sourceCenter,
+        layout.sourceRadius,
+        layout.center,
+        layout.radius,
+        scale,
+      ),
+    ).toBeCloseTo(CALLOUT_GAP_PX);
   });
 
   it('flips and clamps the cutout when the preferred side has no room', () => {
