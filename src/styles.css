@@ -617,7 +617,7 @@ input {
 .diagnostics-player {
   width: 100%;
   min-height: 0;
-  margin: 0;
+  margin: 0 0 var(--map-stage-header-gap);
   padding: 0;
   border: 0;
   border-radius: 0;
