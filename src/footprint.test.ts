@@ -33,7 +33,7 @@ function pathsFor(id: string) {
 }
 
 describe('threshold and ring primitives', () => {
-  it('retains the original 100-unit wrapped geometry band', () => {
+  it('ends the rendered geography at 127°E with equal wrapped overlap', () => {
     expect(MAP_OVERLAP_REFERENCE_UNITS).toBe(100);
     const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
     const bounds = wrappedViewportBounds(1440, seamX);
@@ -41,8 +41,16 @@ describe('threshold and ring primitives', () => {
     expect(bounds[1]).toBe(mapXForLongitude(127, 1440));
     expect(-seamX - bounds[0]).toBe(MAP_OVERLAP_REFERENCE_UNITS);
     expect(bounds[1] - (-seamX + 1440)).toBe(MAP_OVERLAP_REFERENCE_UNITS);
-    expect(wrappedOffsets(1340, 1380, 1440, seamX)).toContain(-1752);
-    expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1128);
+
+    // The 77°E–127°E band is the only duplicated geography. Its unshifted
+    // copy reaches the right edge and its -world-width copy reaches the left.
+    const duplicatedBandStart = mapXForLongitude(77, 1440);
+    const duplicatedBandEnd = mapXForLongitude(127, 1440);
+    expect(
+      wrappedOffsets(duplicatedBandStart, duplicatedBandEnd, 1440, seamX),
+    ).toEqual([0, -1440]);
+    expect(duplicatedBandEnd).toBe(bounds[1]);
+    expect(duplicatedBandStart - 1440).toBe(bounds[0]);
   });
 
   it('uses the 20px linear boundary for newly routed callouts', () => {
@@ -316,7 +324,7 @@ describe('callout selection and actual-boundary clustering', () => {
       deriveCalloutModel(['M0,0L2,0L2,2L0,2Z', 'M3,0L5,0L5,2L3,2Z'], 1, 1440)
         ?.selectedPathIndices,
     ).toEqual([0, 1]);
-    expect(wrappedOffsets(1438, 1442, 1440, 40)).toContain(-1480);
+    expect(wrappedOffsets(1438, 1442, 1440, 40)).toContain(-1440);
   });
 
   it('supports degenerate point geometry deterministically', () => {

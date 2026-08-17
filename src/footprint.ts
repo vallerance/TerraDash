@@ -539,15 +539,15 @@ export function wrappedOffsets(
   seamX: number,
   overlap = MAP_OVERLAP_REFERENCE_UNITS,
 ): number[] {
-  const alignedMin = minX - seamX;
-  const alignedMax = maxX - seamX;
-  const primary = seamX === 0 ? 0 : -seamX;
   const [viewportMin, viewportMax] = wrappedViewportBounds(
     width,
     seamX,
     overlap,
   );
-  return [primary, primary - width, primary + width].filter((transform) => {
+  // The viewport moves independently of the map copies. Shifting both by the
+  // seam produces the same visible longitudes regardless of the configured
+  // edge, which made the previous 127° change a visual no-op.
+  return [0, -width, width].filter((transform) => {
     const transformedMin = minX + transform;
     const transformedMax = maxX + transform;
     return transformedMax >= viewportMin && transformedMin <= viewportMax;
