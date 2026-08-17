@@ -1,4 +1,9 @@
 :root {
+  --map-stage-header-height: 4.25rem;
+  --map-stage-header-gap: 0.5rem;
+  --map-stage-reserved-block: calc(
+    var(--map-stage-header-height) + var(--map-stage-header-gap)
+  );
   --page-gutter: clamp(1rem, 2vw, 2rem);
   --content-gutter: clamp(0.65rem, 1.2vw, 1rem);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
@@ -246,6 +251,8 @@ h2 {
   border: 1px solid #263650;
   border-radius: 0.75rem;
   background: #111c2e;
+  min-height: var(--map-stage-header-height);
+  margin-bottom: var(--map-stage-header-gap);
 }
 .status-item {
   display: grid;
@@ -599,12 +606,13 @@ input {
 }
 .diagnostics-card {
   display: flex;
-  flex: 0 0 calc(4.25rem + 0.5rem);
+  flex: 0 0 var(--map-stage-reserved-block);
   flex-direction: column;
   width: min(100%, 1200px);
-  height: calc(4.25rem + 0.5rem);
+  height: var(--map-stage-reserved-block);
   min-height: 0;
   margin: 0 auto;
+  margin-bottom: 0;
   overflow: auto;
 }
 .diagnostics-card > p {

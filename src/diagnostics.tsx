@@ -33,7 +33,10 @@ function Diagnostics() {
           </a>
         </nav>
       </header>
-      <section className="player-card diagnostics-card">
+      <section
+        className="player-card diagnostics-card"
+        data-map-stage-reserved-block="4.75rem"
+      >
         <p className="eyebrow">TerraDash · Map diagnostics</p>
         <h1>Inspect a location</h1>
         <label htmlFor="diagnostic-location">Location</label>
