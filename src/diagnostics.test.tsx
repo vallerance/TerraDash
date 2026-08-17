@@ -21,18 +21,14 @@ afterEach(() => {
 beforeEach(() => vi.stubGlobal('ResizeObserver', TestResizeObserver));
 
 describe('DiagnosticsMap consumer contract', () => {
-  it('uses the shared stage-to-map-box structure for a real catalog location', () => {
+  it('renders the real catalog map content for the shared shell', () => {
     const host = document.createElement('main');
     document.body.append(host);
     root = createRoot(host);
     act(() => root!.render(<DiagnosticsMap location={catalog[0]} />));
 
-    expect(host.querySelector('.map-stage')).toBeTruthy();
-    expect(
-      host.querySelector(
-        '.map-stage > .map-slot.full-bleed-map > .map-frame > .world-map',
-      ),
-    ).toBeTruthy();
+    expect(host.querySelector('.world-map')).toBeTruthy();
+    expect(host.querySelector('.map-stage')).toBeNull();
     expect(host.querySelector('.answer-panel')).toBeNull();
     expect(host.querySelector('.diagnostics-card')).toBeNull();
   });
