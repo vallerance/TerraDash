@@ -1,0 +1,59 @@
+import { expect, test } from '@playwright/test';
+
+const viewports = [
+  { width: 375, height: 667 },
+  { width: 768, height: 1024 },
+];
+
+async function bounds(page, selector) {
+  return page.locator(selector).boundingBox();
+}
+
+function expectSameBounds(actual, expected) {
+  expect(actual).not.toBeNull();
+  expect(expected).not.toBeNull();
+  expect(actual.x).toBeCloseTo(expected.x, 2);
+  expect(actual.y).toBeCloseTo(expected.y, 2);
+  expect(actual.width).toBeCloseTo(expected.width, 2);
+  expect(actual.height).toBeCloseTo(expected.height, 2);
+}
+
+for (const viewport of viewports) {
+  test(`quiz and diagnostics map boxes match at ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.addInitScript(() => {
+      Math.random = () => 0;
+    });
+    await page.goto('/');
+    await page.getByRole('button').first().click();
+    await expect(page.locator('.map-stage')).toBeVisible();
+
+    // A zero RNG makes the first shuffled quiz location deterministic (iso:ALB).
+    const mapId = 'iso:ALB';
+    const quizBounds = {
+      stage: await bounds(page, '.map-stage'),
+      frame: await bounds(page, '.map-frame'),
+      svg: await bounds(page, '.world-map'),
+    };
+
+    await page.goto(`/diagnostics.html?location=${encodeURIComponent(mapId)}`);
+    await expect(page.locator('.diagnostics-control select')).toBeVisible();
+    const diagnosticsBounds = {
+      stage: await bounds(page, '.map-stage'),
+      frame: await bounds(page, '.map-frame'),
+      svg: await bounds(page, '.world-map'),
+    };
+
+    for (const key of ['stage', 'frame', 'svg']) {
+      expectSameBounds(diagnosticsBounds[key], quizBounds[key]);
+    }
+
+    const select = await page
+      .locator('.diagnostics-control select')
+      .boundingBox();
+    expect(select.x + select.width).toBeLessThanOrEqual(viewport.width);
+    expect(select.y + select.height).toBeLessThanOrEqual(viewport.height);
+  });
+}
