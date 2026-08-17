@@ -18,8 +18,7 @@ import {
   type PanelPlacement,
   unionRects,
 } from './panelPlacement';
-import { MapStage } from './MapStage';
-import { MapHeader } from './MapHeader';
+import { MapBoxShell } from './MapBoxShell';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -406,61 +405,63 @@ export function QuizPlayer({
       className={`player-card active-player ${attemptStateClass}`}
       aria-labelledby="quiz-title"
     >
-      <MapHeader>
-        <div className="quiz-prompt-group">
-          <div className="quiz-prompt">
-            <h1 id="quiz-title">Type the name of this location</h1>
-            <span className={`attempts-remaining-label ${attemptStateClass}`}>
-              {attemptsRemaining} guesses remaining
+      <MapBoxShell
+        prompt={
+          <>
+            <div className="quiz-prompt">
+              <h1 id="quiz-title">Type the name of this location</h1>
+              <span className={`attempts-remaining-label ${attemptStateClass}`}>
+                {attemptsRemaining} guesses remaining
+              </span>
+            </div>
+            <FeedbackIcon
+              tone={feedbackTone}
+              animationKey={feedbackAnimationKey}
+            />
+            <span className="quiz-feedback" aria-live="assertive">
+              {feedback}
             </span>
-          </div>
-          <FeedbackIcon
-            tone={feedbackTone}
-            animationKey={feedbackAnimationKey}
-          />
-          <span className="quiz-feedback" aria-live="assertive">
-            {feedback}
-          </span>
-        </div>
-        <div className="quiz-status quiz-status-bar" aria-live="polite">
-          <div className="status-item status-time">
-            <strong>{formatElapsed(state.elapsedMs)}</strong>
-            <small>Time</small>
-          </div>
-          <div
-            className="status-item status-correct"
-            aria-label={`${correctCount} correct locations of ${completedCount} completed`}
-          >
-            <strong>
-              {correctCount}/{completedCount}
-            </strong>
-            <small>Locations correct</small>
-            <span className="progress visually-hidden">
-              {correctCount} / {completedCount} locations correct
-            </span>
-          </div>
-          <div
-            className="status-item status-accuracy"
-            aria-label={`${formatAccuracy(accuracy)} accuracy`}
-          >
-            <strong>{formatAccuracy(accuracy)}</strong>
-            <small>Accuracy</small>
-          </div>
-          <div className="status-item status-remaining">
-            <strong>{locationsRemaining}</strong>
-            <small>Locations remaining</small>
-            <span className="visually-hidden">
-              {locationsRemaining}{' '}
-              {locationsRemaining === 1 ? 'location' : 'locations'} remaining
-            </span>
-          </div>
-        </div>
-      </MapHeader>
-      {currentLocation && (
-        <MapStage
-          ref={stageRef}
-          content={renderMap(currentLocation)}
-          overlay={
+          </>
+        }
+        status={
+          <>
+            <div className="status-item status-time">
+              <strong>{formatElapsed(state.elapsedMs)}</strong>
+              <small>Time</small>
+            </div>
+            <div
+              className="status-item status-correct"
+              aria-label={`${correctCount} correct locations of ${completedCount} completed`}
+            >
+              <strong>
+                {correctCount}/{completedCount}
+              </strong>
+              <small>Locations correct</small>
+              <span className="progress visually-hidden">
+                {correctCount} / {completedCount} locations correct
+              </span>
+            </div>
+            <div
+              className="status-item status-accuracy"
+              aria-label={`${formatAccuracy(accuracy)} accuracy`}
+            >
+              <strong>{formatAccuracy(accuracy)}</strong>
+              <small>Accuracy</small>
+            </div>
+            <div className="status-item status-remaining">
+              <strong>{locationsRemaining}</strong>
+              <small>Locations remaining</small>
+              <span className="visually-hidden">
+                {locationsRemaining}{' '}
+                {locationsRemaining === 1 ? 'location' : 'locations'} remaining
+              </span>
+            </div>
+          </>
+        }
+        ref={stageRef}
+        content={currentLocation ? renderMap(currentLocation) : undefined}
+        stageOverlay={
+          currentLocation ? (
             <div
               ref={panelRef}
               className="answer-panel"
@@ -582,9 +583,9 @@ export function QuizPlayer({
                 </div>
               </form>
             </div>
-          }
-        />
-      )}
+          ) : undefined
+        }
+      />
     </section>
   );
 }

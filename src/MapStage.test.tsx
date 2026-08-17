@@ -2,7 +2,7 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { MapStage } from './MapStage';
+import { MapBoxShell } from './MapBoxShell';
 
 let root: ReturnType<typeof createRoot> | undefined;
 
@@ -19,16 +19,18 @@ afterEach(() => {
 
 beforeEach(() => vi.stubGlobal('ResizeObserver', TestResizeObserver));
 
-describe('MapStage shared map-box contract', () => {
+describe('MapBoxShell shared map-box contract', () => {
   it('keeps the stage, slot, frame, map, and optional overlay order stable', () => {
     const host = document.createElement('main');
     document.body.append(host);
     root = createRoot(host);
     act(() =>
       root!.render(
-        <MapStage
+        <MapBoxShell
+          prompt={<div className="quiz-prompt">Prompt</div>}
+          status={<div className="status-item">Status</div>}
           content={<svg className="world-map" aria-label="test map" />}
-          overlay={<div className="answer-panel" data-testid="overlay" />}
+          stageOverlay={<div className="answer-panel" data-testid="overlay" />}
         />,
       ),
     );
@@ -50,8 +52,16 @@ describe('MapStage shared map-box contract', () => {
     act(() =>
       root!.render(
         <>
-          <MapStage content={<svg className="world-map" />} />
-          <MapStage content={<svg className="world-map" />} />
+          <MapBoxShell
+            prompt={<div>Prompt</div>}
+            status={<div>Status</div>}
+            content={<svg className="world-map" />}
+          />
+          <MapBoxShell
+            prompt={<div>Prompt</div>}
+            status={<div>Status</div>}
+            content={<svg className="world-map" />}
+          />
         </>,
       ),
     );

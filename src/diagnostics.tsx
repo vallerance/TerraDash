@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalog from '../data/generated/catalog.json';
 import { AppFooter, MapView } from './main';
-import { MapHeader } from './MapHeader';
-import { MapStage } from './MapStage';
+import { MapBoxShell } from './MapBoxShell';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
@@ -15,7 +14,7 @@ export function DiagnosticsMap({
 }: {
   location: (typeof catalog)[number];
 }) {
-  return <MapStage content={<MapView active={location} />} />;
+  return <MapView active={location} />;
 }
 
 function Diagnostics() {
@@ -34,9 +33,39 @@ function Diagnostics() {
           </a>
         </nav>
       </header>
-      <section className="player-card active-player diagnostics-player">
-        <MapHeader
-          overlay={
+      <section className="player-card active-player">
+        <MapBoxShell
+          prompt={
+            <div className="quiz-prompt">
+              <h1>Inspect a location</h1>
+              <span className="attempts-remaining-label">
+                Location selected
+              </span>
+            </div>
+          }
+          status={
+            <>
+              <div className="status-item status-time">
+                <strong>00:00</strong>
+                <small>Time</small>
+              </div>
+              <div className="status-item status-correct">
+                <strong>0/0</strong>
+                <small>Locations correct</small>
+              </div>
+              <div className="status-item status-accuracy">
+                <strong>0.00%</strong>
+                <small>Accuracy</small>
+              </div>
+              <div className="status-item status-remaining">
+                <strong>0</strong>
+                <small>Locations remaining</small>
+              </div>
+            </>
+          }
+          content={<DiagnosticsMap location={location} />}
+          statusHidden
+          headerOverlay={
             <label
               className="diagnostics-control"
               htmlFor="diagnostic-location"
@@ -63,38 +92,7 @@ function Diagnostics() {
               </select>
             </label>
           }
-        >
-          <div className="quiz-prompt-group">
-            <div className="quiz-prompt">
-              <h1>Inspect a location</h1>
-              <span className="attempts-remaining-label">
-                Location selected
-              </span>
-            </div>
-          </div>
-          <div
-            className="quiz-status quiz-status-bar diagnostics-status"
-            aria-hidden="true"
-          >
-            <div className="status-item status-time">
-              <strong>00:00</strong>
-              <small>Time</small>
-            </div>
-            <div className="status-item status-correct">
-              <strong>0/0</strong>
-              <small>Locations correct</small>
-            </div>
-            <div className="status-item status-accuracy">
-              <strong>0.00%</strong>
-              <small>Accuracy</small>
-            </div>
-            <div className="status-item status-remaining">
-              <strong>0</strong>
-              <small>Locations remaining</small>
-            </div>
-          </div>
-        </MapHeader>
-        <DiagnosticsMap location={location} />
+        />
       </section>
       <p className="disclaimer">
         Map data: Natural Earth Admin 0 boundary data, v5.1.1, 1:50m main map
