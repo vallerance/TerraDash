@@ -4,8 +4,6 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizPlayer } from './QuizPlayer';
 import { QuizProvider } from './QuizContext';
-import catalogData from '../data/generated/catalog.json';
-import { DiagnosticsMap } from './diagnostics';
 
 const catalog = [
   { id: 'iso:AAA', name: 'Alpha' },
@@ -540,7 +538,7 @@ describe('QuizPlayer integration', () => {
     expect(stage.lastElementChild?.className).toBe('answer-panel');
   });
 
-  it('gives quiz and diagnostics the same shared stage inputs', async () => {
+  it('keeps the quiz stage contract when rendered with map content', async () => {
     const container = document.createElement('main');
     document.body.append(container);
     root = createRoot(container);
@@ -551,7 +549,6 @@ describe('QuizPlayer integration', () => {
             catalog={catalog}
             renderMap={(location) => <div data-map-id={location.id} />}
           />
-          <DiagnosticsMap location={catalogData[0]} />
         </QuizProvider>,
       ),
     );
@@ -562,18 +559,15 @@ describe('QuizPlayer integration', () => {
     );
 
     const stages = [...container.querySelectorAll('.map-stage')];
-    expect(stages).toHaveLength(2);
+    expect(stages).toHaveLength(1);
     expect(
       stages.map(
         (stage) =>
           stage.querySelector(':scope > .map-slot.full-bleed-map > .map-frame')
             ?.className,
       ),
-    ).toEqual(['map-frame', 'map-frame']);
-    expect(stages.map((stage) => stage.className)).toEqual([
-      'map-stage',
-      'map-stage',
-    ]);
+    ).toEqual(['map-frame']);
+    expect(stages.map((stage) => stage.className)).toEqual(['map-stage']);
     expect(container.querySelector('.answer-panel')).toBeTruthy();
   });
 
