@@ -38,7 +38,11 @@ export const MapStage = forwardRef(function MapStage(
   }, []);
 
   return (
-    <div className="map-stage" ref={localRef}>
+    <div
+      className="map-stage"
+      data-map-stage-reserved-block="4.75rem"
+      ref={localRef}
+    >
       <div className="map-slot full-bleed-map">
         <section className="map-frame">{content}</section>
       </div>
