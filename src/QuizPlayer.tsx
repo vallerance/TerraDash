@@ -20,6 +20,7 @@ import {
 } from './panelPlacement';
 import { mapWidthForStage } from './mapLayout';
 import { resultMoodForScore } from './resultMood';
+import { MapStage } from './MapStage';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -309,12 +310,6 @@ export function QuizPlayer({
     const update = () => {
       const stage = stageRef.current;
       const panel = panelRef.current;
-      if (stage) {
-        stage.style.setProperty(
-          '--map-width',
-          `${mapWidthForStage(stage.clientWidth, stage.clientHeight)}px`,
-        );
-      }
       if (manualPlacement.current) return;
       const targets = stage ? panelPlacementTargets(stage) : [];
       if (!stage || !panel || targets.length === 0) return;
@@ -507,132 +502,133 @@ export function QuizPlayer({
         </div>
       </div>
       {currentLocation && (
-        <div className="map-stage" ref={stageRef}>
-          <div className="map-slot full-bleed-map">
-            {renderMap(currentLocation)}
-          </div>
-          <div
-            ref={panelRef}
-            className="answer-panel"
-            style={{ left: panelPlacement.left, top: panelPlacement.top }}
-          >
-            <button
-              className="panel-move-handle"
-              type="button"
-              aria-label="Move answer form"
-              title="Drag to move answer form"
-              onPointerDown={(event) => {
-                manualPlacement.current = true;
-                dragRef.current = {
-                  pointerId: event.pointerId,
-                  startX: event.clientX,
-                  startY: event.clientY,
-                  left: panelPlacement.left,
-                  top: panelPlacement.top,
-                };
-                event.currentTarget.setPointerCapture(event.pointerId);
-              }}
-              onPointerMove={movePanel}
-              onPointerUp={(event) => {
-                if (event.currentTarget.hasPointerCapture(event.pointerId))
-                  event.currentTarget.releasePointerCapture(event.pointerId);
-                dragRef.current = undefined;
-              }}
-              onPointerCancel={() => {
-                dragRef.current = undefined;
-              }}
+        <MapStage
+          ref={stageRef}
+          content={renderMap(currentLocation)}
+          overlay={
+            <div
+              ref={panelRef}
+              className="answer-panel"
+              style={{ left: panelPlacement.left, top: panelPlacement.top }}
             >
-              <svg
-                aria-hidden="true"
-                className="panel-move-icon"
-                viewBox="0 0 24 24"
-                focusable="false"
+              <button
+                className="panel-move-handle"
+                type="button"
+                aria-label="Move answer form"
+                title="Drag to move answer form"
+                onPointerDown={(event) => {
+                  manualPlacement.current = true;
+                  dragRef.current = {
+                    pointerId: event.pointerId,
+                    startX: event.clientX,
+                    startY: event.clientY,
+                    left: panelPlacement.left,
+                    top: panelPlacement.top,
+                  };
+                  event.currentTarget.setPointerCapture(event.pointerId);
+                }}
+                onPointerMove={movePanel}
+                onPointerUp={(event) => {
+                  if (event.currentTarget.hasPointerCapture(event.pointerId))
+                    event.currentTarget.releasePointerCapture(event.pointerId);
+                  dragRef.current = undefined;
+                }}
+                onPointerCancel={() => {
+                  dragRef.current = undefined;
+                }}
               >
-                <path d="M12 3 9 6h2v5H6V9l-3 3 3 3v-2h5v5H9l3 3 3-3h-2v-5h5v2l3-3-3-3v2h-5V6h2l-3-3Z" />
-              </svg>
-            </button>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                submit();
-              }}
-            >
-              <label className="visually-hidden" htmlFor="answer">
-                Location name
-              </label>
-              <div className="answer-row">
-                <div className="combobox-wrap">
-                  <input
-                    ref={answerRef}
-                    id="answer"
-                    placeholder="Location name"
-                    role="combobox"
-                    value={text}
-                    autoComplete="off"
-                    aria-autocomplete="list"
-                    aria-controls="answer-options"
-                    aria-expanded={dropdownOpen}
-                    aria-activedescendant={
-                      visibleSuggestions[activeSuggestion]
-                        ? `answer-option-${visibleSuggestions[activeSuggestion].id}`
-                        : undefined
-                    }
-                    onInput={(event) => {
-                      setText((event.target as HTMLInputElement).value);
-                      setSelectedId(undefined);
-                      setActiveSuggestion(0);
-                    }}
-                    onKeyDown={onKeyDown}
-                  />
-                  {dropdownOpen && (
-                    <ul
-                      ref={suggestionsRef}
-                      id="answer-options"
-                      role="listbox"
-                      className="suggestions"
-                    >
-                      {visibleSuggestions.length === 0 ? (
-                        <li className="no-matches" role="status">
-                          No matches
-                        </li>
-                      ) : (
-                        visibleSuggestions.map((location, index) => (
-                          <li
-                            id={`answer-option-${location.id}`}
-                            key={location.id}
-                            role="option"
-                            aria-selected={index === activeSuggestion}
-                            onPointerDown={(event) => {
-                              event.preventDefault();
-                              choose(location);
-                            }}
-                          >
-                            {location.name}
-                          </li>
-                        ))
-                      )}
-                    </ul>
-                  )}
-                </div>
-                <button
-                  className="submit-arrow"
-                  type="submit"
-                  aria-label="Submit answer"
-                  title="Submit answer"
+                <svg
+                  aria-hidden="true"
+                  className="panel-move-icon"
+                  viewBox="0 0 24 24"
+                  focusable="false"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="submit-icon"
-                    viewBox="0 0 24 24"
-                    focusable="false"
+                  <path d="M12 3 9 6h2v5H6V9l-3 3 3 3v-2h5v5H9l3 3 3-3h-2v-5h5v2l3-3-3-3v2h-5V6h2l-3-3Z" />
+                </svg>
+              </button>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  submit();
+                }}
+              >
+                <label className="visually-hidden" htmlFor="answer">
+                  Location name
+                </label>
+                <div className="answer-row">
+                  <div className="combobox-wrap">
+                    <input
+                      ref={answerRef}
+                      id="answer"
+                      placeholder="Location name"
+                      role="combobox"
+                      value={text}
+                      autoComplete="off"
+                      aria-autocomplete="list"
+                      aria-controls="answer-options"
+                      aria-expanded={dropdownOpen}
+                      aria-activedescendant={
+                        visibleSuggestions[activeSuggestion]
+                          ? `answer-option-${visibleSuggestions[activeSuggestion].id}`
+                          : undefined
+                      }
+                      onInput={(event) => {
+                        setText((event.target as HTMLInputElement).value);
+                        setSelectedId(undefined);
+                        setActiveSuggestion(0);
+                      }}
+                      onKeyDown={onKeyDown}
+                    />
+                    {dropdownOpen && (
+                      <ul
+                        ref={suggestionsRef}
+                        id="answer-options"
+                        role="listbox"
+                        className="suggestions"
+                      >
+                        {visibleSuggestions.length === 0 ? (
+                          <li className="no-matches" role="status">
+                            No matches
+                          </li>
+                        ) : (
+                          visibleSuggestions.map((location, index) => (
+                            <li
+                              id={`answer-option-${location.id}`}
+                              key={location.id}
+                              role="option"
+                              aria-selected={index === activeSuggestion}
+                              onPointerDown={(event) => {
+                                event.preventDefault();
+                                choose(location);
+                              }}
+                            >
+                              {location.name}
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                  <button
+                    className="submit-arrow"
+                    type="submit"
+                    aria-label="Submit answer"
+                    title="Submit answer"
                   >
-                    <path d="M4 12h15m-6-6 6 6-6 6" />
-                  </svg>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+                    <svg
+                      aria-hidden="true"
+                      className="submit-icon"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                    >
+                      <path d="M4 12h15m-6-6 6 6-6 6" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          }
+        />
       )}
     </section>
   );

@@ -599,7 +599,7 @@ input {
 }
 .diagnostics-card {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   flex-direction: column;
   width: min(100%, 1200px);
   min-height: 0;
@@ -613,14 +613,11 @@ input {
   margin: 0.25rem 0 0.5rem;
   font-size: clamp(1.35rem, 4vw, 2.5rem);
 }
-.diagnostics-map {
-  display: flex;
-  flex: 1 1 auto;
+.diagnostics-page > .map-stage {
+  flex: 1 1 0;
   width: 100%;
+  min-width: 0;
   min-height: 0;
-}
-.diagnostics-map .world-map {
-  height: 100%;
 }
 .ocean {
   fill: #10233c;
