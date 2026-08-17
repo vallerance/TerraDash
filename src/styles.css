@@ -119,6 +119,7 @@ h2 {
   color: #a9b8cc;
 }
 .quiz-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -592,17 +593,21 @@ input {
   height: auto;
   background: #10233c;
 }
-.diagnostics-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.diagnostics-control {
+  position: absolute;
+  top: 0.55rem;
+  right: var(--content-gutter);
+  z-index: 1;
+  display: grid;
+  gap: 0.1rem;
+  width: clamp(8rem, 28vw, 14rem);
   margin: 0;
   color: #9fb0c5;
-  font-size: 0.75rem;
-  white-space: nowrap;
+  font-size: 0.62rem;
 }
-.diagnostics-location select {
-  min-width: 10rem;
+.diagnostics-control select {
+  width: 100%;
+  min-width: 0;
   padding: 0.2rem 0.4rem;
   color: #e8eef8;
   background: #1c314d;
