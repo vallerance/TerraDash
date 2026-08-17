@@ -9,6 +9,14 @@ const initialId = new URLSearchParams(window.location.search).get('location');
 const initialLocation =
   catalog.find(({ id }) => id === initialId) ?? catalog[0];
 
+export function DiagnosticsMap({
+  location,
+}: {
+  location: (typeof catalog)[number];
+}) {
+  return <MapStage content={<MapView active={location} />} />;
+}
+
 function Diagnostics() {
   const [locationId, setLocationId] = useState(initialLocation.id);
   const location = catalog.find(({ id }) => id === locationId)!;
@@ -38,7 +46,7 @@ function Diagnostics() {
           ))}
         </select>
       </section>
-      <MapStage content={<MapView active={location} />} />
+      <DiagnosticsMap location={location} />
       <AppFooter />
     </main>
   );

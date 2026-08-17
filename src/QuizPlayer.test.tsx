@@ -477,6 +477,18 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
   });
 
+  it('preserves the production stage-to-map-box and overlay contract', () => {
+    const container = renderPlayer();
+    act(() => (container.querySelector('button') as HTMLButtonElement).click());
+    const stage = container.querySelector('.map-stage')!;
+    expect(
+      stage.querySelector(
+        ':scope > .map-slot.full-bleed-map > .map-frame > [data-map-id]',
+      ),
+    ).toBeTruthy();
+    expect(stage.lastElementChild?.className).toBe('answer-panel');
+  });
+
   it('keeps highlighted options inside the list and resets its scroll without moving the document', () => {
     const container = renderPlayer(longCatalog);
     act(() => (container.querySelector('button') as HTMLButtonElement).click());
