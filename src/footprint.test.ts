@@ -39,9 +39,7 @@ describe('threshold and ring primitives', () => {
     expect(bounds).toEqual([-412, 1228]);
     expect(bounds[1]).toBe(mapXForLongitude(127, 1440));
     expect(-seamX - bounds[0]).toBe(MAP_OVERLAP_REFERENCE_UNITS);
-    expect(bounds[1] - (-seamX + 1440)).toBe(
-      MAP_OVERLAP_REFERENCE_UNITS,
-    );
+    expect(bounds[1] - (-seamX + 1440)).toBe(MAP_OVERLAP_REFERENCE_UNITS);
     expect(wrappedOffsets(1340, 1380, 1440, seamX)).toContain(-1752);
     expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1128);
   });
