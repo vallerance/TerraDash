@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { suggestionsFor } from './autocomplete';
+import { formatAccuracy } from './accuracy';
 import { countryNameKey } from './countryName';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
@@ -124,9 +125,7 @@ export function QuizPlayer({
   ).length;
   const completedCount = Object.keys(state.outcomes).length;
   const locationsRemaining = state.order.length - completedCount;
-  const accuracy = completedCount
-    ? Math.round((state.score / completedCount) * 100)
-    : 0;
+  const accuracy = completedCount ? state.score / completedCount : 0;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
 
@@ -381,8 +380,8 @@ export function QuizPlayer({
             <dd>{formatElapsed(results.elapsedMs)}</dd>
           </div>
           <div>
-            <dt>Weighted accuracy</dt>
-            <dd>{Math.round(results.accuracy * 100)}%</dd>
+            <dt>Accuracy</dt>
+            <dd>{formatAccuracy(results.accuracy)}</dd>
           </div>
           <div>
             <dt>Missed</dt>
@@ -443,9 +442,9 @@ export function QuizPlayer({
           </div>
           <div
             className="status-item status-accuracy"
-            aria-label={`${accuracy}% accuracy`}
+            aria-label={`${formatAccuracy(accuracy)} accuracy`}
           >
-            <strong>{accuracy}%</strong>
+            <strong>{formatAccuracy(accuracy)}</strong>
             <small>Accuracy</small>
           </div>
           <div className="status-item status-remaining">

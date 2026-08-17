@@ -92,7 +92,7 @@ describe('QuizPlayer integration', () => {
     );
     expect(
       container.querySelector('.status-accuracy strong')?.textContent,
-    ).toBe('0%');
+    ).toBe('0.00%');
     const input = container.querySelector(
       '[role="combobox"]',
     ) as HTMLInputElement;
@@ -116,7 +116,7 @@ describe('QuizPlayer integration', () => {
     );
     expect(
       container.querySelector('.status-accuracy strong')?.textContent,
-    ).toBe('100%');
+    ).toBe('100.00%');
     expect(
       container
         .querySelector('.quiz-feedback-icon')
@@ -161,7 +161,7 @@ describe('QuizPlayer integration', () => {
     );
     expect(
       container.querySelector('.status-accuracy strong')?.textContent,
-    ).toBe('50%');
+    ).toBe('50.00%');
   });
 
   it('shows correct answers over total and increments only after a correct completion', async () => {
@@ -736,7 +736,7 @@ describe('QuizPlayer integration', () => {
     expect(container.textContent).toContain('Run complete');
     expect(container.querySelector('.active-player')).toBeNull();
     expect(container.querySelector('.full-bleed-map')).toBeNull();
-    expect(container.textContent).toContain('50%');
+    expect(container.textContent).toContain('50.00%');
     await act(async () =>
       (container.querySelector('button') as HTMLButtonElement).click(),
     );
