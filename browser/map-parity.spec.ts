@@ -29,7 +29,7 @@ for (const viewport of viewports) {
     await page.addInitScript(() => {
       Math.random = () => 0;
     });
-    await page.goto('/');
+    await page.goto('/TerraDash/');
     await page.getByRole('button').first().click();
     await expect(page.locator('.map-stage')).toBeVisible();
 
@@ -41,7 +41,9 @@ for (const viewport of viewports) {
       svg: await bounds(page, '.world-map'),
     };
 
-    await page.goto(`/diagnostics.html?location=${encodeURIComponent(mapId)}`);
+    await page.goto(
+      `/TerraDash/diagnostics.html?location=${encodeURIComponent(mapId)}`,
+    );
     await expect(page.locator('.diagnostics-control select')).toBeVisible();
     const diagnosticsBounds = {
       stage: await bounds(page, '.map-stage'),
