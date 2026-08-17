@@ -1,15 +1,18 @@
-import { expect, test } from 'playwright/test';
+import { expect, test, type Page } from 'playwright/test';
 
 const viewports = [
   { width: 375, height: 667 },
   { width: 768, height: 1024 },
 ];
 
-async function bounds(page, selector) {
+async function bounds(page: Page, selector: string) {
   return page.locator(selector).boundingBox();
 }
 
-function expectSameBounds(actual, expected) {
+function expectSameBounds(
+  actual: { x: number; y: number; width: number; height: number } | null,
+  expected: { x: number; y: number; width: number; height: number } | null,
+) {
   expect(actual).not.toBeNull();
   expect(expected).not.toBeNull();
   expect(actual.x).toBeCloseTo(expected.x, 2);
