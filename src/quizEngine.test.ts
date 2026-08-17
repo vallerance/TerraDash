@@ -245,6 +245,41 @@ describe('quiz engine', () => {
     }
     expect(state.elapsedMs).toBe(15);
   });
+  it('debug-completes through the normal result path with a ten-minute offset', () => {
+    let state = start(() => 0);
+    const first = currentLocationId(state)!;
+    state = submit(
+      state,
+      catalog.find((location) => location.id === first)!.name,
+      20,
+    ).state;
+    const completed = transition(state, {
+      type: 'complete-debug',
+      now: 600020,
+    });
+    expect(completed.event).toEqual({ type: 'completed', result: 'missed' });
+    expect(completed.state.phase).toBe('completed');
+    expect(completed.state.elapsedMs).toBe(600010);
+    expect(completed.state.results?.missed).toBe(2);
+    expect(completed.state.outcomes[first]).toEqual({
+      attempts: 1,
+      status: 'correct',
+      credit: 1,
+    });
+    expect(Object.values(completed.state.outcomes)).toContainEqual({
+      attempts: 3,
+      status: 'missed',
+      credit: 0,
+    });
+    expect(
+      transition(createIdleState(), { type: 'complete-debug', now: 600000 })
+        .event,
+    ).toEqual({ type: 'rejected', reason: 'not-started' });
+    expect(
+      transition(completed.state, { type: 'complete-debug', now: 1200020 })
+        .event,
+    ).toEqual({ type: 'rejected', reason: 'already-completed' });
+  });
   it('resets without leaking order, answers, score, or time and starts a new shuffle', () => {
     let calls = 0;
     const rng = () => (calls++ === 0 ? 0 : 0.9);

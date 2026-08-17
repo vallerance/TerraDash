@@ -17,6 +17,20 @@ npm run build
 
 Vite is configured for the GitHub Pages base path `/TerraDash/`. The demo selector highlights ordinary, multipart/remote, island, observer, and microstate fixtures. It is intentionally not quiz gameplay.
 
+## Browser console endgame command
+
+While the quiz is active, open the browser console and run:
+
+```js
+window.terraDash.completeQuiz();
+```
+
+The command completes the active run through the normal quiz engine, marks all
+remaining locations missed, and advances elapsed time by exactly ten minutes.
+It returns `"completed"` when it dispatches completion or `"ignored"` when the
+quiz is idle or already complete. It has no visible UI control and does not
+persist or transmit anything.
+
 ## Data and architecture
 
 `data/source/ne_50m_admin_0_countries.geojson` is Natural Earth Admin 0 countries, v5.1.1, 1:50m. Its SHA-256 and immutable raw download URL are pinned in `scripts/generate-map.mjs`; generation fails if the checked-in source differs. Natural Earth data is public domain. The map uses a neutral disclaimer because boundary representations do not imply endorsement of any boundary claim.

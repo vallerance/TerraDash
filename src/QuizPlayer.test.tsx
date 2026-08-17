@@ -51,6 +51,46 @@ function renderPlayer(catalogOverride = catalog) {
 }
 
 describe('QuizPlayer integration', () => {
+  it('exposes the console completion command and restores the global safely', async () => {
+    const previousCommand = () => 'ignored' as const;
+    const previousObject = {
+      marker: 'preserve',
+      completeQuiz: previousCommand,
+    };
+    window.terraDash = previousObject;
+    const container = renderPlayer();
+    expect(window.terraDash).toBe(previousObject);
+    expect(window.terraDash.completeQuiz?.()).toBe('ignored');
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    await act(async () => {
+      expect(window.terraDash?.completeQuiz?.()).toBe('completed');
+    });
+    expect(container.textContent).toContain('Run complete');
+    expect(container.querySelector('.results-grid')?.textContent).toContain(
+      '10:00',
+    );
+    expect(container.querySelector('.results-grid')?.textContent).toContain(
+      '2',
+    );
+    expect(window.terraDash?.completeQuiz?.()).toBe('ignored');
+    act(() => root?.unmount());
+    root = undefined;
+    expect(window.terraDash).toBe(previousObject);
+    expect(window.terraDash.completeQuiz).toBe(previousCommand);
+  });
+
+  it('removes the installed global when no prior namespace exists', () => {
+    delete window.terraDash;
+    const container = renderPlayer();
+    expect(typeof window.terraDash?.completeQuiz).toBe('function');
+    act(() => root?.unmount());
+    root = undefined;
+    expect(window.terraDash).toBeUndefined();
+    container.remove();
+  });
+
   it('uses accent and punctuation-insensitive exact closure and Enter submission while preserving display', async () => {
     const localized = [{ id: 'iso:AAA', name: 'Côte d’Ivoire' }];
     const container = renderPlayer(localized);
