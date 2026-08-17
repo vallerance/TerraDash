@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalog from '../data/generated/catalog.json';
 import { AppFooter, MapView } from './main';
+import { MapHeader } from './MapHeader';
 import { MapStage } from './MapStage';
 import './styles.css';
 
@@ -34,35 +35,41 @@ function Diagnostics() {
         </nav>
       </header>
       <section className="player-card active-player diagnostics-player">
-        <div className="quiz-header diagnostics-header">
+        <MapHeader
+          overlay={
+            <label
+              className="diagnostics-control"
+              htmlFor="diagnostic-location"
+            >
+              <span>Location</span>
+              <select
+                id="diagnostic-location"
+                value={locationId}
+                onChange={(event) => {
+                  const nextId = event.target.value;
+                  setLocationId(nextId);
+                  history.replaceState(
+                    null,
+                    '',
+                    `?location=${encodeURIComponent(nextId)}`,
+                  );
+                }}
+              >
+                {catalog.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                    {name} ({id})
+                  </option>
+                ))}
+              </select>
+            </label>
+          }
+        >
           <div className="quiz-prompt-group">
             <div className="quiz-prompt">
               <h1>Inspect a location</h1>
-              <label
-                className="diagnostics-location"
-                htmlFor="diagnostic-location"
-              >
-                Location
-                <select
-                  id="diagnostic-location"
-                  value={locationId}
-                  onChange={(event) => {
-                    const nextId = event.target.value;
-                    setLocationId(nextId);
-                    history.replaceState(
-                      null,
-                      '',
-                      `?location=${encodeURIComponent(nextId)}`,
-                    );
-                  }}
-                >
-                  {catalog.map(({ id, name }) => (
-                    <option key={id} value={id}>
-                      {name} ({id})
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <span className="attempts-remaining-label">
+                Location selected
+              </span>
             </div>
           </div>
           <div
@@ -86,7 +93,7 @@ function Diagnostics() {
               <small>Locations remaining</small>
             </div>
           </div>
-        </div>
+        </MapHeader>
         <DiagnosticsMap location={location} />
       </section>
       <p className="disclaimer">

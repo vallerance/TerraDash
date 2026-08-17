@@ -19,6 +19,7 @@ import {
   unionRects,
 } from './panelPlacement';
 import { MapStage } from './MapStage';
+import { MapHeader } from './MapHeader';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
@@ -405,7 +406,7 @@ export function QuizPlayer({
       className={`player-card active-player ${attemptStateClass}`}
       aria-labelledby="quiz-title"
     >
-      <div className="quiz-header">
+      <MapHeader>
         <div className="quiz-prompt-group">
           <div className="quiz-prompt">
             <h1 id="quiz-title">Type the name of this location</h1>
@@ -454,7 +455,7 @@ export function QuizPlayer({
             </span>
           </div>
         </div>
-      </div>
+      </MapHeader>
       {currentLocation && (
         <MapStage
           ref={stageRef}
