@@ -514,12 +514,20 @@ describe('QuizPlayer integration', () => {
     );
     await act(async () =>
       (
-        container.querySelector('.active-player button') as HTMLButtonElement
+        container.querySelector('.home-page button') as HTMLButtonElement
       ).click(),
     );
 
     const stages = [...container.querySelectorAll('.map-stage')];
     expect(stages).toHaveLength(2);
+    expect(
+      [
+        container.querySelector('.quiz-header'),
+        container.querySelector('.diagnostics-card'),
+      ].map((element) =>
+        element?.getAttribute('data-map-stage-reserved-block'),
+      ),
+    ).toEqual(['4.75rem', '4.75rem']);
     expect(
       stages.map(
         (stage) =>

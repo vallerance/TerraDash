@@ -405,7 +405,7 @@ export function QuizPlayer({
       className={`player-card active-player ${attemptStateClass}`}
       aria-labelledby="quiz-title"
     >
-      <div className="quiz-header">
+      <div className="quiz-header" data-map-stage-reserved-block="4.75rem">
         <div className="quiz-prompt-group">
           <div className="quiz-prompt">
             <h1 id="quiz-title">Type the name of this location</h1>
