@@ -34,7 +34,7 @@ describe('MapView small-region callout rendering', () => {
     const frame = renderLocation('iso:UZB');
     const worldMap = frame.querySelector('.world-map');
     expect(worldMap?.hasAttribute('preserveAspectRatio')).toBe(false);
-    expect(worldMap?.getAttribute('viewBox')).toBe('-140 0 1640 720');
+    expect(worldMap?.getAttribute('viewBox')).toBe('-412 0 1640 720');
   });
 
   it('keeps the source geometry unchanged and renders one contextual callout', () => {

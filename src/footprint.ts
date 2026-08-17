@@ -25,7 +25,9 @@ export type CalloutLayout = {
 // the inset callout.
 export const MIN_FOOTPRINT_PX = 25;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
-export const MAP_SEAM_LONGITUDE = -170;
+// Keep the wrapped viewport's right edge at 127°E while retaining the same
+// reference-unit overlap on both sides of the primary world.
+export const MAP_SEAM_LONGITUDE = -102;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;
 export const CALLOUT_GAP_PX = 72;
 export const CALLOUT_AREA_SCALE = 2;
