@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "npm run generate && tsc -b && vite build",
     "generate": "node scripts/generate-map.mjs",
     "validate:data": "node scripts/validate-data.mjs",
