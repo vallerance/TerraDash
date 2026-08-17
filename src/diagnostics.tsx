@@ -33,34 +33,62 @@ function Diagnostics() {
           </a>
         </nav>
       </header>
-      <section
-        className="player-card diagnostics-card"
-        data-map-stage-reserved-block="4.75rem"
-      >
-        <p className="eyebrow">TerraDash · Map diagnostics</p>
-        <h1>Inspect a location</h1>
-        <label htmlFor="diagnostic-location">Location</label>
-        <select
-          id="diagnostic-location"
-          value={locationId}
-          onChange={(event) => {
-            const nextId = event.target.value;
-            setLocationId(nextId);
-            history.replaceState(
-              null,
-              '',
-              `?location=${encodeURIComponent(nextId)}`,
-            );
-          }}
-        >
-          {catalog.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name} ({id})
-            </option>
-          ))}
-        </select>
+      <section className="player-card active-player diagnostics-player">
+        <div className="quiz-header diagnostics-header">
+          <div className="quiz-prompt-group">
+            <div className="quiz-prompt">
+              <h1>Inspect a location</h1>
+              <label
+                className="diagnostics-location"
+                htmlFor="diagnostic-location"
+              >
+                Location
+                <select
+                  id="diagnostic-location"
+                  value={locationId}
+                  onChange={(event) => {
+                    const nextId = event.target.value;
+                    setLocationId(nextId);
+                    history.replaceState(
+                      null,
+                      '',
+                      `?location=${encodeURIComponent(nextId)}`,
+                    );
+                  }}
+                >
+                  {catalog.map(({ id, name }) => (
+                    <option key={id} value={id}>
+                      {name} ({id})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </div>
+          <div
+            className="quiz-status quiz-status-bar diagnostics-status"
+            aria-hidden="true"
+          >
+            <div className="status-item status-time">
+              <strong>00:00</strong>
+              <small>Time</small>
+            </div>
+            <div className="status-item status-correct">
+              <strong>0/0</strong>
+              <small>Locations correct</small>
+            </div>
+            <div className="status-item status-accuracy">
+              <strong>0.00%</strong>
+              <small>Accuracy</small>
+            </div>
+            <div className="status-item status-remaining">
+              <strong>0</strong>
+              <small>Locations remaining</small>
+            </div>
+          </div>
+        </div>
+        <DiagnosticsMap location={location} />
       </section>
-      <DiagnosticsMap location={location} />
       <p className="disclaimer">
         Map data: Natural Earth Admin 0 boundary data, v5.1.1, 1:50m main map
         and 1:10m inset. Public domain. Boundaries are shown for gameplay

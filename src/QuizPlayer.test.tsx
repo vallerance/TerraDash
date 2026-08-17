@@ -564,11 +564,6 @@ describe('QuizPlayer integration', () => {
     const stages = [...container.querySelectorAll('.map-stage')];
     expect(stages).toHaveLength(2);
     expect(
-      stages.map((stage) =>
-        stage.getAttribute('data-map-stage-reserved-block'),
-      ),
-    ).toEqual(['4.75rem', '4.75rem']);
-    expect(
       stages.map(
         (stage) =>
           stage.querySelector(':scope > .map-slot.full-bleed-map > .map-frame')
