@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
-    "test": "vitest run --exclude=browser/**"
+    "test": "vitest run --exclude='**/browser/**'"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
