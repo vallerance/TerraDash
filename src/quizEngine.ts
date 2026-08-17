@@ -47,6 +47,7 @@ export type RejectionReason =
 export type QuizAction =
   | { type: 'start'; now: number }
   | { type: 'read-elapsed'; now: number }
+  | { type: 'complete-debug'; now: number }
   | { type: 'submit'; now: number; selectedId?: string; text?: string }
   | { type: 'reset' };
 export type EngineConfig = {
@@ -273,6 +274,25 @@ export function reduceQuiz(
   );
   if (timeError) return reject(state, timeError);
   const elapsedMs = action.now - (state.startedAt ?? action.now);
+  if (action.type === 'complete-debug') {
+    const outcomes = { ...state.outcomes };
+    for (let index = state.currentIndex; index < state.order.length; index += 1)
+      outcomes[state.order[index]] = {
+        attempts: 3,
+        status: 'missed',
+        credit: 0,
+      };
+    return {
+      state: finish(
+        { ...state, elapsedMs },
+        action.now,
+        state.score,
+        outcomes,
+        'missed',
+      ),
+      event: { type: 'completed', result: 'missed' },
+    };
+  }
   if (action.type === 'read-elapsed')
     return {
       state: { ...state, elapsedMs, lastEvent: { type: 'elapsed' } },

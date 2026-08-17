@@ -27,6 +27,16 @@ type QuizPlayerProps = {
 };
 
 type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
+type TerraDashConsole = {
+  completeQuiz?: () => 'completed' | 'ignored';
+  [key: string]: unknown;
+};
+
+declare global {
+  interface Window {
+    terraDash?: TerraDashConsole;
+  }
+}
 
 function FeedbackIcon({
   tone,
@@ -147,6 +157,30 @@ export function QuizPlayer({
       250,
     );
     return () => window.clearInterval(timer);
+  }, [dispatch, now, state.phase]);
+
+  useEffect(() => {
+    const previousObject = window.terraDash;
+    const consoleObject = previousObject ?? {};
+    const previousCommand = consoleObject.completeQuiz;
+    const completeQuiz = () => {
+      if (state.phase !== 'active') return 'ignored' as const;
+      dispatch({ type: 'complete-debug', now: now() + 600_000 });
+      return 'completed' as const;
+    };
+    consoleObject.completeQuiz = completeQuiz;
+    window.terraDash = consoleObject;
+    return () => {
+      if (window.terraDash !== consoleObject) return;
+      if (consoleObject.completeQuiz !== completeQuiz) return;
+      if (previousCommand === undefined) delete consoleObject.completeQuiz;
+      else consoleObject.completeQuiz = previousCommand;
+      if (
+        previousObject === undefined &&
+        Object.keys(consoleObject).length === 0
+      )
+        delete window.terraDash;
+    };
   }, [dispatch, now, state.phase]);
 
   const previousEvent = useRef(state.lastEvent);
