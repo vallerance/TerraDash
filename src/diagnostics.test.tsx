@@ -34,5 +34,6 @@ describe('DiagnosticsMap consumer contract', () => {
       ),
     ).toBeTruthy();
     expect(host.querySelector('.answer-panel')).toBeNull();
+    expect(host.querySelector('.diagnostics-card')).toBeNull();
   });
 });

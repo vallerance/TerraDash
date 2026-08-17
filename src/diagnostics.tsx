@@ -22,6 +22,17 @@ function Diagnostics() {
   const location = catalog.find(({ id }) => id === locationId)!;
   return (
     <main className="diagnostics-page">
+      <header className="app-header">
+        <a className="app-brand" href="./">
+          TerraDash
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="./">Quiz</a>
+          <a aria-current="page" href="./diagnostics.html">
+            Diagnostics
+          </a>
+        </nav>
+      </header>
       <section className="player-card diagnostics-card">
         <p className="eyebrow">TerraDash · Map diagnostics</p>
         <h1>Inspect a location</h1>
@@ -47,6 +58,11 @@ function Diagnostics() {
         </select>
       </section>
       <DiagnosticsMap location={location} />
+      <p className="disclaimer">
+        Map data: Natural Earth Admin 0 boundary data, v5.1.1, 1:50m main map
+        and 1:10m inset. Public domain. Boundaries are shown for gameplay
+        visualization and do not imply endorsement of any boundary claim.
+      </p>
       <AppFooter />
     </main>
   );

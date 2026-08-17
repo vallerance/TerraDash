@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizPlayer } from './QuizPlayer';
 import { QuizProvider } from './QuizContext';
+import catalogData from '../data/generated/catalog.json';
+import { DiagnosticsMap } from './diagnostics';
 
 const catalog = [
   { id: 'iso:AAA', name: 'Alpha' },
@@ -16,6 +18,10 @@ const longCatalog = [
 ];
 const quiz = { id: 'fixture', locationIds: catalog.map(({ id }) => id) };
 let root: ReturnType<typeof createRoot> | undefined;
+class TestResizeObserver {
+  observe() {}
+  disconnect() {}
+}
 (
   globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
@@ -25,6 +31,8 @@ afterEach(() => {
   root = undefined;
   vi.useRealTimers();
 });
+
+vi.stubGlobal('ResizeObserver', TestResizeObserver);
 
 function renderPlayer(catalogOverride = catalog) {
   const container = document.createElement('div');
@@ -487,6 +495,43 @@ describe('QuizPlayer integration', () => {
       ),
     ).toBeTruthy();
     expect(stage.lastElementChild?.className).toBe('answer-panel');
+  });
+
+  it('gives quiz and diagnostics the same shared stage inputs', async () => {
+    const container = document.createElement('main');
+    document.body.append(container);
+    root = createRoot(container);
+    await act(async () =>
+      root!.render(
+        <QuizProvider quiz={quiz} catalog={catalog} rng={() => 0}>
+          <QuizPlayer
+            catalog={catalog}
+            renderMap={(location) => <div data-map-id={location.id} />}
+          />
+          <DiagnosticsMap location={catalogData[0]} />
+        </QuizProvider>,
+      ),
+    );
+    await act(async () =>
+      (
+        container.querySelector('.active-player button') as HTMLButtonElement
+      ).click(),
+    );
+
+    const stages = [...container.querySelectorAll('.map-stage')];
+    expect(stages).toHaveLength(2);
+    expect(
+      stages.map(
+        (stage) =>
+          stage.querySelector(':scope > .map-slot.full-bleed-map > .map-frame')
+            ?.className,
+      ),
+    ).toEqual(['map-frame', 'map-frame']);
+    expect(stages.map((stage) => stage.className)).toEqual([
+      'map-stage',
+      'map-stage',
+    ]);
+    expect(container.querySelector('.answer-panel')).toBeTruthy();
   });
 
   it('keeps highlighted options inside the list and resets its scroll without moving the document', () => {
