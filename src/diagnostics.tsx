@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalog from '../data/generated/catalog.json';
 import { AppFooter, MapView } from './main';
+import { MapStage } from './MapStage';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
@@ -36,10 +37,8 @@ function Diagnostics() {
             </option>
           ))}
         </select>
-        <section className="map-frame diagnostics-map">
-          <MapView active={location} />
-        </section>
       </section>
+      <MapStage content={<MapView active={location} />} />
       <AppFooter />
     </main>
   );

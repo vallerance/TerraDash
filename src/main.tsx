@@ -349,9 +349,7 @@ function App() {
         <QuizPlayer
           catalog={defaultCatalog}
           renderMap={(active) => (
-            <section className="map-frame">
-              <MapView active={mapLocationForQuizId(active.id)! as Location} />
-            </section>
+            <MapView active={mapLocationForQuizId(active.id)! as Location} />
           )}
         />
         <p className="disclaimer">
