@@ -21,9 +21,9 @@ export type CalloutLayout = {
   sourceRadius: number;
 };
 // The threshold is a linear projected screen span. It is not an area
-// threshold; components with either rendered dimension at least 25px bypass
+// threshold; components with either rendered dimension at least 20px bypass
 // the inset callout.
-export const MIN_FOOTPRINT_PX = 25;
+export const MIN_FOOTPRINT_PX = 20;
 export const COMPONENT_CLUSTER_PROXIMITY_PX = 24;
 export const MAP_SEAM_LONGITUDE = -170;
 export const MAP_OVERLAP_REFERENCE_UNITS = 100;

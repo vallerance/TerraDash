@@ -40,7 +40,7 @@ describe('threshold and ring primitives', () => {
     expect(wrappedOffsets(60, 100, 1440, seamX)).toContain(1400);
   });
 
-  it('uses the 25px linear boundary for newly routed callouts', () => {
+  it('uses the 20px linear boundary for newly routed callouts', () => {
     expect(
       deriveCalloutModel([`M0,0L${MIN_FOOTPRINT_PX - 0.01},0L0,1Z`], 1, 1440),
     ).toBeDefined();
