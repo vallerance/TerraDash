@@ -251,6 +251,24 @@ describe('callout selection and actual-boundary clustering', () => {
     );
   });
 
+  it('keeps constrained callouts inside the shifted rendered viewport', () => {
+    const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, 1440);
+    const [viewportMin, viewportMax] = wrappedViewportBounds(1440, seamX);
+    const layout = deriveCalloutLayout(
+      { sourceCenter: [1410, 40], selectedPathIndices: [0] },
+      358 / 1640,
+      1440,
+      720,
+      358,
+    );
+    expect(
+      layout.center[0] + layout.radius + 24 / (358 / 1640),
+    ).toBeLessThanOrEqual(viewportMax);
+    expect(
+      layout.center[0] - layout.radius - 24 / (358 / 1640),
+    ).toBeGreaterThanOrEqual(viewportMin);
+  });
+
   it.each(['iso:ATG', 'iso:ARM'])('selects one callout for %s', (id) => {
     const model = deriveCalloutModel(
       pathsFor(id),

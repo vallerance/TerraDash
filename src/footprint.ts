@@ -87,18 +87,20 @@ export function deriveCalloutLayout(
   const sourceRadius = radius / CALLOUT_MAGNIFICATION_RATIO;
   const margin = 24 / scale;
   const gap = CALLOUT_GAP_PX / scale;
+  const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, mapWidth);
+  const [viewportMin, viewportMax] = wrappedViewportBounds(mapWidth, seamX);
   const sourceX = Math.max(
-    sourceRadius,
-    Math.min(mapWidth - sourceRadius, callout.sourceCenter[0]),
+    viewportMin + sourceRadius,
+    Math.min(viewportMax - sourceRadius, callout.sourceCenter[0]),
   );
   const sourceY = callout.sourceCenter[1];
-  const rightSide = sourceX <= mapWidth / 2;
+  const rightSide = sourceX <= (viewportMin + viewportMax) / 2;
   const preferred =
     sourceX + (rightSide ? 1 : -1) * (sourceRadius + gap + radius);
   const opposite =
     sourceX + (rightSide ? -1 : 1) * (sourceRadius + gap + radius);
-  const minX = -MAP_OVERLAP_REFERENCE_UNITS + radius + margin;
-  const maxX = mapWidth + MAP_OVERLAP_REFERENCE_UNITS - radius - margin;
+  const minX = viewportMin + radius + margin;
+  const maxX = viewportMax - radius - margin;
   const preferredFits = preferred >= minX && preferred <= maxX;
   const initialCenterX = preferredFits
     ? preferred
