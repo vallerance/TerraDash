@@ -84,7 +84,10 @@ describe('QuizPlayer integration', () => {
   it('removes the installed global when no prior namespace exists', () => {
     delete window.terraDash;
     const container = renderPlayer();
-    expect(typeof window.terraDash?.completeQuiz).toBe('function');
+    const namespace = (
+      window as Window & { terraDash?: { completeQuiz?: unknown } }
+    ).terraDash;
+    expect(typeof namespace?.completeQuiz).toBe('function');
     act(() => root?.unmount());
     root = undefined;
     expect(window.terraDash).toBeUndefined();
