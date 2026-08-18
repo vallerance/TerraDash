@@ -51,6 +51,22 @@ main {
   font-weight: 800;
   text-decoration: none;
 }
+.header-quiz-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #9fb0c5;
+  font-size: 0.72rem;
+}
+.header-quiz-selector select {
+  max-width: min(28vw, 14rem);
+  padding: 0.2rem 0.35rem;
+  border: 1px solid #344967;
+  border-radius: 0.35rem;
+  color: #dce8f7;
+  font: inherit;
+  background: #111c2e;
+}
 .app-header nav {
   display: flex;
   gap: 1rem;

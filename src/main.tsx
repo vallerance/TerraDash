@@ -347,6 +347,23 @@ function App() {
           <a className="app-brand" href="./">
             TerraDash
           </a>
+          <label className="header-quiz-selector">
+            <span>Quiz</span>
+            <select
+              aria-label="Choose quiz"
+              value={selectedQuiz.id}
+              onChange={(event) => {
+                setSelectedQuizId(event.target.value);
+                setAutoStart(false);
+              }}
+            >
+              {quizOptions.map((quiz) => (
+                <option key={quiz.id} value={quiz.id}>
+                  {quiz.name}
+                </option>
+              ))}
+            </select>
+          </label>
           <nav aria-label="Primary navigation">
             <a aria-current="page" href="./">
               Quiz
