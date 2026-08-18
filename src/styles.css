@@ -118,7 +118,7 @@ h2 {
   max-width: 60ch;
   color: #a9b8cc;
 }
-.player-card > .primary-action {
+.player-card.quiz-results > .primary-action {
   margin: 0;
   width: 100%;
 }
