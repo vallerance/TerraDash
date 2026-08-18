@@ -75,4 +75,28 @@ describe('MapBoxShell shared map-box contract', () => {
       stages.map((stage) => stage.querySelector('.map-frame')?.className),
     ).toEqual(['map-frame', 'map-frame']);
   });
+
+  it('keeps header overlays outside the shell header flow', () => {
+    const host = document.createElement('main');
+    document.body.append(host);
+    root = createRoot(host);
+    act(() =>
+      root!.render(
+        <MapBoxShell
+          prompt={<div>Prompt</div>}
+          status={<div>Status</div>}
+          content={<svg className="world-map" />}
+          headerOverlay={<label data-testid="header-control">Control</label>}
+        />,
+      ),
+    );
+
+    const header = host.querySelector('.quiz-header')!;
+    const overlay = host.querySelector('.map-header-overlay')!;
+    expect(overlay.parentElement).toBe(header);
+    expect(overlay.firstElementChild?.getAttribute('data-testid')).toBe(
+      'header-control',
+    );
+    expect(overlay.className).toBe('map-header-overlay');
+  });
 });

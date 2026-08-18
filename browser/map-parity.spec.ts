@@ -41,9 +41,11 @@ if (!runningUnderVitest) {
       // A zero RNG makes the first shuffled quiz location deterministic (iso:ALB).
       const mapId = 'iso:ALB';
       const quizBounds = {
+        header: await bounds(page, '.quiz-header'),
         stage: await bounds(page, '.map-stage'),
         frame: await bounds(page, '.map-frame'),
         svg: await bounds(page, '.world-map'),
+        geometry: await bounds(page, '.active-fill'),
       };
 
       await page.goto(
@@ -51,14 +53,21 @@ if (!runningUnderVitest) {
       );
       await expect(page.locator('.diagnostics-control select')).toBeVisible();
       const diagnosticsBounds = {
+        header: await bounds(page, '.quiz-header'),
         stage: await bounds(page, '.map-stage'),
         frame: await bounds(page, '.map-frame'),
         svg: await bounds(page, '.world-map'),
+        geometry: await bounds(page, '.active-fill'),
       };
 
-      for (const key of ['stage', 'frame', 'svg']) {
+      for (const key of ['header', 'stage', 'frame', 'svg', 'geometry']) {
         expectSameBounds(diagnosticsBounds[key], quizBounds[key]);
       }
+
+      await expect(page.locator('.map-header-overlay')).toHaveCSS(
+        'position',
+        'absolute',
+      );
 
       const select = await page
         .locator('.diagnostics-control select')

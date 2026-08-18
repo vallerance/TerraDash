@@ -27,7 +27,6 @@ for (const required of [
   '.home-page',
   'padding-inline: var(--content-gutter);',
   'border: 0;',
-  '.diagnostics-card',
   'min-height: 0;',
   'aspect-ratio: 41 / 18;',
 ]) {

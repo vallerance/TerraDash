@@ -63,7 +63,9 @@ export const MapBoxShell = forwardRef(function MapBoxShell(
         >
           {status}
         </div>
-        {headerOverlay}
+        {headerOverlay && (
+          <div className="map-header-overlay">{headerOverlay}</div>
+        )}
       </div>
       {hasContent && (
         <div className="map-stage" ref={localRef}>

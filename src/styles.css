@@ -141,6 +141,20 @@ h2 {
   gap: clamp(0.75rem, 2vw, 1.75rem);
   font-variant-numeric: tabular-nums;
 }
+.map-header-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0.55rem var(--content-gutter);
+  pointer-events: none;
+}
+.map-header-overlay > * {
+  width: clamp(8rem, 28vw, 14rem);
+  max-width: 40%;
+  pointer-events: auto;
+}
 .quiz-prompt-group {
   display: flex;
   align-items: center;
@@ -594,13 +608,8 @@ input {
   background: #10233c;
 }
 .diagnostics-control {
-  position: absolute;
-  top: 0.55rem;
-  right: var(--content-gutter);
-  z-index: 1;
   display: grid;
   gap: 0.1rem;
-  width: clamp(8rem, 28vw, 14rem);
   margin: 0;
   color: #9fb0c5;
   font-size: 0.62rem;
