@@ -10,7 +10,10 @@ for (const viewport of [
   }) => {
     await page.setViewportSize(viewport);
     await page.goto('/TerraDash/');
-    await page.getByRole('button', { name: 'Start quiz' }).click();
+    await page.getByRole('button', { name: 'World UN Countries' }).click();
+    await page
+      .getByRole('button', { name: 'Start World UN Countries' })
+      .click();
     const measurement = await page.locator('svg.world-map').evaluate((svg) => {
       const viewBox = svg.viewBox.baseVal;
       const bounds = svg.getBoundingClientRect();

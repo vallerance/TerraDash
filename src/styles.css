@@ -51,27 +51,20 @@ main {
   font-weight: 800;
   text-decoration: none;
 }
-.header-quiz-selector {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #9fb0c5;
-  font-size: 0.72rem;
-}
-.header-quiz-selector select {
-  max-width: min(28vw, 14rem);
-  padding: 0.2rem 0.35rem;
-  border: 1px solid #344967;
-  border-radius: 0.35rem;
-  color: #dce8f7;
-  font: inherit;
-  background: #111c2e;
-}
 .app-header nav {
   display: flex;
   gap: 1rem;
 }
+.app-header .quiz-navigation {
+  flex: 1 1 auto;
+  justify-content: center;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 0.25rem 0.75rem;
+  scrollbar-width: thin;
+}
 .app-header nav a {
+  flex: 0 0 auto;
   color: #a9b8cc;
   font-size: 0.8rem;
   text-decoration: none;
@@ -160,6 +153,51 @@ h2 {
 .quiz-name {
   color: #9fb0c5;
   font-size: 0.72rem;
+}
+.quiz-dialog-backdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: #050a12cc;
+}
+.quiz-dialog {
+  position: relative;
+  width: min(100%, 28rem);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid #45658a;
+  border-radius: 0.9rem;
+  background: #111c2e;
+  box-shadow: 0 1.5rem 5rem #000a;
+}
+.quiz-dialog h2 {
+  margin-top: 0.5rem;
+  font-size: clamp(1.35rem, 4vw, 2rem);
+}
+.quiz-dialog p:not(.eyebrow) {
+  color: #a9b8cc;
+}
+.quiz-dialog .primary-action {
+  width: 100%;
+}
+.quiz-dialog-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  color: #a9b8cc;
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  background: transparent;
+  cursor: pointer;
+}
+.quiz-dialog-close:hover,
+.quiz-dialog-close:focus-visible {
+  color: #7dd3fc;
 }
 .quiz-name {
   margin: 0;
@@ -800,6 +838,18 @@ input {
   }
   .app-footer {
     font-size: 0.65rem;
+  }
+  .app-header {
+    gap: 0.5rem;
+    padding-inline: 0;
+  }
+  .app-header .quiz-navigation {
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding-inline: 0.25rem;
+  }
+  .app-header .utility-navigation {
+    display: none;
   }
   .home-page {
     padding: 1.25rem 0.25rem;

@@ -332,7 +332,13 @@ export function AppFooter() {
 }
 
 function App() {
-  const [selectedQuizId, setSelectedQuizId] = useState(worldQuiz.id);
+  const requestedQuizId = new URLSearchParams(window.location.search).get(
+    'quiz',
+  );
+  const initialQuizId = quizOptions.some((quiz) => quiz.id === requestedQuizId)
+    ? requestedQuizId!
+    : worldQuiz.id;
+  const [selectedQuizId, setSelectedQuizId] = useState(initialQuizId);
   const [autoStart, setAutoStart] = useState(false);
   const selectedQuiz =
     quizOptions.find((quiz) => quiz.id === selectedQuizId) ?? worldQuiz;
@@ -347,27 +353,19 @@ function App() {
           <a className="app-brand" href="./">
             TerraDash
           </a>
-          <label className="header-quiz-selector">
-            <span>Quiz</span>
-            <select
-              aria-label="Choose quiz"
-              value={selectedQuiz.id}
-              onChange={(event) => {
-                setSelectedQuizId(event.target.value);
-                setAutoStart(false);
-              }}
-            >
-              {quizOptions.map((quiz) => (
-                <option key={quiz.id} value={quiz.id}>
-                  {quiz.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <nav aria-label="Primary navigation">
-            <a aria-current="page" href="./">
-              Quiz
-            </a>
+          <nav className="quiz-navigation" aria-label="Quizzes">
+            {quizOptions.map((quiz) => (
+              <a
+                key={quiz.id}
+                aria-current={quiz.id === selectedQuiz.id ? 'page' : undefined}
+                href={`?quiz=${encodeURIComponent(quiz.id)}`}
+                title={quiz.name}
+              >
+                {quiz.name.replace(' UN Countries', '')}
+              </a>
+            ))}
+          </nav>
+          <nav className="utility-navigation" aria-label="Utilities">
             <a href="./diagnostics.html">Diagnostics</a>
           </nav>
         </header>

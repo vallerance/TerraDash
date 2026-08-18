@@ -66,7 +66,7 @@ function renderPlayer(
 }
 
 describe('QuizPlayer integration', () => {
-  it('renders selectable quiz cards and reports the chosen quiz', async () => {
+  it('opens quiz details and reports the quiz only when its start action is used', async () => {
     let selected: string | undefined;
     const options: QuizOption[] = [
       { id: 'world', name: 'World UN Countries', locationIds: ['iso:AAA'] },
@@ -81,7 +81,30 @@ describe('QuizPlayer integration', () => {
         container.querySelectorAll('.quiz-option')[1] as HTMLButtonElement
       ).click(),
     );
+    expect(selected).toBeUndefined();
+    const dialog = container.querySelector('[role="dialog"]')!;
+    expect(dialog.textContent).toContain('Asia UN Countries');
+    expect(dialog.textContent).toContain('1 locations');
+    await act(async () =>
+      (dialog.querySelector('.primary-action') as HTMLButtonElement).click(),
+    );
     expect(selected).toBe('asia');
+  });
+
+  it('dismisses expanded quiz details with Escape', async () => {
+    const options: QuizOption[] = [
+      { id: 'world', name: 'World UN Countries', locationIds: ['iso:AAA'] },
+    ];
+    const container = renderPlayer(catalog, options);
+    expect(container.querySelector('.home-page > .primary-action')).toBeNull();
+    await act(async () =>
+      (container.querySelector('.quiz-option') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelector('[role="dialog"]')).toBeTruthy();
+    await act(async () =>
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })),
+    );
+    expect(container.querySelector('[role="dialog"]')).toBeNull();
   });
 
   it('shows the active quiz name in the active and results headers', async () => {

@@ -109,6 +109,7 @@ export function QuizPlayer({
   const [feedback, setFeedback] = useState('');
   const [feedbackTone, setFeedbackTone] = useState<FeedbackTone>('');
   const [feedbackAnimationKey, setFeedbackAnimationKey] = useState(0);
+  const [selectedQuizOption, setSelectedQuizOption] = useState<QuizOption>();
   const feedbackTimer = useRef<number | undefined>(undefined);
   const [panelPlacement, setPanelPlacement] = useState<PanelPlacement>({
     left: 16,
@@ -252,6 +253,15 @@ export function QuizPlayer({
     },
     [],
   );
+
+  useEffect(() => {
+    if (!selectedQuizOption) return;
+    const closeOnEscape = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedQuizOption(undefined);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [selectedQuizOption]);
 
   useEffect(() => {
     if (state.phase === 'active') {
@@ -402,7 +412,7 @@ export function QuizPlayer({
                 className="quiz-option"
                 key={option.id}
                 type="button"
-                onClick={() => onSelectQuiz?.(option.id)}
+                onClick={() => setSelectedQuizOption(option)}
               >
                 <strong>{option.name}</strong>
                 <span>{option.locationIds.length} locations</span>
@@ -410,9 +420,51 @@ export function QuizPlayer({
             ))}
           </div>
         )}
-        <button className="primary-action" type="button" onClick={start}>
-          Start quiz
-        </button>
+        {quizOptions.length === 0 && (
+          <button className="primary-action" type="button" onClick={start}>
+            Start quiz
+          </button>
+        )}
+        {selectedQuizOption && (
+          <div
+            className="quiz-dialog-backdrop"
+            role="presentation"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget)
+                setSelectedQuizOption(undefined);
+            }}
+          >
+            <section
+              className="quiz-dialog"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="quiz-dialog-title"
+            >
+              <button
+                className="quiz-dialog-close"
+                type="button"
+                aria-label="Close quiz details"
+                onClick={() => setSelectedQuizOption(undefined)}
+              >
+                ×
+              </button>
+              <p className="eyebrow">TERRADASH · QUIZ</p>
+              <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
+              <p>
+                Identify all {selectedQuizOption.locationIds.length} locations
+                with three attempts per location.
+              </p>
+              <button
+                className="primary-action"
+                type="button"
+                autoFocus
+                onClick={() => onSelectQuiz?.(selectedQuizOption.id)}
+              >
+                Start {selectedQuizOption.name}
+              </button>
+            </section>
+          </div>
+        )}
       </section>
     );
   }

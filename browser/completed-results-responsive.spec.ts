@@ -11,7 +11,11 @@ for (const viewport of [
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/TerraDash/');
-    await page.getByRole('button', { name: 'Start quiz' }).click();
+    await page.getByRole('button', { name: 'World UN Countries' }).click();
+    await page
+      .getByRole('button', { name: 'Start World UN Countries' })
+      .click();
+    await expect(page.locator('.active-player')).toBeVisible();
     expect(await page.evaluate(() => window.terraDash?.completeQuiz())).toBe(
       'completed',
     );
