@@ -21,11 +21,17 @@ import {
 import { mapWidthForStage } from './mapLayout';
 import { resultMoodForScore } from './resultMood';
 import { MapBoxShell } from './MapBoxShell';
+import type { QuizOption } from './quizContracts';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
   renderMap: (location: CatalogLocation) => ReactNode;
   now?: () => number;
+  quizName?: string;
+  quizOptions?: readonly QuizOption[];
+  onSelectQuiz?: (quizId: string) => void;
+  autoStart?: boolean;
+  onAutoStartHandled?: () => void;
 };
 
 type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
@@ -90,6 +96,11 @@ export function QuizPlayer({
   catalog,
   renderMap,
   now = monotonicNow,
+  quizName = 'World UN Countries',
+  quizOptions = [],
+  onSelectQuiz,
+  autoStart = false,
+  onAutoStartHandled,
 }: QuizPlayerProps) {
   const { state, dispatch } = useQuiz();
   const [text, setText] = useState('');
@@ -257,6 +268,12 @@ export function QuizPlayer({
     dispatch({ type: 'start', now: now() });
   }
 
+  useEffect(() => {
+    if (!autoStart || state.phase !== 'idle') return;
+    onAutoStartHandled?.();
+    start();
+  }, [autoStart, onAutoStartHandled, state.phase]);
+
   function submit() {
     if (submitting.current || state.phase !== 'active') return;
     submitting.current = true;
@@ -374,10 +391,25 @@ export function QuizPlayer({
         <p className="eyebrow">TERRADASH · QUIZ</p>
         <h1 id="start-title">Name every place on the map.</h1>
         <p>
-          Identify 195 locations with three attempts each. Correct answers earn
-          weighted credit; the run is timed, and missed answers are not
-          revealed.
+          Choose a quiz, then identify every location with three attempts each.
+          Correct answers earn weighted credit; the run is timed, and missed
+          answers are not revealed.
         </p>
+        {quizOptions.length > 0 && (
+          <div className="quiz-options" aria-label="Choose a quiz">
+            {quizOptions.map((option) => (
+              <button
+                className="quiz-option"
+                key={option.id}
+                type="button"
+                onClick={() => onSelectQuiz?.(option.id)}
+              >
+                <strong>{option.name}</strong>
+                <span>{option.locationIds.length} locations</span>
+              </button>
+            ))}
+          </div>
+        )}
         <button className="primary-action" type="button" onClick={start}>
           Start quiz
         </button>
@@ -397,6 +429,7 @@ export function QuizPlayer({
         <div className="quiz-header completion-header">
           <div className="quiz-prompt-group">
             <div className="quiz-prompt">
+              <p className="quiz-name">{quizName}</p>
               <h1 id="results-title">Run complete</h1>
             </div>
             <FeedbackIcon
@@ -458,6 +491,7 @@ export function QuizPlayer({
         prompt={
           <>
             <div className="quiz-prompt">
+              <p className="quiz-name">{quizName}</p>
               <h1 id="quiz-title">Type the name of this location</h1>
               <span className={`attempts-remaining-label ${attemptStateClass}`}>
                 {attemptsRemaining} guesses remaining

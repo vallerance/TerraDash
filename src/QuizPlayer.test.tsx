@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizPlayer } from './QuizPlayer';
 import { QuizProvider } from './QuizContext';
+import type { QuizOption } from './quizContracts';
 
 const catalog = [
   { id: 'iso:AAA', name: 'Alpha' },
@@ -32,7 +33,12 @@ afterEach(() => {
 
 vi.stubGlobal('ResizeObserver', TestResizeObserver);
 
-function renderPlayer(catalogOverride = catalog) {
+function renderPlayer(
+  catalogOverride = catalog,
+  quizOptions: readonly QuizOption[] = [],
+  quizName = 'World UN Countries',
+  onSelectQuiz?: (quizId: string) => void,
+) {
   const container = document.createElement('div');
   document.body.append(container);
   root = createRoot(container);
@@ -48,6 +54,9 @@ function renderPlayer(catalogOverride = catalog) {
       >
         <QuizPlayer
           catalog={catalogOverride}
+          quizName={quizName}
+          quizOptions={quizOptions}
+          onSelectQuiz={onSelectQuiz}
           renderMap={(location) => <div data-map-id={location.id} />}
         />
       </QuizProvider>,
@@ -57,6 +66,38 @@ function renderPlayer(catalogOverride = catalog) {
 }
 
 describe('QuizPlayer integration', () => {
+  it('renders selectable quiz cards and reports the chosen quiz', async () => {
+    let selected: string | undefined;
+    const options: QuizOption[] = [
+      { id: 'world', name: 'World UN Countries', locationIds: ['iso:AAA'] },
+      { id: 'asia', name: 'Asia UN Countries', locationIds: ['iso:AAA'] },
+    ];
+    const container = renderPlayer(catalog, options, undefined, (id) => {
+      selected = id;
+    });
+    expect(container.querySelectorAll('.quiz-option')).toHaveLength(2);
+    await act(async () =>
+      (
+        container.querySelectorAll('.quiz-option')[1] as HTMLButtonElement
+      ).click(),
+    );
+    expect(selected).toBe('asia');
+  });
+
+  it('shows the active quiz name in the active and results headers', async () => {
+    const container = renderPlayer(catalog, [], 'Asia UN Countries');
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelector('.quiz-name')?.textContent).toBe(
+      'Asia UN Countries',
+    );
+    await act(async () => window.terraDash?.completeQuiz?.());
+    expect(
+      container.querySelector('.completion-header .quiz-name')?.textContent,
+    ).toBe('Asia UN Countries');
+  });
+
   it('exposes the console completion command and restores the global safely', async () => {
     const previousCommand = () => 'ignored' as const;
     const previousObject = {

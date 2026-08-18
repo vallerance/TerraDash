@@ -17,7 +17,7 @@ import {
   wrappedViewportBounds,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
-import { defaultCatalog, defaultQuiz } from './quizContracts';
+import { defaultCatalog, quizOptions, worldQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
 import { mapLocationForQuizId } from './quizMapBoundary';
 import {
@@ -332,8 +332,16 @@ export function AppFooter() {
 }
 
 function App() {
+  const [selectedQuizId, setSelectedQuizId] = useState(worldQuiz.id);
+  const [autoStart, setAutoStart] = useState(false);
+  const selectedQuiz =
+    quizOptions.find((quiz) => quiz.id === selectedQuizId) ?? worldQuiz;
   return (
-    <QuizProvider quiz={defaultQuiz} catalog={defaultCatalog}>
+    <QuizProvider
+      key={selectedQuiz.id}
+      quiz={selectedQuiz}
+      catalog={defaultCatalog}
+    >
       <main>
         <header className="app-header">
           <a className="app-brand" href="./">
@@ -348,6 +356,14 @@ function App() {
         </header>
         <QuizPlayer
           catalog={defaultCatalog}
+          quizName={selectedQuiz.name}
+          quizOptions={quizOptions}
+          autoStart={autoStart}
+          onAutoStartHandled={() => setAutoStart(false)}
+          onSelectQuiz={(quizId) => {
+            setSelectedQuizId(quizId);
+            setAutoStart(true);
+          }}
           renderMap={(active) => (
             <MapView active={mapLocationForQuizId(active.id)! as Location} />
           )}
