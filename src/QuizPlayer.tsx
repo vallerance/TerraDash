@@ -389,7 +389,7 @@ export function QuizPlayer({
     const results = state.results!;
     const mood = resultMoodForScore(results.finalScore);
     return (
-      <section className="player-card" aria-labelledby="results-title">
+      <section className="player-card quiz-results" aria-labelledby="results-title">
         <p className="eyebrow">TERRADASH · RESULTS</p>
         <div className="quiz-header completion-header">
           <div className="quiz-prompt-group">
