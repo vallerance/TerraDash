@@ -60,6 +60,14 @@ if (!runningUnderVitest) {
         geometry: await bounds(page, '.active-fill'),
       };
 
+      console.log(
+        JSON.stringify({
+          viewport,
+          quiz: quizBounds,
+          diagnostics: diagnosticsBounds,
+        }),
+      );
+
       for (const key of ['header', 'stage', 'frame', 'svg', 'geometry']) {
         expectSameBounds(diagnosticsBounds[key], quizBounds[key]);
       }
