@@ -19,7 +19,7 @@ test('header selector exposes all quizzes and enters the selected quiz', async (
   await expect(selector.locator('option')).toHaveText(quizNames);
   await selector.selectOption({ label: 'Asia UN Countries' });
   await expect(selector).toHaveValue('asia');
-  await page.getByRole('button', { name: 'Asia UN Countries' }).click();
+  await page.getByRole('button', { name: 'Start quiz' }).click();
   await expect(page.locator('.active-player .quiz-name')).toHaveText(
     'Asia UN Countries',
   );
