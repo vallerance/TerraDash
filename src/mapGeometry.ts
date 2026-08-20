@@ -91,8 +91,7 @@ export function classifyInsetGeometryPaths(
     inset.locationFeatureIds[
       locationId as keyof typeof inset.locationFeatureIds
     ];
-  if (!refs?.length)
-    throw new Error(`Missing inset geometry for ${locationId}`);
+  if (!refs?.length) return [];
   return refs.flatMap((id) => {
     const feature = inset.features[id as keyof typeof inset.features];
     return feature.polygons.map((polygon) => {
