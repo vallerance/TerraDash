@@ -26,6 +26,18 @@ const removedCandidateIds = new Set([
   'non-un:navarre',
   'non-un:valencia',
 ]);
+const newCaledonia = candidates.find(({ id }) => id === 'non-un:new-caledonia');
+const forbiddenBritishColumbiaRef = 'ne:admin1:1159307717';
+if (
+  !newCaledonia ||
+  newCaledonia.geometryRefs.length !== 2 ||
+  !newCaledonia.geometryRefs.includes('ne:map-unit:1159320641') ||
+  !newCaledonia.geometryRefs.includes('ne:map-subunit:1159320641') ||
+  newCaledonia.geometryRefs.includes(forbiddenBritishColumbiaRef)
+)
+  throw new Error(
+    'New Caledonia must use only its exact map-unit and map-subunit geometry; British Columbia must not be selected.',
+  );
 const source = JSON.parse(
   fs.readFileSync('data/source/ne_50m_admin_0_countries.geojson'),
 );

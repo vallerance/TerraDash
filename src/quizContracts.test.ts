@@ -94,4 +94,15 @@ describe('regional quiz partition', () => {
       ),
     ).toBe(true);
   });
+
+  it('maps New Caledonia to its exact features, not British Columbia', () => {
+    const newCaledonia = candidateData.find(
+      ({ id }) => id === 'non-un:new-caledonia',
+    );
+    expect(newCaledonia?.geometryRefs).toEqual([
+      'ne:map-unit:1159320641',
+      'ne:map-subunit:1159320641',
+    ]);
+    expect(newCaledonia?.geometryRefs).not.toContain('ne:admin1:1159307717');
+  });
 });

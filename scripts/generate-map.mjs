@@ -424,6 +424,10 @@ const candidateRecords = candidateRows.map((row) =>
   ),
 );
 const NON_UN_COMPONENTS = {
+  // Natural Earth's British Columbia Admin-1 feature lists "New Caledonia"
+  // as a name_alt value. Use the exact NC source key so that alias matching
+  // cannot attach Canada's province to the New Caledonia candidate.
+  'New Caledonia': ['NC'],
   Andalusia: [
     'ES-AL',
     'ES-GR',
