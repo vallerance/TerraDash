@@ -121,7 +121,7 @@ for (const candidate of candidates) {
       (id) =>
         !map.features[id] ||
         !map.supplementalFeatureIds.includes(id) ||
-        !/^(ne:admin1|ne:map-unit|ne:map-subunit):/.test(id),
+        !/^(ne:admin1|ne:map-unit|ne:map-subunit|gb:aze-adm1):/.test(id),
     )
   )
     throw new Error(
