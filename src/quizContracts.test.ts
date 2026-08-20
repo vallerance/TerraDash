@@ -59,7 +59,7 @@ describe('regional quiz partition', () => {
         ({ geometryRefs }) =>
           geometryRefs.length > 0 &&
           geometryRefs.every((ref) =>
-            /^(ne:admin1|ne:map-unit|ne:map-subunit):/.test(ref),
+            /^(ne:admin1|ne:map-unit|ne:map-subunit|gb:aze-adm1):/.test(ref),
           ),
       ),
     ).toBe(true);
