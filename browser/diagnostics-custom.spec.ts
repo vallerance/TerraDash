@@ -16,7 +16,9 @@ test('Diagnostics exposes the complete standard and Non-UN location union', asyn
     await expect(selector).toHaveValue(id);
     await expect(page.locator('.world-map')).toBeVisible();
     await expect(page.locator('.world-map path')).not.toHaveCount(0);
-    await expect(page.getByText(name, { exact: true })).toBeVisible();
+    await expect(page.locator('.diagnostics-selected-location')).toHaveText(
+      `Selected: ${name}`,
+    );
   }
   await expect(page.locator('.callout-source')).toBeVisible();
   await page.screenshot({

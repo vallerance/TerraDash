@@ -86,7 +86,6 @@ export function insetGeometryPaths(locationId: string): string[] {
 
 export function selectedInsetGeometryPaths(
   locationId: string,
-  _geometryRefs: string[],
 ): InsetGeometryPath[] {
   const exactInsetPaths = classifyInsetGeometryPaths(locationId);
   if (!exactInsetPaths.length)

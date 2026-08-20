@@ -55,7 +55,7 @@ describe('map geometry resolution', () => {
     expect(insetGeometryPaths(atg.id)).toEqual(
       classifyInsetGeometryPaths(atg.id).map(({ path }) => path),
     );
-    expect(selectedInsetGeometryPaths(atg.id, atg.geometryRefs)).toEqual(
+    expect(selectedInsetGeometryPaths(atg.id)).toEqual(
       classifyInsetGeometryPaths(atg.id),
     );
     expect(insetGeometryPaths(atg.id).join('').length).toBeGreaterThan(
@@ -65,10 +65,7 @@ describe('map geometry resolution', () => {
 
   it('resolves custom candidates through exact high-resolution inset mappings', () => {
     const abkhazia = candidates[0];
-    const selected = selectedInsetGeometryPaths(
-      abkhazia.id,
-      abkhazia.geometryRefs,
-    );
+    const selected = selectedInsetGeometryPaths(abkhazia.id);
     expect(abkhazia.id).toBe('non-un:abkhazia');
     expect(selected).toEqual(classifyInsetGeometryPaths(abkhazia.id));
     expect(selected.map(({ path }) => path).join('').length).toBeGreaterThan(

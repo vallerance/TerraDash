@@ -51,10 +51,9 @@ describe('MapView small-region callout rendering', () => {
     ].map((path) => path.getAttribute('d'));
     expect(active.id).toBe('non-un:abkhazia');
     expect(source.every((path) => mainPaths.includes(path))).toBe(true);
-    const exactInset = selectedInsetGeometryPaths(
-      active.id,
-      active.geometryRefs,
-    ).map(({ path }) => path);
+    const exactInset = selectedInsetGeometryPaths(active.id).map(
+      ({ path }) => path,
+    );
     expect(magnifiedPaths).toEqual(expect.arrayContaining(exactInset));
     expect(exactInset.join('').length).toBeGreaterThan(source.join('').length);
   });

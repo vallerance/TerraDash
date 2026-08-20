@@ -1,25 +1,28 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import catalog from '../data/generated/catalog.json';
+import candidateData from '../data/generated/non-un-candidates.json';
 import { AppFooter, MapView } from './main';
 import { MapBoxShell } from './MapBoxShell';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
+const playableLocations = [...catalog, ...candidateData];
 const initialLocation =
-  catalog.find(({ id }) => id === initialId) ?? catalog[0];
+  playableLocations.find(({ id }) => id === initialId) ?? playableLocations[0];
+type DiagnosticLocation = (typeof playableLocations)[number];
 
 export function DiagnosticsMap({
   location,
 }: {
-  location: (typeof catalog)[number];
+  location: DiagnosticLocation;
 }) {
   return <MapView active={location} />;
 }
 
 function Diagnostics() {
   const [locationId, setLocationId] = useState(initialLocation.id);
-  const location = catalog.find(({ id }) => id === locationId)!;
+  const location = playableLocations.find(({ id }) => id === locationId)!;
   return (
     <main className="diagnostics-page">
       <header className="app-header">
@@ -93,12 +96,15 @@ function Diagnostics() {
                   );
                 }}
               >
-                {catalog.map(({ id, name }) => (
+                {playableLocations.map(({ id, name }) => (
                   <option key={id} value={id}>
                     {name} ({id})
                   </option>
                 ))}
               </select>
+              <span className="diagnostics-selected-location" aria-live="polite">
+                Selected: {location.name}
+              </span>
             </label>
           }
         />
