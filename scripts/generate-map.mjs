@@ -57,21 +57,28 @@ const insetSource = JSON.parse(insetSourceBytes);
 const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 function parseCsv(text) {
-  return text.trim().split(/\r?\n/).map((line) => {
-    const values = [];
-    let value = '';
-    let quoted = false;
-    for (let index = 0; index < line.length; index += 1) {
-      const char = line[index];
-      if (char === '"') {
-        if (quoted && line[index + 1] === '"') { value += '"'; index += 1; }
-        else quoted = !quoted;
-      } else if (char === ',' && !quoted) { values.push(value); value = ''; }
-      else value += char;
-    }
-    values.push(value);
-    return values;
-  });
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => {
+      const values = [];
+      let value = '';
+      let quoted = false;
+      for (let index = 0; index < line.length; index += 1) {
+        const char = line[index];
+        if (char === '"') {
+          if (quoted && line[index + 1] === '"') {
+            value += '"';
+            index += 1;
+          } else quoted = !quoted;
+        } else if (char === ',' && !quoted) {
+          values.push(value);
+          value = '';
+        } else value += char;
+      }
+      values.push(value);
+      return values;
+    });
 }
 
 function normalizedLabel(value) {
@@ -398,14 +405,35 @@ const candidateRows = parseCsv(
 );
 const candidateHeaders = candidateRows.shift();
 const candidateRecords = candidateRows.map((row) =>
-  Object.fromEntries(candidateHeaders.map((header, index) => [header, row[index] ?? ''])),
+  Object.fromEntries(
+    candidateHeaders.map((header, index) => [header, row[index] ?? '']),
+  ),
 );
 const NON_UN_COMPONENTS = {
-  Andalusia: ['ES-AL', 'ES-GR', 'ES-H', 'ES-J', 'ES-MA', 'ES-CO', 'ES-SE', 'ES-CA'],
+  Andalusia: [
+    'ES-AL',
+    'ES-GR',
+    'ES-H',
+    'ES-J',
+    'ES-MA',
+    'ES-CO',
+    'ES-SE',
+    'ES-CA',
+  ],
   Aragon: ['ES-HU', 'ES-TE', 'ES-Z'],
   'Basque Country': ['ES-BI', 'ES-SS', 'ES-VI'],
   'Canary Islands': ['ES-TF', 'ES-GC'],
-  'Castile and León': ['ES-AV', 'ES-BU', 'ES-LE', 'ES-P', 'ES-SA', 'ES-SG', 'ES-SO', 'ES-VA', 'ES-ZA'],
+  'Castile and León': [
+    'ES-AV',
+    'ES-BU',
+    'ES-LE',
+    'ES-P',
+    'ES-SA',
+    'ES-SG',
+    'ES-SO',
+    'ES-VA',
+    'ES-ZA',
+  ],
   'Castilla–La Mancha': ['ES-AB', 'ES-CR', 'ES-CU', 'ES-GU', 'ES-TO'],
   Catalonia: ['ES-B', 'ES-GI', 'ES-L', 'ES-T'],
   Extremadura: ['ES-BA', 'ES-CC'],
@@ -413,11 +441,25 @@ const NON_UN_COMPONENTS = {
   Valencia: ['ES-A', 'ES-CS', 'ES-V'],
   'Friuli-Venezia Giulia': ['IT-GO', 'IT-PN', 'IT-TS', 'IT-UD'],
   'Trentino-Alto Adige/Südtirol': ['IT-BZ', 'IT-TN'],
+  'United States Minor Outlying Islands': [
+    'JQI',
+    'DQI',
+    'FQI',
+    'HQI',
+    'WQI',
+    'MQI',
+    'BQI',
+    'LQI',
+    'KQI',
+  ],
 };
 const supplementalByKey = new Map();
 for (const feature of supplementalFeatures)
   for (const key of feature.keys)
-    supplementalByKey.set(key, [...(supplementalByKey.get(key) ?? []), feature]);
+    supplementalByKey.set(key, [
+      ...(supplementalByKey.get(key) ?? []),
+      feature,
+    ]);
 function candidateMatches(candidate) {
   const componentKeys = NON_UN_COMPONENTS[candidate.entity];
   if (componentKeys)
@@ -428,16 +470,23 @@ function candidateMatches(candidate) {
     .filter(Boolean);
   const iso2 = candidate.iso_3166_1_code;
   const labels = new Set([candidate.entity, ...codes].map(normalizedLabel));
-  return supplementalFeatures.filter((feature) =>
-    feature.keys.some((key) => codes.includes(key) || key === iso2) ||
-    feature.labels.some((label) => labels.has(normalizedLabel(label))),
+  return supplementalFeatures.filter(
+    (feature) =>
+      feature.keys.some((key) => codes.includes(key) || key === iso2) ||
+      feature.labels.some((label) => labels.has(normalizedLabel(label))),
   );
 }
 const nonUnCandidates = candidateRecords.map((candidate) => {
   const matches = candidateMatches(candidate);
   if (!matches.length)
-    throw new Error(`No exact Natural Earth feature for candidate ${candidate.entity}`);
-  const id = `non-un:${candidate.entity.normalize('NFKD').replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase()}`;
+    throw new Error(
+      `No exact Natural Earth feature for candidate ${candidate.entity}`,
+    );
+  const id = `non-un:${candidate.entity
+    .normalize('NFKD')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase()}`;
   const points = matches.flatMap((feature) => pathPoints(feature.paths));
   return {
     id,
@@ -450,16 +499,26 @@ const nonUnCandidates = candidateRecords.map((candidate) => {
     bounds: bounds(points),
   };
 });
-if (new Set(nonUnCandidates.map((candidate) => candidate.name)).size !== nonUnCandidates.length)
+if (
+  new Set(nonUnCandidates.map((candidate) => candidate.name)).size !==
+  nonUnCandidates.length
+)
   throw new Error('Non-UN candidate names must be unique.');
 if (
   nonUnCandidates.some(
     (candidate) =>
       !candidate.geometryRefs.length ||
-      candidate.geometryRefs.some((ref) => !ref.startsWith('ne:admin1:') && !ref.startsWith('ne:map-unit:') && !ref.startsWith('ne:map-subunit:')),
+      candidate.geometryRefs.some(
+        (ref) =>
+          !ref.startsWith('ne:admin1:') &&
+          !ref.startsWith('ne:map-unit:') &&
+          !ref.startsWith('ne:map-subunit:'),
+      ),
   )
 )
-  throw new Error('Every non-UN candidate must use nonempty exact supplemental geometry refs.');
+  throw new Error(
+    'Every non-UN candidate must use nonempty exact supplemental geometry refs.',
+  );
 if (
   locations.length !== 195 ||
   new Set(locations.map((x) => x.iso3)).size !== 195
@@ -482,20 +541,22 @@ const map = {
     (feature) => feature.id,
   ),
   features: Object.fromEntries(
-    [...features, ...supplementalFeatures].flatMap(({ id, paths, anchor, bounds, parts = [] }) => [
-      [id, { paths, anchor, bounds }],
-      ...parts.map(
-        ({
-          id: partId,
-          paths: partPaths,
-          anchor: partAnchor,
-          bounds: partBounds,
-        }) => [
-          partId,
-          { paths: partPaths, anchor: partAnchor, bounds: partBounds },
-        ],
-      ),
-    ]),
+    [...features, ...supplementalFeatures].flatMap(
+      ({ id, paths, anchor, bounds, parts = [] }) => [
+        [id, { paths, anchor, bounds }],
+        ...parts.map(
+          ({
+            id: partId,
+            paths: partPaths,
+            anchor: partAnchor,
+            bounds: partBounds,
+          }) => [
+            partId,
+            { paths: partPaths, anchor: partAnchor, bounds: partBounds },
+          ],
+        ),
+      ],
+    ),
   ),
 };
 fs.mkdirSync('data/generated', { recursive: true });

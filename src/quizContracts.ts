@@ -17,7 +17,10 @@ export const defaultQuiz: QuizDefinition = {
   locationIds: [...quizData.locationIds],
 };
 
-export type QuizOption = QuizDefinition & { name: string; description?: string };
+export type QuizOption = QuizDefinition & {
+  name: string;
+  description?: string;
+};
 
 const catalogByIso3 = new Map(
   catalogData.map((location) => [location.iso3, location]),
@@ -26,14 +29,17 @@ export const quizOptions: QuizOption[] = quizzesData.map((quiz) => ({
   id: quiz.id,
   name: quiz.name,
   description: quiz.description,
-  locationIds: quiz.candidateSet === 'non-un'
-    ? candidateData.map(({ id }) => id)
-    : quiz.locationIds ?? quiz.locationIso3?.map((iso3) => {
-    const location = catalogByIso3.get(iso3);
-    if (!location)
-      throw new Error(`Quiz location is absent from catalog: ${iso3}`);
-    return location.id;
-  }) ?? [],
+  locationIds:
+    quiz.candidateSet === 'non-un'
+      ? candidateData.map(({ id }) => id)
+      : (quiz.locationIds ??
+        quiz.locationIso3?.map((iso3) => {
+          const location = catalogByIso3.get(iso3);
+          if (!location)
+            throw new Error(`Quiz location is absent from catalog: ${iso3}`);
+          return location.id;
+        }) ??
+        []),
 }));
 
 export const worldQuiz = quizOptions[0];
