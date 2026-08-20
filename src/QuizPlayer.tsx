@@ -36,6 +36,11 @@ type QuizPlayerProps = {
 };
 
 type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
+function quizDescription(quiz: QuizOption): string {
+  if (quiz.id === 'world') return 'All UN Member and UN Observer states';
+  const region = quiz.name.replace(/ UN Countries$/, '');
+  return `UN Member and UN Observer states in ${region}`;
+}
 type TerraDashConsole = {
   completeQuiz?: () => 'completed' | 'ignored';
   [key: string]: unknown;
@@ -454,6 +459,7 @@ export function QuizPlayer({
               <p className="eyebrow">TERRADASH · QUIZ</p>
               <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
               <p>{selectedQuizOption.locationIds.length} locations</p>
+              <p>{quizDescription(selectedQuizOption)}</p>
               <button
                 className="primary-action"
                 type="button"

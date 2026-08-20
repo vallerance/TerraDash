@@ -23,10 +23,12 @@ function Diagnostics() {
   return (
     <main className="diagnostics-page">
       <header className="app-header">
-        <a className="app-brand" href={import.meta.env.BASE_URL}>
-          TerraDash
+        <a className="app-brand" href={import.meta.env.BASE_URL} aria-label="TerraDash home">
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
+          <strong>TerraDash</strong>
+          <span>MAP YOUR KNOWLEDGE</span>
         </a>
-        <nav aria-label="Primary navigation">
+        <nav className="utility-navigation" aria-label="Primary navigation">
           <a href={import.meta.env.BASE_URL}>Quiz</a>
           <a
             aria-current="page"

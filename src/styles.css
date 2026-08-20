@@ -42,53 +42,98 @@ main {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: space-between;
-  min-height: 2.25rem;
-  padding-inline: var(--content-gutter);
-  border-bottom: 1px solid #263650;
-  background: #0d1525;
+  gap: clamp(1rem, 3vw, 3rem);
+  min-height: 4.5rem;
+  padding: 0.7rem clamp(0.8rem, 2vw, 1.5rem);
+  border: 1px solid #263650;
+  border-radius: 0.85rem;
+  background: linear-gradient(110deg, #12233a, #0d1525 62%);
+  box-shadow: 0 0.7rem 2rem #0003;
 }
 .app-brand {
+  display: grid;
+  grid-template-columns: 2.2rem auto;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.1rem;
   color: #e8eef7;
-  font-size: 1rem;
-  font-weight: 800;
   text-decoration: none;
+}
+.app-brand img { grid-row: span 2; width: 2rem; height: 2rem; }
+.app-brand strong {
+  color: #f8fbff;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.app-brand span {
+  color: #7dd3fc;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
 }
 .app-header nav {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: clamp(0.45rem, 1.2vw, 1rem);
 }
 .app-header .quiz-navigation {
   flex: 1 1 auto;
   justify-content: center;
   min-width: 0;
   overflow-x: auto;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem;
   scrollbar-width: thin;
 }
 .app-header nav a {
   flex: 0 0 auto;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.5rem;
   color: #a9b8cc;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-decoration: none;
 }
 .app-header nav a:hover,
 .app-header nav a[aria-current='page'] {
   color: #7dd3fc;
+  background: #1b3655;
+}
+.app-header .utility-navigation {
+  flex: 0 0 auto;
+  padding-left: clamp(0.4rem, 1vw, 1rem);
+  border-left: 1px solid #34506f;
+}
+.app-header .utility-navigation a {
+  color: #dbeafe;
+  font-size: 0.72rem;
 }
 .app-footer {
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
-  gap: 1rem;
-  min-height: 3rem;
+  gap: 1.5rem;
+  min-height: 4rem;
   align-items: center;
-  padding: 0.65rem var(--content-gutter);
-  border-top: 1px solid #263650;
-  background: #0d1525;
+  margin-top: 0.6rem;
+  padding: 0.8rem clamp(0.8rem, 2vw, 1.5rem);
+  border: 1px solid #263650;
+  border-radius: 0.85rem;
+  background: #0d1829;
   color: #71839c;
   font-size: 0.72rem;
 }
+.footer-brand,
+.footer-meta {
+  display: grid;
+  gap: 0.15rem;
+}
+.footer-brand strong {
+  color: #dbeafe;
+  font-size: 0.85rem;
+}
+.footer-brand span { color: #7dd3fc; }
+.footer-meta { text-align: right; }
 .eyebrow {
   color: #7dd3fc;
   font-size: 0.75rem;
@@ -126,7 +171,7 @@ h2 {
   padding: clamp(1.25rem, 4vw, 4rem);
 }
 .home-page > * {
-  width: min(100%, 54rem);
+  width: min(100%, 78rem);
   margin-right: auto;
   margin-left: auto;
 }
@@ -138,14 +183,14 @@ h2 {
 }
 .quiz-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--home-content-gap);
   margin: 0;
 }
 .quiz-option {
   display: grid;
   gap: 0.35rem;
-  min-height: 8rem;
+  min-height: 12rem;
   padding: 0;
   overflow: hidden;
   border: 1px solid #344967;
@@ -157,7 +202,7 @@ h2 {
 }
 .quiz-option-thumbnail {
   display: block;
-  height: 4rem;
+  height: clamp(6rem, 9vw, 8rem);
   overflow: hidden;
   background: linear-gradient(135deg, #102d4a, #071a2b);
 }
@@ -211,13 +256,14 @@ h2 {
   background: #172840;
 }
 .quiz-option strong {
-  font-size: 0.85rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
 }
 .quiz-option span,
 .quiz-name {
   color: #9fb0c5;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
 }
+.quiz-results { flex: 1 1 auto; min-height: 0; }
 .quiz-dialog-backdrop {
   position: fixed;
   width: 100%;
@@ -905,9 +951,15 @@ input {
     font-size: 0.65rem;
   }
   .app-header {
-    gap: 0.5rem;
-    padding-inline: 0;
+    gap: 0.45rem;
+    min-height: 4rem;
+    padding-inline: 0.55rem;
+    border-radius: 0.65rem;
   }
+  .app-brand { grid-template-columns: 1.65rem auto; }
+  .app-brand img { width: 1.5rem; height: 1.5rem; }
+  .app-brand strong { font-size: 1rem; }
+  .app-brand span { font-size: 0.42rem; }
   .app-header .quiz-navigation {
     justify-content: flex-start;
     gap: 0.75rem;
@@ -916,6 +968,11 @@ input {
   .app-header .utility-navigation {
     display: none;
   }
+  .quiz-options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+  .quiz-option { min-height: 9.5rem; }
+  .quiz-option-thumbnail { height: 5rem; }
+  .app-footer { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
+  .footer-meta { text-align: left; }
   .home-page {
     padding: 1.25rem 0.25rem;
   }

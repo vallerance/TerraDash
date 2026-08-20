@@ -37,7 +37,7 @@ if (!runningUnderVitest) {
       await page.goto('/TerraDash/');
       await page.getByRole('button', { name: 'World UN Countries' }).click();
       await page
-        .getByRole('button', { name: 'Start World UN Countries' })
+        .getByRole('button', { name: 'Start World UN Countries Quiz' })
         .click();
       await expect(page.locator('.map-stage')).toBeVisible();
 

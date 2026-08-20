@@ -13,7 +13,7 @@ for (const viewport of [
     await page.goto('/TerraDash/');
     await page.getByRole('button', { name: 'World UN Countries' }).click();
     await page
-      .getByRole('button', { name: 'Start World UN Countries' })
+      .getByRole('button', { name: 'Start World UN Countries Quiz' })
       .click();
     await expect(page.locator('.active-player')).toBeVisible();
     expect(await page.evaluate(() => window.terraDash?.completeQuiz())).toBe(
