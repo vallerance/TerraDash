@@ -26,14 +26,18 @@ describe('browser-local high scores', () => {
     expect(getPlayerName()).toBe('Player 1');
     for (let index = 0; index < 6; index += 1)
       recordHighScore('world', index, 10_000, index);
-    expect(getHighScores('world').map((entry) => entry.score)).toEqual([5, 4, 3, 2, 1]);
+    expect(getHighScores('world').map((entry) => entry.score)).toEqual([
+      5, 4, 3, 2, 1,
+    ]);
   });
 
   it('uses elapsed time and then creation order to resolve equal scores', () => {
     recordHighScore('world', 100, 2_000, 2);
     recordHighScore('world', 100, 1_000, 1);
     recordHighScore('world', 100, 1_000, 3);
-    expect(getHighScores('world').map((entry) => entry.createdAt)).toEqual([1, 3, 2]);
+    expect(getHighScores('world').map((entry) => entry.createdAt)).toEqual([
+      1, 3, 2,
+    ]);
   });
 
   it('qualifies an equal-score boundary entry only when its deterministic rank is top five', () => {
@@ -60,6 +64,8 @@ describe('browser-local high scores', () => {
     const first = recordHighScore('world', 10, 1_000, 1);
     updateHighScoreName('world', first.entry.id, 'Explorer');
     expect(getHighScores('world')[0].username).toBe('Explorer');
-    expect(recordHighScore('asia', 10, 1_000, 2).entry.username).toBe('Explorer');
+    expect(recordHighScore('asia', 10, 1_000, 2).entry.username).toBe(
+      'Explorer',
+    );
   });
 });

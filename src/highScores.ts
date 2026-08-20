@@ -16,7 +16,10 @@ type StoredHighScores = {
   scores: Record<string, HighScoreEntry[]>;
 };
 
-export function compareHighScores(a: HighScoreEntry, b: HighScoreEntry): number {
+export function compareHighScores(
+  a: HighScoreEntry,
+  b: HighScoreEntry,
+): number {
   return (
     b.score - a.score ||
     a.elapsedMs - b.elapsedMs ||
@@ -49,12 +52,19 @@ function readStore(): StoredHighScores {
     );
     if (!parsed || typeof parsed !== 'object') return emptyStore();
     const value = parsed as Partial<StoredHighScores>;
-    if (value.version !== 1 || !value.scores || typeof value.scores !== 'object')
+    if (
+      value.version !== 1 ||
+      !value.scores ||
+      typeof value.scores !== 'object'
+    )
       return emptyStore();
     const scores: Record<string, HighScoreEntry[]> = {};
     for (const [quizId, entries] of Object.entries(value.scores)) {
       if (!Array.isArray(entries)) continue;
-      scores[quizId] = entries.filter(isEntry).sort(compareHighScores).slice(0, MAX_SCORES);
+      scores[quizId] = entries
+        .filter(isEntry)
+        .sort(compareHighScores)
+        .slice(0, MAX_SCORES);
     }
     return {
       version: 1,
@@ -104,11 +114,17 @@ export function recordHighScore(
     elapsedMs,
     createdAt: now,
   };
-  const ranked = [...(store.scores[quizId] ?? []), entry].sort(compareHighScores);
+  const ranked = [...(store.scores[quizId] ?? []), entry].sort(
+    compareHighScores,
+  );
   const scores = ranked.slice(0, MAX_SCORES);
   store.scores[quizId] = scores;
   writeStore(store);
-  return { entry, scores, qualifies: scores.some((item) => item.id === entry.id) };
+  return {
+    entry,
+    scores,
+    qualifies: scores.some((item) => item.id === entry.id),
+  };
 }
 
 export function updateHighScoreName(
