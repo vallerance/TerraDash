@@ -1,12 +1,17 @@
 import catalog from '../data/generated/catalog.json';
 import candidates from '../data/generated/non-un-candidates.json';
 
-export type RenderLocation =
-  (typeof catalog)[number] | (typeof candidates)[number];
+export type RenderLocation = {
+  id: string;
+  name: string;
+  geometryRefs: string[];
+  anchor: number[];
+  bounds: number[];
+};
 
 export function mapLocationForQuizId(id: string): RenderLocation | undefined {
-  return (
+  const location =
     catalog.find((location) => location.id === id) ??
-    candidates.find((location) => location.id === id)
-  );
+    candidates.find((location) => location.id === id);
+  return location;
 }

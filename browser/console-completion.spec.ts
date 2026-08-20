@@ -3,8 +3,7 @@ import { expect, test } from '@playwright/test';
 test('completes the active quiz through the browser console command', async ({
   page,
 }) => {
-  await page.goto('/TerraDash/');
-  await page.getByRole('button', { name: 'World UN Countries' }).click();
+  await page.goto('/TerraDash/?quiz=world');
   await page.getByRole('button', { name: 'Start World UN Countries' }).click();
   await expect(page.locator('.active-player')).toBeVisible();
 

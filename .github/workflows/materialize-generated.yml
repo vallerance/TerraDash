@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { ref: phaeax/issue-86-non-un-quiz }
+        with: { ref: phaeax/issue-86-non-un-quiz-v2 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
@@ -18,4 +18,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/generated
           git diff --cached --quiet || git commit -m 'Generate non-UN quiz geometry artifacts'
-          git push origin HEAD:phaeax/issue-86-non-un-quiz
+          git push origin HEAD:phaeax/issue-86-non-un-quiz-v2

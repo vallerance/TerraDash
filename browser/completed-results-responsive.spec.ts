@@ -10,8 +10,7 @@ for (const viewport of [
   }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/TerraDash/');
-    await page.getByRole('button', { name: 'World UN Countries' }).click();
+    await page.goto('/TerraDash/?quiz=world');
     await page
       .getByRole('button', { name: 'Start World UN Countries' })
       .click();

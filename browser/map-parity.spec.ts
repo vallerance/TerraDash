@@ -34,8 +34,7 @@ if (!runningUnderVitest) {
       await page.addInitScript(() => {
         Math.random = () => 0;
       });
-      await page.goto('/TerraDash/');
-      await page.getByRole('button', { name: 'World UN Countries' }).click();
+      await page.goto('/TerraDash/?quiz=world');
       await page
         .getByRole('button', { name: 'Start World UN Countries' })
         .click();
