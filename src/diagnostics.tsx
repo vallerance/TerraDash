@@ -75,15 +75,12 @@ function Diagnostics() {
                   );
                 }}
               >
-                {allLocations.map(({ id, name }) => (
+                {allCatalog.map(({ id, name }) => (
                   <option key={id} value={id}>
                     {name} ({id})
                   </option>
                 ))}
               </select>
-              <span className="diagnostics-selected-location" aria-live="polite">
-                Selected: {location.name}
-              </span>
             </label>
           }
         />

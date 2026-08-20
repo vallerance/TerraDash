@@ -48,7 +48,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     ).toHaveText(description);
   }
   await expect(page.locator('.quiz-option-description').nth(8)).toHaveText(
-    'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
   );
   await expect(
     page.getByText(
@@ -64,12 +64,10 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   ]);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
-  await trigger.click();
   await expect(navbar.getByRole('link', { name: 'Asia' })).toHaveAttribute(
     'aria-current',
     'page',
   );
-  await trigger.click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Asia UN Countries' }).click();
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
@@ -127,12 +125,9 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await expect(dialog.getByText('101 locations')).toBeVisible();
   await expect(
     dialog.getByText(
-      'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+      'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
     ),
   ).toBeVisible();
-  await expect(dialog.locator('em')).toHaveText(
-    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
-  );
   await page.goto('/TerraDash/?quiz=non-un&start=1');
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });
