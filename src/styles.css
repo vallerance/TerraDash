@@ -1242,6 +1242,7 @@ input {
     gap: 0.55rem;
   }
   .app-footer .disclaimer {
+    flex: 0 1 auto;
     max-width: none;
     order: 3;
   }

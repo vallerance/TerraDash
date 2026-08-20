@@ -84,6 +84,18 @@ for (const viewport of [
         );
       });
     expect(disclaimerContained).toBe(true);
+    const footerContentFit = await page
+      .locator('.app-footer')
+      .evaluate((footer) => {
+        const footerBox = footer.getBoundingClientRect();
+        const contentBottom = Math.max(
+          ...[...footer.children].map(
+            (child) => child.getBoundingClientRect().bottom,
+          ),
+        );
+        return footerBox.height <= contentBottom - footerBox.top + 2;
+      });
+    expect(footerContentFit).toBe(true);
     await page.screenshot({
       path: testInfo.outputPath(
         `completed-results-${viewport.width}x${viewport.height}.png`,
