@@ -48,7 +48,12 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     ).toHaveText(description);
   }
   await expect(page.locator('.quiz-option-description').nth(8)).toHaveText(
-    'Non-UN countries, independent territories, and autonomous regions',
+    'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+  );
+  await expect(
+    page.locator('.quiz-option-description').nth(8).locator('em'),
+  ).toHaveText(
+    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
   );
   await expect(
     page.getByText(
@@ -124,12 +129,9 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('101 locations')).toBeVisible();
-  await expect(
-    dialog.getByText(
-      'Non-UN countries, independent territories, and autonomous regions',
-      { exact: true },
-    ),
-  ).toBeVisible();
+  await expect(dialog.locator('em')).toHaveText(
+    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+  );
   await page.goto('/TerraDash/?quiz=non-un&start=1');
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });

@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import catalog from '../data/generated/catalog.json';
 import { AppFooter, AppHeader, MapView } from './main';
 import { MapBoxShell } from './MapBoxShell';
+import { allCatalog } from './quizContracts';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
 const initialLocation =
-  catalog.find(({ id }) => id === initialId) ?? catalog[0];
+  allCatalog.find(({ id }) => id === initialId) ?? allCatalog[0];
 
 export function DiagnosticsMap({
   location,
 }: {
-  location: (typeof catalog)[number];
+  location: (typeof allCatalog)[number];
 }) {
   return <MapView active={location} />;
 }
 
 function Diagnostics() {
   const [locationId, setLocationId] = useState(initialLocation.id);
-  const location = catalog.find(({ id }) => id === locationId)!;
+  const location = allCatalog.find(({ id }) => id === locationId)!;
   return (
     <main className="diagnostics-page">
       <AppHeader />
@@ -61,6 +61,9 @@ function Diagnostics() {
               htmlFor="diagnostic-location"
             >
               <span>Location</span>
+              <output className="diagnostics-selected-name">
+                {location.name}
+              </output>
               <select
                 id="diagnostic-location"
                 value={locationId}
@@ -74,7 +77,7 @@ function Diagnostics() {
                   );
                 }}
               >
-                {catalog.map(({ id, name }) => (
+                {allCatalog.map(({ id, name }) => (
                   <option key={id} value={id}>
                     {name} ({id})
                   </option>

@@ -3,6 +3,8 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
+import candidates from '../data/generated/non-un-candidates.json';
+import { allCatalog } from './quizContracts';
 import { DiagnosticsMap } from './diagnostics';
 
 let root: ReturnType<typeof createRoot> | undefined;
@@ -31,5 +33,11 @@ describe('DiagnosticsMap consumer contract', () => {
     expect(host.querySelector('.map-stage')).toBeNull();
     expect(host.querySelector('.answer-panel')).toBeNull();
     expect(host.querySelector('.diagnostics-card')).toBeNull();
+  });
+
+  it('keeps diagnostics coverage aligned with every playable location', () => {
+    expect(allCatalog).toHaveLength(296);
+    expect(new Set(allCatalog.map(({ id }) => id)).size).toBe(296);
+    expect(candidates).toHaveLength(101);
   });
 });
