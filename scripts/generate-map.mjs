@@ -455,6 +455,9 @@ const NON_UN_COMPONENTS = {
     'KQI',
   ],
 };
+const NON_UN_LABEL_ALIASES = {
+  'Valle d’Aosta': ['Aosta Valley', 'Val d’Aoste', 'Aoste'],
+};
 const supplementalByKey = new Map();
 for (const feature of supplementalFeatures)
   for (const key of feature.keys)
@@ -471,7 +474,13 @@ function candidateMatches(candidate) {
     .map((code) => code.trim())
     .filter(Boolean);
   const iso2 = candidate.iso_3166_1_code;
-  const labels = new Set([candidate.entity, ...codes].map(normalizedLabel));
+  const labels = new Set(
+    [
+      candidate.entity,
+      ...codes,
+      ...(NON_UN_LABEL_ALIASES[candidate.entity] ?? []),
+    ].map(normalizedLabel),
+  );
   return supplementalFeatures.filter(
     (feature) =>
       feature.keys.some((key) => codes.includes(key) || key === iso2) ||
