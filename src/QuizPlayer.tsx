@@ -575,7 +575,9 @@ export function QuizPlayer({
             aria-labelledby="high-score-achieved-title"
           >
             <h2 id="high-score-achieved-title">High Score Achieved</h2>
-            <p>Your score made the leaderboard! You may update your name now.</p>
+            <p>
+              Your score made the leaderboard! You may update your name now.
+            </p>
             <div className="high-score-name">
               <label htmlFor="high-score-username">Your name</label>
               <input
