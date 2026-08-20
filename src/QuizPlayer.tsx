@@ -564,13 +564,14 @@ export function QuizPlayer({
             <dd>{results.missed}</dd>
           </div>
         </dl>
-        <section
-          className="high-score-panel"
-          aria-labelledby="quiz-high-scores"
-        >
-          <h2 id="quiz-high-scores">High Scores</h2>
-          {newHighScoreId && (
-            <section className="high-score-name">
+        {newHighScoreId && (
+          <section
+            className="high-score-achieved"
+            aria-labelledby="high-score-achieved-title"
+          >
+            <h2 id="high-score-achieved-title">High Score Achieved</h2>
+            <p>Your score made the leaderboard. Add your name to save it.</p>
+            <div className="high-score-name">
               <label htmlFor="high-score-username">Your name</label>
               <input
                 id="high-score-username"
@@ -584,8 +585,14 @@ export function QuizPlayer({
                 }}
                 maxLength={32}
               />
-            </section>
-          )}
+            </div>
+          </section>
+        )}
+        <section
+          className="high-score-panel"
+          aria-labelledby="quiz-high-scores"
+        >
+          <h2 id="quiz-high-scores">High Scores</h2>
           <ol className="high-score-list">
             {highScores.map((entry) => (
               <li key={entry.id}>
