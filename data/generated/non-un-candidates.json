@@ -1,0 +1,932 @@
+[
+  {
+    "id": "non-un:abkhazia",
+    "name": "Abkhazia",
+    "geometryRefs": ["ne:admin1:1159314601"],
+    "anchor": [879.94, 185.7],
+    "bounds": [879.94, 185.7, 888.62, 190.37]
+  },
+  {
+    "id": "non-un:adjara",
+    "name": "Adjara",
+    "geometryRefs": [
+      "ne:admin1:1159314341",
+      "ne:map-unit:1159320781",
+      "ne:map-subunit:1159320781"
+    ],
+    "anchor": [887.56, 193.06],
+    "bounds": [886.08, 192.39, 890.35, 194.28]
+  },
+  {
+    "id": "non-un:american-samoa",
+    "name": "American Samoa",
+    "geometryRefs": ["ne:map-unit:1159321357", "ne:map-subunit:1159321357"],
+    "anchor": [37.01, 417.31],
+    "bounds": [35.71, 404.21, 47.35, 418.13]
+  },
+  {
+    "id": "non-un:andalusia",
+    "name": "Andalusia",
+    "geometryRefs": [
+      "ne:admin1:1159317829",
+      "ne:admin1:1159317827",
+      "ne:admin1:1159317817",
+      "ne:admin1:1159317825",
+      "ne:admin1:1159317823",
+      "ne:admin1:1159308491",
+      "ne:admin1:1159317815",
+      "ne:admin1:1159317821"
+    ],
+    "anchor": [698.31, 208.06],
+    "bounds": [689.94, 205.09, 713.43, 215.97]
+  },
+  {
+    "id": "non-un:anguilla",
+    "name": "Anguilla",
+    "geometryRefs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"],
+    "anchor": [467.89, 287.03],
+    "bounds": [466.29, 285.63, 468.17, 287.32]
+  },
+  {
+    "id": "non-un:antarctica",
+    "name": "Antarctica",
+    "geometryRefs": [
+      "ne:admin1:1159315599",
+      "ne:map-unit:1159320335",
+      "ne:map-subunit:1159320337",
+      "ne:map-subunit:1159320343",
+      "ne:map-subunit:1159320341"
+    ],
+    "anchor": [524.42, 639.67],
+    "bounds": [0, 602.18, 1440, 720]
+  },
+  {
+    "id": "non-un:aragon",
+    "name": "Aragon",
+    "geometryRefs": [
+      "ne:admin1:1159317789",
+      "ne:admin1:1159317791",
+      "ne:admin1:1159315291"
+    ],
+    "anchor": [713.5, 190.65],
+    "bounds": [711.42, 188.33, 723.08, 200.49]
+  },
+  {
+    "id": "non-un:aruba",
+    "name": "Aruba",
+    "geometryRefs": [
+      "ne:admin1:1159315531",
+      "ne:map-unit:1159321097",
+      "ne:map-subunit:1159321097"
+    ],
+    "anchor": [440.08, 309.85],
+    "bounds": [440.01, 309.69, 440.45, 310.33]
+  },
+  {
+    "id": "non-un:asturias",
+    "name": "Asturias",
+    "geometryRefs": ["ne:admin1:1159310635"],
+    "anchor": [691.31, 185.35],
+    "bounds": [691.31, 185.35, 701.95, 188.43]
+  },
+  {
+    "id": "non-un:azores",
+    "name": "Azores",
+    "geometryRefs": [
+      "ne:admin1:1159310543",
+      "ne:map-unit:1159321189",
+      "ne:map-subunit:1159321189"
+    ],
+    "anchor": [610.3, 206.29],
+    "bounds": [594.98, 201.09, 619.73, 212.04]
+  },
+  {
+    "id": "non-un:balearic-islands",
+    "name": "Balearic Islands",
+    "geometryRefs": ["ne:admin1:1159308465", "ne:map-subunit:1159320593"],
+    "anchor": [728.38, 200.74],
+    "bounds": [724.87, 199.93, 737.21, 205.43]
+  },
+  {
+    "id": "non-un:basque-country",
+    "name": "Basque Country",
+    "geometryRefs": [
+      "ne:admin1:1159317785",
+      "ne:admin1:1159317787",
+      "ne:admin1:1159310645"
+    ],
+    "anchor": [707.59, 186.8],
+    "bounds": [706.3, 186.46, 712.82, 190.01]
+  },
+  {
+    "id": "non-un:bermuda",
+    "name": "Bermuda",
+    "geometryRefs": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"],
+    "anchor": [460.95, 230.81],
+    "bounds": [460.49, 230.45, 461.3, 230.97]
+  },
+  {
+    "id": "non-un:bolzano-south-tyrol",
+    "name": "Bolzano / South Tyrol",
+    "geometryRefs": ["ne:admin1:1159310921"],
+    "anchor": [761.81, 171.66],
+    "bounds": [761.81, 171.66, 769.88, 175.1]
+  },
+  {
+    "id": "non-un:bonaire-sint-eustatius-and-saba",
+    "name": "Bonaire, Sint Eustatius and Saba",
+    "geometryRefs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"],
+    "anchor": [467.47, 289.82],
+    "bounds": [446.33, 289.41, 468.01, 311.91]
+  },
+  {
+    "id": "non-un:bougainville",
+    "name": "Bougainville",
+    "geometryRefs": [
+      "ne:admin1:1159309695",
+      "ne:map-unit:1159321175",
+      "ne:map-subunit:1159321175"
+    ],
+    "anchor": [1340.27, 381.72],
+    "bounds": [1336.61, 373.05, 1343.73, 387.51]
+  },
+  {
+    "id": "non-un:bouvet-island",
+    "name": "Bouvet Island",
+    "geometryRefs": [
+      "ne:admin1:1159315469",
+      "ne:map-unit:1159321111",
+      "ne:map-subunit:1159321111"
+    ],
+    "anchor": [733.72, 577.63],
+    "bounds": [733.83, 577.56, 733.83, 577.56]
+  },
+  {
+    "id": "non-un:british-indian-ocean-territory",
+    "name": "British Indian Ocean Territory",
+    "geometryRefs": [
+      "ne:admin1:1159315473",
+      "ne:map-unit:1159320723",
+      "ne:map-subunit:1159320723"
+    ],
+    "anchor": [1005.28, 383.49],
+    "bounds": [1005.05, 380.94, 1009.94, 389.54]
+  },
+  {
+    "id": "non-un:british-virgin-islands",
+    "name": "British Virgin Islands",
+    "geometryRefs": [
+      "ne:admin1:1159315557",
+      "ne:map-unit:1159320739",
+      "ne:map-subunit:1159320739"
+    ],
+    "anchor": [461.33, 285.89],
+    "bounds": [461.08, 285.1, 462.65, 286.57]
+  },
+  {
+    "id": "non-un:canary-islands",
+    "name": "Canary Islands",
+    "geometryRefs": ["ne:admin1:1159315577", "ne:admin1:1159317831"],
+    "anchor": [652.05, 243.8],
+    "bounds": [647.36, 242.86, 666.07, 249.43]
+  },
+  {
+    "id": "non-un:cantabria",
+    "name": "Cantabria",
+    "geometryRefs": ["ne:admin1:1159308497"],
+    "anchor": [700.69, 185.93],
+    "bounds": [700.69, 185.93, 707.4, 188.95]
+  },
+  {
+    "id": "non-un:castile-and-leo-n",
+    "name": "Castile and León",
+    "geometryRefs": [
+      "ne:admin1:1159317771",
+      "ne:admin1:1159317763",
+      "ne:admin1:1159317781",
+      "ne:admin1:1159317779",
+      "ne:admin1:1159317773",
+      "ne:admin1:1159317769",
+      "ne:admin1:1159317767",
+      "ne:admin1:1159317777",
+      "ne:admin1:1159317775"
+    ],
+    "anchor": [697.86, 191.07],
+    "bounds": [691.72, 187.05, 712.85, 199.64]
+  },
+  {
+    "id": "non-un:castilla-la-mancha",
+    "name": "Castilla–La Mancha",
+    "geometryRefs": [
+      "ne:admin1:1159317811",
+      "ne:admin1:1159308493",
+      "ne:admin1:1159317809",
+      "ne:admin1:1159317807",
+      "ne:admin1:1159317805"
+    ],
+    "anchor": [704.02, 198.97],
+    "bounds": [698.46, 194.71, 716.32, 207.8]
+  },
+  {
+    "id": "non-un:catalonia",
+    "name": "Catalonia",
+    "geometryRefs": [
+      "ne:admin1:1159309497",
+      "ne:admin1:1159317795",
+      "ne:admin1:1159317793",
+      "ne:admin1:1159317797"
+    ],
+    "anchor": [723.58, 190.77],
+    "bounds": [720.67, 188.61, 732.93, 197.74]
+  },
+  {
+    "id": "non-un:cayman-islands",
+    "name": "Cayman Islands",
+    "geometryRefs": [
+      "ne:admin1:1159315563",
+      "ne:map-unit:1159320707",
+      "ne:map-subunit:1159320707"
+    ],
+    "anchor": [394.8, 282.16],
+    "bounds": [394.33, 281.05, 401.09, 282.58]
+  },
+  {
+    "id": "non-un:christmas-island",
+    "name": "Christmas Island",
+    "geometryRefs": [
+      "ne:admin1:1159313303",
+      "ne:map-unit:1159320369",
+      "ne:map-subunit:1159320369"
+    ],
+    "anchor": [1142.57, 401.88],
+    "bounds": [1142.34, 401.72, 1142.82, 402.07]
+  },
+  {
+    "id": "non-un:cocos-keeling-islands",
+    "name": "Cocos (Keeling) Islands",
+    "geometryRefs": [
+      "ne:admin1:1159311167",
+      "ne:map-unit:1159320367",
+      "ne:map-subunit:1159320367"
+    ],
+    "anchor": [1107.36, 408.67],
+    "bounds": [1107.45, 408.73, 1107.61, 408.8]
+  },
+  {
+    "id": "non-un:cook-islands",
+    "name": "Cook Islands",
+    "geometryRefs": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"],
+    "anchor": [80.86, 444.86],
+    "bounds": [56.7, 395.92, 90.75, 447.51]
+  },
+  {
+    "id": "non-un:costa-caribe-norte",
+    "name": "Costa Caribe Norte",
+    "geometryRefs": ["ne:admin1:1159309037"],
+    "anchor": [378.26, 300.01],
+    "bounds": [378.26, 300.01, 388.93, 307.87]
+  },
+  {
+    "id": "non-un:costa-caribe-sur",
+    "name": "Costa Caribe Sur",
+    "geometryRefs": ["ne:admin1:1159308989"],
+    "anchor": [379.09, 307.02],
+    "bounds": [379.09, 307.02, 387.78, 316.22]
+  },
+  {
+    "id": "non-un:curac-ao",
+    "name": "Curaçao",
+    "geometryRefs": [
+      "ne:admin1:1159315529",
+      "ne:map-unit:1159321099",
+      "ne:map-subunit:1159321099"
+    ],
+    "anchor": [443.98, 311.11],
+    "bounds": [443.31, 310.48, 444.88, 311.61]
+  },
+  {
+    "id": "non-un:england",
+    "name": "England",
+    "geometryRefs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"],
+    "anchor": [714.39, 149.56],
+    "bounds": [694.67, 136.82, 726.99, 160.26]
+  },
+  {
+    "id": "non-un:extremadura",
+    "name": "Extremadura",
+    "geometryRefs": ["ne:admin1:1159310641", "ne:admin1:1159317813"],
+    "anchor": [690.16, 200.17],
+    "bounds": [689.77, 198.08, 701.37, 208.01]
+  },
+  {
+    "id": "non-un:falkland-islands-malvinas",
+    "name": "Falkland Islands (Malvinas)",
+    "geometryRefs": ["ne:map-unit:1159320711", "ne:map-subunit:1159320711"],
+    "anchor": [485.05, 566.44],
+    "bounds": [474.92, 564.28, 488.89, 569.37]
+  },
+  {
+    "id": "non-un:faroe-islands",
+    "name": "Faroe Islands",
+    "geometryRefs": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"],
+    "anchor": [691.77, 111.26],
+    "bounds": [689.76, 110.44, 694.71, 114.42]
+  },
+  {
+    "id": "non-un:french-guiana",
+    "name": "French Guiana",
+    "geometryRefs": [
+      "ne:admin1:1159311355",
+      "ne:map-unit:1159320655",
+      "ne:map-subunit:1159320655"
+    ],
+    "anchor": [505.67, 341.67],
+    "bounds": [501.54, 337.02, 513.4, 351.56]
+  },
+  {
+    "id": "non-un:french-polynesia",
+    "name": "French Polynesia",
+    "geometryRefs": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"],
+    "anchor": [122.15, 430.51],
+    "bounds": [101.91, 392.06, 179.92, 470.32]
+  },
+  {
+    "id": "non-un:french-southern-territories",
+    "name": "French Southern Territories",
+    "geometryRefs": [
+      "ne:map-unit:1159320631",
+      "ne:map-subunit:1159320677",
+      "ne:map-subunit:1159320669",
+      "ne:map-subunit:1159320667",
+      "ne:map-subunit:1159320665",
+      "ne:map-subunit:1159320679",
+      "ne:map-subunit:1159320675"
+    ],
+    "anchor": [927.34, 466.83],
+    "bounds": [878.91, 406.26, 1030.13, 558.74]
+  },
+  {
+    "id": "non-un:friuli-venezia-giulia",
+    "name": "Friuli-Venezia Giulia",
+    "geometryRefs": [
+      "ne:admin1:1159316967",
+      "ne:admin1:1159316965",
+      "ne:admin1:1159316969",
+      "ne:admin1:1159310919"
+    ],
+    "anchor": [771.83, 175.14],
+    "bounds": [769.34, 173.44, 775.58, 177.47]
+  },
+  {
+    "id": "non-un:gagauzia",
+    "name": "Gagauzia",
+    "geometryRefs": ["ne:admin1:1159312587"],
+    "anchor": [833.08, 173.99],
+    "bounds": [833.08, 173.99, 835.66, 177.91]
+  },
+  {
+    "id": "non-un:galicia",
+    "name": "Galicia",
+    "geometryRefs": [
+      "ne:admin1:1159310639",
+      "ne:admin1:1159317757",
+      "ne:admin1:1159317761",
+      "ne:admin1:1159317759"
+    ],
+    "anchor": [685.48, 187.06],
+    "bounds": [682.91, 184.84, 693.06, 192.78]
+  },
+  {
+    "id": "non-un:gibraltar",
+    "name": "Gibraltar",
+    "geometryRefs": [
+      "ne:admin1:1159315683",
+      "ne:map-unit:1159320719",
+      "ne:map-subunit:1159320719"
+    ],
+    "anchor": [698.6, 215.47],
+    "bounds": [698.57, 215.44, 698.57, 215.44]
+  },
+  {
+    "id": "non-un:gorno-badakhshan",
+    "name": "Gorno-Badakhshan",
+    "geometryRefs": ["ne:admin1:1159308469"],
+    "anchor": [1001.1, 202.13],
+    "bounds": [1001.1, 202.13, 1020.27, 213.29]
+  },
+  {
+    "id": "non-un:greenland",
+    "name": "Greenland",
+    "geometryRefs": ["ne:map-unit:1159320551", "ne:map-subunit:1159320551"],
+    "anchor": [562.66, 62.72],
+    "bounds": [427.77, 25.59, 674.49, 120.67]
+  },
+  {
+    "id": "non-un:guadeloupe",
+    "name": "Guadeloupe",
+    "geometryRefs": [
+      "ne:admin1:1159315647",
+      "ne:map-unit:1159320653",
+      "ne:map-subunit:1159320653"
+    ],
+    "anchor": [473.78, 294.52],
+    "bounds": [472.81, 293.95, 476.04, 296.52]
+  },
+  {
+    "id": "non-un:guam",
+    "name": "Guam",
+    "geometryRefs": [
+      "ne:admin1:1159315535",
+      "ne:map-unit:1159321359",
+      "ne:map-subunit:1159321359"
+    ],
+    "anchor": [1298.78, 306.2],
+    "bounds": [1298.72, 305.44, 1299.55, 307.01]
+  },
+  {
+    "id": "non-un:guangxi",
+    "name": "Guangxi",
+    "geometryRefs": ["ne:admin1:1159310341"],
+    "anchor": [1138.15, 254.44],
+    "bounds": [1138.15, 254.44, 1168.2, 275.92]
+  },
+  {
+    "id": "non-un:guernsey",
+    "name": "Guernsey",
+    "geometryRefs": [
+      "ne:map-unit:1159320715",
+      "ne:map-subunit:1159320757",
+      "ne:map-subunit:1159320761",
+      "ne:map-subunit:1159320755",
+      "ne:map-subunit:1159320759"
+    ],
+    "anchor": [710.29, 161.96],
+    "bounds": [709.68, 161.07, 711.3, 162.21]
+  },
+  {
+    "id": "non-un:heard-island-and-mcdonald-islands",
+    "name": "Heard Island and McDonald Islands",
+    "geometryRefs": [
+      "ne:admin1:1159315607",
+      "ne:map-unit:1159320361",
+      "ne:map-subunit:1159320361"
+    ],
+    "anchor": [1013.66, 572.25],
+    "bounds": [1012.94, 571.93, 1014.94, 572.76]
+  },
+  {
+    "id": "non-un:hong-kong",
+    "name": "Hong Kong",
+    "geometryRefs": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"],
+    "anchor": [1176.39, 270.2],
+    "bounds": [1175.39, 269.78, 1177.6, 271.28]
+  },
+  {
+    "id": "non-un:inner-mongolia",
+    "name": "Inner Mongolia",
+    "geometryRefs": ["ne:admin1:1159312757"],
+    "anchor": [1108.76, 146.91],
+    "bounds": [1108.76, 146.91, 1224.23, 210.42]
+  },
+  {
+    "id": "non-un:isle-of-man",
+    "name": "Isle of Man",
+    "geometryRefs": [
+      "ne:admin1:1159315475",
+      "ne:map-unit:1159320721",
+      "ne:map-subunit:1159320721"
+    ],
+    "anchor": [701.51, 142.86],
+    "bounds": [700.76, 142.34, 702.59, 143.77]
+  },
+  {
+    "id": "non-un:jersey",
+    "name": "Jersey",
+    "geometryRefs": [
+      "ne:admin1:1159315593",
+      "ne:map-unit:1159320725",
+      "ne:map-subunit:1159320725"
+    ],
+    "anchor": [711.45, 163.07],
+    "bounds": [711.07, 162.96, 711.67, 163.26]
+  },
+  {
+    "id": "non-un:jewish-autonomous-oblast",
+    "name": "Jewish Autonomous Oblast",
+    "geometryRefs": ["ne:admin1:1159313605"],
+    "anchor": [1242.56, 162.06],
+    "bounds": [1242.56, 162.06, 1259.95, 169.33]
+  },
+  {
+    "id": "non-un:kosovo",
+    "name": "Kosovo",
+    "geometryRefs": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"],
+    "anchor": [803.44, 189.63],
+    "bounds": [800.14, 186.95, 807.09, 192.62]
+  },
+  {
+    "id": "non-un:la-rioja",
+    "name": "La Rioja",
+    "geometryRefs": ["ne:admin1:1159309775", "ne:admin1:1159310643"],
+    "anchor": [574.45, 330.2],
+    "bounds": [441.38, 189.47, 713.25, 487.54]
+  },
+  {
+    "id": "non-un:macao",
+    "name": "Macao",
+    "geometryRefs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
+    "anchor": [1174.22, 271.48],
+    "bounds": [1174.15, 271.13, 1174.23, 271.35]
+  },
+  {
+    "id": "non-un:madeira",
+    "name": "Madeira",
+    "geometryRefs": [
+      "ne:admin1:1159310443",
+      "ne:map-unit:1159321191",
+      "ne:map-subunit:1159321191"
+    ],
+    "anchor": [651.81, 228.61],
+    "bounds": [650.99, 227.77, 656.54, 239.87]
+  },
+  {
+    "id": "non-un:madrid",
+    "name": "Madrid",
+    "geometryRefs": ["ne:admin1:1159308499"],
+    "anchor": [701.71, 195.35],
+    "bounds": [701.71, 195.35, 707.71, 200.43]
+  },
+  {
+    "id": "non-un:martinique",
+    "name": "Martinique",
+    "geometryRefs": [
+      "ne:admin1:1159311599",
+      "ne:map-unit:1159320657",
+      "ne:map-subunit:1159320657"
+    ],
+    "anchor": [475.56, 300.97],
+    "bounds": [475.12, 300.61, 476.76, 302.15]
+  },
+  {
+    "id": "non-un:mayotte",
+    "name": "Mayotte",
+    "geometryRefs": [
+      "ne:admin1:1159315621",
+      "ne:map-unit:1159320659",
+      "ne:map-subunit:1159320659"
+    ],
+    "anchor": [900.46, 411],
+    "bounds": [900.17, 410.79, 901.05, 411.93]
+  },
+  {
+    "id": "non-un:montserrat",
+    "name": "Montserrat",
+    "geometryRefs": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"],
+    "anchor": [471.25, 293.05],
+    "bounds": [471.41, 293.02, 471.41, 293.02]
+  },
+  {
+    "id": "non-un:murcia",
+    "name": "Murcia",
+    "geometryRefs": ["ne:admin1:1159310549"],
+    "anchor": [710.65, 204.98],
+    "bounds": [710.65, 204.98, 717.09, 210.48]
+  },
+  {
+    "id": "non-un:nakhchivan",
+    "name": "Nakhchivan",
+    "geometryRefs": ["ne:admin1:1159312129"],
+    "anchor": [901.25, 203.02],
+    "bounds": [901.25, 203.02, 902.12, 203.12]
+  },
+  {
+    "id": "non-un:navarre",
+    "name": "Navarre",
+    "geometryRefs": ["ne:admin1:1159315293"],
+    "anchor": [710.02, 186.82],
+    "bounds": [710.02, 186.82, 717.02, 192.36]
+  },
+  {
+    "id": "non-un:new-caledonia",
+    "name": "New Caledonia",
+    "geometryRefs": [
+      "ne:admin1:1159307717",
+      "ne:map-unit:1159320641",
+      "ne:map-subunit:1159320641"
+    ],
+    "anchor": [974.81, 336.17],
+    "bounds": [163.76, 120, 1405.36, 450.28]
+  },
+  {
+    "id": "non-un:ningxia",
+    "name": "Ningxia",
+    "geometryRefs": ["ne:admin1:1159312659"],
+    "anchor": [1137.43, 202.51],
+    "bounds": [1137.43, 202.51, 1150.65, 218.98]
+  },
+  {
+    "id": "non-un:niue",
+    "name": "Niue",
+    "geometryRefs": [
+      "ne:admin1:1159315491",
+      "ne:map-unit:1159321133",
+      "ne:map-subunit:1159321133"
+    ],
+    "anchor": [40.46, 436.07],
+    "bounds": [40.27, 435.86, 40.6, 436.52]
+  },
+  {
+    "id": "non-un:norfolk-island",
+    "name": "Norfolk Island",
+    "geometryRefs": [
+      "ne:admin1:1159315615",
+      "ne:map-unit:1159320365",
+      "ne:map-subunit:1159320365"
+    ],
+    "anchor": [1391.86, 476.11],
+    "bounds": [1391.94, 476.07, 1391.94, 476.07]
+  },
+  {
+    "id": "non-un:northern-ireland",
+    "name": "Northern Ireland",
+    "geometryRefs": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"],
+    "anchor": [694.13, 141.38],
+    "bounds": [687.3, 138.75, 698.26, 143.86]
+  },
+  {
+    "id": "non-un:northern-mariana-islands",
+    "name": "Northern Mariana Islands",
+    "geometryRefs": [
+      "ne:admin1:1159316107",
+      "ne:map-unit:1159321361",
+      "ne:map-subunit:1159321361"
+    ],
+    "anchor": [1301.85, 292.14],
+    "bounds": [1299.66, 277.93, 1303.42, 303.27]
+  },
+  {
+    "id": "non-un:pitcairn",
+    "name": "Pitcairn",
+    "geometryRefs": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"],
+    "anchor": [206.73, 457.46],
+    "bounds": [197.02, 455.7, 220.86, 460.27]
+  },
+  {
+    "id": "non-un:pri-ncipe",
+    "name": "Príncipe",
+    "geometryRefs": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"],
+    "anchor": [749.46, 353.44],
+    "bounds": [749.33, 353.3, 749.85, 353.74]
+  },
+  {
+    "id": "non-un:puerto-rico",
+    "name": "Puerto Rico",
+    "geometryRefs": [
+      "ne:admin1:1159315553",
+      "ne:map-unit:1159321363",
+      "ne:map-subunit:1159321363"
+    ],
+    "anchor": [452.25, 286.72],
+    "bounds": [448.58, 286.03, 458.88, 288.26]
+  },
+  {
+    "id": "non-un:re-union",
+    "name": "Réunion",
+    "geometryRefs": [
+      "ne:admin1:1159315617",
+      "ne:map-unit:1159320661",
+      "ne:map-subunit:1159320661"
+    ],
+    "anchor": [941.73, 444.13],
+    "bounds": [940.9, 443.5, 943.25, 445.47]
+  },
+  {
+    "id": "non-un:saint-barthe-lemy",
+    "name": "Saint Barthélemy",
+    "geometryRefs": [
+      "ne:admin1:1159315649",
+      "ne:map-unit:1159320633",
+      "ne:map-subunit:1159320633"
+    ],
+    "anchor": [468.66, 288.42],
+    "bounds": [468.64, 288.47, 468.64, 288.47]
+  },
+  {
+    "id": "non-un:saint-helena-ascension-and-tristan-da-cunha",
+    "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "geometryRefs": ["ne:map-unit:1159320733"],
+    "anchor": [697.15, 423.8],
+    "bounds": [662.57, 391.54, 697.11, 521.4]
+  },
+  {
+    "id": "non-un:saint-martin-french-part",
+    "name": "Saint Martin (French part)",
+    "geometryRefs": ["ne:map-unit:1159320639", "ne:map-subunit:1159320639"],
+    "anchor": [467.8, 287.67],
+    "bounds": [467.93, 287.87, 467.93, 287.87]
+  },
+  {
+    "id": "non-un:saint-pierre-and-miquelon",
+    "name": "Saint Pierre and Miquelon",
+    "geometryRefs": [
+      "ne:admin1:1159315673",
+      "ne:map-unit:1159320647",
+      "ne:map-subunit:1159320647"
+    ],
+    "anchor": [494.91, 172.17],
+    "bounds": [494.52, 171.44, 495.4, 172.86]
+  },
+  {
+    "id": "non-un:sardinia",
+    "name": "Sardinia",
+    "geometryRefs": ["ne:map-subunit:1159320921"],
+    "anchor": [756.19, 199.53],
+    "bounds": [752.59, 194.95, 759.17, 204.54]
+  },
+  {
+    "id": "non-un:scotland",
+    "name": "Scotland",
+    "geometryRefs": ["ne:map-unit:1159320747", "ne:map-subunit:1159320747"],
+    "anchor": [703.82, 132.83],
+    "bounds": [665.24, 116.67, 716.91, 141.46]
+  },
+  {
+    "id": "non-un:sicily",
+    "name": "Sicily",
+    "geometryRefs": ["ne:map-subunit:1159320929"],
+    "anchor": [776.62, 209.74],
+    "bounds": [768.29, 204.76, 782.11, 213.38]
+  },
+  {
+    "id": "non-un:sint-maarten-dutch-part",
+    "name": "Sint Maarten (Dutch part)",
+    "geometryRefs": [
+      "ne:admin1:1159315549",
+      "ne:map-unit:1159321103",
+      "ne:map-subunit:1159321103"
+    ],
+    "anchor": [467.67, 287.81],
+    "bounds": [467.57, 287.75, 467.57, 287.75]
+  },
+  {
+    "id": "non-un:south-georgia-and-the-south-sandwich-islands",
+    "name": "South Georgia and the South Sandwich Islands",
+    "geometryRefs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"],
+    "anchor": [573.65, 578.28],
+    "bounds": [551.55, 573.83, 614.96, 597.83]
+  },
+  {
+    "id": "non-un:svalbard-and-jan-mayen",
+    "name": "Svalbard and Jan Mayen",
+    "geometryRefs": [
+      "ne:admin1:1159309689",
+      "ne:map-unit:1159321119",
+      "ne:map-subunit:1159321119"
+    ],
+    "anchor": [782.19, 42.28],
+    "bounds": [761.94, 37.06, 854.56, 62.61]
+  },
+  {
+    "id": "non-un:taiwan",
+    "name": "Taiwan",
+    "geometryRefs": ["ne:map-unit:1159321335", "ne:map-subunit:1159321335"],
+    "anchor": [1203.47, 265.39],
+    "bounds": [1193.14, 258.85, 1207.62, 272.25]
+  },
+  {
+    "id": "non-un:tibet-xizang",
+    "name": "Tibet / Xizang",
+    "geometryRefs": ["ne:admin1:1159312655"],
+    "anchor": [1033.54, 214.51],
+    "bounds": [1033.54, 214.51, 1116.44, 250.75]
+  },
+  {
+    "id": "non-un:tokelau",
+    "name": "Tokelau",
+    "geometryRefs": [
+      "ne:admin1:1159315503",
+      "ne:map-unit:1159321137",
+      "ne:map-subunit:1159321137"
+    ],
+    "anchor": [30.05, 394.25],
+    "bounds": [30.06, 394.26, 35.24, 397.43]
+  },
+  {
+    "id": "non-un:trentino",
+    "name": "Trentino",
+    "geometryRefs": ["ne:admin1:1159316949"],
+    "anchor": [762.1, 173.91],
+    "bounds": [762.1, 173.91, 767.89, 177.2]
+  },
+  {
+    "id": "non-un:trentino-alto-adige-su-dtirol",
+    "name": "Trentino-Alto Adige/Südtirol",
+    "geometryRefs": ["ne:admin1:1159310921", "ne:admin1:1159316949"],
+    "anchor": [761.95, 172.78],
+    "bounds": [761.81, 171.66, 769.88, 177.2]
+  },
+  {
+    "id": "non-un:turks-and-caicos-islands",
+    "name": "Turks and Caicos Islands",
+    "geometryRefs": ["ne:map-unit:1159320737", "ne:map-subunit:1159320737"],
+    "anchor": [432.99, 272.73],
+    "bounds": [430.16, 272.38, 435.45, 274.8]
+  },
+  {
+    "id": "non-un:united-states-minor-outlying-islands",
+    "name": "United States Minor Outlying Islands",
+    "geometryRefs": [
+      "ne:map-unit:1159321381",
+      "ne:map-subunit:1159321381",
+      "ne:map-unit:1159321375",
+      "ne:map-subunit:1159321375",
+      "ne:map-unit:1159321377",
+      "ne:map-subunit:1159321377",
+      "ne:map-unit:1159321379",
+      "ne:map-subunit:1159321379",
+      "ne:map-unit:1159321391",
+      "ne:map-subunit:1159321391",
+      "ne:map-unit:1159321389",
+      "ne:map-subunit:1159321389",
+      "ne:map-unit:1159321373",
+      "ne:map-subunit:1159321373",
+      "ne:map-unit:1159321387",
+      "ne:map-subunit:1159321387",
+      "ne:map-unit:1159321385",
+      "ne:map-subunit:1159321385"
+    ],
+    "anchor": [234.27, 317.53],
+    "bounds": [10.57, 247.14, 1386.48, 361.5]
+  },
+  {
+    "id": "non-un:united-states-virgin-islands",
+    "name": "United States Virgin Islands",
+    "geometryRefs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"],
+    "anchor": [460.88, 289.01],
+    "bounds": [459.83, 286.59, 461.76, 289.27]
+  },
+  {
+    "id": "non-un:valencia",
+    "name": "Valencia",
+    "geometryRefs": [
+      "ne:admin1:1159317803",
+      "ne:admin1:1159317799",
+      "ne:admin1:1159315295"
+    ],
+    "anchor": [715.42, 200.18],
+    "bounds": [713.93, 196.88, 722.1, 208.62]
+  },
+  {
+    "id": "non-un:valle-d-aosta",
+    "name": "Valle d’Aosta",
+    "geometryRefs": ["ne:admin1:1159310915"],
+    "anchor": [747.13, 176.24],
+    "bounds": [747.13, 176.24, 751.68, 178.13]
+  },
+  {
+    "id": "non-un:vojvodina",
+    "name": "Vojvodina",
+    "geometryRefs": ["ne:map-unit:1159321271", "ne:map-subunit:1159321271"],
+    "anchor": [799.72, 177.79],
+    "bounds": [795.61, 175.33, 806.15, 181.47]
+  },
+  {
+    "id": "non-un:wales",
+    "name": "Wales",
+    "geometryRefs": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"],
+    "anchor": [705.42, 151.46],
+    "bounds": [698.84, 146.43, 709.41, 154.41]
+  },
+  {
+    "id": "non-un:wallis-and-futuna",
+    "name": "Wallis and Futuna",
+    "geometryRefs": ["ne:map-unit:1159320649", "ne:map-subunit:1159320649"],
+    "anchor": [7.45, 417.15],
+    "bounds": [7.43, 412.84, 15.38, 416.97]
+  },
+  {
+    "id": "non-un:western-sahara",
+    "name": "Western Sahara",
+    "geometryRefs": [
+      "ne:admin1:1159315575",
+      "ne:map-unit:1159321223",
+      "ne:map-subunit:1159321223"
+    ],
+    "anchor": [663.58, 259.2],
+    "bounds": [651.77, 249.35, 685.27, 276.93]
+  },
+  {
+    "id": "non-un:xinjiang",
+    "name": "Xinjiang",
+    "geometryRefs": ["ne:admin1:1159312657"],
+    "anchor": [1014.53, 163.34],
+    "bounds": [1014.53, 163.34, 1105.32, 222.64]
+  },
+  {
+    "id": "non-un:a-land-islands",
+    "name": "Åland Islands",
+    "geometryRefs": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"],
+    "anchor": [799.48, 119.37],
+    "bounds": [798.56, 118.08, 804.35, 120.34]
+  }
+]
