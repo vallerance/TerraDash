@@ -25,6 +25,16 @@ function expectSameBounds(
   expect(actual.height).toBeCloseTo(expected.height, 2);
 }
 
+function expectSameDimensions(
+  actual: { width: number; height: number } | null,
+  expected: { width: number; height: number } | null,
+) {
+  expect(actual).not.toBeNull();
+  expect(expected).not.toBeNull();
+  expect(actual.width).toBeCloseTo(expected.width, 2);
+  expect(actual.height).toBeCloseTo(expected.height, 2);
+}
+
 if (!runningUnderVitest) {
   for (const viewport of viewports) {
     test(`quiz and diagnostics map boxes match at ${viewport.width}x${viewport.height}`, async ({
@@ -68,7 +78,7 @@ if (!runningUnderVitest) {
       );
 
       for (const key of ['stage', 'frame', 'svg']) {
-        expectSameBounds(diagnosticsBounds[key], quizBounds[key]);
+        expectSameDimensions(diagnosticsBounds[key], quizBounds[key]);
       }
 
       for (const bounds of [quizBounds, diagnosticsBounds]) {
