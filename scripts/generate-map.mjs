@@ -383,7 +383,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
   }),
 );
 const featuresByKey = new Map();
-for (const feature of [...features, ...supplementalFeatures])
+for (const feature of features)
   for (const key of new Set(feature.keys))
     featuresByKey.set(key, [...(featuresByKey.get(key) ?? []), feature]);
 const locations = catalog.map((location) => {
