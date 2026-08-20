@@ -349,6 +349,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
     return {
       id,
       source: definition.id,
+      geometry: feature.geometry,
       keys: [
         p.iso_3166_2,
         p.ISO_A2,
@@ -635,6 +636,23 @@ const insetFeatures = insetSource.features.map((feature) => {
     bounds: bounds(points),
   };
 });
+const nonUnInsetFeatureIds = new Set(
+  nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
+);
+const supplementalInsetFeatures = supplementalFeatures
+  .filter(({ id }) => nonUnInsetFeatureIds.has(id))
+  .map((feature) => {
+    const paths = geometryPaths(feature.geometry, 0.05);
+    const polygons = insetPolygonData(feature.geometry, feature.id);
+    const points = pathPoints(paths);
+    return {
+      id: feature.id,
+      paths,
+      polygons,
+      anchor: feature.anchor,
+      bounds: bounds(points),
+    };
+  });
 const insetFeaturesByKey = new Map();
 for (const feature of insetFeatures)
   for (const key of new Set(feature.keys))
@@ -652,28 +670,44 @@ const insetLocationFeatures = Object.fromEntries(
     return [location.id, matches.map(({ id }) => id)];
   }),
 );
+for (const candidate of nonUnCandidates) {
+  const refs = candidate.geometryRefs.filter((id) =>
+    supplementalInsetFeatures.some((feature) => feature.id === id),
+  );
+  if (refs.length !== candidate.geometryRefs.length)
+    throw new Error(
+      `No high-resolution inset feature for every geometry ref in ${candidate.name}`,
+    );
+  insetLocationFeatures[candidate.id] = refs;
+}
 const inset = {
   width: WIDTH,
   height: HEIGHT,
   source: {
-    product: 'Natural Earth Admin 0 countries',
+    product: 'Natural Earth Admin 0 countries plus supplemental Admin-1/map-unit/map-subunit regions',
     version: 'v5.1.1',
     scale: '1:10m',
     url: INSET_SOURCE_URL,
     sha256: INSET_SOURCE_SHA256,
+    supplementalSources: SUPPLEMENTAL_SOURCES,
     license: 'Public domain',
     disclaimer:
       'Inset boundaries are shown for gameplay visualization and do not imply endorsement of any boundary claim.',
   },
   selection: {
-    rule: 'all quiz-eligible catalog locations plus their source features; all features are retained because the catalog covers all 195 locations',
-    catalogLocations: locations.length,
+    rule: 'all quiz-eligible catalog locations plus every exact supplemental feature referenced by a Non-UN candidate',
+    catalogLocations: locations.length + nonUnCandidates.length,
+    standardLocations: locations.length,
+    nonUnCandidates: nonUnCandidates.length,
     neighborPaddingProjectedUnits: 24,
   },
-  sourceFeatureIds: insetFeatures.map(({ id }) => id),
+  sourceFeatureIds: [
+    ...insetFeatures.map(({ id }) => id),
+    ...supplementalInsetFeatures.map(({ id }) => id),
+  ],
   locationFeatureIds: insetLocationFeatures,
   features: Object.fromEntries(
-    insetFeatures.map(
+    [...insetFeatures, ...supplementalInsetFeatures].map(
       ({ id, paths, polygons, anchor, bounds: featureBounds }) => [
         id,
         { paths, polygons, anchor, bounds: featureBounds },
