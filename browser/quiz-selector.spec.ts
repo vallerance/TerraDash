@@ -280,7 +280,32 @@ test('home composition captures wide and mobile surfaces', async ({
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
   await page.getByRole('button', { name: /Quizzes/ }).click();
-  await expect(page.getByRole('menu')).toBeVisible();
+  const mobileMenu = page.getByRole('menu');
+  await expect(mobileMenu).toBeVisible();
+  await expect(
+    mobileMenu.getByRole('menuitem', { name: nonUnTitle }),
+  ).toHaveText(nonUnTitle);
+  const menuBounds = await mobileMenu.evaluate((element) => {
+    const menuBox = element.getBoundingClientRect();
+    const items = [
+      ...element.querySelectorAll<HTMLElement>('[role="menuitem"]'),
+    ];
+    return {
+      menu: { left: menuBox.left, right: menuBox.right },
+      items: items.map((item) => {
+        const box = item.getBoundingClientRect();
+        return { left: box.left, right: box.right };
+      }),
+      viewport: innerWidth,
+    };
+  });
+  expect(menuBounds.menu.left).toBeGreaterThanOrEqual(0);
+  expect(menuBounds.menu.right).toBeLessThanOrEqual(menuBounds.viewport);
+  expect(
+    menuBounds.items.every(
+      ({ left, right }) => left >= 0 && right <= menuBounds.viewport,
+    ),
+  ).toBe(true);
   await page.screenshot({
     path: testInfo.outputPath('home-mobile-dropdown.png'),
     fullPage: true,
