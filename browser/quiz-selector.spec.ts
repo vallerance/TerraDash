@@ -254,6 +254,8 @@ test('home composition captures wide and mobile surfaces', async ({
     path: testInfo.outputPath('home-wide-dropdown.png'),
     fullPage: true,
   });
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('menu')).toHaveCount(0);
   await page.screenshot({
     path: testInfo.outputPath('home-wide.png'),
     fullPage: true,
@@ -267,6 +269,8 @@ test('home composition captures wide and mobile surfaces', async ({
     path: testInfo.outputPath('home-mobile-dropdown.png'),
     fullPage: true,
   });
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('menu')).toHaveCount(0);
   const mobileBounds = await page.evaluate(() => ({
     gridWidth: document
       .querySelector<HTMLElement>('.quiz-options')!
