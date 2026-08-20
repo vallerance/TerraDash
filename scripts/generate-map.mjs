@@ -361,6 +361,15 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
       id,
       source: definition.id,
       geometry: feature.geometry,
+      sourceCodes: [
+        p.iso_3166_2,
+        p.ISO_A2,
+        p.ISO_A2_EH,
+        p.iso_a2,
+        p.SU_A3,
+        p.ADM0_A3,
+        p.adm0_a3,
+      ].filter(Boolean),
       keys: [
         p.iso_3166_2,
         p.ISO_A2,
@@ -385,6 +394,9 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
       ]
         .filter(Boolean)
         .flatMap((value) => String(value).split(/[|;]/)),
+      alternateLabels: String(p.name_alt ?? '')
+        .split(/[|;]/)
+        .filter(Boolean),
       paths,
       anchor:
         p.LABEL_X != null && p.LABEL_Y != null
@@ -497,11 +509,39 @@ function candidateMatches(candidate) {
       ...(NON_UN_LABEL_ALIASES[candidate.entity] ?? []),
     ].map(normalizedLabel),
   );
-  return supplementalFeatures.filter(
+  const matches = supplementalFeatures.filter(
     (feature) =>
       feature.keys.some((key) => codes.includes(key) || key === iso2) ||
       feature.labels.some((label) => labels.has(normalizedLabel(label))),
   );
+  const expectedCountryCodes = new Set(
+    [iso2, ...codes.map((code) => code.split('-')[0])]
+      .filter(Boolean)
+      .map((code) => code.toUpperCase()),
+  );
+  for (const feature of matches) {
+    const codeMatch = feature.sourceCodes.some((code) =>
+      [code, String(code).split('-')[0]]
+        .map((value) => value.toUpperCase())
+        .some((value) => expectedCountryCodes.has(value)),
+    );
+    const normalizedLabelMatch = feature.labels.some((label) =>
+      labels.has(normalizedLabel(label)),
+    );
+    const knownSourceCountryCodes = feature.sourceCodes
+      .map((code) => String(code).split('-')[0].toUpperCase())
+      .filter((code) => !['-99', '-1'].includes(code));
+    if (
+      normalizedLabelMatch &&
+      !codeMatch &&
+      knownSourceCountryCodes.length &&
+      !knownSourceCountryCodes.some((code) => expectedCountryCodes.has(code))
+    )
+      throw new Error(
+        `Ambiguous normalized-label geometry for ${candidate.entity}: ${feature.id} conflicts with declared country codes`,
+      );
+  }
+  return matches;
 }
 const nonUnCandidates = candidateRecords.map((candidate) => {
   const matches = candidateMatches(candidate);
@@ -526,6 +566,13 @@ const nonUnCandidates = candidateRecords.map((candidate) => {
     bounds: bounds(points),
   };
 });
+if (
+  nonUnCandidates.some(
+    (candidate) =>
+      new Set(candidate.geometryRefs).size !== candidate.geometryRefs.length,
+  )
+)
+  throw new Error('Non-UN candidate geometry refs must be unique.');
 if (
   new Set(nonUnCandidates.map((candidate) => candidate.name)).size !==
   nonUnCandidates.length
