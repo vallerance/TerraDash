@@ -12,20 +12,19 @@
 }
 html {
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 * {
   box-sizing: border-box;
 }
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 #root {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
 }
 main {
   width: calc(100% - 2 * var(--page-gutter));
@@ -37,6 +36,11 @@ main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+main.standalone-page {
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
 }
 .app-header {
   display: flex;
@@ -107,6 +111,8 @@ main {
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: 1rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .high-score-name {
@@ -124,9 +130,13 @@ main {
 
 .standalone-page,
 .high-score-page {
+  width: 100%;
   max-width: 56rem;
   margin: 0 auto;
   padding: 1rem;
+}
+.standalone-page > .high-score-page {
+  flex: 1 0 auto;
 }
 .eyebrow {
   color: #7dd3fc;
