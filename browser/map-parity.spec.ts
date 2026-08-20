@@ -13,18 +13,6 @@ async function bounds(page: Page, selector: string) {
   return page.locator(selector).boundingBox();
 }
 
-function expectSameBounds(
-  actual: { x: number; y: number; width: number; height: number } | null,
-  expected: { x: number; y: number; width: number; height: number } | null,
-) {
-  expect(actual).not.toBeNull();
-  expect(expected).not.toBeNull();
-  expect(actual.x).toBeCloseTo(expected.x, 2);
-  expect(actual.y).toBeCloseTo(expected.y, 2);
-  expect(actual.width).toBeCloseTo(expected.width, 2);
-  expect(actual.height).toBeCloseTo(expected.height, 2);
-}
-
 function expectSameDimensions(
   actual: { width: number; height: number } | null,
   expected: { width: number; height: number } | null,
