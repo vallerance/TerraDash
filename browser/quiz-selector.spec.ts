@@ -71,10 +71,6 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   ).toHaveAttribute('aria-current', 'page');
   await trigger.click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
-  await page
-    .locator('.quiz-option')
-    .filter({ hasText: 'Asia UN Countries' })
-    .click();
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('48 locations')).toBeVisible();
