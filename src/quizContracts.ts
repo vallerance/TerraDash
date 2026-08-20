@@ -47,11 +47,8 @@ type QuizInput = {
 );
 
 export const quizOptions: QuizOption[] = (quizzesData as QuizInput[]).map(
-  (quiz) => ({
-    id: quiz.id,
-    name: quiz.name,
-    description: quiz.description,
-    locationIds:
+  (quiz): QuizOption => {
+    const locationIds =
       quiz.candidateSet === 'non-un'
         ? candidateData.map(({ id }) => id)
         : 'locationIds' in quiz
@@ -63,8 +60,14 @@ export const quizOptions: QuizOption[] = (quizzesData as QuizInput[]).map(
                   `Quiz location is absent from catalog: ${iso3}`,
                 );
               return location.id;
-            }),
-  }),
+            });
+    return {
+      id: quiz.id,
+      name: quiz.name,
+      description: quiz.description,
+      locationIds,
+    };
+  },
 );
 
 export const worldQuiz = quizOptions[0];

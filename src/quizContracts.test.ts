@@ -4,7 +4,7 @@ import { defaultCatalog, defaultQuiz, quizOptions } from './quizContracts';
 
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
-    expect(defaultCatalog).toHaveLength(296);
+    expect(defaultCatalog).toHaveLength(195);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(
@@ -26,7 +26,6 @@ describe('regional quiz partition', () => {
       'South America UN Countries',
       'Oceania UN Countries',
       'Caribbean UN Countries',
-      'Non-UN Countries, Independent Territories, and Autonomous Regions',
     ]);
     expect(quizOptions).toHaveLength(9);
     expect(
@@ -58,7 +57,11 @@ describe('regional quiz partition', () => {
           ),
       ),
     ).toBe(true);
-    expect(quizOptions.at(-1)?.description).toBe(
+    const nonUnQuiz = quizOptions.find(({ id }) => id === 'non-un');
+    expect(nonUnQuiz?.name).toBe(
+      'Non-UN Countries, Independent Territories, and Autonomous Regions',
+    );
+    expect(nonUnQuiz?.description).toBe(
       'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
     );
   });
