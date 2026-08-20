@@ -6,6 +6,8 @@ export type HighScoreEntry = {
   id: string;
   username: string;
   score: number;
+  /** Added after v1 records shipped; legacy entries may not have this field. */
+  accuracy?: number;
   elapsedMs: number;
   createdAt: number;
 };
@@ -39,6 +41,7 @@ function isEntry(value: unknown): value is HighScoreEntry {
     typeof entry.id === 'string' &&
     typeof entry.username === 'string' &&
     Number.isFinite(entry.score) &&
+    (entry.accuracy === undefined || Number.isFinite(entry.accuracy)) &&
     Number.isFinite(entry.elapsedMs) &&
     Number.isFinite(entry.createdAt)
   );
@@ -105,12 +108,14 @@ export function recordHighScore(
   score: number,
   elapsedMs: number,
   now = Date.now(),
+  accuracy = 0,
 ): { entry: HighScoreEntry; scores: HighScoreEntry[]; qualifies: boolean } {
   const store = readStore();
   const entry: HighScoreEntry = {
     id: `${now}-${Math.random().toString(36).slice(2)}`,
     username: store.playerName,
     score,
+    accuracy,
     elapsedMs,
     createdAt: now,
   };

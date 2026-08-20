@@ -68,4 +68,10 @@ describe('browser-local high scores', () => {
       'Explorer',
     );
   });
+
+  it('stores the completed run accuracy alongside the ranked result fields', () => {
+    const recorded = recordHighScore('world', 875, 12_000, 7, 0.875);
+    expect(recorded.entry.accuracy).toBe(0.875);
+    expect(getHighScores('world')[0].accuracy).toBe(0.875);
+  });
 });

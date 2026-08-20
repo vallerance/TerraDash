@@ -97,16 +97,28 @@ main {
   border-radius: 0.75rem;
 }
 
-.high-score-list {
-  display: grid;
-  gap: 0.5rem;
-  padding-left: 1.5rem;
+.high-score-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
-.high-score-list li {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 1rem;
+.high-score-table th,
+.high-score-table td {
+  padding: 0.5rem 0.35rem;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.high-score-table th:not(:first-child),
+.high-score-table td:not(:first-child) {
+  text-align: right;
+}
+
+.high-score-table thead {
+  border-bottom: 1px solid var(--line, #d8dce5);
+  color: var(--muted, #667085);
+  font-size: 0.8rem;
 }
 
 .high-score-name {

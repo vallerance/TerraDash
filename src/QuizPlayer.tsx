@@ -22,6 +22,8 @@ import { mapWidthForStage } from './mapLayout';
 import { resultMoodForScore } from './resultMood';
 import { MapBoxShell } from './MapBoxShell';
 import type { QuizOption } from './quizContracts';
+import { HighScoreTable } from './HighScoreTable';
+import { formatElapsed } from './formatElapsed';
 import {
   getHighScores,
   getPlayerName,
@@ -95,11 +97,6 @@ function FeedbackIcon({
 }
 
 const monotonicNow = () => performance.now();
-
-function formatElapsed(milliseconds: number): string {
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, '0')}`;
-}
 
 export function QuizPlayer({
   catalog,
@@ -185,6 +182,8 @@ export function QuizPlayer({
       quizId,
       state.results.finalScore,
       state.results.elapsedMs,
+      undefined,
+      state.results.accuracy,
     );
     setHighScores(recorded.scores);
     setNewHighScoreId(recorded.qualifies ? recorded.entry.id : undefined);
@@ -516,6 +515,9 @@ export function QuizPlayer({
   if (state.phase === 'completed') {
     const results = state.results!;
     const mood = resultMoodForScore(results.finalScore);
+    const newHighScore = newHighScoreId
+      ? highScores.find((entry) => entry.id === newHighScoreId)
+      : undefined;
     return (
       <section
         className="player-card quiz-results"
@@ -586,6 +588,12 @@ export function QuizPlayer({
                 maxLength={32}
               />
             </div>
+            {newHighScore && (
+              <HighScoreTable
+                scores={[newHighScore]}
+                caption="Your qualifying high score"
+              />
+            )}
           </section>
         )}
         <section
@@ -593,15 +601,7 @@ export function QuizPlayer({
           aria-labelledby="quiz-high-scores"
         >
           <h2 id="quiz-high-scores">High Scores</h2>
-          <ol className="high-score-list">
-            {highScores.map((entry) => (
-              <li key={entry.id}>
-                <span>{entry.username}</span>
-                <strong>{entry.score}</strong>
-                <time>{formatElapsed(entry.elapsedMs)}</time>
-              </li>
-            ))}
-          </ol>
+          <HighScoreTable scores={highScores} caption="Quiz high scores" />
         </section>
         <button
           className="primary-action"

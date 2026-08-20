@@ -20,7 +20,8 @@ import { QuizProvider } from './QuizContext';
 import { defaultCatalog, quizOptions, worldQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
 import { mapLocationForQuizId } from './quizMapBoundary';
-import { getAllHighScores, type HighScoreEntry } from './highScores';
+import { getAllHighScores } from './highScores';
+import { HighScoreTable } from './HighScoreTable';
 import {
   classifyInsetGeometryPaths,
   highlightedGeometryPaths,
@@ -392,27 +393,16 @@ export function HighScoresPage() {
         {quizOptions.map((quiz) => (
           <section className="high-score-panel" key={quiz.id}>
             <h2>{quiz.name}</h2>
-            <ol className="high-score-list">
-              {(scores[quiz.id] ?? []).map((entry: HighScoreEntry) => (
-                <li key={entry.id}>
-                  <span>{entry.username}</span>
-                  <strong>{entry.score}</strong>
-                  <time>{formatElapsed(entry.elapsedMs)}</time>
-                </li>
-              ))}
-              {!scores[quiz.id]?.length && <li>No scores yet</li>}
-            </ol>
+            <HighScoreTable
+              scores={scores[quiz.id] ?? []}
+              caption={`${quiz.name} high scores`}
+            />
           </section>
         ))}
       </section>
       <AppFooter />
     </main>
   );
-}
-
-function formatElapsed(milliseconds: number): string {
-  const totalSeconds = Math.floor(milliseconds / 1000);
-  return `${Math.floor(totalSeconds / 60)}:${String(totalSeconds % 60).padStart(2, '0')}`;
 }
 
 function App() {
