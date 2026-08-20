@@ -548,9 +548,8 @@ const map = {
     disclaimer:
       'Boundaries are shown for gameplay visualization and do not imply endorsement of any boundary claim.',
   },
-  sourceFeatureIds: [...features, ...supplementalFeatures].map(
-    (feature) => feature.id,
-  ),
+  sourceFeatureIds: features.map((feature) => feature.id),
+  supplementalFeatureIds: supplementalFeatures.map((feature) => feature.id),
   features: Object.fromEntries(
     [...features, ...supplementalFeatures].flatMap(
       ({ id, paths, anchor, bounds, parts = [] }) => [

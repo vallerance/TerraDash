@@ -4,7 +4,7 @@ test('completes the active quiz through the browser console command', async ({
   page,
 }) => {
   await page.goto('/TerraDash/?quiz=world');
-  await page.getByRole('button', { name: 'Start World UN Countries' }).click();
+  await page.getByRole('button', { name: 'Start quiz' }).click();
   await expect(page.locator('.active-player')).toBeVisible();
 
   const result = await page.evaluate(() => window.terraDash?.completeQuiz());
