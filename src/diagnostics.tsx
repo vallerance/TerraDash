@@ -2,24 +2,24 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppFooter, MapView } from './main';
 import { MapBoxShell } from './MapBoxShell';
-import { allCatalog } from './quizContracts';
+import { playableLocations } from './quizContracts';
 import './styles.css';
 
 const initialId = new URLSearchParams(window.location.search).get('location');
 const initialLocation =
-  allCatalog.find(({ id }) => id === initialId) ?? allCatalog[0];
+  playableLocations.find(({ id }) => id === initialId) ?? playableLocations[0];
 
 export function DiagnosticsMap({
   location,
 }: {
-  location: (typeof allCatalog)[number];
+  location: (typeof playableLocations)[number];
 }) {
   return <MapView active={location} />;
 }
 
 function Diagnostics() {
   const [locationId, setLocationId] = useState(initialLocation.id);
-  const location = allCatalog.find(({ id }) => id === locationId)!;
+  const location = playableLocations.find(({ id }) => id === locationId)!;
   return (
     <main className="diagnostics-page">
       <header className="app-header">
@@ -96,7 +96,7 @@ function Diagnostics() {
                   );
                 }}
               >
-                {allCatalog.map(({ id, name }) => (
+                {playableLocations.map(({ id, name }) => (
                   <option key={id} value={id}>
                     {name} ({id})
                   </option>

@@ -18,6 +18,8 @@ export const candidateCatalog: CatalogLocation[] = candidateData.map(
   }),
 );
 
+export const playableLocations = [...catalogData, ...candidateData];
+
 export const allCatalog: CatalogLocation[] = [
   ...defaultCatalog,
   ...candidateCatalog,
