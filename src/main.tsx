@@ -395,7 +395,11 @@ function App() {
     >
       <main>
         <header className="app-header">
-          <a className="app-brand" href={import.meta.env.BASE_URL} aria-label="TerraDash home">
+          <a
+            className="app-brand"
+            href={import.meta.env.BASE_URL}
+            aria-label="TerraDash home"
+          >
             <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
             <strong>TerraDash</strong>
             <span>MAP YOUR KNOWLEDGE</span>
@@ -413,7 +417,9 @@ function App() {
             ))}
           </nav>
           <nav className="utility-navigation" aria-label="Utilities">
-            <a href={`${import.meta.env.BASE_URL}?page=high-scores`}>High Scores</a>
+            <a href={`${import.meta.env.BASE_URL}?page=high-scores`}>
+              High Scores
+            </a>
             <a href={`${import.meta.env.BASE_URL}diagnostics.html`}>
               Diagnostics
             </a>

@@ -5,7 +5,9 @@ test('completes the active quiz through the browser console command', async ({
 }) => {
   await page.goto('/TerraDash/');
   await page.getByRole('button', { name: 'World UN Countries' }).click();
-  await page.getByRole('button', { name: 'Start World UN Countries Quiz' }).click();
+  await page
+    .getByRole('button', { name: 'Start World UN Countries Quiz' })
+    .click();
   await expect(page.locator('.active-player')).toBeVisible();
 
   const result = await page.evaluate(() => window.terraDash?.completeQuiz());
@@ -16,10 +18,12 @@ test('completes the active quiz through the browser console command', async ({
   await expect(page.locator('.results-grid')).toContainText(/10:\d{2}/);
   await expect(page.locator('.results-grid')).toContainText('195');
   await expect(page.locator('.app-footer')).toBeVisible();
-  expect(await page.locator('.app-footer').evaluate((node) => {
-    const rect = node.getBoundingClientRect();
-    return rect.bottom <= window.innerHeight + 1;
-  })).toBe(true);
+  expect(
+    await page.locator('.app-footer').evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.bottom <= window.innerHeight + 1;
+    }),
+  ).toBe(true);
   expect(await page.evaluate(() => window.terraDash?.completeQuiz())).toBe(
     'ignored',
   );

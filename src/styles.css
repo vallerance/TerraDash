@@ -59,7 +59,11 @@ main {
   color: #e8eef7;
   text-decoration: none;
 }
-.app-brand img { grid-row: span 2; width: 2rem; height: 2rem; }
+.app-brand img {
+  grid-row: span 2;
+  width: 2rem;
+  height: 2rem;
+}
 .app-brand strong {
   color: #f8fbff;
   font-size: clamp(1.15rem, 2vw, 1.5rem);
@@ -132,8 +136,12 @@ main {
   color: #dbeafe;
   font-size: 0.85rem;
 }
-.footer-brand span { color: #7dd3fc; }
-.footer-meta { text-align: right; }
+.footer-brand span {
+  color: #7dd3fc;
+}
+.footer-meta {
+  text-align: right;
+}
 .eyebrow {
   color: #7dd3fc;
   font-size: 0.75rem;
@@ -990,10 +998,19 @@ input {
     padding-inline: 0.55rem;
     border-radius: 0.65rem;
   }
-  .app-brand { grid-template-columns: 1.65rem auto; }
-  .app-brand img { width: 1.5rem; height: 1.5rem; }
-  .app-brand strong { font-size: 1rem; }
-  .app-brand span { font-size: 0.42rem; }
+  .app-brand {
+    grid-template-columns: 1.65rem auto;
+  }
+  .app-brand img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .app-brand strong {
+    font-size: 1rem;
+  }
+  .app-brand span {
+    font-size: 0.42rem;
+  }
   .app-header .quiz-navigation {
     justify-content: flex-start;
     gap: 0.75rem;
@@ -1002,15 +1019,37 @@ input {
   .app-header .utility-navigation {
     display: none;
   }
-  .quiz-options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
-  .quiz-option { min-height: 9.5rem; }
-  .quiz-option-thumbnail { height: 5rem; }
-  .app-footer { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
-  .footer-meta { text-align: left; }
-  .quiz-results { margin-block: 0.5rem; padding: 1rem; }
-  .results-grid { gap: 0.4rem; }
-  .results-grid dt { font-size: 0.68rem; }
-  .results-grid dd { font-size: 1rem; }
+  .quiz-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+  .quiz-option {
+    min-height: 9.5rem;
+  }
+  .quiz-option-thumbnail {
+    height: 5rem;
+  }
+  .app-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .footer-meta {
+    text-align: left;
+  }
+  .quiz-results {
+    margin-block: 0.5rem;
+    padding: 1rem;
+  }
+  .results-grid {
+    gap: 0.4rem;
+  }
+  .results-grid dt {
+    font-size: 0.68rem;
+  }
+  .results-grid dd {
+    font-size: 1rem;
+  }
   .home-page {
     padding: 1.25rem 0.25rem;
   }

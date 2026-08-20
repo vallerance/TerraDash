@@ -23,7 +23,9 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   await expect(page.locator('.quiz-option')).toHaveCount(8);
   await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(8);
   await expect(
-    page.getByText(/Identify all .* locations with three attempts per location/),
+    page.getByText(
+      /Identify all .* locations with three attempts per location/,
+    ),
   ).toHaveCount(0);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia$/);
@@ -53,40 +55,88 @@ test('home composition and every deployed header destination work', async ({
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/TerraDash/');
   const measurements = await page.evaluate(() => {
-    const hero = document.querySelector<HTMLElement>('#start-title')!.getBoundingClientRect();
-    const grid = document.querySelector<HTMLElement>('.quiz-options')!.getBoundingClientRect();
-    const footer = document.querySelector<HTMLElement>('.app-footer')!.getBoundingClientRect();
-    return { heroLeft: hero.left, gridLeft: grid.left, gridWidth: grid.width, footerBottom: footer.bottom, viewport: innerWidth };
+    const hero = document
+      .querySelector<HTMLElement>('#start-title')!
+      .getBoundingClientRect();
+    const grid = document
+      .querySelector<HTMLElement>('.quiz-options')!
+      .getBoundingClientRect();
+    const footer = document
+      .querySelector<HTMLElement>('.app-footer')!
+      .getBoundingClientRect();
+    return {
+      heroLeft: hero.left,
+      gridLeft: grid.left,
+      gridWidth: grid.width,
+      footerBottom: footer.bottom,
+      viewport: innerWidth,
+    };
   });
-  expect(Math.abs(measurements.heroLeft - measurements.gridLeft)).toBeLessThan(2);
+  expect(Math.abs(measurements.heroLeft - measurements.gridLeft)).toBeLessThan(
+    2,
+  );
   expect(measurements.gridWidth).toBeGreaterThan(900);
   expect(measurements.footerBottom).toBeLessThanOrEqual(900);
-  await page.screenshot({ path: testInfo.outputPath('home-wide.png'), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath('home-wide.png'),
+    fullPage: true,
+  });
 
-  const quizLinks = page.getByRole('navigation', { name: 'Quizzes' }).getByRole('link');
-  const quizIds = ['world', 'africa', 'asia', 'europe', 'north-america', 'south-america', 'oceania', 'caribbean'];
+  const quizLinks = page
+    .getByRole('navigation', { name: 'Quizzes' })
+    .getByRole('link');
+  const quizIds = [
+    'world',
+    'africa',
+    'asia',
+    'europe',
+    'north-america',
+    'south-america',
+    'oceania',
+    'caribbean',
+  ];
   for (const [index, id] of quizIds.entries()) {
     await quizLinks.nth(index).click();
     await expect(page).toHaveURL(new RegExp(`/TerraDash/\\?quiz=${id}$`));
-    await expect(page.getByRole('navigation', { name: 'Quizzes' }).getByRole('link').nth(index)).toHaveAttribute('aria-current', 'page');
+    await expect(
+      page
+        .getByRole('navigation', { name: 'Quizzes' })
+        .getByRole('link')
+        .nth(index),
+    ).toHaveAttribute('aria-current', 'page');
   }
   await page.getByRole('link', { name: 'TerraDash home' }).click();
   await expect(page).toHaveURL(/\/TerraDash\/$/);
   await page.getByRole('link', { name: 'Diagnostics' }).click();
   await expect(page).toHaveURL(/\/TerraDash\/diagnostics\.html$/);
-  await expect(page.getByRole('heading', { name: 'Inspect a location' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Inspect a location' }),
+  ).toBeVisible();
   await page.getByRole('link', { name: 'Quiz' }).click();
   await expect(page).toHaveURL(/\/TerraDash\/$/);
 });
 
-test('home cards stack into a readable mobile surface', async ({ page }, testInfo) => {
+test('home cards stack into a readable mobile surface', async ({
+  page,
+}, testInfo) => {
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
   const bounds = await page.evaluate(() => {
-    const grid = document.querySelector<HTMLElement>('.quiz-options')!.getBoundingClientRect();
-    return { gridWidth: grid.width, viewport: innerWidth, cards: [...document.querySelectorAll<HTMLElement>('.quiz-option')].map((card) => card.getBoundingClientRect().width) };
+    const grid = document
+      .querySelector<HTMLElement>('.quiz-options')!
+      .getBoundingClientRect();
+    return {
+      gridWidth: grid.width,
+      viewport: innerWidth,
+      cards: [...document.querySelectorAll<HTMLElement>('.quiz-option')].map(
+        (card) => card.getBoundingClientRect().width,
+      ),
+    };
   });
   expect(bounds.gridWidth).toBeLessThanOrEqual(bounds.viewport);
   expect(Math.min(...bounds.cards)).toBeGreaterThanOrEqual(140);
-  await page.screenshot({ path: testInfo.outputPath('home-mobile.png'), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath('home-mobile.png'),
+    fullPage: true,
+  });
 });
