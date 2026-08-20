@@ -51,7 +51,6 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
 });
 
 test('selects and starts the non-UN quiz', async ({ page }) => {
-  page.on('pageerror', (error) => console.log(`PAGEERROR ${error.stack}`));
   await page.goto('/TerraDash/');
   const title = nonUnTitle;
   await page.getByRole('button', { name: title }).click();
