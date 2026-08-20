@@ -39,6 +39,15 @@ if (
     'New Caledonia must use only its exact map-unit and map-subunit geometry; British Columbia must not be selected.',
   );
 const nakhchivan = candidates.find(({ id }) => id === 'non-un:nakhchivan');
+const kosovo = candidates.find(({ id }) => id === 'non-un:kosovo');
+if (
+  !kosovo ||
+  JSON.stringify(kosovo.geometryRefs) !==
+    JSON.stringify(['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'])
+)
+  throw new Error(
+    'Kosovo must use the exact Natural Earth map-unit/subunit pair, not unrelated admin1 same-label features.',
+  );
 const expectedNakhchivanRefs = ['gb:aze-adm1:63332228B45413776644545'];
 if (
   !nakhchivan ||

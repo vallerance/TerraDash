@@ -454,9 +454,6 @@ const NON_UN_COMPONENTS = {
   'Bouvet Island': ['BV'],
   'Christmas Island': ['CX'],
   'Cocos (Keeling) Islands': ['CC'],
-  // Natural Earth labels Kosovo's exact map-unit/subunit with KOS (while
-  // the candidate contract uses Serbia's ISO subdivision code RS-KM).
-  Kosovo: ['KOS'],
   // Natural Earth has only the AZ-NX city municipality. Use the pinned
   // geoBoundaries ADM1 republic feature instead of silently using that city.
   Nakhchivan: ['63332228B45413776644545'],
@@ -507,6 +504,9 @@ const NON_UN_COMPONENTS = {
     'KQI',
   ],
 };
+const NON_UN_EXACT_REFS = {
+  Kosovo: ['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'],
+};
 const NON_UN_LABEL_ALIASES = {
   'Valle d’Aosta': ['Aosta Valley', 'Val d’Aoste', 'Aoste'],
 };
@@ -518,6 +518,11 @@ for (const feature of supplementalFeatures)
       feature,
     ]);
 function candidateMatches(candidate) {
+  const exactRefs = NON_UN_EXACT_REFS[candidate.entity];
+  if (exactRefs)
+    return supplementalFeatures.filter((feature) =>
+      exactRefs.includes(feature.id),
+    );
   const componentKeys = NON_UN_COMPONENTS[candidate.entity];
   if (componentKeys)
     return componentKeys.flatMap((key) => supplementalByKey.get(key) ?? []);
