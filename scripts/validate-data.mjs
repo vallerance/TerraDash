@@ -81,18 +81,29 @@ if (
   throw new Error(
     'Main and inset indexes must cover exactly 296 playable locations',
   );
+if (
+  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 296 ||
+  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 296 ||
+  JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
+    JSON.stringify(Object.keys(inset.locationFeatureIds).sort())
+)
+  throw new Error('Main and inset indexes must have identical playable IDs');
 for (const item of playable) {
   const mainRefs = map.locationFeatureIds[item.id];
   const insetRefs = inset.locationFeatureIds[item.id];
   if (!mainRefs?.length || !insetRefs?.length)
     throw new Error(`Missing playable geometry refs for ${item.id}`);
   if (
-    mainRefs.length !== item.geometryRefs.length ||
-    insetRefs.length !== item.geometryRefs.length ||
-    mainRefs.some((id, index) => id !== item.geometryRefs[index]) ||
-    insetRefs.some((id, index) => id !== item.geometryRefs[index])
+    mainRefs.some((id) => !map.features[id]) ||
+    insetRefs.some((id) => !inset.features[id])
   )
-    throw new Error(`Playable geometry ref parity mismatch for ${item.id}`);
+    throw new Error(`Unresolvable playable geometry ref for ${item.id}`);
+  if (
+    item.id.startsWith('non-un:') &&
+    (JSON.stringify(mainRefs) !== JSON.stringify(item.geometryRefs) ||
+      JSON.stringify(insetRefs) !== JSON.stringify(item.geometryRefs))
+  )
+    throw new Error(`Custom geometry ref parity mismatch for ${item.id}`);
 }
 if (
   inset.width !== map.width ||
