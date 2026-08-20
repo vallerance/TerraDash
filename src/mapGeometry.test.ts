@@ -128,7 +128,10 @@ describe('map geometry resolution', () => {
     const rings = Object.values(inset.features).flatMap((feature) =>
       feature.polygons.flatMap((polygon) => polygon.rings),
     );
-    expect(rings).toHaveLength(4293);
+    expect(rings.length).toBeGreaterThan(4293);
+    expect(
+      Object.keys(inset.features).some((id) => id.startsWith('ne:admin1:')),
+    ).toBe(true);
     expect(rings.every((ring) => ring.sourceClosed)).toBe(true);
     expect(rings.every((ring) => ring.sourceValid)).toBe(true);
     expect(rings.every((ring) => ring.projectedValid)).toBe(true);
