@@ -439,6 +439,9 @@ const NON_UN_COMPONENTS = {
   'Bouvet Island': ['BV'],
   'Christmas Island': ['CX'],
   'Cocos (Keeling) Islands': ['CC'],
+  // Natural Earth labels Kosovo's exact map-unit/subunit with KOS (while
+  // the candidate contract uses Serbia's ISO subdivision code RS-KM).
+  Kosovo: ['KOS'],
   Nakhchivan: [
     'AZ-SAR',
     'AZ-SAD',
