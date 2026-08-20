@@ -64,10 +64,12 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   ]);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
+  await trigger.click();
   await expect(navbar.getByRole('link', { name: 'Asia' })).toHaveAttribute(
     'aria-current',
     'page',
   );
+  await trigger.click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Asia UN Countries' }).click();
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
