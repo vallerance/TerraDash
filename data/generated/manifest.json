@@ -19,6 +19,15 @@
       "path": "data/source/ne_10m_admin_0_map_subunits.geojson",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson",
       "sha256": "76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071"
+    },
+    {
+      "id": "aze-adm1",
+      "prefix": "gb",
+      "path": "data/source/geoBoundaries-AZE-ADM1.geojson",
+      "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/v6.0.0/releaseData/gbOpen/AZE/ADM1/geoBoundaries-AZE-ADM1.geojson",
+      "sha256": "f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666",
+      "license": "Open Data Commons Open Database License 1.0",
+      "attribution": "geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)"
     }
   ],
   "generatedAt": "deterministic",
@@ -1916,7 +1925,6 @@
     "ne:admin1:1159313605",
     "ne:admin1:1159310341",
     "ne:admin1:1159315683",
-    "ne:admin1:1159307717",
     "ne:admin1:1159315599",
     "ne:admin1:1159315529",
     "ne:admin1:1159315531",
@@ -1936,19 +1944,15 @@
     "ne:admin1:1159310543",
     "ne:admin1:1159315593",
     "ne:admin1:1159315475",
-    "ne:admin1:1159311167",
     "ne:admin1:1159315473",
     "ne:admin1:1159309689",
     "ne:admin1:1159315615",
     "ne:admin1:1159309695",
     "ne:admin1:1159315467",
-    "ne:admin1:1159315469",
     "ne:admin1:1159315491",
     "ne:admin1:1159315535",
     "ne:admin1:1159316107",
-    "ne:admin1:1159313303",
     "ne:admin1:1159315503",
-    "ne:admin1:1159312129",
     "ne:admin1:1159312659",
     "ne:admin1:1159316949",
     "ne:admin1:1159316965",
@@ -2106,7 +2110,8 @@
     "ne:map-subunit:1159320675",
     "ne:map-subunit:1159321387",
     "ne:map-subunit:1159321385",
-    "ne:map-subunit:1159320759"
+    "ne:map-subunit:1159320759",
+    "gb:aze-adm1:63332228B45413776644545"
   ],
   "locations": {
     "iso:AFG": ["ne:1159320319"],
@@ -2344,7 +2349,6 @@
       "ne:map-subunit:1159321175"
     ],
     "non-un:bouvet-island": [
-      "ne:admin1:1159315469",
       "ne:map-unit:1159321111",
       "ne:map-subunit:1159321111"
     ],
@@ -2364,12 +2368,10 @@
       "ne:map-subunit:1159320707"
     ],
     "non-un:christmas-island": [
-      "ne:admin1:1159313303",
       "ne:map-unit:1159320369",
       "ne:map-subunit:1159320369"
     ],
     "non-un:cocos-keeling-islands": [
-      "ne:admin1:1159311167",
       "ne:map-unit:1159320367",
       "ne:map-subunit:1159320367"
     ],
@@ -2482,9 +2484,8 @@
       "ne:map-unit:1159320727",
       "ne:map-subunit:1159320727"
     ],
-    "non-un:nakhchivan": ["ne:admin1:1159312129"],
+    "non-un:nakhchivan": ["gb:aze-adm1:63332228B45413776644545"],
     "non-un:new-caledonia": [
-      "ne:admin1:1159307717",
       "ne:map-unit:1159320641",
       "ne:map-subunit:1159320641"
     ],
@@ -2649,11 +2650,7 @@
       "ne:map-unit:1159321175",
       "ne:map-subunit:1159321175"
     ],
-    "Bouvet Island": [
-      "ne:admin1:1159315469",
-      "ne:map-unit:1159321111",
-      "ne:map-subunit:1159321111"
-    ],
+    "Bouvet Island": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"],
     "British Indian Ocean Territory": [
       "ne:admin1:1159315473",
       "ne:map-unit:1159320723",
@@ -2669,13 +2666,8 @@
       "ne:map-unit:1159320707",
       "ne:map-subunit:1159320707"
     ],
-    "Christmas Island": [
-      "ne:admin1:1159313303",
-      "ne:map-unit:1159320369",
-      "ne:map-subunit:1159320369"
-    ],
+    "Christmas Island": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"],
     "Cocos (Keeling) Islands": [
-      "ne:admin1:1159311167",
       "ne:map-unit:1159320367",
       "ne:map-subunit:1159320367"
     ],
@@ -2776,12 +2768,8 @@
       "ne:map-subunit:1159320659"
     ],
     "Montserrat": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"],
-    "Nakhchivan": ["ne:admin1:1159312129"],
-    "New Caledonia": [
-      "ne:admin1:1159307717",
-      "ne:map-unit:1159320641",
-      "ne:map-subunit:1159320641"
-    ],
+    "Nakhchivan": ["gb:aze-adm1:63332228B45413776644545"],
+    "New Caledonia": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
     "Ningxia": ["ne:admin1:1159312659"],
     "Niue": [
       "ne:admin1:1159315491",

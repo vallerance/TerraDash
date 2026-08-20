@@ -101,12 +101,8 @@
   {
     "id": "non-un:bouvet-island",
     "name": "Bouvet Island",
-    "geometryRefs": [
-      "ne:admin1:1159315469",
-      "ne:map-unit:1159321111",
-      "ne:map-subunit:1159321111"
-    ],
-    "anchor": [733.72, 577.63],
+    "geometryRefs": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"],
+    "anchor": [733.66, 577.66],
     "bounds": [733.83, 577.56, 733.83, 577.56]
   },
   {
@@ -145,23 +141,15 @@
   {
     "id": "non-un:christmas-island",
     "name": "Christmas Island",
-    "geometryRefs": [
-      "ne:admin1:1159313303",
-      "ne:map-unit:1159320369",
-      "ne:map-subunit:1159320369"
-    ],
-    "anchor": [1142.57, 401.88],
+    "geometryRefs": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"],
+    "anchor": [1142.69, 401.96],
     "bounds": [1142.34, 401.72, 1142.82, 402.07]
   },
   {
     "id": "non-un:cocos-keeling-islands",
     "name": "Cocos (Keeling) Islands",
-    "geometryRefs": [
-      "ne:admin1:1159311167",
-      "ne:map-unit:1159320367",
-      "ne:map-subunit:1159320367"
-    ],
-    "anchor": [1107.36, 408.67],
+    "geometryRefs": ["ne:map-unit:1159320367", "ne:map-subunit:1159320367"],
+    "anchor": [1107.32, 408.64],
     "bounds": [1107.45, 408.73, 1107.61, 408.8]
   },
   {
@@ -447,20 +435,16 @@
   {
     "id": "non-un:nakhchivan",
     "name": "Nakhchivan",
-    "geometryRefs": ["ne:admin1:1159312129"],
-    "anchor": [901.25, 203.02],
-    "bounds": [901.25, 203.02, 902.12, 203.12]
+    "geometryRefs": ["gb:aze-adm1:63332228B45413776644545"],
+    "anchor": [899.05, 200.92],
+    "bounds": [899.05, 200.92, 904.58, 204.63]
   },
   {
     "id": "non-un:new-caledonia",
     "name": "New Caledonia",
-    "geometryRefs": [
-      "ne:admin1:1159307717",
-      "ne:map-unit:1159320641",
-      "ne:map-subunit:1159320641"
-    ],
-    "anchor": [974.81, 336.17],
-    "bounds": [163.76, 120, 1405.36, 450.28]
+    "geometryRefs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
+    "anchor": [1380.34, 444.26],
+    "bounds": [1374.73, 438.96, 1405.36, 450.28]
   },
   {
     "id": "non-un:ningxia",
