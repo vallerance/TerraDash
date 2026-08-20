@@ -14,6 +14,26 @@ const INSET_SOURCE_SHA256 =
   '239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255';
 const INSET_SOURCE_URL =
   'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_countries.geojson';
+const SUPPLEMENTAL_SOURCES = [
+  {
+    id: 'admin1',
+    path: 'data/source/ne_10m_admin_1_states_provinces.geojson',
+    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_1_states_provinces.geojson',
+    sha256: '22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5',
+  },
+  {
+    id: 'map-unit',
+    path: 'data/source/ne_10m_admin_0_map_units.geojson',
+    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_units.geojson',
+    sha256: '57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862',
+  },
+  {
+    id: 'map-subunit',
+    path: 'data/source/ne_10m_admin_0_map_subunits.geojson',
+    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson',
+    sha256: '76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071',
+  },
+];
 const sourceBytes = fs.readFileSync(sourcePath);
 const sourceSha256 = crypto
   .createHash('sha256')
@@ -36,6 +56,41 @@ if (insetSourceSha256 !== INSET_SOURCE_SHA256)
 const insetSource = JSON.parse(insetSourceBytes);
 const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
+function parseCsv(text) {
+  return text.trim().split(/\r?\n/).map((line) => {
+    const values = [];
+    let value = '';
+    let quoted = false;
+    for (let index = 0; index < line.length; index += 1) {
+      const char = line[index];
+      if (char === '"') {
+        if (quoted && line[index + 1] === '"') { value += '"'; index += 1; }
+        else quoted = !quoted;
+      } else if (char === ',' && !quoted) { values.push(value); value = ''; }
+      else value += char;
+    }
+    values.push(value);
+    return values;
+  });
+}
+
+function normalizedLabel(value) {
+  return value
+    ?.normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function checkedSourceBytes(definition) {
+  const bytes = fs.readFileSync(definition.path);
+  const sha256 = crypto.createHash('sha256').update(bytes).digest('hex');
+  if (sha256 !== definition.sha256)
+    throw new Error(
+      `${definition.id} source checksum mismatch: expected ${definition.sha256}, got ${sha256}`,
+    );
+  return JSON.parse(bytes);
+}
 
 function sqDistance(point, start, end) {
   const dx = end[0] - start[0];
@@ -277,8 +332,49 @@ const features = source.features.map((feature) => {
     }),
   };
 });
+const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
+  checkedSourceBytes(definition).features.map((feature) => {
+    const p = feature.properties;
+    const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code;
+    const id = `ne:${definition.id}:${sourceId}`;
+    const paths = geometryPaths(feature.geometry);
+    const points = pathPoints(paths);
+    return {
+      id,
+      source: definition.id,
+      keys: [
+        p.iso_3166_2,
+        p.ISO_A2,
+        p.ISO_A2_EH,
+        p.SU_A3,
+        p.ADM0_A3,
+        p.adm0_a3,
+        p.name,
+        p.name_en,
+        p.NAME,
+        p.NAME_LONG,
+        p.SUBUNIT,
+      ].filter(Boolean),
+      labels: [
+        p.iso_3166_2,
+        p.name,
+        p.name_en,
+        p.name_alt,
+        p.NAME,
+        p.NAME_LONG,
+        p.SUBUNIT,
+      ].filter(Boolean),
+      paths,
+      anchor:
+        p.LABEL_X != null && p.LABEL_Y != null
+          ? project([p.LABEL_X, p.LABEL_Y])
+          : [bounds(points)[0], bounds(points)[1]],
+      bounds: bounds(points),
+    };
+  }),
+);
 const featuresByKey = new Map();
-for (const feature of features)
+for (const feature of [...features, ...supplementalFeatures])
   for (const key of new Set(feature.keys))
     featuresByKey.set(key, [...(featuresByKey.get(key) ?? []), feature]);
 const locations = catalog.map((location) => {
@@ -296,6 +392,74 @@ const locations = catalog.map((location) => {
     .map((value) => +(value / matches.length).toFixed(2));
   return { ...location, geometryRefs, anchor, bounds: bounds(points) };
 });
+
+const candidateRows = parseCsv(
+  fs.readFileSync('data/non-un-candidates.csv', 'utf8'),
+);
+const candidateHeaders = candidateRows.shift();
+const candidateRecords = candidateRows.map((row) =>
+  Object.fromEntries(candidateHeaders.map((header, index) => [header, row[index] ?? ''])),
+);
+const NON_UN_COMPONENTS = {
+  Andalusia: ['ES-AL', 'ES-GR', 'ES-H', 'ES-J', 'ES-MA', 'ES-CO', 'ES-SE', 'ES-CA'],
+  Aragon: ['ES-HU', 'ES-TE', 'ES-Z'],
+  'Basque Country': ['ES-BI', 'ES-SS', 'ES-VI'],
+  'Canary Islands': ['ES-TF', 'ES-GC'],
+  'Castile and León': ['ES-AV', 'ES-BU', 'ES-LE', 'ES-P', 'ES-SA', 'ES-SG', 'ES-SO', 'ES-VA', 'ES-ZA'],
+  'Castilla–La Mancha': ['ES-AB', 'ES-CR', 'ES-CU', 'ES-GU', 'ES-TO'],
+  Catalonia: ['ES-B', 'ES-GI', 'ES-L', 'ES-T'],
+  Extremadura: ['ES-BA', 'ES-CC'],
+  Galicia: ['ES-C', 'ES-LU', 'ES-OR', 'ES-PO'],
+  Valencia: ['ES-A', 'ES-CS', 'ES-V'],
+  'Friuli-Venezia Giulia': ['IT-GO', 'IT-PN', 'IT-TS', 'IT-UD'],
+  'Trentino-Alto Adige/Südtirol': ['IT-BZ', 'IT-TN'],
+};
+const supplementalByKey = new Map();
+for (const feature of supplementalFeatures)
+  for (const key of feature.keys)
+    supplementalByKey.set(key, [...(supplementalByKey.get(key) ?? []), feature]);
+function candidateMatches(candidate) {
+  const componentKeys = NON_UN_COMPONENTS[candidate.entity];
+  if (componentKeys)
+    return componentKeys.flatMap((key) => supplementalByKey.get(key) ?? []);
+  const codes = candidate.iso_3166_2_codes
+    .split(';')
+    .map((code) => code.trim())
+    .filter(Boolean);
+  const iso2 = candidate.iso_3166_1_code;
+  const labels = new Set([candidate.entity, ...codes].map(normalizedLabel));
+  return supplementalFeatures.filter((feature) =>
+    feature.keys.some((key) => codes.includes(key) || key === iso2) ||
+    feature.labels.some((label) => labels.has(normalizedLabel(label))),
+  );
+}
+const nonUnCandidates = candidateRecords.map((candidate) => {
+  const matches = candidateMatches(candidate);
+  if (!matches.length)
+    throw new Error(`No exact Natural Earth feature for candidate ${candidate.entity}`);
+  const id = `non-un:${candidate.entity.normalize('NFKD').replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase()}`;
+  const points = matches.flatMap((feature) => pathPoints(feature.paths));
+  return {
+    id,
+    name: candidate.entity,
+    geometryRefs: matches.map((feature) => feature.id),
+    anchor: matches
+      .map((feature) => feature.anchor)
+      .reduce((sum, point) => [sum[0] + point[0], sum[1] + point[1]], [0, 0])
+      .map((value) => +(value / matches.length).toFixed(2)),
+    bounds: bounds(points),
+  };
+});
+if (new Set(nonUnCandidates.map((candidate) => candidate.name)).size !== nonUnCandidates.length)
+  throw new Error('Non-UN candidate names must be unique.');
+if (
+  nonUnCandidates.some(
+    (candidate) =>
+      !candidate.geometryRefs.length ||
+      candidate.geometryRefs.some((ref) => !ref.startsWith('ne:admin1:') && !ref.startsWith('ne:map-unit:') && !ref.startsWith('ne:map-subunit:')),
+  )
+)
+  throw new Error('Every non-UN candidate must use nonempty exact supplemental geometry refs.');
 if (
   locations.length !== 195 ||
   new Set(locations.map((x) => x.iso3)).size !== 195
@@ -314,9 +478,11 @@ const map = {
     disclaimer:
       'Boundaries are shown for gameplay visualization and do not imply endorsement of any boundary claim.',
   },
-  sourceFeatureIds: features.map((feature) => feature.id),
+  sourceFeatureIds: [...features, ...supplementalFeatures].map(
+    (feature) => feature.id,
+  ),
   features: Object.fromEntries(
-    features.flatMap(({ id, paths, anchor, bounds, parts }) => [
+    [...features, ...supplementalFeatures].flatMap(({ id, paths, anchor, bounds, parts = [] }) => [
       [id, { paths, anchor, bounds }],
       ...parts.map(
         ({
@@ -350,15 +516,23 @@ fs.writeFileSync(
   ) + '\n',
 );
 fs.writeFileSync(
+  'data/generated/non-un-candidates.json',
+  JSON.stringify(nonUnCandidates, null, 2) + '\n',
+);
+fs.writeFileSync(
   'data/generated/manifest.json',
   JSON.stringify(
     {
       sourceSha256: EXPECTED_SOURCE_SHA256,
       sourceUrl: SOURCE_URL,
+      supplementalSources: SUPPLEMENTAL_SOURCES,
       generatedAt: 'deterministic',
       featureIds: Object.keys(map.features),
       locations: Object.fromEntries(
         locations.map((x) => [x.id, x.geometryRefs]),
+      ),
+      nonUnCandidates: Object.fromEntries(
+        nonUnCandidates.map((x) => [x.name, x.geometryRefs]),
       ),
       inset: {
         sourceSha256: INSET_SOURCE_SHA256,
@@ -449,6 +623,7 @@ execFileSync(
     'data/generated/manifest.json',
     'data/generated/map.json',
     'data/generated/quiz.json',
+    'data/generated/non-un-candidates.json',
     'data/generated/inset.json',
   ],
   { stdio: 'ignore' },
