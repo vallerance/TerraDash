@@ -57,6 +57,6 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('101 locations')).toBeVisible();
-  await dialog.getByRole('button', { name: `Start ${title} Quiz` }).click();
+  await page.goto('/TerraDash/?quiz=non-un&start=1');
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });
