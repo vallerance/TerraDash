@@ -23,7 +23,9 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   await expect(page.locator('.quiz-option')).toHaveCount(8);
   await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(8);
   await expect(
-    page.getByText(/Identify all .* locations with three attempts per location/),
+    page.getByText(
+      /Identify all .* locations with three attempts per location/,
+    ),
   ).toHaveCount(0);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia$/);
