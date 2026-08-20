@@ -86,21 +86,12 @@ export function insetGeometryPaths(locationId: string): string[] {
 
 export function selectedInsetGeometryPaths(
   locationId: string,
-  geometryRefs: string[],
+  _geometryRefs: string[],
 ): InsetGeometryPath[] {
   const exactInsetPaths = classifyInsetGeometryPaths(locationId);
-  if (exactInsetPaths.length) return exactInsetPaths;
-  return highlightedGeometryPaths(geometryRefs).map((path, index) => {
-    const metrics = pathMetrics(path);
-    return {
-      path,
-      kind: 'polygon',
-      polygonId: `${locationId}:map:${index}`,
-      ringIds: [],
-      ...metrics,
-      area: Math.abs(pathArea(path)),
-    };
-  });
+  if (!exactInsetPaths.length)
+    throw new Error(`Missing high-resolution inset geometry for ${locationId}`);
+  return exactInsetPaths;
 }
 
 export function classifyInsetGeometryPaths(
