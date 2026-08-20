@@ -75,11 +75,12 @@ test('colors custom geometry in the main map and magnified copy as attempts chan
       .poll(() =>
         page
           .locator(selector)
-          .evaluateAll((paths) =>
-            paths.length > 0 &&
-            paths.every(
-              (path) => getComputedStyle(path).fill === 'rgb(52, 211, 153)',
-            ),
+          .evaluateAll(
+            (paths) =>
+              paths.length > 0 &&
+              paths.every(
+                (path) => getComputedStyle(path).fill === 'rgb(52, 211, 153)',
+              ),
           ),
       )
       .toBe(true);
@@ -95,11 +96,12 @@ test('colors custom geometry in the main map and magnified copy as attempts chan
       .poll(() =>
         page
           .locator(selector)
-          .evaluateAll((paths) =>
-            paths.length > 0 &&
-            paths.every(
-              (path) => getComputedStyle(path).fill === 'rgb(250, 204, 21)',
-            ),
+          .evaluateAll(
+            (paths) =>
+              paths.length > 0 &&
+              paths.every(
+                (path) => getComputedStyle(path).fill === 'rgb(250, 204, 21)',
+              ),
           ),
       )
       .toBe(true);
