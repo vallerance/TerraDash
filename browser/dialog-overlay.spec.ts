@@ -2,7 +2,8 @@ import { expect, test, type Page } from '@playwright/test';
 
 async function expectDialogOverlay(page: Page) {
   const viewport = page.viewportSize();
-  if (!viewport) throw new Error('A viewport is required for overlay assertions');
+  if (!viewport)
+    throw new Error('A viewport is required for overlay assertions');
 
   const overlay = page.locator('.quiz-dialog-backdrop');
   const dialog = page.getByRole('dialog', { name: 'World UN Countries' });

@@ -71,14 +71,16 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   ]);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
+  const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Close quiz details' }).click();
   await trigger.click();
   await expect(page.getByRole('menu')).toBeVisible();
   await expect(
     page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }),
   ).toHaveAttribute('aria-current', 'page');
-  await trigger.click();
+  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
-  const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('48 locations')).toBeVisible();
   await dialog
@@ -241,12 +243,12 @@ test('home composition captures wide and mobile surfaces', async ({
           disclaimerBox.right <= footerBox.right
         );
       })(),
-      guidance: [...document.querySelectorAll<HTMLElement>('.home-guidance li')].map(
-        (item) => {
-          const box = item.getBoundingClientRect();
-          return { left: box.left, top: box.top, width: box.width };
-        },
-      ),
+      guidance: [
+        ...document.querySelectorAll<HTMLElement>('.home-guidance li'),
+      ].map((item) => {
+        const box = item.getBoundingClientRect();
+        return { left: box.left, top: box.top, width: box.width };
+      }),
     };
   });
   expect(wideBounds.heroLeft).toBe(wideBounds.gridLeft);
@@ -296,12 +298,12 @@ test('home composition captures wide and mobile surfaces', async ({
     ),
     pageScrollWidth: document.documentElement.scrollWidth,
     pageClientWidth: document.documentElement.clientWidth,
-    guidance: [...document.querySelectorAll<HTMLElement>('.home-guidance li')].map(
-      (item) => {
-        const box = item.getBoundingClientRect();
-        return { left: box.left, top: box.top };
-      },
-    ),
+    guidance: [
+      ...document.querySelectorAll<HTMLElement>('.home-guidance li'),
+    ].map((item) => {
+      const box = item.getBoundingClientRect();
+      return { left: box.left, top: box.top };
+    }),
   }));
   expect(mobileBounds.gridWidth).toBeLessThanOrEqual(mobileBounds.viewport);
   expect(mobileBounds.minCardWidth).toBeGreaterThanOrEqual(140);

@@ -120,7 +120,7 @@ describe('QuizPlayer integration', () => {
       ).click(),
     );
     expect(selected).toBeUndefined();
-    const dialog = container.querySelector('[role="dialog"]')!;
+    const dialog = document.body.querySelector('[role="dialog"]')!;
     expect(dialog.textContent).toContain('Asia UN Countries');
     expect(dialog.textContent).toContain('1 locations');
     await act(async () =>
@@ -138,11 +138,11 @@ describe('QuizPlayer integration', () => {
     await act(async () =>
       (container.querySelector('.quiz-option') as HTMLButtonElement).click(),
     );
-    expect(container.querySelector('[role="dialog"]')).toBeTruthy();
+    expect(document.body.querySelector('[role="dialog"]')).toBeTruthy();
     await act(async () =>
       window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })),
     );
-    expect(container.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.body.querySelector('[role="dialog"]')).toBeNull();
   });
 
   it('shows the active quiz name in the active and results headers', async () => {

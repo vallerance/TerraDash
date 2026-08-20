@@ -571,7 +571,8 @@ export function DiagnosticsMap({
 export function DiagnosticsPage() {
   const initialId = new URLSearchParams(window.location.search).get('location');
   const initialLocation =
-    playableLocations.find(({ id }) => id === initialId) ?? playableLocations[0];
+    playableLocations.find(({ id }) => id === initialId) ??
+    playableLocations[0];
   const [locationId, setLocationId] = useState(initialLocation.id);
   const location = playableLocations.find(({ id }) => id === locationId)!;
   return (
@@ -582,34 +583,59 @@ export function DiagnosticsPage() {
           prompt={
             <div className="quiz-prompt">
               <h1>Inspect a location</h1>
-              <span className="attempts-remaining-label">Location selected</span>
+              <span className="attempts-remaining-label">
+                Location selected
+              </span>
             </div>
           }
           status={
             <>
-              <div className="status-item status-time"><strong>00:00</strong><small>Time</small></div>
-              <div className="status-item status-correct"><strong>0/0</strong><small>Locations correct</small></div>
-              <div className="status-item status-accuracy"><strong>0.00%</strong><small>Accuracy</small></div>
-              <div className="status-item status-remaining"><strong>0</strong><small>Locations remaining</small></div>
+              <div className="status-item status-time">
+                <strong>00:00</strong>
+                <small>Time</small>
+              </div>
+              <div className="status-item status-correct">
+                <strong>0/0</strong>
+                <small>Locations correct</small>
+              </div>
+              <div className="status-item status-accuracy">
+                <strong>0.00%</strong>
+                <small>Accuracy</small>
+              </div>
+              <div className="status-item status-remaining">
+                <strong>0</strong>
+                <small>Locations remaining</small>
+              </div>
             </>
           }
           content={<DiagnosticsMap location={location} />}
           statusHidden
           headerOverlay={
-            <label className="diagnostics-control" htmlFor="diagnostic-location">
+            <label
+              className="diagnostics-control"
+              htmlFor="diagnostic-location"
+            >
               <span>Location</span>
-              <output className="diagnostics-selected-name">{location.name}</output>
+              <output className="diagnostics-selected-name">
+                {location.name}
+              </output>
               <select
                 id="diagnostic-location"
                 value={locationId}
                 onChange={(event) => {
                   const nextId = event.target.value;
                   setLocationId(nextId);
-                  history.replaceState(null, '', `?location=${encodeURIComponent(nextId)}`);
+                  history.replaceState(
+                    null,
+                    '',
+                    `?location=${encodeURIComponent(nextId)}`,
+                  );
                 }}
               >
                 {playableLocations.map(({ id, name }) => (
-                  <option key={id} value={id}>{name} ({id})</option>
+                  <option key={id} value={id}>
+                    {name} ({id})
+                  </option>
                 ))}
               </select>
             </label>
@@ -678,7 +704,10 @@ function App() {
 export function RouterApp() {
   const { route } = useBrowserRoute();
   const url = new URL(window.location.href);
-  if (url.pathname.endsWith('/diagnostics.html') || url.searchParams.get('page') === 'diagnostics')
+  if (
+    url.pathname.endsWith('/diagnostics.html') ||
+    url.searchParams.get('page') === 'diagnostics'
+  )
     return <DiagnosticsPage key={route} />;
   return <App key={route} />;
 }

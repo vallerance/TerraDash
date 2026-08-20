@@ -33,9 +33,15 @@ test('navbar navigation is same-document and preserves deep-link history', async
   ).toBeVisible();
   expect(loadCount).toBe(initialLoadCount);
 
+  await page
+    .getByRole('dialog', { name: 'World UN Countries' })
+    .getByRole('button', { name: 'Close quiz details' })
+    .click();
   await page.getByRole('link', { name: 'High Scores' }).click();
   await expect(page).toHaveURL(/\/TerraDash\/\?page=high-scores$/);
-  await expect(page.getByRole('heading', { name: 'High Scores' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'High Scores' }),
+  ).toBeVisible();
   expect(loadCount).toBe(initialLoadCount);
 });
 
