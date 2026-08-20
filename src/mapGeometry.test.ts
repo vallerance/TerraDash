@@ -22,6 +22,10 @@ describe('map geometry resolution', () => {
         0,
       ),
     );
+    expect(Object.keys(map.locationFeatureIds)).toHaveLength(296);
+    expect(Object.keys(inset.locationFeatureIds)).toEqual(
+      Object.keys(map.locationFeatureIds),
+    );
     expect(map.sourceFeatureIds.every((id) => !id.includes(':part:'))).toBe(
       true,
     );
@@ -128,7 +132,13 @@ describe('map geometry resolution', () => {
     const rings = Object.values(inset.features).flatMap((feature) =>
       feature.polygons.flatMap((polygon) => polygon.rings),
     );
-    expect(rings).toHaveLength(4293);
+    const standardRings = inset.sourceFeatureIds.flatMap((id) =>
+      inset.features[id as keyof typeof inset.features].polygons.flatMap(
+        (polygon) => polygon.rings,
+      ),
+    );
+    expect(standardRings).toHaveLength(4293);
+    expect(rings.length).toBeGreaterThan(standardRings.length);
     expect(rings.every((ring) => ring.sourceClosed)).toBe(true);
     expect(rings.every((ring) => ring.sourceValid)).toBe(true);
     expect(rings.every((ring) => ring.projectedValid)).toBe(true);

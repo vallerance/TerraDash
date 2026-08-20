@@ -4,7 +4,10 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
 import candidates from '../data/generated/non-un-candidates.json';
-import { highlightedGeometryPaths } from './mapGeometry';
+import {
+  highlightedGeometryPaths,
+  selectedInsetGeometryPaths,
+} from './mapGeometry';
 import { MapView } from './main';
 
 let root: ReturnType<typeof createRoot> | undefined;
@@ -48,7 +51,12 @@ describe('MapView small-region callout rendering', () => {
     ].map((path) => path.getAttribute('d'));
     expect(active.id).toBe('non-un:abkhazia');
     expect(source.every((path) => mainPaths.includes(path))).toBe(true);
-    expect(source.every((path) => magnifiedPaths.includes(path))).toBe(true);
+    const exactInset = selectedInsetGeometryPaths(
+      active.id,
+      active.geometryRefs,
+    ).map(({ path }) => path);
+    expect(magnifiedPaths).toEqual(expect.arrayContaining(exactInset));
+    expect(exactInset.join('').length).toBeGreaterThan(source.join('').length);
   });
 
   it('uses the centered renderer bounds without distorting the projection', () => {
