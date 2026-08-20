@@ -7,6 +7,7 @@ import {
   type PointerEvent,
   type ReactNode,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { suggestionsFor } from './autocomplete';
 import { formatAccuracy } from './accuracy';
 import { countryNameKey } from './countryName';
@@ -507,44 +508,46 @@ export function QuizPlayer({
             Start quiz
           </button>
         )}
-        {selectedQuizOption && (
-          <div
-            className="quiz-dialog-backdrop"
-            role="presentation"
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget)
-                setSelectedQuizOption(undefined);
-            }}
-          >
-            <section
-              className="quiz-dialog"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="quiz-dialog-title"
+        {selectedQuizOption &&
+          createPortal(
+            <div
+              className="quiz-dialog-backdrop"
+              role="presentation"
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget)
+                  setSelectedQuizOption(undefined);
+              }}
             >
-              <button
-                className="quiz-dialog-close"
-                type="button"
-                aria-label="Close quiz details"
-                onClick={() => setSelectedQuizOption(undefined)}
+              <section
+                className="quiz-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="quiz-dialog-title"
               >
-                ×
-              </button>
-              <p className="eyebrow">TERRADASH · QUIZ</p>
-              <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
-              <p>{selectedQuizOption.locationIds.length} locations</p>
-              <p>{quizDescription(selectedQuizOption)}</p>
-              <button
-                className="primary-action"
-                type="button"
-                autoFocus
-                onClick={() => onSelectQuiz?.(selectedQuizOption.id)}
-              >
-                Start {selectedQuizOption.name} Quiz
-              </button>
-            </section>
-          </div>
-        )}
+                <button
+                  className="quiz-dialog-close"
+                  type="button"
+                  aria-label="Close quiz details"
+                  onClick={() => setSelectedQuizOption(undefined)}
+                >
+                  ×
+                </button>
+                <p className="eyebrow">TERRADASH · QUIZ</p>
+                <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
+                <p>{selectedQuizOption.locationIds.length} locations</p>
+                <p>{quizDescription(selectedQuizOption)}</p>
+                <button
+                  className="primary-action"
+                  type="button"
+                  autoFocus
+                  onClick={() => onSelectQuiz?.(selectedQuizOption.id)}
+                >
+                  Start {selectedQuizOption.name} Quiz
+                </button>
+              </section>
+            </div>,
+            document.body,
+          )}
       </section>
     );
   }

@@ -107,7 +107,7 @@ main.app-shell:has(.active-player) {
   padding: 0.35rem 0.25rem;
   border-radius: 0.5rem;
   color: #a9b8cc;
-  font-size: 0.62rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -123,7 +123,7 @@ main.app-shell:has(.active-player) {
 }
 .app-header .utility-navigation a {
   color: #dbeafe;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
 }
 .quiz-menu {
   position: relative;
@@ -135,7 +135,7 @@ main.app-shell:has(.active-player) {
   color: #dbeafe;
   background: transparent;
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 800;
   cursor: pointer;
 }
@@ -150,6 +150,7 @@ main.app-shell:has(.active-player) {
   top: calc(100% + 0.45rem);
   left: 0;
   display: grid;
+  width: min(22rem, calc(100vw - 2rem));
   min-width: 15rem;
   padding: 0.35rem;
   border: 1px solid #34506f;
@@ -162,10 +163,11 @@ main.app-shell:has(.active-player) {
   padding: 0.5rem 0.65rem;
   border-radius: 0.4rem;
   color: #c7d6e8;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 .quiz-menu-popover a:hover,
 .quiz-menu-popover a[aria-current='page'] {
@@ -313,9 +315,9 @@ h2 {
 }
 .home-guidance {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.45rem 1.5rem;
-  width: min(100%, 42rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.8rem 2rem;
+  width: min(100%, 34rem);
   margin: 0;
   padding: 0;
   color: #b9c9dc;
@@ -324,8 +326,14 @@ h2 {
 }
 .home-guidance li::before {
   content: '•';
-  margin-right: 0.45rem;
   color: #f5b942;
+}
+.home-guidance li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: start;
+  max-width: 26rem;
+  line-height: 1.35;
 }
 .home-graphic {
   display: flex;
@@ -354,6 +362,7 @@ h2 {
 }
 .quiz-option {
   display: grid;
+  grid-template-rows: auto auto auto 1fr;
   gap: 0.35rem;
   min-height: 12rem;
   padding: 0;
@@ -471,21 +480,25 @@ h2 {
 }
 .quiz-dialog-backdrop {
   position: fixed;
-  width: 100%;
-  z-index: 20;
   inset: 0;
+  z-index: 1000;
   display: grid;
+  min-height: 100dvh;
   place-items: center;
   padding: 1rem;
-  background: #050a12cc;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background-color: rgb(5 10 18 / 80%);
+  isolation: isolate;
 }
 .quiz-dialog {
   position: relative;
+  z-index: 1;
   width: min(100%, 28rem);
   padding: clamp(1.25rem, 4vw, 2rem);
   border: 1px solid #45658a;
   border-radius: 0.9rem;
-  background: #111c2e;
+  background-color: #111c2e;
   box-shadow: 0 1.5rem 5rem #000a;
 }
 .quiz-dialog h2 {
@@ -1179,13 +1192,13 @@ input {
   }
   .app-header nav a {
     padding-inline: 0.4rem;
-    font-size: 0.68rem;
+    font-size: 0.78rem;
   }
   .app-header .utility-navigation {
     padding-left: 0.4rem;
   }
   .app-header .utility-navigation a {
-    font-size: 0.65rem;
+    font-size: 0.78rem;
   }
 }
 @media (max-width: 600px) {
@@ -1218,6 +1231,9 @@ input {
   .app-header .quiz-navigation {
     justify-content: flex-start;
     padding-inline: 0;
+  }
+  .quiz-menu-popover {
+    min-width: 0;
   }
   .app-header .utility-navigation {
     display: none;

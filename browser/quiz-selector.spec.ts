@@ -24,7 +24,9 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   const menu = page.getByRole('menu');
   const links = menu.getByRole('menuitem');
   await expect(links).toHaveText(
-    quizNames.map((name) => name.replace(' UN Countries', '')).concat('Non-UN'),
+    quizNames
+      .map((name) => name.replace(' UN Countries', ''))
+      .concat(nonUnTitle),
   );
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',
@@ -206,7 +208,7 @@ test('mobile Quizzes menu reaches and clicks the final quiz', async ({
   await page.goto('/TerraDash/');
   const mobileNav = page.getByRole('navigation', { name: 'Quizzes' });
   await mobileNav.getByRole('button', { name: /Quizzes/ }).click();
-  await mobileNav.getByRole('menuitem', { name: 'Non-UN' }).click();
+  await mobileNav.getByRole('menuitem', { name: nonUnTitle }).click();
   await expect(page).toHaveURL(/\/TerraDash\/\?quiz=non-un&select=1$/);
   await expect(page.getByRole('button', { name: /Quizzes/ })).toBeVisible();
 });
@@ -239,6 +241,12 @@ test('home composition captures wide and mobile surfaces', async ({
           disclaimerBox.right <= footerBox.right
         );
       })(),
+      guidance: [...document.querySelectorAll<HTMLElement>('.home-guidance li')].map(
+        (item) => {
+          const box = item.getBoundingClientRect();
+          return { left: box.left, top: box.top, width: box.width };
+        },
+      ),
     };
   });
   expect(wideBounds.heroLeft).toBe(wideBounds.gridLeft);
@@ -250,6 +258,9 @@ test('home composition captures wide and mobile surfaces', async ({
     wideBounds.navigationRight,
   );
   expect(wideBounds.disclaimerContained).toBe(true);
+  expect(wideBounds.guidance).toHaveLength(4);
+  expect(new Set(wideBounds.guidance.map(({ left }) => left)).size).toBe(1);
+  expect(wideBounds.guidance.every(({ width }) => width <= 550)).toBe(true);
   await page.getByRole('button', { name: /Quizzes/ }).click();
   await expect(page.getByRole('menu')).toBeVisible();
   await page.screenshot({
@@ -285,12 +296,20 @@ test('home composition captures wide and mobile surfaces', async ({
     ),
     pageScrollWidth: document.documentElement.scrollWidth,
     pageClientWidth: document.documentElement.clientWidth,
+    guidance: [...document.querySelectorAll<HTMLElement>('.home-guidance li')].map(
+      (item) => {
+        const box = item.getBoundingClientRect();
+        return { left: box.left, top: box.top };
+      },
+    ),
   }));
   expect(mobileBounds.gridWidth).toBeLessThanOrEqual(mobileBounds.viewport);
   expect(mobileBounds.minCardWidth).toBeGreaterThanOrEqual(140);
   expect(mobileBounds.pageScrollWidth).toBeLessThanOrEqual(
     mobileBounds.pageClientWidth,
   );
+  expect(mobileBounds.guidance).toHaveLength(4);
+  expect(new Set(mobileBounds.guidance.map(({ left }) => left)).size).toBe(1);
   await page.screenshot({
     path: testInfo.outputPath('home-mobile.png'),
     fullPage: true,

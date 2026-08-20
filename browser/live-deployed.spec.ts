@@ -11,7 +11,7 @@ const quizzes = [
   ['Oceania', 'Oceania UN Countries'],
   ['Caribbean', 'Caribbean UN Countries'],
   [
-    'Non-UN',
+    'Non-UN Countries, Independent Territories, and Autonomous Regions',
     'Non-UN Countries, Independent Territories, and Autonomous Regions',
   ],
 ] as const;
