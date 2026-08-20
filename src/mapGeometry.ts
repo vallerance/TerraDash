@@ -101,9 +101,12 @@ export function classifyInsetGeometryPaths(
     inset.locationFeatureIds[
       locationId as keyof typeof inset.locationFeatureIds
     ];
-  if (!refs?.length) return [];
+  if (!refs?.length)
+    throw new Error(`Missing high-resolution inset geometry for ${locationId}`);
   return refs.flatMap((id) => {
     const feature = inset.features[id as keyof typeof inset.features];
+    if (!feature)
+      throw new Error(`Missing high-resolution inset feature ${id}`);
     return feature.polygons.map((polygon) => {
       const validRings = polygon.rings.filter(
         (ring) => ring.valid && hasRenderableArea(ring.path),
