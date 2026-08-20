@@ -24,8 +24,8 @@ import { mapLocationForQuizId } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';
 import {
-  classifyInsetGeometryPaths,
   highlightedGeometryPaths,
+  selectedInsetGeometryPaths,
   tinyInsetDot,
 } from './mapGeometry';
 import './styles.css';
@@ -35,7 +35,10 @@ export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const [viewportHeight, setViewportHeight] = useState(map.height);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
-  const insetSelectedPaths = classifyInsetGeometryPaths(active.id);
+  const insetSelectedPaths = selectedInsetGeometryPaths(
+    active.id,
+    active.geometryRefs,
+  );
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const [renderedMapStart] = wrappedViewportBounds(map.width, seamX);

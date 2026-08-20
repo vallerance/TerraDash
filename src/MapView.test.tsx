@@ -3,6 +3,7 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
+import candidates from '../data/generated/non-un-candidates.json';
 import { highlightedGeometryPaths } from './mapGeometry';
 import { MapView } from './main';
 
@@ -30,6 +31,26 @@ function renderLocation(id: string) {
 }
 
 describe('MapView small-region callout rendering', () => {
+  it('renders every custom target part in both the main map and magnified copy', () => {
+    const active = candidates[0];
+    const frame = document.createElement('section');
+    frame.className = 'map-frame';
+    document.body.append(frame);
+    root = createRoot(frame);
+    act(() => root!.render(<MapView active={active} />));
+
+    const source = highlightedGeometryPaths(active.geometryRefs);
+    const mainPaths = [...frame.querySelectorAll('.active-fill path')].map(
+      (path) => path.getAttribute('d'),
+    );
+    const magnifiedPaths = [
+      ...frame.querySelectorAll('.callout-selected path'),
+    ].map((path) => path.getAttribute('d'));
+    expect(active.id).toBe('non-un:abkhazia');
+    expect(source.every((path) => mainPaths.includes(path))).toBe(true);
+    expect(source.every((path) => magnifiedPaths.includes(path))).toBe(true);
+  });
+
   it('uses the centered renderer bounds without distorting the projection', () => {
     const frame = renderLocation('iso:UZB');
     const worldMap = frame.querySelector('.world-map');

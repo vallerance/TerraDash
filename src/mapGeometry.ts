@@ -84,6 +84,25 @@ export function insetGeometryPaths(locationId: string): string[] {
   return classifyInsetGeometryPaths(locationId).map(({ path }) => path);
 }
 
+export function selectedInsetGeometryPaths(
+  locationId: string,
+  geometryRefs: string[],
+): InsetGeometryPath[] {
+  const exactInsetPaths = classifyInsetGeometryPaths(locationId);
+  if (exactInsetPaths.length) return exactInsetPaths;
+  return highlightedGeometryPaths(geometryRefs).map((path, index) => {
+    const metrics = pathMetrics(path);
+    return {
+      path,
+      kind: 'polygon',
+      polygonId: `${locationId}:map:${index}`,
+      ringIds: [],
+      ...metrics,
+      area: Math.abs(pathArea(path)),
+    };
+  });
+}
+
 export function classifyInsetGeometryPaths(
   locationId: string,
 ): InsetGeometryPath[] {

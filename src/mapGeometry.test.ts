@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import catalog from '../data/generated/catalog.json';
+import candidates from '../data/generated/non-un-candidates.json';
 import map from '../data/generated/map.json';
 import inset from '../data/generated/inset.json';
 import {
@@ -7,6 +8,7 @@ import {
   highlightedGeometryPaths,
   classifyInsetGeometryPaths,
   insetGeometryPaths,
+  selectedInsetGeometryPaths,
   tinyInsetDot,
 } from './mapGeometry';
 import { pathPoints } from './footprint';
@@ -49,9 +51,25 @@ describe('map geometry resolution', () => {
     expect(insetGeometryPaths(atg.id)).toEqual(
       classifyInsetGeometryPaths(atg.id).map(({ path }) => path),
     );
+    expect(selectedInsetGeometryPaths(atg.id, atg.geometryRefs)).toEqual(
+      classifyInsetGeometryPaths(atg.id),
+    );
     expect(insetGeometryPaths(atg.id).join('').length).toBeGreaterThan(
       highlightedGeometryPaths(atg.geometryRefs).join('').length,
     );
+  });
+
+  it('uses every custom map part when no high-resolution inset mapping exists', () => {
+    const abkhazia = candidates[0];
+    const selected = selectedInsetGeometryPaths(
+      abkhazia.id,
+      abkhazia.geometryRefs,
+    );
+    expect(abkhazia.id).toBe('non-un:abkhazia');
+    expect(selected.map(({ path }) => path)).toEqual(
+      highlightedGeometryPaths(abkhazia.geometryRefs),
+    );
+    expect(selected.every(({ kind }) => kind === 'polygon')).toBe(true);
   });
 
   it('retains explicit polygon/ring identity while classifying source geometry', () => {

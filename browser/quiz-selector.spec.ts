@@ -61,6 +61,51 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });
 
+test('colors custom geometry in the main map and magnified copy as attempts change', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Math.random = () => 0.999999;
+  });
+  await page.goto('/TerraDash/?quiz=non-un&start=1');
+  await expect(page.locator('.callout-selected path')).not.toHaveCount(0);
+
+  for (const selector of ['.active-fill path', '.callout-selected path']) {
+    await expect
+      .poll(() =>
+        page
+          .locator(selector)
+          .evaluateAll((paths) =>
+            paths.length > 0 &&
+            paths.every(
+              (path) => getComputedStyle(path).fill === 'rgb(52, 211, 153)',
+            ),
+          ),
+      )
+      .toBe(true);
+  }
+
+  const input = page.getByRole('combobox', { name: 'Location name' });
+  await input.fill('Adj');
+  await page.getByRole('option', { name: 'Adjara' }).click();
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+
+  for (const selector of ['.active-fill path', '.callout-selected path']) {
+    await expect
+      .poll(() =>
+        page
+          .locator(selector)
+          .evaluateAll((paths) =>
+            paths.length > 0 &&
+            paths.every(
+              (path) => getComputedStyle(path).fill === 'rgb(250, 204, 21)',
+            ),
+          ),
+      )
+      .toBe(true);
+  }
+});
+
 test('autocomplete only exposes locations in the active quiz', async ({
   page,
 }) => {
