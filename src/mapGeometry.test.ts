@@ -59,17 +59,22 @@ describe('map geometry resolution', () => {
     );
   });
 
-  it('uses every custom map part when no high-resolution inset mapping exists', () => {
+  it('resolves custom candidates through exact high-resolution inset mappings', () => {
     const abkhazia = candidates[0];
     const selected = selectedInsetGeometryPaths(
       abkhazia.id,
       abkhazia.geometryRefs,
     );
     expect(abkhazia.id).toBe('non-un:abkhazia');
-    expect(selected.map(({ path }) => path)).toEqual(
-      highlightedGeometryPaths(abkhazia.geometryRefs),
+    expect(selected).toEqual(classifyInsetGeometryPaths(abkhazia.id));
+    expect(selected.map(({ path }) => path).join('').length).toBeGreaterThan(
+      highlightedGeometryPaths(abkhazia.geometryRefs).join('').length,
     );
-    expect(selected.every(({ kind }) => kind === 'polygon')).toBe(true);
+    expect(
+      candidates.every(
+        (candidate) => classifyInsetGeometryPaths(candidate.id).length > 0,
+      ),
+    ).toBe(true);
   });
 
   it('retains explicit polygon/ring identity while classifying source geometry', () => {

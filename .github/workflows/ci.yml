@@ -18,6 +18,12 @@ jobs:
       - run: npm run generate
       - run: git diff --exit-code -- data/generated
       - run: npm run validate:data
+      - name: Upload generated data for provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-84-generated-data-${{ github.sha }}
+          path: data/generated/
 
   build:
     runs-on: ubuntu-latest
