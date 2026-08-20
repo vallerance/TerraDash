@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
 import candidates from '../data/generated/non-un-candidates.json';
-import { allCatalog } from './quizContracts';
+import { playableLocations } from './quizContracts';
 import { DiagnosticsMap } from './diagnostics';
 
 let root: ReturnType<typeof createRoot> | undefined;
@@ -36,8 +36,8 @@ describe('DiagnosticsMap consumer contract', () => {
   });
 
   it('keeps diagnostics coverage aligned with every playable location', () => {
-    expect(allCatalog).toHaveLength(296);
-    expect(new Set(allCatalog.map(({ id }) => id)).size).toBe(296);
+    expect(playableLocations).toHaveLength(296);
+    expect(new Set(playableLocations.map(({ id }) => id)).size).toBe(296);
     expect(candidates).toHaveLength(101);
   });
 });

@@ -1,10 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import candidateData from '../data/generated/non-un-candidates.json';
-import { defaultCatalog, defaultQuiz, quizOptions } from './quizContracts';
+import {
+  defaultCatalog,
+  defaultQuiz,
+  playableLocations,
+  quizOptions,
+} from './quizContracts';
 
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
     expect(defaultCatalog).toHaveLength(195);
+    expect(playableLocations).toHaveLength(296);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(

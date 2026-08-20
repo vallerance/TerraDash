@@ -18,7 +18,7 @@ import {
   wrappedViewportBounds,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
-import { allCatalog, quizOptions, worldQuiz } from './quizContracts';
+import { playableLocations, quizOptions, worldQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
 import { mapLocationForQuizId } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
@@ -526,12 +526,12 @@ function App() {
     <QuizProvider
       key={selectedQuiz.id}
       quiz={selectedQuiz}
-      catalog={allCatalog}
+      catalog={playableLocations}
     >
       <main className="app-shell">
         <AppHeader selectedQuizId={selectedQuiz.id} />
         <QuizPlayer
-          catalog={allCatalog}
+          catalog={playableLocations}
           quizId={selectedQuiz.id}
           quizName={selectedQuiz.name}
           quizOptions={quizOptions}
