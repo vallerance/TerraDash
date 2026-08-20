@@ -512,7 +512,7 @@ const NON_UN_LABEL_ALIASES = {
 };
 const supplementalByKey = new Map();
 for (const feature of supplementalFeatures)
-  for (const key of feature.keys)
+  for (const key of new Set(feature.keys))
     supplementalByKey.set(key, [
       ...(supplementalByKey.get(key) ?? []),
       feature,
