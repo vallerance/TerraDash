@@ -33,6 +33,15 @@ const SUPPLEMENTAL_SOURCES = [
     url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson',
     sha256: '76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071',
   },
+  {
+    id: 'aze-adm1',
+    prefix: 'gb',
+    path: 'data/source/geoBoundaries-AZE-ADM1.geojson',
+    url: 'https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/v6.0.0/releaseData/gbOpen/AZE/ADM1/geoBoundaries-AZE-ADM1.geojson',
+    sha256: 'f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666',
+    license: 'Open Data Commons Open Database License 1.0',
+    attribution: 'geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)',
+  },
 ];
 const sourceBytes = fs.readFileSync(sourcePath);
 const sourceSha256 = crypto
@@ -354,7 +363,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
   checkedSourceBytes(definition).features.map((feature) => {
     const p = feature.properties;
     const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code;
-    const id = `ne:${definition.id}:${sourceId}`;
+    const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
     const { paths } = buildGeometryFeature(feature.geometry, id);
     const points = pathPoints(paths);
     return {
@@ -382,6 +391,11 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
         p.NAME,
         p.NAME_LONG,
         p.SUBUNIT,
+        p.shapeID,
+        p.shapeName,
+        p.shapeISO,
+        p.shapeGroup,
+        p.shapeType,
       ].filter(Boolean),
       labels: [
         p.iso_3166_2,
@@ -391,6 +405,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
         p.NAME,
         p.NAME_LONG,
         p.SUBUNIT,
+        p.shapeName,
       ]
         .filter(Boolean)
         .flatMap((value) => String(value).split(/[|;]/)),
@@ -442,15 +457,9 @@ const NON_UN_COMPONENTS = {
   // Natural Earth labels Kosovo's exact map-unit/subunit with KOS (while
   // the candidate contract uses Serbia's ISO subdivision code RS-KM).
   Kosovo: ['KOS'],
-  Nakhchivan: [
-    'AZ-SAR',
-    'AZ-SAD',
-    'AZ-KAN',
-    'AZ-BAB',
-    'AZ-SAH',
-    'AZ-CUL',
-    'AZ-ORD',
-  ],
+  // Natural Earth has only the AZ-NX city municipality. Use the pinned
+  // geoBoundaries ADM1 republic feature instead of silently using that city.
+  Nakhchivan: ['63332228B45413776644545'],
   // Natural Earth's British Columbia Admin-1 feature lists "New Caledonia"
   // as a name_alt value. Use the exact NC source key so that alias matching
   // cannot attach Canada's province to the New Caledonia candidate.

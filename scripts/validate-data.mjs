@@ -39,15 +39,7 @@ if (
     'New Caledonia must use only its exact map-unit and map-subunit geometry; British Columbia must not be selected.',
   );
 const nakhchivan = candidates.find(({ id }) => id === 'non-un:nakhchivan');
-const expectedNakhchivanRefs = [
-  'ne:admin1:1159312123',
-  'ne:admin1:1159312119',
-  'ne:admin1:1159317291',
-  'ne:admin1:1159312125',
-  'ne:admin1:1159312133',
-  'ne:admin1:1159312127',
-  'ne:admin1:1159312121',
-];
+const expectedNakhchivanRefs = ['gb:aze-adm1:63332228B45413776644545'];
 if (
   !nakhchivan ||
   JSON.stringify(nakhchivan.geometryRefs) !==
@@ -56,7 +48,7 @@ if (
   nakhchivan.bounds[3] - nakhchivan.bounds[1] <= 3
 )
   throw new Error(
-    'Nakhchivan must use the full seven-district autonomous-republic geometry, not the Nakhchivan city feature.',
+    'Nakhchivan must use the pinned geoBoundaries autonomous-republic feature, not the Natural Earth Nakhchivan city feature.',
   );
 const source = JSON.parse(
   fs.readFileSync('data/source/ne_50m_admin_0_countries.geojson'),

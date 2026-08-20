@@ -111,13 +111,7 @@ describe('regional quiz partition', () => {
       ({ id }) => id === 'non-un:nakhchivan',
     );
     expect(nakhchivan?.geometryRefs).toEqual([
-      'ne:admin1:1159312123',
-      'ne:admin1:1159312119',
-      'ne:admin1:1159317291',
-      'ne:admin1:1159312125',
-      'ne:admin1:1159312133',
-      'ne:admin1:1159312127',
-      'ne:admin1:1159312121',
+      'gb:aze-adm1:63332228B45413776644545',
     ]);
     expect(nakhchivan!.bounds[2] - nakhchivan!.bounds[0]).toBeGreaterThan(4);
     expect(nakhchivan!.bounds[3] - nakhchivan!.bounds[1]).toBeGreaterThan(3);
