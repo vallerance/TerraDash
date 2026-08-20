@@ -2,6 +2,7 @@
   {
     "id": "world",
     "name": "World UN Countries",
+    "description": "All UN Member and UN Observer states",
     "locationIso3": [
       "AFG",
       "ALB",
@@ -436,5 +437,11 @@
       "VCT",
       "TTO"
     ]
+  },
+  {
+    "id": "non-un",
+    "name": "Non-UN Countries, Independent Territories, and Autonomous Regions",
+    "description": "Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.",
+    "candidateSet": "non-un"
   }
 ]
