@@ -25,22 +25,6 @@
     "bounds": [35.71, 404.21, 47.35, 418.13]
   },
   {
-    "id": "non-un:andalusia",
-    "name": "Andalusia",
-    "geometryRefs": [
-      "ne:admin1:1159317829",
-      "ne:admin1:1159317827",
-      "ne:admin1:1159317817",
-      "ne:admin1:1159317825",
-      "ne:admin1:1159317823",
-      "ne:admin1:1159308491",
-      "ne:admin1:1159317815",
-      "ne:admin1:1159317821"
-    ],
-    "anchor": [698.31, 208.06],
-    "bounds": [689.94, 205.09, 713.43, 215.97]
-  },
-  {
     "id": "non-un:anguilla",
     "name": "Anguilla",
     "geometryRefs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"],
@@ -61,17 +45,6 @@
     "bounds": [0, 602.18, 1440, 720]
   },
   {
-    "id": "non-un:aragon",
-    "name": "Aragon",
-    "geometryRefs": [
-      "ne:admin1:1159317789",
-      "ne:admin1:1159317791",
-      "ne:admin1:1159315291"
-    ],
-    "anchor": [713.5, 190.65],
-    "bounds": [711.42, 188.33, 723.08, 200.49]
-  },
-  {
     "id": "non-un:aruba",
     "name": "Aruba",
     "geometryRefs": [
@@ -83,13 +56,6 @@
     "bounds": [440.01, 309.69, 440.45, 310.33]
   },
   {
-    "id": "non-un:asturias",
-    "name": "Asturias",
-    "geometryRefs": ["ne:admin1:1159310635"],
-    "anchor": [691.31, 185.35],
-    "bounds": [691.31, 185.35, 701.95, 188.43]
-  },
-  {
     "id": "non-un:azores",
     "name": "Azores",
     "geometryRefs": [
@@ -99,24 +65,6 @@
     ],
     "anchor": [610.3, 206.29],
     "bounds": [594.98, 201.09, 619.73, 212.04]
-  },
-  {
-    "id": "non-un:balearic-islands",
-    "name": "Balearic Islands",
-    "geometryRefs": ["ne:admin1:1159308465", "ne:map-subunit:1159320593"],
-    "anchor": [728.38, 200.74],
-    "bounds": [724.87, 199.93, 737.21, 205.43]
-  },
-  {
-    "id": "non-un:basque-country",
-    "name": "Basque Country",
-    "geometryRefs": [
-      "ne:admin1:1159317785",
-      "ne:admin1:1159317787",
-      "ne:admin1:1159310645"
-    ],
-    "anchor": [707.59, 186.8],
-    "bounds": [706.3, 186.46, 712.82, 190.01]
   },
   {
     "id": "non-un:bermuda",
@@ -182,62 +130,6 @@
     ],
     "anchor": [461.33, 285.89],
     "bounds": [461.08, 285.1, 462.65, 286.57]
-  },
-  {
-    "id": "non-un:canary-islands",
-    "name": "Canary Islands",
-    "geometryRefs": ["ne:admin1:1159315577", "ne:admin1:1159317831"],
-    "anchor": [652.05, 243.8],
-    "bounds": [647.36, 242.86, 666.07, 249.43]
-  },
-  {
-    "id": "non-un:cantabria",
-    "name": "Cantabria",
-    "geometryRefs": ["ne:admin1:1159308497"],
-    "anchor": [700.69, 185.93],
-    "bounds": [700.69, 185.93, 707.4, 188.95]
-  },
-  {
-    "id": "non-un:castile-and-leo-n",
-    "name": "Castile and León",
-    "geometryRefs": [
-      "ne:admin1:1159317771",
-      "ne:admin1:1159317763",
-      "ne:admin1:1159317781",
-      "ne:admin1:1159317779",
-      "ne:admin1:1159317773",
-      "ne:admin1:1159317769",
-      "ne:admin1:1159317767",
-      "ne:admin1:1159317777",
-      "ne:admin1:1159317775"
-    ],
-    "anchor": [697.86, 191.07],
-    "bounds": [691.72, 187.05, 712.85, 199.64]
-  },
-  {
-    "id": "non-un:castilla-la-mancha",
-    "name": "Castilla–La Mancha",
-    "geometryRefs": [
-      "ne:admin1:1159317811",
-      "ne:admin1:1159308493",
-      "ne:admin1:1159317809",
-      "ne:admin1:1159317807",
-      "ne:admin1:1159317805"
-    ],
-    "anchor": [704.02, 198.97],
-    "bounds": [698.46, 194.71, 716.32, 207.8]
-  },
-  {
-    "id": "non-un:catalonia",
-    "name": "Catalonia",
-    "geometryRefs": [
-      "ne:admin1:1159309497",
-      "ne:admin1:1159317795",
-      "ne:admin1:1159317793",
-      "ne:admin1:1159317797"
-    ],
-    "anchor": [723.58, 190.77],
-    "bounds": [720.67, 188.61, 732.93, 197.74]
   },
   {
     "id": "non-un:cayman-islands",
@@ -312,13 +204,6 @@
     "bounds": [694.67, 136.82, 726.99, 160.26]
   },
   {
-    "id": "non-un:extremadura",
-    "name": "Extremadura",
-    "geometryRefs": ["ne:admin1:1159310641", "ne:admin1:1159317813"],
-    "anchor": [690.16, 200.17],
-    "bounds": [689.77, 198.08, 701.37, 208.01]
-  },
-  {
     "id": "non-un:falkland-islands-malvinas",
     "name": "Falkland Islands (Malvinas)",
     "geometryRefs": ["ne:map-unit:1159320711", "ne:map-subunit:1159320711"],
@@ -383,18 +268,6 @@
     "geometryRefs": ["ne:admin1:1159312587"],
     "anchor": [833.08, 173.99],
     "bounds": [833.08, 173.99, 835.66, 177.91]
-  },
-  {
-    "id": "non-un:galicia",
-    "name": "Galicia",
-    "geometryRefs": [
-      "ne:admin1:1159310639",
-      "ne:admin1:1159317757",
-      "ne:admin1:1159317761",
-      "ne:admin1:1159317759"
-    ],
-    "anchor": [685.48, 187.06],
-    "bounds": [682.91, 184.84, 693.06, 192.78]
   },
   {
     "id": "non-un:gibraltar",
@@ -525,13 +398,6 @@
     "bounds": [800.14, 186.95, 807.09, 192.62]
   },
   {
-    "id": "non-un:la-rioja",
-    "name": "La Rioja",
-    "geometryRefs": ["ne:admin1:1159309775", "ne:admin1:1159310643"],
-    "anchor": [574.45, 330.2],
-    "bounds": [441.38, 189.47, 713.25, 487.54]
-  },
-  {
     "id": "non-un:macao",
     "name": "Macao",
     "geometryRefs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
@@ -548,13 +414,6 @@
     ],
     "anchor": [651.81, 228.61],
     "bounds": [650.99, 227.77, 656.54, 239.87]
-  },
-  {
-    "id": "non-un:madrid",
-    "name": "Madrid",
-    "geometryRefs": ["ne:admin1:1159308499"],
-    "anchor": [701.71, 195.35],
-    "bounds": [701.71, 195.35, 707.71, 200.43]
   },
   {
     "id": "non-un:martinique",
@@ -586,25 +445,11 @@
     "bounds": [471.41, 293.02, 471.41, 293.02]
   },
   {
-    "id": "non-un:murcia",
-    "name": "Murcia",
-    "geometryRefs": ["ne:admin1:1159310549"],
-    "anchor": [710.65, 204.98],
-    "bounds": [710.65, 204.98, 717.09, 210.48]
-  },
-  {
     "id": "non-un:nakhchivan",
     "name": "Nakhchivan",
     "geometryRefs": ["ne:admin1:1159312129"],
     "anchor": [901.25, 203.02],
     "bounds": [901.25, 203.02, 902.12, 203.12]
-  },
-  {
-    "id": "non-un:navarre",
-    "name": "Navarre",
-    "geometryRefs": ["ne:admin1:1159315293"],
-    "anchor": [710.02, 186.82],
-    "bounds": [710.02, 186.82, 717.02, 192.36]
   },
   {
     "id": "non-un:new-caledonia",
@@ -864,17 +709,6 @@
     "geometryRefs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"],
     "anchor": [460.88, 289.01],
     "bounds": [459.83, 286.59, 461.76, 289.27]
-  },
-  {
-    "id": "non-un:valencia",
-    "name": "Valencia",
-    "geometryRefs": [
-      "ne:admin1:1159317803",
-      "ne:admin1:1159317799",
-      "ne:admin1:1159315295"
-    ],
-    "anchor": [715.42, 200.18],
-    "bounds": [713.93, 196.88, 722.1, 208.62]
   },
   {
     "id": "non-un:valle-d-aosta",
