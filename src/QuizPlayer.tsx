@@ -32,6 +32,7 @@ type QuizPlayerProps = {
   onSelectQuiz?: (quizId: string) => void;
   autoStart?: boolean;
   onAutoStartHandled?: () => void;
+  renderQuizThumbnail?: (quiz: QuizOption) => ReactNode;
 };
 
 type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
@@ -101,6 +102,7 @@ export function QuizPlayer({
   onSelectQuiz,
   autoStart = false,
   onAutoStartHandled,
+  renderQuizThumbnail,
 }: QuizPlayerProps) {
   const { state, dispatch } = useQuiz();
   const [text, setText] = useState('');
@@ -414,6 +416,7 @@ export function QuizPlayer({
                 type="button"
                 onClick={() => setSelectedQuizOption(option)}
               >
+                {renderQuizThumbnail?.(option)}
                 <strong>{option.name}</strong>
                 <span>{option.locationIds.length} locations</span>
               </button>
@@ -450,17 +453,14 @@ export function QuizPlayer({
               </button>
               <p className="eyebrow">TERRADASH · QUIZ</p>
               <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
-              <p>
-                Identify all {selectedQuizOption.locationIds.length} locations
-                with three attempts per location.
-              </p>
+              <p>{selectedQuizOption.locationIds.length} locations</p>
               <button
                 className="primary-action"
                 type="button"
                 autoFocus
                 onClick={() => onSelectQuiz?.(selectedQuizOption.id)}
               >
-                Start {selectedQuizOption.name}
+                Start {selectedQuizOption.name} Quiz
               </button>
             </section>
           </div>

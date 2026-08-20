@@ -3,6 +3,7 @@
   --map-stage-header-gap: 0.5rem;
   --page-gutter: clamp(1rem, 2vw, 2rem);
   --content-gutter: clamp(0.65rem, 1.2vw, 1rem);
+  --home-content-gap: clamp(0.8rem, 1.8vw, 1.35rem);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   color: #e8eef7;
   background: #0b1220;
@@ -44,6 +45,8 @@ main {
   justify-content: space-between;
   min-height: 2.25rem;
   padding-inline: var(--content-gutter);
+  border-bottom: 1px solid #263650;
+  background: #0d1525;
 }
 .app-brand {
   color: #e8eef7;
@@ -78,8 +81,11 @@ main {
   flex: 0 0 auto;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.65rem;
+  min-height: 3rem;
+  align-items: center;
+  padding: 0.65rem var(--content-gutter);
   border-top: 1px solid #263650;
+  background: #0d1525;
   color: #71839c;
   font-size: 0.72rem;
 }
@@ -113,33 +119,91 @@ h2 {
   flex: 1 1 auto;
   flex-direction: column;
   justify-content: center;
+  gap: var(--home-content-gap);
   width: 100%;
   min-height: 0;
   margin: 0;
-  padding: clamp(1rem, 4vw, 4rem);
+  padding: clamp(1.25rem, 4vw, 4rem);
 }
 .home-page > * {
   width: min(100%, 54rem);
   margin-right: auto;
   margin-left: auto;
 }
+.home-page > p {
+  margin-block: 0;
+}
+.home-page > h1 {
+  margin-block: 0;
+}
 .quiz-options {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 0.65rem;
-  margin-block: 1rem;
+  gap: var(--home-content-gap);
+  margin: 0;
 }
 .quiz-option {
   display: grid;
-  gap: 0.25rem;
-  min-height: 4.25rem;
-  padding: 0.75rem;
+  gap: 0.35rem;
+  min-height: 8rem;
+  padding: 0;
+  overflow: hidden;
   border: 1px solid #344967;
   border-radius: 0.65rem;
   color: #dce8f7;
   text-align: left;
   background: #111c2e;
   cursor: pointer;
+}
+.quiz-option-thumbnail {
+  display: block;
+  height: 4rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, #102d4a, #071a2b);
+}
+.quiz-option-thumbnail svg,
+.quiz-option-thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.quiz-option-thumbnail svg {
+  opacity: 0.9;
+}
+.quiz-option-thumbnail-world svg {
+  fill: #3a7ca5;
+}
+.quiz-option-thumbnail-africa svg {
+  fill: #d98b45;
+}
+.quiz-option-thumbnail-asia svg {
+  fill: #d75c70;
+}
+.quiz-option-thumbnail-europe svg {
+  fill: #8c78c9;
+}
+.quiz-option-thumbnail-north-america svg {
+  fill: #4c9b91;
+}
+.quiz-option-thumbnail-south-america svg {
+  fill: #d1b34c;
+}
+.quiz-option-thumbnail-oceania svg {
+  fill: #4c83c4;
+}
+.quiz-option-thumbnail-caribbean svg {
+  fill: #b66bb3;
+}
+.quiz-option-thumbnail img {
+  object-fit: contain;
+  padding: 0.75rem;
+}
+.quiz-option > strong,
+.quiz-option > span:not(.quiz-option-thumbnail) {
+  margin-inline: 0.75rem;
+}
+.quiz-option > span:not(.quiz-option-thumbnail) {
+  margin-bottom: 0.75rem;
 }
 .quiz-option:hover,
 .quiz-option:focus-visible {

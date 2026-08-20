@@ -20,6 +20,11 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   await expect(links).toHaveText(
     quizNames.map((name) => name.replace(' UN Countries', '')),
   );
+  await expect(page.locator('.quiz-option')).toHaveCount(8);
+  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(8);
+  await expect(
+    page.getByText(/Identify all .* locations with three attempts per location/),
+  ).toHaveCount(0);
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia$/);
   await expect(navbar.getByRole('link', { name: 'Asia' })).toHaveAttribute(
@@ -30,7 +35,10 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   await page.getByRole('button', { name: 'Asia UN Countries' }).click();
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
-  await dialog.getByRole('button', { name: 'Start Asia UN Countries' }).click();
+  await expect(dialog.getByText('48 locations')).toBeVisible();
+  await dialog
+    .getByRole('button', { name: 'Start Asia UN Countries Quiz' })
+    .click();
   await expect(page.locator('.active-player .quiz-name')).toHaveText(
     'Asia UN Countries',
   );
