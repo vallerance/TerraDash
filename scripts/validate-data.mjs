@@ -2,6 +2,9 @@ import fs from 'node:fs';
 const catalog = JSON.parse(fs.readFileSync('data/generated/catalog.json'));
 const quiz = JSON.parse(fs.readFileSync('data/generated/quiz.json'));
 const map = JSON.parse(fs.readFileSync('data/generated/map.json'));
+const candidates = JSON.parse(
+  fs.readFileSync('data/generated/non-un-candidates.json'),
+);
 const inset = JSON.parse(fs.readFileSync('data/generated/inset.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 const source = JSON.parse(
@@ -24,6 +27,10 @@ if (map.sourceFeatureIds.length !== source.features.length)
   throw new Error('Base layer does not include every source feature');
 if (new Set(map.sourceFeatureIds).size !== source.features.length)
   throw new Error('Base feature IDs are not stable and unique');
+if (
+  map.supplementalFeatureIds.length !== new Set(map.supplementalFeatureIds).size
+)
+  throw new Error('Supplemental feature IDs are not stable and unique');
 for (const [featureId, feature] of Object.entries(map.features)) {
   if (!feature.paths.length || !feature.bounds || feature.bounds.length !== 4)
     throw new Error(`Invalid base feature ${featureId}`);
@@ -39,6 +46,22 @@ for (const item of catalog) {
     throw new Error(`Missing geometry reference for ${item.id}`);
   if (!item.bounds || item.bounds.some((value) => !Number.isFinite(value)))
     throw new Error(`Missing projected bounds for ${item.id}`);
+}
+if (candidates.length !== 101)
+  throw new Error('Expected exactly 101 non-UN candidates');
+for (const candidate of candidates) {
+  if (
+    !candidate.geometryRefs.length ||
+    candidate.geometryRefs.some(
+      (id) =>
+        !map.features[id] ||
+        !map.supplementalFeatureIds.includes(id) ||
+        !/^(ne:admin1|ne:map-unit|ne:map-subunit):/.test(id),
+    )
+  )
+    throw new Error(
+      `Invalid exact geometry for non-UN candidate ${candidate.id}`,
+    );
 }
 if (
   inset.width !== map.width ||

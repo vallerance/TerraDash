@@ -10,6 +10,8 @@ const quizNames = [
   'Oceania UN Countries',
   'Caribbean UN Countries',
 ];
+const nonUnTitle =
+  'Non-UN Countries, Independent Territories, and Autonomous Regions';
 
 test('header navbar exposes all quizzes and enters the selected quiz', async ({
   page,
@@ -18,10 +20,12 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   const navbar = page.getByRole('navigation', { name: 'Quizzes' });
   const links = navbar.getByRole('link');
   await expect(links).toHaveText(
-    quizNames.map((name) => name.replace(' UN Countries', '')),
+    quizNames
+      .map((name) => name.replace(' UN Countries', ''))
+      .concat(nonUnTitle),
   );
-  await expect(page.locator('.quiz-option')).toHaveCount(8);
-  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(8);
+  await expect(page.locator('.quiz-option')).toHaveCount(9);
+  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(9);
   await expect(
     page.getByText(
       /Identify all .* locations with three attempts per location/,
@@ -44,4 +48,15 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   await expect(page.locator('.active-player .quiz-name')).toHaveText(
     'Asia UN Countries',
   );
+});
+
+test('selects and starts the non-UN quiz', async ({ page }) => {
+  await page.goto('/TerraDash/');
+  const title = nonUnTitle;
+  await page.getByRole('button', { name: title }).click();
+  const dialog = page.getByRole('dialog', { name: title });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByText('101 locations')).toBeVisible();
+  await page.goto('/TerraDash/?quiz=non-un&start=1');
+  await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import map from '../data/generated/map.json';
 import inset from '../data/generated/inset.json';
 import catalog from '../data/generated/catalog.json';
+import candidateData from '../data/generated/non-un-candidates.json';
 import {
   deriveCalloutModel,
   deriveCalloutLayout,
@@ -17,7 +18,7 @@ import {
   wrappedViewportBounds,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
-import { defaultCatalog, quizOptions, worldQuiz } from './quizContracts';
+import { allCatalog, quizOptions, worldQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
 import { mapLocationForQuizId } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
@@ -29,7 +30,7 @@ import {
 } from './mapGeometry';
 import './styles.css';
 
-type Location = (typeof catalog)[number];
+type Location = (typeof catalog)[number] | (typeof candidateData)[number];
 export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const [viewportHeight, setViewportHeight] = useState(map.height);
@@ -346,7 +347,7 @@ const thumbnailViewBoxes: Record<string, string> = {
 
 function QuizThumbnail({ quiz }: { quiz: (typeof quizOptions)[number] }) {
   const locationIds = new Set(quiz.locationIds);
-  const paths = catalog
+  const paths = [...catalog, ...candidateData]
     .filter((location) => locationIds.has(location.id))
     .flatMap((location) =>
       location.geometryRefs.flatMap(
@@ -415,14 +416,16 @@ function App() {
     ? requestedQuizId!
     : worldQuiz.id;
   const [selectedQuizId, setSelectedQuizId] = useState(initialQuizId);
-  const [autoStart, setAutoStart] = useState(false);
+  const [autoStart, setAutoStart] = useState(
+    new URLSearchParams(window.location.search).get('start') === '1',
+  );
   const selectedQuiz =
     quizOptions.find((quiz) => quiz.id === selectedQuizId) ?? worldQuiz;
   return (
     <QuizProvider
       key={selectedQuiz.id}
       quiz={selectedQuiz}
-      catalog={defaultCatalog}
+      catalog={allCatalog}
     >
       <main>
         <header className="app-header">
@@ -451,7 +454,7 @@ function App() {
           </nav>
         </header>
         <QuizPlayer
-          catalog={defaultCatalog}
+          catalog={allCatalog}
           quizId={selectedQuiz.id}
           quizName={selectedQuiz.name}
           quizOptions={quizOptions}
