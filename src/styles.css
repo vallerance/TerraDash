@@ -1269,6 +1269,20 @@ input {
     gap: 0.65rem;
     padding-block: 0.65rem;
   }
+  .active-player .quiz-header > .quiz-prompt-group,
+  .active-player .quiz-header > .quiz-status-bar {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    justify-self: stretch;
+  }
+  .active-player .quiz-header .quiz-prompt,
+  .active-player .quiz-header .quiz-name,
+  .active-player .quiz-header h1 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
   .quiz-header .eyebrow {
     display: none;
   }

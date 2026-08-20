@@ -65,10 +65,10 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   await trigger.click();
-  await expect(navbar.getByRole('link', { name: 'Asia' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
+  await expect(page.getByRole('menu')).toBeVisible();
+  await expect(
+    page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }),
+  ).toHaveAttribute('aria-current', 'page');
   await trigger.click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   await page.getByRole('button', { name: 'Asia UN Countries' }).click();
@@ -128,6 +128,7 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await expect(
     dialog.getByText(
       'Non-UN countries, independent territories, and autonomous regions',
+      { exact: true },
     ),
   ).toBeVisible();
   await page.goto('/TerraDash/?quiz=non-un&start=1');
