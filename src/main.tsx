@@ -426,7 +426,9 @@ function App() {
     ? requestedQuizId!
     : worldQuiz.id;
   const [selectedQuizId, setSelectedQuizId] = useState(initialQuizId);
-  const [autoStart, setAutoStart] = useState(false);
+  const [autoStart, setAutoStart] = useState(
+    new URLSearchParams(window.location.search).get('start') === '1',
+  );
   const selectedQuiz =
     quizOptions.find((quiz) => quiz.id === selectedQuizId) ?? worldQuiz;
   return (

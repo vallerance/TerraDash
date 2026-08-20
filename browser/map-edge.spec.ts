@@ -9,8 +9,7 @@ for (const viewport of [
     page,
   }) => {
     await page.setViewportSize(viewport);
-    await page.goto('/TerraDash/?quiz=world');
-    await page.getByRole('button', { name: 'Start quiz' }).click();
+    await page.goto('/TerraDash/?quiz=world&start=1');
     const measurement = await page.locator('svg.world-map').evaluate((svg) => {
       const viewBox = svg.viewBox.baseVal;
       const bounds = svg.getBoundingClientRect();

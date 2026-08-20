@@ -10,8 +10,7 @@ for (const viewport of [
   }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/TerraDash/?quiz=world');
-    await page.getByRole('button', { name: 'Start quiz' }).click();
+    await page.goto('/TerraDash/?quiz=world&start=1');
     await expect(page.locator('.active-player')).toBeVisible();
     expect(await page.evaluate(() => window.terraDash?.completeQuiz())).toBe(
       'completed',

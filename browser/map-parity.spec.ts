@@ -34,8 +34,7 @@ if (!runningUnderVitest) {
       await page.addInitScript(() => {
         Math.random = () => 0;
       });
-      await page.goto('/TerraDash/?quiz=world');
-      await page.getByRole('button', { name: 'Start quiz' }).click();
+      await page.goto('/TerraDash/?quiz=world&start=1');
       await expect(page.locator('.map-stage')).toBeVisible();
 
       // A zero RNG makes the first shuffled quiz location deterministic (iso:ALB).
