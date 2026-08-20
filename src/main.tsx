@@ -332,6 +332,45 @@ export function AppFooter() {
   );
 }
 
+const thumbnailViewBoxes: Record<string, string> = {
+  world: '0 0 1440 720',
+  africa: '600 140 380 430',
+  asia: '780 80 500 380',
+  europe: '600 70 330 260',
+  'north-america': '250 80 500 360',
+  'south-america': '420 300 300 360',
+  oceania: '1030 330 360 270',
+  caribbean: '430 220 260 190',
+};
+
+function QuizThumbnail({ quiz }: { quiz: (typeof quizOptions)[number] }) {
+  const locationIds = new Set(quiz.locationIds);
+  const paths = catalog
+    .filter((location) => locationIds.has(location.id))
+    .flatMap((location) =>
+      location.geometryRefs.flatMap(
+        (ref) => map.features[ref as keyof typeof map.features]?.paths ?? [],
+      ),
+    );
+  const viewBox = thumbnailViewBoxes[quiz.id] ?? thumbnailViewBoxes.world;
+  return (
+    <span
+      className={`quiz-option-thumbnail quiz-option-thumbnail-${quiz.id}`}
+      aria-hidden="true"
+    >
+      {paths.length > 0 ? (
+        <svg viewBox={viewBox} focusable="false">
+          {paths.map((path, index) => (
+            <path key={index} d={path} />
+          ))}
+        </svg>
+      ) : (
+        <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
+      )}
+    </span>
+  );
+}
+
 export function HighScoresPage() {
   const scores = getAllHighScores();
   return (
@@ -397,7 +436,7 @@ function App() {
     >
       <main>
         <header className="app-header">
-          <a className="app-brand" href="./">
+          <a className="app-brand" href={import.meta.env.BASE_URL}>
             TerraDash
           </a>
           <nav className="quiz-navigation" aria-label="Quizzes">
@@ -405,7 +444,7 @@ function App() {
               <a
                 key={quiz.id}
                 aria-current={quiz.id === selectedQuiz.id ? 'page' : undefined}
-                href={`?quiz=${encodeURIComponent(quiz.id)}`}
+                href={`${import.meta.env.BASE_URL}?quiz=${encodeURIComponent(quiz.id)}`}
                 title={quiz.name}
               >
                 {quiz.name.replace(' UN Countries', '')}
@@ -413,8 +452,12 @@ function App() {
             ))}
           </nav>
           <nav className="utility-navigation" aria-label="Utilities">
-            <a href="?page=high-scores">High Scores</a>
-            <a href="./diagnostics.html">Diagnostics</a>
+            <a href={`${import.meta.env.BASE_URL}?page=high-scores`}>
+              High Scores
+            </a>
+            <a href={`${import.meta.env.BASE_URL}diagnostics.html`}>
+              Diagnostics
+            </a>
           </nav>
         </header>
         <QuizPlayer
@@ -431,6 +474,7 @@ function App() {
           renderMap={(active) => (
             <MapView active={mapLocationForQuizId(active.id)! as Location} />
           )}
+          renderQuizThumbnail={(quiz) => <QuizThumbnail quiz={quiz} />}
         />
         <p className="disclaimer">
           Map data: Natural Earth Admin 0 boundary data, v5.1.1, 1:50m main map

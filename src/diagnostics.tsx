@@ -23,12 +23,15 @@ function Diagnostics() {
   return (
     <main className="diagnostics-page">
       <header className="app-header">
-        <a className="app-brand" href="./">
+        <a className="app-brand" href={import.meta.env.BASE_URL}>
           TerraDash
         </a>
         <nav aria-label="Primary navigation">
-          <a href="./">Quiz</a>
-          <a aria-current="page" href="./diagnostics.html">
+          <a href={import.meta.env.BASE_URL}>Quiz</a>
+          <a
+            aria-current="page"
+            href={`${import.meta.env.BASE_URL}diagnostics.html`}
+          >
             Diagnostics
           </a>
         </nav>
