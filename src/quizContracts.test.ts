@@ -105,4 +105,21 @@ describe('regional quiz partition', () => {
     ]);
     expect(newCaledonia?.geometryRefs).not.toContain('ne:admin1:1159307717');
   });
+
+  it('maps Nakhchivan to the full autonomous republic, not its capital city', () => {
+    const nakhchivan = candidateData.find(
+      ({ id }) => id === 'non-un:nakhchivan',
+    );
+    expect(nakhchivan?.geometryRefs).toEqual([
+      'ne:admin1:1159312123',
+      'ne:admin1:1159312119',
+      'ne:admin1:1159317291',
+      'ne:admin1:1159312125',
+      'ne:admin1:1159312133',
+      'ne:admin1:1159312127',
+      'ne:admin1:1159312121',
+    ]);
+    expect(nakhchivan!.bounds[2] - nakhchivan!.bounds[0]).toBeGreaterThan(4);
+    expect(nakhchivan!.bounds[3] - nakhchivan!.bounds[1]).toBeGreaterThan(3);
+  });
 });

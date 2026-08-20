@@ -436,6 +436,18 @@ const candidateRecords = candidateRows.map((row) =>
   ),
 );
 const NON_UN_COMPONENTS = {
+  'Bouvet Island': ['BV'],
+  'Christmas Island': ['CX'],
+  'Cocos (Keeling) Islands': ['CC'],
+  Nakhchivan: [
+    'AZ-SAR',
+    'AZ-SAD',
+    'AZ-KAN',
+    'AZ-BAB',
+    'AZ-SAH',
+    'AZ-CUL',
+    'AZ-ORD',
+  ],
   // Natural Earth's British Columbia Admin-1 feature lists "New Caledonia"
   // as a name_alt value. Use the exact NC source key so that alias matching
   // cannot attach Canada's province to the New Caledonia candidate.
