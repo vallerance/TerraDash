@@ -22,12 +22,20 @@ import { mapWidthForStage } from './mapLayout';
 import { resultMoodForScore } from './resultMood';
 import { MapBoxShell } from './MapBoxShell';
 import type { QuizOption } from './quizContracts';
+import {
+  getHighScores,
+  getPlayerName,
+  recordHighScore,
+  updateHighScoreName,
+  type HighScoreEntry,
+} from './highScores';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];
   renderMap: (location: CatalogLocation) => ReactNode;
   now?: () => number;
   quizName?: string;
+  quizId?: string;
   quizOptions?: readonly QuizOption[];
   onSelectQuiz?: (quizId: string) => void;
   autoStart?: boolean;
@@ -97,6 +105,7 @@ export function QuizPlayer({
   renderMap,
   now = monotonicNow,
   quizName = 'World UN Countries',
+  quizId = 'world',
   quizOptions = [],
   onSelectQuiz,
   autoStart = false,
@@ -109,6 +118,12 @@ export function QuizPlayer({
   const [feedback, setFeedback] = useState('');
   const [feedbackTone, setFeedbackTone] = useState<FeedbackTone>('');
   const [feedbackAnimationKey, setFeedbackAnimationKey] = useState(0);
+  const [highScores, setHighScores] = useState<HighScoreEntry[]>(() =>
+    getHighScores(quizId),
+  );
+  const [newHighScoreId, setNewHighScoreId] = useState<string | undefined>();
+  const [username, setUsername] = useState(getPlayerName);
+  const recordedResult = useRef<number | null>(null);
   const [selectedQuizOption, setSelectedQuizOption] = useState<QuizOption>();
   const feedbackTimer = useRef<number | undefined>(undefined);
   const [panelPlacement, setPanelPlacement] = useState<PanelPlacement>({
@@ -152,6 +167,35 @@ export function QuizPlayer({
   const accuracy = completedCount ? state.score / completedCount : 0;
   const attemptsRemaining = 3 - state.attempts;
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
+
+  useEffect(() => {
+    if (state.phase !== 'completed' || !state.results) {
+      if (state.phase === 'active') recordedResult.current = null;
+      return;
+    }
+    if (
+      state.completedAt === null ||
+      recordedResult.current === state.completedAt
+    )
+      return;
+    recordedResult.current = state.completedAt;
+    const recorded = recordHighScore(
+      quizId,
+      state.results.finalScore,
+      state.results.elapsedMs,
+    );
+    setHighScores(recorded.scores);
+    setNewHighScoreId(recorded.qualifies ? recorded.entry.id : undefined);
+    setUsername(recorded.entry.username);
+  }, [quizId, state.completedAt, state.phase, state.results]);
+
+  useEffect(() => {
+    if (state.phase !== 'idle') return;
+    setHighScores(getHighScores(quizId));
+    setNewHighScoreId(undefined);
+    setUsername(getPlayerName());
+    recordedResult.current = null;
+  }, [quizId, state.phase]);
 
   useEffect(() => {
     const list = suggestionsRef.current;
@@ -520,6 +564,41 @@ export function QuizPlayer({
             <dd>{results.missed}</dd>
           </div>
         </dl>
+        <section
+          className="high-score-panel"
+          aria-labelledby="quiz-high-scores"
+        >
+          <h2 id="quiz-high-scores">High Scores</h2>
+          {newHighScoreId && (
+            <form
+              className="high-score-name"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setHighScores(
+                  updateHighScoreName(quizId, newHighScoreId, username),
+                );
+              }}
+            >
+              <label htmlFor="high-score-username">Your name</label>
+              <input
+                id="high-score-username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                maxLength={32}
+              />
+              <button type="submit">Save name</button>
+            </form>
+          )}
+          <ol className="high-score-list">
+            {highScores.map((entry) => (
+              <li key={entry.id}>
+                <span>{entry.username}</span>
+                <strong>{entry.score}</strong>
+                <time>{formatElapsed(entry.elapsedMs)}</time>
+              </li>
+            ))}
+          </ol>
+        </section>
         <button
           className="primary-action"
           type="button"

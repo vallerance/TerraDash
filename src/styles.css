@@ -83,6 +83,45 @@ main {
   color: #71839c;
   font-size: 0.72rem;
 }
+
+.high-score-panel {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--line, #d8dce5);
+  border-radius: 0.75rem;
+}
+
+.high-score-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.high-score-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+}
+
+.high-score-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.high-score-name input {
+  min-width: 10rem;
+  padding: 0.4rem 0.5rem;
+}
+
+.standalone-page,
+.high-score-page {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
 .eyebrow {
   color: #7dd3fc;
   font-size: 0.75rem;
