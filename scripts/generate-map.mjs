@@ -370,7 +370,9 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
         p.NAME,
         p.NAME_LONG,
         p.SUBUNIT,
-      ].filter(Boolean),
+      ]
+        .filter(Boolean)
+        .flatMap((value) => String(value).split(/[|;]/)),
       paths,
       anchor:
         p.LABEL_X != null && p.LABEL_Y != null
