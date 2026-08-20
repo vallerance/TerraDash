@@ -32,7 +32,7 @@ export const quizOptions: QuizOption[] = quizzesData.map((quiz) => ({
   locationIds:
     quiz.candidateSet === 'non-un'
       ? candidateData.map(({ id }) => id)
-      : (quiz.locationIds ??
+      : ((quiz as { locationIds?: string[] }).locationIds ??
         quiz.locationIso3?.map((iso3) => {
           const location = catalogByIso3.get(iso3);
           if (!location)
