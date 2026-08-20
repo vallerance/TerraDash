@@ -93,7 +93,11 @@ for (const viewport of [
             (child) => child.getBoundingClientRect().bottom,
           ),
         );
-        return footerBox.height <= contentBottom - footerBox.top + 2;
+        const bottomGap = footerBox.bottom - contentBottom;
+        const paddingBottom = Number.parseFloat(
+          getComputedStyle(footer).paddingBottom,
+        );
+        return bottomGap >= 0 && bottomGap <= paddingBottom + 2;
       });
     expect(footerContentFit).toBe(true);
     await page.screenshot({

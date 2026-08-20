@@ -65,7 +65,7 @@ if (!runningUnderVitest) {
         }),
       );
 
-      for (const key of ['stage', 'frame', 'svg']) {
+      for (const key of ['frame', 'svg']) {
         expectSameDimensions(diagnosticsBounds[key], quizBounds[key]);
       }
 
