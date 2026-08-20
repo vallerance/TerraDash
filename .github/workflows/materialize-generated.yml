@@ -1,0 +1,21 @@
+name: Materialize generated artifacts
+on:
+  workflow_dispatch:
+permissions: { contents: write }
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: phaeax/issue-86-non-un-quiz }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run generate
+      - name: Commit generated artifacts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/generated
+          git diff --cached --quiet || git commit -m 'Generate non-UN quiz geometry artifacts'
+          git push origin HEAD:phaeax/issue-86-non-un-quiz
