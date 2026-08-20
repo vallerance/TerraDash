@@ -1280,6 +1280,9 @@ input {
     max-width: 100%;
     justify-self: stretch;
   }
+  .active-player .quiz-header {
+    min-height: 12.1rem;
+  }
   .active-player .quiz-header .quiz-prompt,
   .active-player .quiz-header .quiz-name,
   .active-player .quiz-header h1 {
