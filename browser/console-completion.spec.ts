@@ -27,8 +27,9 @@ test('completes the active quiz through the browser console command', async ({
   await expect(
     page.locator('.high-score-achieved .high-score-table thead'),
   ).toContainText('Time');
-  await expect(page.locator('.high-score-panel .high-score-table tbody tr'))
-    .toHaveCount(1);
+  await expect(
+    page.locator('.high-score-panel .high-score-table tbody tr'),
+  ).toHaveCount(1);
   const resultChildren = page.locator('.quiz-results > *');
   const childClasses = await resultChildren.evaluateAll((elements) =>
     elements.map((element) => element.className),

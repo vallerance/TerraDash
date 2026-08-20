@@ -910,14 +910,18 @@ describe('QuizPlayer integration', () => {
       'Great work',
     );
     expect(
-      [...container.querySelectorAll('.high-score-table thead th')].map(
-        (label) => label.textContent,
-      ),
+      [
+        ...container.querySelectorAll(
+          '.high-score-panel .high-score-table thead th',
+        ),
+      ].map((label) => label.textContent),
     ).toEqual(['Player', 'Score', 'Accuracy', 'Time']);
-    expect(container.querySelector('.high-score-achieved .high-score-table'))
-      .not.toBeNull();
-    expect(container.querySelector('.high-score-panel .high-score-table'))
-      .not.toBeNull();
+    expect(
+      container.querySelector('.high-score-achieved .high-score-table'),
+    ).not.toBeNull();
+    expect(
+      container.querySelector('.high-score-panel .high-score-table'),
+    ).not.toBeNull();
     expect(container.querySelector('.high-score-panel')?.textContent).toContain(
       '50.00%',
     );
