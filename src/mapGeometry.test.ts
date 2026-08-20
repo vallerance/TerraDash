@@ -132,6 +132,9 @@ describe('map geometry resolution', () => {
     expect(
       Object.keys(inset.features).some((id) => id.startsWith('ne:admin1:')),
     ).toBe(true);
+    expect(new Set(map.supplementalFeatureIds).size).toBe(
+      map.supplementalFeatureIds.length,
+    );
     expect(rings.every((ring) => ring.sourceClosed)).toBe(true);
     expect(rings.every((ring) => ring.sourceValid)).toBe(true);
     expect(rings.every((ring) => ring.projectedValid)).toBe(true);
