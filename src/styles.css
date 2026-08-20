@@ -263,7 +263,29 @@ h2 {
   color: #9fb0c5;
   font-size: 0.78rem;
 }
-.quiz-results { flex: 1 1 auto; min-height: 0; }
+.quiz-results {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: min(100%, 52rem);
+  min-height: 0;
+  margin: 0.8rem auto;
+  padding: clamp(1rem, 3vw, 2rem);
+  border-color: #385778;
+  border-radius: 1rem;
+  background: radial-gradient(circle at 50% 0, #1b3554, #111c2e 55%);
+  box-shadow: 0 1rem 3rem #0004;
+}
+.quiz-results .completion-header {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.quiz-results .completion-header h1 {
+  margin-top: 0.25rem;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+}
 .quiz-dialog-backdrop {
   position: fixed;
   width: 100%;
@@ -740,7 +762,11 @@ input {
   display: grid;
   justify-items: center;
   gap: 0.2rem;
-  margin: 1.35rem 0 1.5rem;
+  margin: clamp(1rem, 3vw, 2rem) 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid #345273;
+  border-radius: 0.8rem;
+  background: #0c1728aa;
   text-align: center;
 }
 .result-score-label {
@@ -791,8 +817,9 @@ input {
 .results-grid div {
   min-width: 0;
   padding: clamp(0.55rem, 2vw, 0.75rem);
-  border: 1px solid #263650;
-  border-radius: 0.4rem;
+  border: 1px solid #345273;
+  border-radius: 0.65rem;
+  background: #172940aa;
 }
 .results-grid dt {
   color: #a9b8cc;
@@ -803,6 +830,13 @@ input {
   font-size: clamp(1rem, 4vw, 1.4rem);
   font-weight: 700;
   overflow-wrap: anywhere;
+}
+.quiz-results > .primary-action {
+  align-self: center;
+  min-width: 10rem;
+  margin-top: auto;
+  border: 1px solid #9bdff8;
+  box-shadow: 0 0.4rem 1.2rem #0004;
 }
 .map-frame {
   overflow: hidden;
@@ -973,6 +1007,10 @@ input {
   .quiz-option-thumbnail { height: 5rem; }
   .app-footer { align-items: flex-start; flex-direction: column; gap: 0.55rem; }
   .footer-meta { text-align: left; }
+  .quiz-results { margin-block: 0.5rem; padding: 1rem; }
+  .results-grid { gap: 0.4rem; }
+  .results-grid dt { font-size: 0.68rem; }
+  .results-grid dd { font-size: 1rem; }
   .home-page {
     padding: 1.25rem 0.25rem;
   }

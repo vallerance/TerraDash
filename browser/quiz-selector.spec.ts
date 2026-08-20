@@ -36,6 +36,9 @@ test('header navbar exposes all quizzes and enters the selected quiz', async ({
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('48 locations')).toBeVisible();
+  await expect(
+    dialog.getByText('UN Member and UN Observer states in Asia'),
+  ).toBeVisible();
   await dialog
     .getByRole('button', { name: 'Start Asia UN Countries Quiz' })
     .click();
