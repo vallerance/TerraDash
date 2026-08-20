@@ -362,7 +362,8 @@ const features = source.features.map((feature) => {
 const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
   checkedSourceBytes(definition).features.map((feature) => {
     const p = feature.properties;
-    const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code;
+    const sourceId =
+      p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
     const { paths } = buildGeometryFeature(feature.geometry, id);
     const points = pathPoints(paths);
@@ -610,7 +611,8 @@ if (
         (ref) =>
           !ref.startsWith('ne:admin1:') &&
           !ref.startsWith('ne:map-unit:') &&
-          !ref.startsWith('ne:map-subunit:'),
+          !ref.startsWith('ne:map-subunit:') &&
+          !ref.startsWith('gb:aze-adm1:'),
       ),
   )
 )
