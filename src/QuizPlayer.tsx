@@ -570,24 +570,21 @@ export function QuizPlayer({
         >
           <h2 id="quiz-high-scores">High Scores</h2>
           {newHighScoreId && (
-            <form
-              className="high-score-name"
-              onSubmit={(event) => {
-                event.preventDefault();
-                setHighScores(
-                  updateHighScoreName(quizId, newHighScoreId, username),
-                );
-              }}
-            >
+            <section className="high-score-name">
               <label htmlFor="high-score-username">Your name</label>
               <input
                 id="high-score-username"
                 value={username}
-                onChange={(event) => setUsername(event.target.value)}
+                onChange={(event) => {
+                  const name = event.target.value;
+                  setUsername(name);
+                  setHighScores(
+                    updateHighScoreName(quizId, newHighScoreId, name),
+                  );
+                }}
                 maxLength={32}
               />
-              <button type="submit">Save name</button>
-            </form>
+            </section>
           )}
           <ol className="high-score-list">
             {highScores.map((entry) => (
