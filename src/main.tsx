@@ -438,9 +438,16 @@ function currentRoute() {
 }
 
 export function useBrowserRoute() {
-  const [route, setRoute] = useState(currentRoute);
+  const [navigation, setNavigation] = useState(() => ({
+    route: currentRoute(),
+    revision: 0,
+  }));
   useEffect(() => {
-    const update = () => setRoute(currentRoute());
+    const update = () =>
+      setNavigation((previous) => ({
+        route: currentRoute(),
+        revision: previous.revision + 1,
+      }));
     window.addEventListener('popstate', update);
     return () => window.removeEventListener('popstate', update);
   }, []);
@@ -451,10 +458,14 @@ export function useBrowserRoute() {
       return;
     }
     const nextRoute = `${next.pathname}${next.search}${next.hash}`;
-    window.history.pushState({}, '', nextRoute);
+    if (nextRoute === currentRoute()) {
+      window.history.replaceState({}, '', nextRoute);
+    } else {
+      window.history.pushState({}, '', nextRoute);
+    }
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
-  return { route, navigate };
+  return { ...navigation, navigate };
 }
 
 export function AppHeader({ selectedQuizId }: { selectedQuizId?: string }) {
@@ -702,14 +713,14 @@ function App() {
 }
 
 export function RouterApp() {
-  const { route } = useBrowserRoute();
+  const { route, revision } = useBrowserRoute();
   const url = new URL(window.location.href);
   if (
     url.pathname.endsWith('/diagnostics.html') ||
     url.searchParams.get('page') === 'diagnostics'
   )
-    return <DiagnosticsPage key={route} />;
-  return <App key={route} />;
+    return <DiagnosticsPage key={`${route}:${revision}`} />;
+  return <App key={`${route}:${revision}`} />;
 }
 const rootElement = document.getElementById('root');
 if (rootElement)
