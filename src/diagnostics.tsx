@@ -12,11 +12,7 @@ const initialLocation =
   playableLocations.find(({ id }) => id === initialId) ?? playableLocations[0];
 type DiagnosticLocation = (typeof playableLocations)[number];
 
-export function DiagnosticsMap({
-  location,
-}: {
-  location: DiagnosticLocation;
-}) {
+export function DiagnosticsMap({ location }: { location: DiagnosticLocation }) {
   return <MapView active={location} />;
 }
 
@@ -102,7 +98,10 @@ function Diagnostics() {
                   </option>
                 ))}
               </select>
-              <span className="diagnostics-selected-location" aria-live="polite">
+              <span
+                className="diagnostics-selected-location"
+                aria-live="polite"
+              >
                 Selected: {location.name}
               </span>
             </label>
