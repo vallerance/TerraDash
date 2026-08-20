@@ -684,7 +684,8 @@ const inset = {
   width: WIDTH,
   height: HEIGHT,
   source: {
-    product: 'Natural Earth Admin 0 countries plus supplemental Admin-1/map-unit/map-subunit regions',
+    product:
+      'Natural Earth Admin 0 countries plus supplemental Admin-1/map-unit/map-subunit regions',
     version: 'v5.1.1',
     scale: '1:10m',
     url: INSET_SOURCE_URL,
