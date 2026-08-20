@@ -7347,7 +7347,381 @@
     "iso:ZMB": ["ne:1159321439"],
     "iso:ZWE": ["ne:1159321441"],
     "iso:VAT": ["ne:1159321407"],
-    "iso:PSE": ["ne:1159320899:part:0", "ne:1159320899:part:1"]
+    "iso:PSE": ["ne:1159320899:part:0", "ne:1159320899:part:1"],
+    "non-un:abkhazia": ["ne:admin1:1159314601"],
+    "non-un:adjara": [
+      "ne:admin1:1159314341",
+      "ne:map-unit:1159320781",
+      "ne:map-subunit:1159320781"
+    ],
+    "non-un:american-samoa": [
+      "ne:map-unit:1159321357",
+      "ne:map-subunit:1159321357"
+    ],
+    "non-un:andalusia": [
+      "ne:admin1:1159317829",
+      "ne:admin1:1159317827",
+      "ne:admin1:1159317817",
+      "ne:admin1:1159317825",
+      "ne:admin1:1159317823",
+      "ne:admin1:1159308491",
+      "ne:admin1:1159317815",
+      "ne:admin1:1159317821"
+    ],
+    "non-un:anguilla": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"],
+    "non-un:antarctica": [
+      "ne:admin1:1159315599",
+      "ne:map-unit:1159320335",
+      "ne:map-subunit:1159320337",
+      "ne:map-subunit:1159320343",
+      "ne:map-subunit:1159320341"
+    ],
+    "non-un:aragon": [
+      "ne:admin1:1159317789",
+      "ne:admin1:1159317791",
+      "ne:admin1:1159315291"
+    ],
+    "non-un:aruba": [
+      "ne:admin1:1159315531",
+      "ne:map-unit:1159321097",
+      "ne:map-subunit:1159321097"
+    ],
+    "non-un:asturias": ["ne:admin1:1159310635"],
+    "non-un:azores": [
+      "ne:admin1:1159310543",
+      "ne:map-unit:1159321189",
+      "ne:map-subunit:1159321189"
+    ],
+    "non-un:balearic-islands": [
+      "ne:admin1:1159308465",
+      "ne:map-subunit:1159320593"
+    ],
+    "non-un:basque-country": [
+      "ne:admin1:1159317785",
+      "ne:admin1:1159317787",
+      "ne:admin1:1159310645"
+    ],
+    "non-un:bermuda": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"],
+    "non-un:bolzano-south-tyrol": ["ne:admin1:1159310921"],
+    "non-un:bonaire-sint-eustatius-and-saba": [
+      "ne:map-unit:1159321107",
+      "ne:map-subunit:1159321107"
+    ],
+    "non-un:bougainville": [
+      "ne:admin1:1159309695",
+      "ne:map-unit:1159321175",
+      "ne:map-subunit:1159321175"
+    ],
+    "non-un:bouvet-island": [
+      "ne:admin1:1159315469",
+      "ne:map-unit:1159321111",
+      "ne:map-subunit:1159321111"
+    ],
+    "non-un:british-indian-ocean-territory": [
+      "ne:admin1:1159315473",
+      "ne:map-unit:1159320723",
+      "ne:map-subunit:1159320723"
+    ],
+    "non-un:british-virgin-islands": [
+      "ne:admin1:1159315557",
+      "ne:map-unit:1159320739",
+      "ne:map-subunit:1159320739"
+    ],
+    "non-un:canary-islands": ["ne:admin1:1159315577", "ne:admin1:1159317831"],
+    "non-un:cantabria": ["ne:admin1:1159308497"],
+    "non-un:castile-and-leo-n": [
+      "ne:admin1:1159317771",
+      "ne:admin1:1159317763",
+      "ne:admin1:1159317781",
+      "ne:admin1:1159317779",
+      "ne:admin1:1159317773",
+      "ne:admin1:1159317769",
+      "ne:admin1:1159317767",
+      "ne:admin1:1159317777",
+      "ne:admin1:1159317775"
+    ],
+    "non-un:castilla-la-mancha": [
+      "ne:admin1:1159317811",
+      "ne:admin1:1159308493",
+      "ne:admin1:1159317809",
+      "ne:admin1:1159317807",
+      "ne:admin1:1159317805"
+    ],
+    "non-un:catalonia": [
+      "ne:admin1:1159309497",
+      "ne:admin1:1159317795",
+      "ne:admin1:1159317793",
+      "ne:admin1:1159317797"
+    ],
+    "non-un:cayman-islands": [
+      "ne:admin1:1159315563",
+      "ne:map-unit:1159320707",
+      "ne:map-subunit:1159320707"
+    ],
+    "non-un:christmas-island": [
+      "ne:admin1:1159313303",
+      "ne:map-unit:1159320369",
+      "ne:map-subunit:1159320369"
+    ],
+    "non-un:cocos-keeling-islands": [
+      "ne:admin1:1159311167",
+      "ne:map-unit:1159320367",
+      "ne:map-subunit:1159320367"
+    ],
+    "non-un:cook-islands": [
+      "ne:map-unit:1159321129",
+      "ne:map-subunit:1159321129"
+    ],
+    "non-un:costa-caribe-norte": ["ne:admin1:1159309037"],
+    "non-un:costa-caribe-sur": ["ne:admin1:1159308989"],
+    "non-un:curac-ao": [
+      "ne:admin1:1159315529",
+      "ne:map-unit:1159321099",
+      "ne:map-subunit:1159321099"
+    ],
+    "non-un:england": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"],
+    "non-un:extremadura": ["ne:admin1:1159310641", "ne:admin1:1159317813"],
+    "non-un:falkland-islands-malvinas": [
+      "ne:map-unit:1159320711",
+      "ne:map-subunit:1159320711"
+    ],
+    "non-un:faroe-islands": [
+      "ne:map-unit:1159320549",
+      "ne:map-subunit:1159320549"
+    ],
+    "non-un:french-guiana": [
+      "ne:admin1:1159311355",
+      "ne:map-unit:1159320655",
+      "ne:map-subunit:1159320655"
+    ],
+    "non-un:french-polynesia": [
+      "ne:map-unit:1159320643",
+      "ne:map-subunit:1159320643"
+    ],
+    "non-un:french-southern-territories": [
+      "ne:map-unit:1159320631",
+      "ne:map-subunit:1159320677",
+      "ne:map-subunit:1159320669",
+      "ne:map-subunit:1159320667",
+      "ne:map-subunit:1159320665",
+      "ne:map-subunit:1159320679",
+      "ne:map-subunit:1159320675"
+    ],
+    "non-un:friuli-venezia-giulia": [
+      "ne:admin1:1159316967",
+      "ne:admin1:1159316965",
+      "ne:admin1:1159316969",
+      "ne:admin1:1159310919"
+    ],
+    "non-un:gagauzia": ["ne:admin1:1159312587"],
+    "non-un:galicia": [
+      "ne:admin1:1159310639",
+      "ne:admin1:1159317757",
+      "ne:admin1:1159317761",
+      "ne:admin1:1159317759"
+    ],
+    "non-un:gibraltar": [
+      "ne:admin1:1159315683",
+      "ne:map-unit:1159320719",
+      "ne:map-subunit:1159320719"
+    ],
+    "non-un:gorno-badakhshan": ["ne:admin1:1159308469"],
+    "non-un:greenland": ["ne:map-unit:1159320551", "ne:map-subunit:1159320551"],
+    "non-un:guadeloupe": [
+      "ne:admin1:1159315647",
+      "ne:map-unit:1159320653",
+      "ne:map-subunit:1159320653"
+    ],
+    "non-un:guam": [
+      "ne:admin1:1159315535",
+      "ne:map-unit:1159321359",
+      "ne:map-subunit:1159321359"
+    ],
+    "non-un:guangxi": ["ne:admin1:1159310341"],
+    "non-un:guernsey": [
+      "ne:map-unit:1159320715",
+      "ne:map-subunit:1159320757",
+      "ne:map-subunit:1159320761",
+      "ne:map-subunit:1159320755",
+      "ne:map-subunit:1159320759"
+    ],
+    "non-un:heard-island-and-mcdonald-islands": [
+      "ne:admin1:1159315607",
+      "ne:map-unit:1159320361",
+      "ne:map-subunit:1159320361"
+    ],
+    "non-un:hong-kong": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"],
+    "non-un:inner-mongolia": ["ne:admin1:1159312757"],
+    "non-un:isle-of-man": [
+      "ne:admin1:1159315475",
+      "ne:map-unit:1159320721",
+      "ne:map-subunit:1159320721"
+    ],
+    "non-un:jersey": [
+      "ne:admin1:1159315593",
+      "ne:map-unit:1159320725",
+      "ne:map-subunit:1159320725"
+    ],
+    "non-un:jewish-autonomous-oblast": ["ne:admin1:1159313605"],
+    "non-un:kosovo": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"],
+    "non-un:la-rioja": ["ne:admin1:1159309775", "ne:admin1:1159310643"],
+    "non-un:macao": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
+    "non-un:madeira": [
+      "ne:admin1:1159310443",
+      "ne:map-unit:1159321191",
+      "ne:map-subunit:1159321191"
+    ],
+    "non-un:madrid": ["ne:admin1:1159308499"],
+    "non-un:martinique": [
+      "ne:admin1:1159311599",
+      "ne:map-unit:1159320657",
+      "ne:map-subunit:1159320657"
+    ],
+    "non-un:mayotte": [
+      "ne:admin1:1159315621",
+      "ne:map-unit:1159320659",
+      "ne:map-subunit:1159320659"
+    ],
+    "non-un:montserrat": [
+      "ne:map-unit:1159320727",
+      "ne:map-subunit:1159320727"
+    ],
+    "non-un:murcia": ["ne:admin1:1159310549"],
+    "non-un:nakhchivan": ["ne:admin1:1159312129"],
+    "non-un:navarre": ["ne:admin1:1159315293"],
+    "non-un:new-caledonia": [
+      "ne:admin1:1159307717",
+      "ne:map-unit:1159320641",
+      "ne:map-subunit:1159320641"
+    ],
+    "non-un:ningxia": ["ne:admin1:1159312659"],
+    "non-un:niue": [
+      "ne:admin1:1159315491",
+      "ne:map-unit:1159321133",
+      "ne:map-subunit:1159321133"
+    ],
+    "non-un:norfolk-island": [
+      "ne:admin1:1159315615",
+      "ne:map-unit:1159320365",
+      "ne:map-subunit:1159320365"
+    ],
+    "non-un:northern-ireland": [
+      "ne:map-unit:1159320745",
+      "ne:map-subunit:1159320745"
+    ],
+    "non-un:northern-mariana-islands": [
+      "ne:admin1:1159316107",
+      "ne:map-unit:1159321361",
+      "ne:map-subunit:1159321361"
+    ],
+    "non-un:pitcairn": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"],
+    "non-un:pri-ncipe": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"],
+    "non-un:puerto-rico": [
+      "ne:admin1:1159315553",
+      "ne:map-unit:1159321363",
+      "ne:map-subunit:1159321363"
+    ],
+    "non-un:re-union": [
+      "ne:admin1:1159315617",
+      "ne:map-unit:1159320661",
+      "ne:map-subunit:1159320661"
+    ],
+    "non-un:saint-barthe-lemy": [
+      "ne:admin1:1159315649",
+      "ne:map-unit:1159320633",
+      "ne:map-subunit:1159320633"
+    ],
+    "non-un:saint-helena-ascension-and-tristan-da-cunha": [
+      "ne:map-unit:1159320733"
+    ],
+    "non-un:saint-martin-french-part": [
+      "ne:map-unit:1159320639",
+      "ne:map-subunit:1159320639"
+    ],
+    "non-un:saint-pierre-and-miquelon": [
+      "ne:admin1:1159315673",
+      "ne:map-unit:1159320647",
+      "ne:map-subunit:1159320647"
+    ],
+    "non-un:sardinia": ["ne:map-subunit:1159320921"],
+    "non-un:scotland": ["ne:map-unit:1159320747", "ne:map-subunit:1159320747"],
+    "non-un:sicily": ["ne:map-subunit:1159320929"],
+    "non-un:sint-maarten-dutch-part": [
+      "ne:admin1:1159315549",
+      "ne:map-unit:1159321103",
+      "ne:map-subunit:1159321103"
+    ],
+    "non-un:south-georgia-and-the-south-sandwich-islands": [
+      "ne:admin1:1159315467",
+      "ne:map-unit:1159320731"
+    ],
+    "non-un:svalbard-and-jan-mayen": [
+      "ne:admin1:1159309689",
+      "ne:map-unit:1159321119",
+      "ne:map-subunit:1159321119"
+    ],
+    "non-un:taiwan": ["ne:map-unit:1159321335", "ne:map-subunit:1159321335"],
+    "non-un:tibet-xizang": ["ne:admin1:1159312655"],
+    "non-un:tokelau": [
+      "ne:admin1:1159315503",
+      "ne:map-unit:1159321137",
+      "ne:map-subunit:1159321137"
+    ],
+    "non-un:trentino": ["ne:admin1:1159316949"],
+    "non-un:trentino-alto-adige-su-dtirol": [
+      "ne:admin1:1159310921",
+      "ne:admin1:1159316949"
+    ],
+    "non-un:turks-and-caicos-islands": [
+      "ne:map-unit:1159320737",
+      "ne:map-subunit:1159320737"
+    ],
+    "non-un:united-states-minor-outlying-islands": [
+      "ne:map-unit:1159321381",
+      "ne:map-subunit:1159321381",
+      "ne:map-unit:1159321375",
+      "ne:map-subunit:1159321375",
+      "ne:map-unit:1159321377",
+      "ne:map-subunit:1159321377",
+      "ne:map-unit:1159321379",
+      "ne:map-subunit:1159321379",
+      "ne:map-unit:1159321391",
+      "ne:map-subunit:1159321391",
+      "ne:map-unit:1159321389",
+      "ne:map-subunit:1159321389",
+      "ne:map-unit:1159321373",
+      "ne:map-subunit:1159321373",
+      "ne:map-unit:1159321387",
+      "ne:map-subunit:1159321387",
+      "ne:map-unit:1159321385",
+      "ne:map-subunit:1159321385"
+    ],
+    "non-un:united-states-virgin-islands": [
+      "ne:map-unit:1159321371",
+      "ne:map-subunit:1159321371"
+    ],
+    "non-un:valencia": [
+      "ne:admin1:1159317803",
+      "ne:admin1:1159317799",
+      "ne:admin1:1159315295"
+    ],
+    "non-un:valle-d-aosta": ["ne:admin1:1159310915"],
+    "non-un:vojvodina": ["ne:map-unit:1159321271", "ne:map-subunit:1159321271"],
+    "non-un:wales": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"],
+    "non-un:wallis-and-futuna": [
+      "ne:map-unit:1159320649",
+      "ne:map-subunit:1159320649"
+    ],
+    "non-un:western-sahara": [
+      "ne:admin1:1159315575",
+      "ne:map-unit:1159321223",
+      "ne:map-subunit:1159321223"
+    ],
+    "non-un:xinjiang": ["ne:admin1:1159312657"],
+    "non-un:a-land-islands": [
+      "ne:map-unit:1159320621",
+      "ne:map-subunit:1159320621"
+    ]
   },
   "nonUnCandidates": {
     "Abkhazia": ["ne:admin1:1159314601"],

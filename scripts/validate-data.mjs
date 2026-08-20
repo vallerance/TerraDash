@@ -35,6 +35,11 @@ if (
   map.supplementalFeatureIds.length !== new Set(map.supplementalFeatureIds).size
 )
   throw new Error('Supplemental feature IDs are not stable and unique');
+if (
+  map.supplementalFeatureIds.some((id) => !map.features[id]) ||
+  inset?.sourceFeatureIds?.some((id) => !inset.features[id])
+)
+  throw new Error('Generated feature indexes contain unknown feature IDs');
 for (const [featureId, feature] of Object.entries(map.features)) {
   if (!feature.paths.length || !feature.bounds || feature.bounds.length !== 4)
     throw new Error(`Invalid base feature ${featureId}`);
