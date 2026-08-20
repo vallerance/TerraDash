@@ -81,9 +81,10 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   ).toHaveAttribute('aria-current', 'page');
   await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByText('48 locations')).toBeVisible();
-  await dialog
+  const asiaDialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
+  await expect(asiaDialog).toBeVisible();
+  await expect(asiaDialog.getByText('48 locations')).toBeVisible();
+  await asiaDialog
     .getByRole('button', { name: 'Start Asia UN Countries Quiz' })
     .click();
   await expect(page.locator('.active-player .quiz-name')).toHaveText(
