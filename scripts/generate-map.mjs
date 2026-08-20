@@ -542,6 +542,12 @@ if (
   throw new Error(
     'Every non-UN candidate must use nonempty exact supplemental geometry refs.',
   );
+const referencedSupplementalIds = new Set(
+  nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
+);
+const playableSupplementalFeatures = supplementalFeatures.filter(({ id }) =>
+  referencedSupplementalIds.has(id),
+);
 if (
   locations.length !== 195 ||
   new Set(locations.map((x) => x.iso3)).size !== 195
@@ -550,16 +556,15 @@ if (
 const playableLocations = [...locations, ...nonUnCandidates];
 const playableLocationIds = playableLocations.map(({ id }) => id);
 const mainFeatureIds = new Set(
-  [...features, ...supplementalFeatures].flatMap(({ id, parts = [] }) => [
-    id,
-    ...parts.map(({ id: partId }) => partId),
-  ]),
+  [...features, ...playableSupplementalFeatures].flatMap(
+    ({ id, parts = [] }) => [id, ...parts.map(({ id: partId }) => partId)],
+  ),
 );
 if (
-  playableLocations.length !== 296 ||
+  playableLocations.length !== 279 ||
   new Set(playableLocationIds).size !== playableLocations.length
 )
-  throw new Error('Playable catalog must contain exactly 296 unique locations');
+  throw new Error('Playable catalog must contain exactly 279 unique locations');
 const playableLocationFeatureIds = Object.fromEntries(
   playableLocations.map((location) => [location.id, location.geometryRefs]),
 );
@@ -586,10 +591,12 @@ const map = {
       'Boundaries are shown for gameplay visualization and do not imply endorsement of any boundary claim.',
   },
   sourceFeatureIds: features.map((feature) => feature.id),
-  supplementalFeatureIds: supplementalFeatures.map((feature) => feature.id),
+  supplementalFeatureIds: playableSupplementalFeatures.map(
+    (feature) => feature.id,
+  ),
   locationFeatureIds: playableLocationFeatureIds,
   features: Object.fromEntries(
-    [...features, ...supplementalFeatures].flatMap(
+    [...features, ...playableSupplementalFeatures].flatMap(
       ({ id, paths, anchor, bounds, parts = [] }) => [
         [id, { paths, anchor, bounds }],
         ...parts.map(
@@ -677,7 +684,7 @@ const insetFeatures = insetSource.features.map((feature) => {
 const nonUnInsetFeatureIds = new Set(
   nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
 );
-const supplementalInsetFeatures = supplementalFeatures
+const supplementalInsetFeatures = playableSupplementalFeatures
   .filter(({ id }) => nonUnInsetFeatureIds.has(id))
   .map((feature) => {
     const { paths, polygons } = buildGeometryFeature(

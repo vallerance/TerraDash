@@ -2,15 +2,10 @@ entity,iso_3166_1,un_m49,world_bank,iso_3166_2_autonomous,source_count,iso_3166_
 Abkhazia,False,False,False,True,1,,GE-AB,Autonomous republic
 Adjara,False,False,False,True,1,,GE-AJ,Autonomous republic
 American Samoa,True,True,True,True,4,AS,US-AS,Outlying area
-Andalusia,False,False,False,True,1,,ES-AN,Autonomous community
 Anguilla,True,True,False,False,2,AI,,
 Antarctica,True,True,False,False,2,AQ,,
-Aragon,False,False,False,True,1,,ES-AR,Autonomous community
 Aruba,True,True,True,True,4,AW,NL-AW,Country
-Asturias,False,False,False,True,1,,ES-AS,Autonomous community
 Azores,False,False,False,True,1,,PT-20,Autonomous region
-Balearic Islands,False,False,False,True,1,,ES-IB,Autonomous community
-Basque Country,False,False,False,True,1,,ES-PV,Autonomous community
 Bermuda,True,True,True,False,3,BM,,
 Bolzano / South Tyrol,False,False,False,True,1,,IT-BZ,Autonomous province
 "Bonaire, Sint Eustatius and Saba",True,True,False,False,2,BQ,,
@@ -18,11 +13,6 @@ Bougainville,False,False,False,True,1,,PG-NSB,Autonomous region
 Bouvet Island,True,True,False,False,2,BV,,
 British Indian Ocean Territory,True,True,False,False,2,IO,,
 British Virgin Islands,True,True,True,False,3,VG,,
-Canary Islands,False,False,False,True,1,,ES-CN,Autonomous community
-Cantabria,False,False,False,True,1,,ES-CB,Autonomous community
-Castile and León,False,False,False,True,1,,ES-CL,Autonomous community
-Castilla–La Mancha,False,False,False,True,1,,ES-CM,Autonomous community
-Catalonia,False,False,False,True,1,,ES-CT,Autonomous community
 Cayman Islands,True,True,True,False,3,KY,,
 Christmas Island,True,True,False,False,2,CX,,
 Cocos (Keeling) Islands,True,True,False,False,2,CC,,
@@ -31,7 +21,6 @@ Costa Caribe Norte,False,False,False,True,1,,NI-AN,Autonomous region
 Costa Caribe Sur,False,False,False,True,1,,NI-AS,Autonomous region
 Curaçao,True,True,True,True,4,CW,NL-CW,Country
 England,False,False,False,True,1,,GB-ENG,Country
-Extremadura,False,False,False,True,1,,ES-EX,Autonomous community
 Falkland Islands (Malvinas),True,True,False,False,2,FK,,
 Faroe Islands,True,True,True,False,3,FO,,
 French Guiana,True,True,False,True,3,GF,FR-973,Overseas unique territorial collectivity
@@ -39,7 +28,6 @@ French Polynesia,True,True,True,True,4,PF,FR-PF,Overseas collectivity
 French Southern Territories,True,True,False,True,3,TF,FR-TF,Overseas territory
 Friuli-Venezia Giulia,False,False,False,True,1,,IT-36,Autonomous region
 Gagauzia,False,False,False,True,1,,MD-GA,Autonomous territorial unit
-Galicia,False,False,False,True,1,,ES-GA,Autonomous community
 Gibraltar,True,True,True,False,3,GI,,
 Gorno-Badakhshan,False,False,False,True,1,,TJ-GB,Autonomous region
 Greenland,True,True,True,False,3,GL,,
@@ -54,16 +42,12 @@ Isle of Man,True,True,True,False,3,IM,,
 Jersey,True,True,False,False,2,JE,,
 Jewish Autonomous Oblast,False,False,False,True,1,,RU-YEV,Autonomous region
 Kosovo,False,False,True,True,2,,RS-KM,Autonomous province
-La Rioja,False,False,False,True,1,,ES-RI,Autonomous community
 Macao,True,True,True,True,4,MO,CN-MO,Special administrative region
 Madeira,False,False,False,True,1,,PT-30,Autonomous region
-Madrid,False,False,False,True,1,,ES-MD,Autonomous community
 Martinique,True,True,False,True,3,MQ,FR-972,Overseas unique territorial collectivity
 Mayotte,True,True,False,True,3,YT,FR-976,Overseas departmental collectivity
 Montserrat,True,True,False,False,2,MS,,
-Murcia,False,False,False,True,1,,ES-MC,Autonomous community
 Nakhchivan,False,False,False,True,1,,AZ-NX,Autonomous republic
-Navarre,False,False,False,True,1,,ES-NC,Autonomous community
 New Caledonia,True,True,True,True,4,NC,FR-NC,Overseas collectivity with special status
 Ningxia,False,False,False,True,1,,CN-NX,Autonomous region
 Niue,True,True,False,False,2,NU,,
@@ -92,7 +76,6 @@ Trentino-Alto Adige/Südtirol,False,False,False,True,1,,IT-32,Autonomous region
 Turks and Caicos Islands,True,True,True,False,3,TC,,
 United States Minor Outlying Islands,True,True,False,True,3,UM,US-UM,Outlying area
 United States Virgin Islands,True,True,True,True,4,VI,US-VI,Outlying area
-Valencia,False,False,False,True,1,,ES-VC,Autonomous community
 Valle d’Aosta,False,False,False,True,1,,IT-23,Autonomous region
 Vojvodina,False,False,False,True,1,,RS-VO,Autonomous province
 Wales,False,False,False,True,1,,GB-WLS,Country

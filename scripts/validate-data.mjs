@@ -7,6 +7,25 @@ const candidates = JSON.parse(
 );
 const inset = JSON.parse(fs.readFileSync('data/generated/inset.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
+const removedCandidateIds = new Set([
+  'non-un:andalusia',
+  'non-un:aragon',
+  'non-un:asturias',
+  'non-un:balearic-islands',
+  'non-un:basque-country',
+  'non-un:canary-islands',
+  'non-un:cantabria',
+  'non-un:castile-and-leon',
+  'non-un:castilla-la-mancha',
+  'non-un:catalonia',
+  'non-un:extremadura',
+  'non-un:galicia',
+  'non-un:la-rioja',
+  'non-un:madrid',
+  'non-un:murcia',
+  'non-un:navarre',
+  'non-un:valencia',
+]);
 const source = JSON.parse(
   fs.readFileSync('data/source/ne_50m_admin_0_countries.geojson'),
 );
@@ -56,10 +75,12 @@ for (const item of catalog) {
   if (!item.bounds || item.bounds.some((value) => !Number.isFinite(value)))
     throw new Error(`Missing projected bounds for ${item.id}`);
 }
-if (candidates.length !== 101)
-  throw new Error('Expected exactly 101 non-UN candidates');
-if (playable.length !== 296 || playableIds.size !== 296)
-  throw new Error('Expected exactly 296 unique playable locations');
+if (candidates.length !== 84)
+  throw new Error('Expected exactly 84 non-UN candidates');
+if (playable.length !== 279 || playableIds.size !== 279)
+  throw new Error('Expected exactly 279 unique playable locations');
+if ([...removedCandidateIds].some((id) => playableIds.has(id)))
+  throw new Error('Removed Spanish candidates remain playable');
 for (const candidate of candidates) {
   if (
     !candidate.geometryRefs.length ||
@@ -75,15 +96,15 @@ for (const candidate of candidates) {
     );
 }
 if (
-  Object.keys(map.locationFeatureIds ?? {}).length !== 296 ||
-  Object.keys(inset.locationFeatureIds ?? {}).length !== 296
+  Object.keys(map.locationFeatureIds ?? {}).length !== 279 ||
+  Object.keys(inset.locationFeatureIds ?? {}).length !== 279
 )
   throw new Error(
-    'Main and inset indexes must cover exactly 296 playable locations',
+    'Main and inset indexes must cover exactly 279 playable locations',
   );
 if (
-  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 296 ||
-  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 296 ||
+  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 279 ||
+  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 279 ||
   JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
     JSON.stringify(Object.keys(inset.locationFeatureIds).sort())
 )

@@ -10,7 +10,7 @@ import {
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
     expect(defaultCatalog).toHaveLength(195);
-    expect(playableLocations).toHaveLength(296);
+    expect(playableLocations).toHaveLength(279);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(
@@ -52,8 +52,8 @@ describe('regional quiz partition', () => {
     expect(regionalIds.every((id) => worldIds.has(id))).toBe(true);
   });
 
-  it('defines 101 candidates with nonempty supplemental exact geometry refs', () => {
-    expect(candidateData).toHaveLength(101);
+  it('defines 84 candidates with nonempty supplemental exact geometry refs', () => {
+    expect(candidateData).toHaveLength(84);
     expect(
       candidateData.every(
         ({ geometryRefs }) =>
@@ -70,5 +70,28 @@ describe('regional quiz partition', () => {
     expect(nonUnQuiz?.description).toBe(
       'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
     );
+    expect(
+      [
+        'non-un:andalusia',
+        'non-un:aragon',
+        'non-un:asturias',
+        'non-un:balearic-islands',
+        'non-un:basque-country',
+        'non-un:canary-islands',
+        'non-un:cantabria',
+        'non-un:castile-and-leon',
+        'non-un:castilla-la-mancha',
+        'non-un:catalonia',
+        'non-un:extremadura',
+        'non-un:galicia',
+        'non-un:la-rioja',
+        'non-un:madrid',
+        'non-un:murcia',
+        'non-un:navarre',
+        'non-un:valencia',
+      ].every(
+        (id) => !playableLocations.some((location) => location.id === id),
+      ),
+    ).toBe(true);
   });
 });

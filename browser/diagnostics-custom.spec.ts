@@ -6,7 +6,7 @@ test('diagnostics exposes and renders a custom exact geometry', async ({
   await page.goto('/TerraDash/diagnostics.html?location=non-un:abkhazia');
   const select = page.locator('.diagnostics-control select');
   await expect(select).toHaveValue('non-un:abkhazia');
-  await expect(select.locator('option')).toHaveCount(296);
+  await expect(select.locator('option')).toHaveCount(279);
   await expect(page.locator('.diagnostics-selected-name')).toHaveText(
     'Abkhazia',
   );
