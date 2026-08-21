@@ -379,8 +379,14 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
         id: `${id}:part:${index}`,
         paths: partPaths,
         anchor: [
-          +(partPoints.reduce((sum, point) => sum + point[0], 0) / partPoints.length).toFixed(2),
-          +(partPoints.reduce((sum, point) => sum + point[1], 0) / partPoints.length).toFixed(2),
+          +(
+            partPoints.reduce((sum, point) => sum + point[0], 0) /
+            partPoints.length
+          ).toFixed(2),
+          +(
+            partPoints.reduce((sum, point) => sum + point[1], 0) /
+            partPoints.length
+          ).toFixed(2),
         ],
         bounds: bounds(partPoints),
       };
