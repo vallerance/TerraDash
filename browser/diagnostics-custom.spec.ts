@@ -1,5 +1,12 @@
 import { expect, test } from '@playwright/test';
-import locations from '../data/generated/locations.json';
+import { readFileSync } from 'node:fs';
+
+const locations = JSON.parse(
+  readFileSync(
+    new URL('../data/generated/locations.json', import.meta.url),
+    'utf8',
+  ),
+);
 
 test('diagnostics exposes and renders a custom exact geometry', async ({
   page,
