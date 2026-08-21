@@ -42,7 +42,8 @@ main {
   overflow: hidden;
 }
 main > .app-header + * {
-  margin-top: var(--map-stage-header-gap);
+  position: relative;
+  top: var(--map-stage-header-gap);
 }
 main.standalone-page {
   height: auto;
