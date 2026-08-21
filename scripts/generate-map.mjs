@@ -627,9 +627,10 @@ if (
   throw new Error(
     'Every non-UN candidate must use nonempty exact supplemental geometry refs.',
   );
-const referencedSupplementalIds = new Set(
-  nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
-);
+const referencedSupplementalIds = new Set([
+  ...nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
+  ...quizLocations.flatMap(({ geometryRefs }) => geometryRefs),
+]);
 const playableSupplementalFeatures = supplementalFeatures.filter(({ id }) =>
   referencedSupplementalIds.has(id),
 );

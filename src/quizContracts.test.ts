@@ -2,8 +2,6 @@ import { describe, expect, it } from 'vitest';
 import candidateData from '../data/generated/non-un-candidates.json';
 import mainSource from './main.tsx?raw';
 import boundarySource from './quizMapBoundary.ts?raw';
-import mainSource from './main.tsx?raw';
-import boundarySource from './quizMapBoundary.ts?raw';
 import {
   defaultCatalog,
   defaultQuiz,
