@@ -808,7 +808,7 @@ h2 {
   transform: translate(-50%, -50%);
 }
 .map-stage .world-map {
-  height: auto;
+  height: 100%;
 }
 .answer-panel {
   position: absolute;
@@ -1154,9 +1154,6 @@ input {
   pointer-events: auto;
   cursor: pointer;
 }
-.map-stage .map-frame:has(.regional-map) {
-  aspect-ratio: 7 / 4;
-}
 .map-callout {
   pointer-events: none;
 }
@@ -1406,7 +1403,7 @@ input {
     height: auto;
   }
   .map-stage .world-map {
-    height: auto;
+    height: 100%;
   }
   .answer-panel {
     width: min(15.5rem, calc(100% - 1rem));
