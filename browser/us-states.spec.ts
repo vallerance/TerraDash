@@ -48,9 +48,6 @@ for (const viewport of [
 }
 
 function hasProperCrossing(path: string): boolean {
-  const points = [...path.matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(
-    ([, x, y]) => [+x, +y] as [number, number],
-  );
   const orientation = (
     a: [number, number],
     b: [number, number],
@@ -59,22 +56,27 @@ function hasProperCrossing(path: string): boolean {
     const value = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
     return Math.abs(value) < Number.EPSILON ? 0 : value > 0 ? 1 : -1;
   };
-  for (let left = 0; left < points.length; left++) {
-    const a = points[left];
-    const b = points[(left + 1) % points.length];
-    for (let right = left + 1; right < points.length; right++) {
-      if (right === left + 1 || (left === 0 && right === points.length - 1))
-        continue;
-      const c = points[right];
-      const d = points[(right + 1) % points.length];
-      if (
-        orientation(a, b, c) * orientation(a, b, d) < 0 &&
-        orientation(c, d, a) * orientation(c, d, b) < 0
-      )
-        return true;
+  return [...path.matchAll(/M[^MZ]*Z/g)].some((subpath) => {
+    const points = [...subpath[0].matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(
+      ([, x, y]) => [+x, +y] as [number, number],
+    );
+    for (let left = 0; left < points.length; left++) {
+      const a = points[left];
+      const b = points[(left + 1) % points.length];
+      for (let right = left + 1; right < points.length; right++) {
+        if (right === left + 1 || (left === 0 && right === points.length - 1))
+          continue;
+        const c = points[right];
+        const d = points[(right + 1) % points.length];
+        if (
+          orientation(a, b, c) * orientation(a, b, d) < 0 &&
+          orientation(c, d, a) * orientation(c, d, b) < 0
+        )
+          return true;
+      }
     }
-  }
-  return false;
+    return false;
+  });
 }
 
 for (const viewport of [
