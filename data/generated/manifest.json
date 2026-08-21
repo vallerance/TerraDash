@@ -28,8 +28,22 @@
       "sha256": "f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666",
       "license": "Open Data Commons Open Database License 1.0",
       "attribution": "geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)"
+    },
+    {
+      "id": "usa-adm1",
+      "emit": false,
+      "prefix": "gb",
+      "path": "data/source/geoBoundaries-USA-MI-WI.geojson",
+      "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson",
+      "sha256": "766e551ce9f4b717b7d84024da8f577c53c46da767d240e777dbb0f2e293356b",
+      "license": "Public domain",
+      "attribution": "geoBoundaries v6.0.0 (source: United States Census Bureau)"
     }
   ],
+  "geometrySourceOverrides": {
+    "gb:usa-adm1": ["ne:admin1:1159314665", "ne:admin1:1159315321"],
+    "gb:usa-adm1-unmatched": []
+  },
   "generatedAt": "deterministic",
   "featureIds": [
     "ne:1159321441",
