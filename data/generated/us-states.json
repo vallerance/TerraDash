@@ -1,0 +1,352 @@
+[
+  {
+    "id": "US-AL",
+    "name": "Alabama",
+    "geometryRefs": ["ne:admin1:1159315233"],
+    "anchor": [366.06, 219.96],
+    "bounds": [366.06, 219.96, 380.41, 239.1]
+  },
+  {
+    "id": "US-AK",
+    "name": "Alaska",
+    "geometryRefs": ["ne:admin1:1159308731"],
+    "anchor": [3.43, 74.35],
+    "bounds": [3.43, 74.35, 1439.12, 154.9]
+  },
+  {
+    "id": "US-AZ",
+    "name": "Arizona",
+    "geometryRefs": ["ne:admin1:1159315341"],
+    "anchor": [260.71, 211.99],
+    "bounds": [260.71, 211.99, 283.81, 234.69]
+  },
+  {
+    "id": "US-AR",
+    "name": "Arkansas",
+    "geometryRefs": ["ne:admin1:1159315355"],
+    "anchor": [341.53, 214],
+    "bounds": [341.53, 214, 361.33, 227.96]
+  },
+  {
+    "id": "US-CA",
+    "name": "California",
+    "geometryRefs": ["ne:admin1:1159308415"],
+    "anchor": [222.36, 192],
+    "bounds": [222.36, 192, 263.52, 229.87]
+  },
+  {
+    "id": "US-CO",
+    "name": "Colorado",
+    "geometryRefs": ["ne:admin1:1159315343"],
+    "anchor": [283.81, 196],
+    "bounds": [283.81, 196, 311.84, 212]
+  },
+  {
+    "id": "US-CT",
+    "name": "Connecticut",
+    "geometryRefs": ["ne:admin1:1159315301"],
+    "anchor": [425.43, 191.78],
+    "bounds": [425.43, 191.78, 432.79, 195.99]
+  },
+  {
+    "id": "US-DE",
+    "name": "Delaware",
+    "geometryRefs": ["ne:admin1:1159315325"],
+    "anchor": [417.23, 200.74],
+    "bounds": [417.23, 200.74, 419.77, 206.19]
+  },
+  {
+    "id": "US-FL",
+    "name": "Florida",
+    "geometryRefs": ["ne:admin1:1159315207"],
+    "anchor": [369.63, 236],
+    "bounds": [369.63, 236, 399.85, 261.77]
+  },
+  {
+    "id": "US-GA",
+    "name": "Georgia",
+    "geometryRefs": ["ne:admin1:1159311857"],
+    "anchor": [377.58, 220],
+    "bounds": [377.58, 220, 396.44, 238.52]
+  },
+  {
+    "id": "US-HI",
+    "name": "Hawaii",
+    "geometryRefs": ["ne:admin1:1159308409"],
+    "anchor": [6.84, 246.39],
+    "bounds": [6.84, 246.39, 100.4, 284.38]
+  },
+  {
+    "id": "US-ID",
+    "name": "Idaho",
+    "geometryRefs": ["ne:admin1:1159315339"],
+    "anchor": [251.18, 164.03],
+    "bounds": [251.18, 164.03, 275.8, 192]
+  },
+  {
+    "id": "US-IL",
+    "name": "Illinois",
+    "geometryRefs": ["ne:admin1:1159315309"],
+    "anchor": [353.92, 189.95],
+    "bounds": [353.92, 189.95, 371.92, 212.08]
+  },
+  {
+    "id": "US-IN",
+    "name": "Indiana",
+    "geometryRefs": ["ne:admin1:1159315311"],
+    "anchor": [367.62, 192.96],
+    "bounds": [367.62, 192.96, 380.78, 208.73]
+  },
+  {
+    "id": "US-IA",
+    "name": "Iowa",
+    "geometryRefs": ["ne:admin1:1159315357"],
+    "anchor": [333.45, 186],
+    "bounds": [333.45, 186, 359.4, 198.43]
+  },
+  {
+    "id": "US-KS",
+    "name": "Kansas",
+    "geometryRefs": ["ne:admin1:1159315359"],
+    "anchor": [311.79, 200],
+    "bounds": [311.79, 200, 341.56, 212]
+  },
+  {
+    "id": "US-KY",
+    "name": "Kentucky",
+    "geometryRefs": ["ne:admin1:1159315313"],
+    "anchor": [362.02, 203.42],
+    "bounds": [362.02, 203.42, 392.14, 214.01]
+  },
+  {
+    "id": "US-LA",
+    "name": "Louisiana",
+    "geometryRefs": ["ne:admin1:1159315221"],
+    "anchor": [343.83, 227.94],
+    "bounds": [343.83, 227.94, 364.58, 244.29]
+  },
+  {
+    "id": "US-ME",
+    "name": "Maine",
+    "geometryRefs": ["ne:admin1:1159308501"],
+    "anchor": [435.66, 170.24],
+    "bounds": [435.66, 170.24, 452.09, 187.66]
+  },
+  {
+    "id": "US-MD",
+    "name": "Maryland",
+    "geometryRefs": ["ne:admin1:1159315329"],
+    "anchor": [402.06, 201.11],
+    "bounds": [402.06, 201.11, 419.82, 208.2]
+  },
+  {
+    "id": "US-MA",
+    "name": "Massachusetts",
+    "geometryRefs": ["ne:admin1:1159312157"],
+    "anchor": [425.97, 188.45],
+    "bounds": [425.97, 188.45, 440.3, 195]
+  },
+  {
+    "id": "US-MI",
+    "name": "Michigan",
+    "geometryRefs": ["ne:admin1:1159314665"],
+    "anchor": [358.4, 166.81],
+    "bounds": [358.4, 166.81, 391.42, 193.06]
+  },
+  {
+    "id": "US-MN",
+    "name": "Minnesota",
+    "geometryRefs": ["ne:admin1:1159315297"],
+    "anchor": [331.1, 162.52],
+    "bounds": [331.1, 162.52, 362, 186]
+  },
+  {
+    "id": "US-MS",
+    "name": "Mississippi",
+    "geometryRefs": ["ne:admin1:1159315231"],
+    "anchor": [353.37, 220],
+    "bounds": [353.37, 220, 367.65, 239.24]
+  },
+  {
+    "id": "US-MO",
+    "name": "Missouri",
+    "geometryRefs": ["ne:admin1:1159315361"],
+    "anchor": [336.93, 197.52],
+    "bounds": [336.93, 197.52, 363.51, 216.06]
+  },
+  {
+    "id": "US-MT",
+    "name": "Montana",
+    "geometryRefs": ["ne:admin1:1159315333"],
+    "anchor": [255.8, 164.03],
+    "bounds": [255.8, 164.03, 303.84, 182.49]
+  },
+  {
+    "id": "US-NE",
+    "name": "Nebraska",
+    "geometryRefs": ["ne:admin1:1159315363"],
+    "anchor": [303.79, 188],
+    "bounds": [303.79, 188, 338.73, 200]
+  },
+  {
+    "id": "US-NV",
+    "name": "Nevada",
+    "geometryRefs": ["ne:admin1:1159315345"],
+    "anchor": [240, 192],
+    "bounds": [240, 192, 263.83, 219.99]
+  },
+  {
+    "id": "US-NH",
+    "name": "New Hampshire",
+    "geometryRefs": ["ne:admin1:1159315303"],
+    "anchor": [430.13, 178.78],
+    "bounds": [430.13, 178.78, 437.17, 189.2]
+  },
+  {
+    "id": "US-NJ",
+    "name": "New Jersey",
+    "geometryRefs": ["ne:admin1:1159315267"],
+    "anchor": [417.83, 194.91],
+    "bounds": [417.83, 194.91, 424.37, 204.26]
+  },
+  {
+    "id": "US-NM",
+    "name": "New Mexico",
+    "geometryRefs": ["ne:admin1:1159315347"],
+    "anchor": [283.81, 212],
+    "bounds": [283.81, 212, 308, 234.69]
+  },
+  {
+    "id": "US-NY",
+    "name": "New York",
+    "geometryRefs": ["ne:admin1:1159312155"],
+    "anchor": [400.95, 180.03],
+    "bounds": [400.95, 180.03, 432.32, 197.99]
+  },
+  {
+    "id": "US-NC",
+    "name": "North Carolina",
+    "geometryRefs": ["ne:admin1:1159314887"],
+    "anchor": [382.7, 213.56],
+    "bounds": [382.7, 213.56, 418.1, 224.52]
+  },
+  {
+    "id": "US-ND",
+    "name": "North Dakota",
+    "geometryRefs": ["ne:admin1:1159315337"],
+    "anchor": [303.81, 164.03],
+    "bounds": [303.81, 164.03, 333.77, 176.23]
+  },
+  {
+    "id": "US-OH",
+    "name": "Ohio",
+    "geometryRefs": ["ne:admin1:1159315315"],
+    "anchor": [380.71, 190.7],
+    "bounds": [380.71, 190.7, 397.92, 206.25]
+  },
+  {
+    "id": "US-OK",
+    "name": "Oklahoma",
+    "geometryRefs": ["ne:admin1:1159315365"],
+    "anchor": [308, 212],
+    "bounds": [308, 212, 342.06, 225.41]
+  },
+  {
+    "id": "US-OR",
+    "name": "Oregon",
+    "geometryRefs": ["ne:admin1:1159309549"],
+    "anchor": [222.03, 174.98],
+    "bounds": [222.03, 174.98, 254.18, 192]
+  },
+  {
+    "id": "US-PA",
+    "name": "Pennsylvania",
+    "geometryRefs": ["ne:admin1:1159315331"],
+    "anchor": [397.92, 189.85],
+    "bounds": [397.92, 189.85, 421.21, 201.12]
+  },
+  {
+    "id": "US-RI",
+    "name": "Rhode Island",
+    "geometryRefs": ["ne:admin1:1159312213"],
+    "anchor": [432.51, 191.94],
+    "bounds": [432.51, 191.94, 435.51, 195.2]
+  },
+  {
+    "id": "US-SC",
+    "name": "South Carolina",
+    "geometryRefs": ["ne:admin1:1159315307"],
+    "anchor": [386.58, 219.13],
+    "bounds": [386.58, 219.13, 405.71, 231.86]
+  },
+  {
+    "id": "US-SD",
+    "name": "South Dakota",
+    "geometryRefs": ["ne:admin1:1159315367"],
+    "anchor": [303.79, 176.23],
+    "bounds": [303.79, 176.23, 334.19, 189.93]
+  },
+  {
+    "id": "US-TN",
+    "name": "Tennessee",
+    "geometryRefs": ["ne:admin1:1159315319"],
+    "anchor": [358.78, 213.24],
+    "bounds": [358.78, 213.24, 393.36, 220.05]
+  },
+  {
+    "id": "US-TX",
+    "name": "Texas",
+    "geometryRefs": ["ne:admin1:1159315211"],
+    "anchor": [293.35, 214],
+    "bounds": [293.35, 214, 345.94, 256.62]
+  },
+  {
+    "id": "US-UT",
+    "name": "Utah",
+    "geometryRefs": ["ne:admin1:1159315349"],
+    "anchor": [263.83, 192],
+    "bounds": [263.83, 192, 283.81, 212]
+  },
+  {
+    "id": "US-VT",
+    "name": "Vermont",
+    "geometryRefs": ["ne:admin1:1159315305"],
+    "anchor": [426.59, 179.95],
+    "bounds": [426.59, 179.95, 433.98, 189.08]
+  },
+  {
+    "id": "US-VA",
+    "name": "Virginia",
+    "geometryRefs": ["ne:admin1:1159315259"],
+    "anchor": [385.33, 202.2],
+    "bounds": [385.33, 202.2, 419.03, 213.8]
+  },
+  {
+    "id": "US-WA",
+    "name": "Washington",
+    "geometryRefs": ["ne:admin1:1159309547"],
+    "anchor": [221.09, 164.03],
+    "bounds": [221.09, 164.03, 252.48, 177.73]
+  },
+  {
+    "id": "US-WV",
+    "name": "West Virginia",
+    "geometryRefs": ["ne:admin1:1159315323"],
+    "anchor": [389.45, 197.41],
+    "bounds": [389.45, 197.41, 409.04, 210.83]
+  },
+  {
+    "id": "US-WI",
+    "name": "Wisconsin",
+    "geometryRefs": ["ne:admin1:1159315321"],
+    "anchor": [348.39, 170.77],
+    "bounds": [348.39, 170.77, 375, 190.02]
+  },
+  {
+    "id": "US-WY",
+    "name": "Wyoming",
+    "geometryRefs": ["ne:admin1:1159315351"],
+    "anchor": [275.8, 180],
+    "bounds": [275.8, 180, 303.79, 196]
+  }
+]
