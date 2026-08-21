@@ -78,6 +78,7 @@ export function validateQuizInputs(
     );
   if (!Array.isArray(catalog)) throw new TypeError('Catalog must be an array');
   const catalogIds = new Set<string>();
+  const quizIds = new Set(quiz.locationIds);
   const names = new Set<string>();
   for (const location of catalog) {
     if (
@@ -92,10 +93,14 @@ export function validateQuizInputs(
     const name = countryNameKey(location.name);
     if (!name)
       throw new TypeError(`Catalog location has an empty name: ${location.id}`);
-    if (names.has(name))
-      throw new TypeError(`Duplicate canonical catalog name: ${location.name}`);
+    if (quizIds.has(location.id)) {
+      if (names.has(name))
+        throw new TypeError(
+          `Duplicate canonical quiz location name: ${location.name}`,
+        );
+      names.add(name);
+    }
     catalogIds.add(location.id);
-    names.add(name);
   }
   if (quiz.locationIds.some((id) => typeof id !== 'string' || !id.trim()))
     throw new TypeError('Quiz locationIds require nonempty string IDs');
