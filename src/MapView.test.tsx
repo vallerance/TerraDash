@@ -74,7 +74,7 @@ describe('mapped quiz layer contract', () => {
   it('renders configured context, selectable state target, and shared tiny callout', () => {
     const frame = renderState('US-RI');
     expect(frame.querySelector('.world-map')?.getAttribute('viewBox')).toBe(
-      '-100 0 773.333 340',
+      '-100 35 671.9444444444445 295',
     );
     expect(
       frame.querySelector('.world-map')?.getAttribute('preserveAspectRatio'),

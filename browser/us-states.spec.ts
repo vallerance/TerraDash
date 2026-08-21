@@ -29,7 +29,10 @@ for (const viewport of [
     ]) {
       await page.goto(`/TerraDash/diagnostics.html?location=${id}`);
       const map = page.locator('.world-map');
-      await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+      await expect(map).toHaveAttribute(
+        'viewBox',
+        '-100 35 671.9444444444445 295',
+      );
       await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
       const state = map
         .locator(`.active-fill > path[data-location-id="${id}"]`)
@@ -287,7 +290,7 @@ test('keeps the reported wide US States composition inside its layout bands', as
   ).toBeLessThanOrEqual(1777);
 
   const map = page.locator('.world-map');
-  await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+  await expect(map).toHaveAttribute('viewBox', '-100 35 671.9444444444445 295');
   await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
   await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
   await page.screenshot({
@@ -379,7 +382,10 @@ for (const viewport of [
     await page.goto('/TerraDash/?quiz=us-states&start=1');
     await expect(page.locator('.active-player')).toBeVisible();
     const map = page.locator('.world-map');
-    await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+    await expect(map).toHaveAttribute(
+      'viewBox',
+      '-100 35 671.9444444444445 295',
+    );
     await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
     await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
     await page.screenshot({

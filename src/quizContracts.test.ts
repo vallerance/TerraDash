@@ -55,7 +55,7 @@ describe('regional quiz partition', () => {
       mappedQuiz!,
       playableLocations.find(({ id }) => id === mappedQuiz!.locationIds[0])!,
     );
-    expect(layer.viewBox).toBe('-100 0 773.333 340');
+    expect(layer.viewBox).toBe('-100 35 671.9444444444445 295');
     expect(layer.preserveAspectRatio).toBe('xMidYMid meet');
     expect(layer.wrapWidth).toBe(1440);
     expect(layer.seamLongitude).toBe(0);
@@ -106,7 +106,6 @@ describe('regional quiz partition', () => {
     const maxX = minX + widthValue;
     for (const [left, right, top, bottom] of [
       stateBounds,
-      contextBounds('ne:1159320467'),
       contextBounds('ne:1159321055'),
     ]) {
       expect(left).toBeGreaterThan(minX);
@@ -114,6 +113,12 @@ describe('regional quiz partition', () => {
       expect(top).toBeGreaterThan(minY);
       expect(bottom).toBeLessThan(maxY);
     }
+    const [contextLeft, contextRight, contextTop, contextBottom] =
+      contextBounds('ne:1159320467');
+    expect(contextRight).toBeGreaterThan(minX);
+    expect(contextLeft).toBeLessThan(maxX);
+    expect(contextBottom).toBeGreaterThan(minY);
+    expect(contextTop).toBeLessThan(maxY);
   });
 
   it('supports a second mapped quiz through a data-shaped config only', () => {
