@@ -109,6 +109,11 @@ for (const viewport of [
       expect(mainPaths, `${id} main paths`).not.toHaveLength(0);
       if (viewport.name === 'mobile')
         expect(insetPaths, `${id} mobile inset paths`).not.toHaveLength(0);
+      if (id === 'US-MI') {
+        expect(mainPaths, `${id} main multipart paths`).toHaveLength(2);
+        if (viewport.name === 'mobile')
+          expect(insetPaths, `${id} inset multipart paths`).toHaveLength(2);
+      }
       expect(
         [...mainPaths, ...insetPaths].some(
           (path): path is string => Boolean(path) && hasProperCrossing(path),

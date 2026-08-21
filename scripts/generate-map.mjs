@@ -42,6 +42,15 @@ const SUPPLEMENTAL_SOURCES = [
     license: 'Open Data Commons Open Database License 1.0',
     attribution: 'geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)',
   },
+  {
+    id: 'usa-adm1',
+    prefix: 'gb',
+    path: 'data/source/geoBoundaries-USA-ADM1_simplified.geojson',
+    url: 'https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson',
+    sha256: '9d7a32244a5c3c2868d039355db2fdd9eb903ef255cfda128decd20bedc0dfbe',
+    license: 'Public domain',
+    attribution: 'geoBoundaries v6.0.0 (source: United States Census Bureau)',
+  },
 ];
 const sourceBytes = fs.readFileSync(sourcePath);
 const sourceSha256 = crypto
@@ -66,6 +75,12 @@ const insetSource = JSON.parse(insetSourceBytes);
 const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
 const quizLocations = JSON.parse(fs.readFileSync('data/quiz-locations.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
+const usaAdm1 = checkedSourceBytes(
+  SUPPLEMENTAL_SOURCES.find(({ id }) => id === 'usa-adm1'),
+);
+const usaAdm1ByIso = new Map(
+  usaAdm1.features.map((feature) => [feature.properties.shapeISO, feature]),
+);
 function parseCsv(text) {
   return text
     .trim()
@@ -363,14 +378,17 @@ const features = source.features.map((feature) => {
 const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
   checkedSourceBytes(definition).features.map((feature) => {
     const p = feature.properties;
+    const preferred = usaAdm1ByIso.get(p.iso_3166_2);
+    const geometry = preferred?.geometry ?? feature.geometry;
     const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
-    const { paths } = buildGeometryFeature(feature.geometry, id);
+    const { paths } = buildGeometryFeature(geometry, id);
     const points = pathPoints(paths);
     return {
       id,
       source: definition.id,
-      geometry: feature.geometry,
+      geometry,
+      geometrySource: preferred ? 'gb:usa-adm1' : definition.id,
       sourceCodes: [
         p.iso_3166_2,
         p.ISO_A2,
@@ -422,6 +440,13 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
     };
   }),
 );
+const usaGeometryOverrides = supplementalFeatures.filter(
+  ({ geometrySource }) => geometrySource === 'gb:usa-adm1',
+);
+if (usaGeometryOverrides.length !== usaAdm1.features.length)
+  throw new Error(
+    `USA ADM1 geometry scope drift: expected ${usaAdm1.features.length} overrides, got ${usaGeometryOverrides.length}`,
+  );
 const featuresByKey = new Map();
 for (const feature of features)
   for (const key of new Set(feature.keys))
@@ -740,6 +765,9 @@ fs.writeFileSync(
       sourceSha256: EXPECTED_SOURCE_SHA256,
       sourceUrl: SOURCE_URL,
       supplementalSources: SUPPLEMENTAL_SOURCES,
+      geometrySourceOverrides: {
+        'gb:usa-adm1': usaGeometryOverrides.map(({ id }) => id),
+      },
       generatedAt: 'deterministic',
       featureIds: Object.keys(map.features),
       locations: playableLocationFeatureIds,
