@@ -8,6 +8,7 @@ import quizLocations from '../data/generated/quiz-locations.json';
 import map from '../data/generated/map.json';
 import {
   highlightedGeometryPaths,
+  insetGeometryPaths,
   selectedInsetGeometryPaths,
 } from './mapGeometry';
 import { MapView } from './main';
@@ -92,6 +93,17 @@ describe('mapped quiz layer contract', () => {
     expect(
       frame.querySelector('.callout-context [data-layer-id="US-RI"] path'),
     ).toBeTruthy();
+    const insetNeighborPaths = [
+      ...frame.querySelectorAll(
+        '.callout-context [data-layer-id="US-MA"] path',
+      ),
+    ].map((path) => path.getAttribute('d'));
+    expect(insetNeighborPaths).toEqual(insetGeometryPaths('US-MA'));
+    expect(insetNeighborPaths).not.toEqual(
+      highlightedGeometryPaths(
+        quizLocations.find((entry) => entry.id === 'US-MA')!.geometryRefs,
+      ),
+    );
     expect(
       frame.querySelectorAll('.callout-inset .callout-selected path').length,
     ).toBeGreaterThan(0);

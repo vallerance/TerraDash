@@ -39,6 +39,7 @@ import { HighScoreTable } from './HighScoreTable';
 import { MapBoxShell } from './MapBoxShell';
 import {
   highlightedGeometryPaths,
+  insetGeometryPaths,
   selectedInsetGeometryPaths,
   tinyInsetDot,
 } from './mapGeometry';
@@ -356,15 +357,15 @@ export function MapView({
                       className="country"
                       data-layer-id={baseLayer.id}
                     >
-                      {wrappedInsetPathCopies(baseLayer.paths).map(
-                        ({ path, transform }, index) => (
-                          <path
-                            key={`${baseLayer.id}:${transform}:${index}`}
-                            d={path}
-                            transform={`translate(${transform} 0)`}
-                          />
-                        ),
-                      )}
+                      {wrappedInsetPathCopies(
+                        insetGeometryPaths(baseLayer.id),
+                      ).map(({ path, transform }, index) => (
+                        <path
+                          key={`${baseLayer.id}:${transform}:${index}`}
+                          d={path}
+                          transform={`translate(${transform} 0)`}
+                        />
+                      ))}
                     </g>
                   ))}
                 </g>
