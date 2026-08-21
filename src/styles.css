@@ -808,7 +808,7 @@ h2 {
   transform: translate(-50%, -50%);
 }
 .map-stage .world-map {
-  height: auto;
+  height: 100%;
 }
 .answer-panel {
   position: absolute;
@@ -1106,7 +1106,6 @@ input {
   background: #10233c;
 }
 .regional-map {
-  height: 100%;
   background: #10233c;
 }
 .regional-state-borders path {
@@ -1404,7 +1403,7 @@ input {
     height: auto;
   }
   .map-stage .world-map {
-    height: auto;
+    height: 100%;
   }
   .answer-panel {
     width: min(15.5rem, calc(100% - 1rem));

@@ -203,7 +203,6 @@ export function MapView({
   return (
     <svg
       className={`world-map${regionalMap ? ' regional-map' : ''}`}
-      preserveAspectRatio={regionalMap ? 'none' : undefined}
       viewBox={
         mapViewBoxForQuiz(quizId, active.id) ??
         `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
