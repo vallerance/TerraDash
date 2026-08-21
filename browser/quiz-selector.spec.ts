@@ -1,4 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const quizDefinitions = JSON.parse(
+  readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
+);
 
 const quizNames = [
   'World UN Countries',
@@ -32,28 +37,35 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     'aria-current',
     'page',
   );
-  await expect(page.locator('.quiz-option')).toHaveCount(9);
-  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(9);
-  const descriptions = [
-    'All UN Member and UN Observer states',
-    'UN Member and UN Observer states in Africa',
-    'UN Member and UN Observer states in Asia',
-    'UN Member and UN Observer states in Europe',
-    'UN Member and UN Observer states in North America',
-    'UN Member and UN Observer states in South America',
-    'UN Member and UN Observer states in Oceania',
-    'UN Member and UN Observer states in Caribbean',
-  ];
+  await expect(page.locator('.quiz-option')).toHaveCount(
+    quizDefinitions.length,
+  );
+  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(
+    quizDefinitions.length,
+  );
+  const descriptions = quizDefinitions.map(
+    (quiz: { id: string; name: string }) => {
+      if (quiz.id === 'world') return 'All UN Member and UN Observer states';
+      if (quiz.id === 'non-un')
+        return 'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.';
+      return `UN Member and UN Observer states in ${quiz.name.replace(/ UN Countries$/, '')}`;
+    },
+  );
   for (const [index, description] of descriptions.entries()) {
     await expect(
       page.locator('.quiz-option-description').nth(index),
     ).toHaveText(description);
   }
-  await expect(page.locator('.quiz-option-description').nth(8)).toHaveText(
+  const nonUnIndex = quizDefinitions.findIndex(
+    (quiz: { id: string }) => quiz.id === 'non-un',
+  );
+  await expect(
+    page.locator('.quiz-option-description').nth(nonUnIndex),
+  ).toHaveText(
     'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
   );
   await expect(
-    page.locator('.quiz-option-description').nth(8).locator('em'),
+    page.locator('.quiz-option-description').nth(nonUnIndex).locator('em'),
   ).toHaveText(
     'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
   );
