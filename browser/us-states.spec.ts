@@ -47,6 +47,75 @@ for (const viewport of [
   });
 }
 
+function hasProperCrossing(path: string): boolean {
+  const points = [...path.matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(
+    ([, x, y]) => [+x, +y] as [number, number],
+  );
+  const orientation = (
+    a: [number, number],
+    b: [number, number],
+    c: [number, number],
+  ) => {
+    const value = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+    return Math.abs(value) < Number.EPSILON ? 0 : value > 0 ? 1 : -1;
+  };
+  for (let left = 0; left < points.length; left++) {
+    const a = points[left];
+    const b = points[(left + 1) % points.length];
+    for (let right = left + 1; right < points.length; right++) {
+      if (right === left + 1 || (left === 0 && right === points.length - 1))
+        continue;
+      const c = points[right];
+      const d = points[(right + 1) % points.length];
+      if (
+        orientation(a, b, c) * orientation(a, b, d) < 0 &&
+        orientation(c, d, a) * orientation(c, d, b) < 0
+      )
+        return true;
+    }
+  }
+  return false;
+}
+
+for (const viewport of [
+  { name: 'wide', width: 1440, height: 900 },
+  { name: 'tablet', width: 768, height: 900 },
+  { name: 'mobile', width: 390, height: 844 },
+]) {
+  for (const [id, name] of [
+    ['US-MI', 'Michigan'],
+    ['US-WI', 'Wisconsin'],
+  ]) {
+    test(`captures ${name} topology in main map and magnifier on ${viewport.name}`, async ({
+      page,
+    }, testInfo) => {
+      await page.setViewportSize(viewport);
+      await page.goto(`/TerraDash/diagnostics.html?location=${id}`);
+      const map = page.locator('.world-map');
+      const mainPaths = await map
+        .locator(`.active-fill path[data-location-id="${id}"]`)
+        .evaluateAll((paths) => paths.map((path) => path.getAttribute('d')));
+      const insetPaths = await map
+        .locator('.callout-inset .callout-selected path')
+        .evaluateAll((paths) => paths.map((path) => path.getAttribute('d')));
+      expect(mainPaths, `${id} main paths`).not.toHaveLength(0);
+      expect(insetPaths, `${id} inset paths`).not.toHaveLength(0);
+      expect(
+        [...mainPaths, ...insetPaths].some(
+          (path): path is string => Boolean(path) && hasProperCrossing(path),
+        ),
+        `${id} must not contain an artificial crossing segment`,
+      ).toBe(false);
+      await page.screenshot({
+        path: testInfo.outputPath(
+          `${id.toLowerCase()}-geometry-${viewport.name}.png`,
+        ),
+        fullPage: true,
+      });
+    });
+  }
+}
+
 const stateIds = [
   'US-AL',
   'US-AK',

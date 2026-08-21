@@ -304,13 +304,6 @@ function geometryPaths(geometry, tolerance = 0.55) {
     polygon.map((ring) => ringPath(ring, tolerance)),
   );
 }
-function geometryParts(geometry, tolerance = 0.55) {
-  const polygons =
-    geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
-  return polygons.map((polygon) =>
-    polygon.map((ring) => ringPath(ring, tolerance)),
-  );
-}
 function pathPoints(paths) {
   return paths.flatMap((path) =>
     [...path.matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(([, x, y]) => [
@@ -373,24 +366,6 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
     const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
     const { paths } = buildGeometryFeature(feature.geometry, id);
-    const parts = geometryParts(feature.geometry).map((partPaths, index) => {
-      const partPoints = pathPoints(partPaths);
-      return {
-        id: `${id}:part:${index}`,
-        paths: partPaths,
-        anchor: [
-          +(
-            partPoints.reduce((sum, point) => sum + point[0], 0) /
-            partPoints.length
-          ).toFixed(2),
-          +(
-            partPoints.reduce((sum, point) => sum + point[1], 0) /
-            partPoints.length
-          ).toFixed(2),
-        ],
-        bounds: bounds(partPoints),
-      };
-    });
     const points = pathPoints(paths);
     return {
       id,
@@ -439,7 +414,6 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
         .split(/[|;]/)
         .filter(Boolean),
       paths,
-      parts,
       anchor:
         p.LABEL_X != null && p.LABEL_Y != null
           ? project([p.LABEL_X, p.LABEL_Y])
@@ -710,7 +684,7 @@ const map = {
   features: Object.fromEntries(
     [...features, ...playableSupplementalFeatures].flatMap(
       ({ id, paths, anchor, bounds, parts = [] }) => [
-        [id, { paths, anchor, bounds, parts }],
+        [id, { paths, anchor, bounds }],
         ...parts.map(
           ({
             id: partId,
