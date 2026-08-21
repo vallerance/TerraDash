@@ -1155,7 +1155,7 @@ input {
   cursor: pointer;
 }
 .map-stage .map-frame:has(.regional-map) {
-  aspect-ratio: 7 / 4;
+  aspect-ratio: 500 / 295;
 }
 .map-callout {
   pointer-events: none;

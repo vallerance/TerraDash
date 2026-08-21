@@ -32,6 +32,44 @@ for (const viewport of [
   });
 }
 
+test('keeps the reported wide US States composition inside its layout bands', async ({
+  page,
+}, testInfo) => {
+  await page.setViewportSize({ width: 1777, height: 1171 });
+  await page.goto('/TerraDash/?quiz=us-states&start=1');
+  await expect(page.locator('.active-player')).toBeVisible();
+
+  const player = page.locator('.active-player');
+  const header = player.locator('.quiz-header');
+  const stage = player.locator('.map-stage');
+  const frame = player.locator('.map-frame');
+  const [playerBox, headerBox, stageBox, frameBox] = await Promise.all([
+    player.boundingBox(),
+    header.boundingBox(),
+    stage.boundingBox(),
+    frame.boundingBox(),
+  ]);
+
+  expect(playerBox).not.toBeNull();
+  expect(headerBox).not.toBeNull();
+  expect(stageBox).not.toBeNull();
+  expect(frameBox).not.toBeNull();
+  expect(headerBox!.y + headerBox!.height).toBeLessThanOrEqual(stageBox!.y + 1);
+  expect(frameBox!.y).toBeGreaterThanOrEqual(stageBox!.y - 1);
+  expect(frameBox!.y + frameBox!.height).toBeLessThanOrEqual(
+    stageBox!.y + stageBox!.height + 1,
+  );
+  expect(frameBox!.height).toBeLessThanOrEqual(stageBox!.height + 1);
+
+  const map = page.locator('.regional-map');
+  await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+  await expect(map.locator('.regional-state-borders > g')).toHaveCount(50);
+  await page.screenshot({
+    path: testInfo.outputPath('us-states-layout-1777x1171.png'),
+    fullPage: true,
+  });
+});
+
 test('regional submenu is keyboard accessible and viewport-contained', async ({
   page,
 }) => {

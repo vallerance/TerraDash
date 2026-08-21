@@ -37,6 +37,7 @@ import {
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';
 import { MapBoxShell } from './MapBoxShell';
+import { US_STATES_MAP_ASPECT_RATIO } from './mapLayout';
 import {
   highlightedGeometryPaths,
   selectedInsetGeometryPaths,
@@ -664,6 +665,11 @@ export function DiagnosticsPage() {
       <AppHeader />
       <section className="player-card active-player">
         <MapBoxShell
+          mapAspectRatio={
+            isUsStatesLocation(location.id)
+              ? US_STATES_MAP_ASPECT_RATIO
+              : undefined
+          }
           prompt={
             <div className="quiz-prompt">
               <h1>Inspect a location</h1>

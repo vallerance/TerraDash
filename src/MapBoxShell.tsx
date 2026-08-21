@@ -15,6 +15,7 @@ type MapBoxShellProps = {
   headerOverlay?: ReactNode;
   stageOverlay?: ReactNode;
   statusHidden?: boolean;
+  mapAspectRatio?: number;
 };
 
 /** Shared layout-bearing header, map stage, and map-frame contract. */
@@ -26,6 +27,7 @@ export const MapBoxShell = forwardRef(function MapBoxShell(
     headerOverlay,
     stageOverlay,
     statusHidden = false,
+    mapAspectRatio,
   }: MapBoxShellProps,
   ref: Ref<HTMLDivElement>,
 ) {
@@ -39,7 +41,7 @@ export const MapBoxShell = forwardRef(function MapBoxShell(
     const update = () => {
       stage.style.setProperty(
         '--map-width',
-        `${mapWidthForStage(stage.clientWidth, stage.clientHeight)}px`,
+        `${mapWidthForStage(stage.clientWidth, stage.clientHeight, mapAspectRatio)}px`,
       );
     };
     update();
