@@ -19,7 +19,9 @@ for (const viewport of [
       await page.goto(`/TerraDash/diagnostics.html?location=${id}`);
       const map = page.locator('.regional-map');
       await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
-      const state = map.locator(`[data-location-id="${id}"]`);
+      const state = map
+        .locator(`.active-fill > path[data-location-id="${id}"]`)
+        .first();
       await expect(state).toHaveAttribute('aria-label', name);
       await expect(state).toBeVisible();
       const box = await state.boundingBox();
