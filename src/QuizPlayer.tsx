@@ -62,8 +62,25 @@ function quizDescription(quiz: QuizOption): ReactNode {
       </>
     );
   }
+  if (quiz.description) return quiz.description;
   const region = quiz.name.replace(/ UN Countries$/, '');
   return `UN Member and UN Observer states in ${region}`;
+}
+
+function quizSections(quizOptions: readonly QuizOption[]) {
+  const grouped = new Map<string, QuizOption[]>();
+  for (const quiz of quizOptions) {
+    const key = quiz.category ?? 'global';
+    grouped.set(key, [...(grouped.get(key) ?? []), quiz]);
+  }
+  return [...grouped].map(([key, options]) => ({
+    key,
+    label:
+      key === 'global'
+        ? 'Global quizzes'
+        : `${key.charAt(0).toUpperCase()}${key.slice(1)} quizzes`,
+    options,
+  }));
 }
 type TerraDashConsole = {
   completeQuiz?: () => 'completed' | 'ignored';
@@ -466,6 +483,7 @@ export function QuizPlayer({
   }
 
   if (state.phase === 'idle') {
+    const sections = quizSections(quizOptions);
     return (
       <section className="player-card home-page" aria-labelledby="start-title">
         <div className="home-graphic" aria-hidden="true">
@@ -485,21 +503,32 @@ export function QuizPlayer({
           <li>Improve your next run</li>
         </ul>
         {quizOptions.length > 0 && (
-          <div className="quiz-options" aria-label="Choose a quiz">
-            {quizOptions.map((option) => (
-              <button
-                className="quiz-option"
-                key={option.id}
-                type="button"
-                onClick={() => setSelectedQuizOption(option)}
+          <div aria-label="Choose a quiz">
+            {sections.map((section) => (
+              <section
+                className="quiz-option-section"
+                key={section.key}
+                aria-labelledby={`quiz-section-${section.key}`}
               >
-                {renderQuizThumbnail?.(option)}
-                <strong>{option.name}</strong>
-                <span>{option.locationIds.length} locations</span>
-                <span className="quiz-option-description">
-                  {quizDescription(option)}
-                </span>
-              </button>
+                <h2 id={`quiz-section-${section.key}`}>{section.label}</h2>
+                <div className="quiz-options">
+                  {section.options.map((option) => (
+                    <button
+                      className="quiz-option"
+                      key={option.id}
+                      type="button"
+                      onClick={() => setSelectedQuizOption(option)}
+                    >
+                      {renderQuizThumbnail?.(option)}
+                      <strong>{option.name}</strong>
+                      <span>{option.locationIds.length} locations</span>
+                      <span className="quiz-option-description">
+                        {quizDescription(option)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         )}

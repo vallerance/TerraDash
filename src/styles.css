@@ -400,6 +400,18 @@ h2 {
   gap: var(--home-content-gap);
   margin: 0;
 }
+.quiz-option-section {
+  display: grid;
+  gap: var(--home-content-gap);
+}
+.quiz-option-section + .quiz-option-section {
+  margin-top: var(--home-content-gap);
+}
+.quiz-option-section h2 {
+  margin: 0;
+  color: #a9b8cc;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+}
 .quiz-option {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
