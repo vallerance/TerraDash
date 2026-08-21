@@ -32,6 +32,7 @@ import {
   isUsStatesLocation,
   mapLocationForQuizId,
   mapViewBoxForQuiz,
+  US_STATES_VIEW_BOX,
 } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';

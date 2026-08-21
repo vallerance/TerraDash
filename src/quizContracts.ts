@@ -72,7 +72,7 @@ export const quizOptions: QuizOption[] = (quizzesData as QuizInput[]).map(
           ? usStateData.map(({ id }) => id)
           : 'locationIds' in quiz
             ? (quiz.locationIds ?? [])
-            : quiz.locationIso3.map((iso3) => {
+            : (quiz.locationIso3 ?? []).map((iso3) => {
                 const location = catalogByIso3.get(iso3);
                 if (!location)
                   throw new Error(
