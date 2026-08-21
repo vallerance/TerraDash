@@ -26,14 +26,18 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle),
+      .concat(nonUnTitle, 'Regional quizzes'),
   );
+  await menu.getByRole('menuitem', { name: 'Regional quizzes' }).click();
+  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
+    'US States',
+  ]);
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',
     'page',
   );
-  await expect(page.locator('.quiz-option')).toHaveCount(9);
-  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(9);
+  await expect(page.locator('.quiz-option')).toHaveCount(10);
+  await expect(page.locator('.quiz-option-thumbnail')).toHaveCount(10);
   const descriptions = [
     'All UN Member and UN Observer states',
     'UN Member and UN Observer states in Africa',
@@ -56,6 +60,9 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     page.locator('.quiz-option-description').nth(8).locator('em'),
   ).toHaveText(
     'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+  );
+  await expect(page.locator('.quiz-option-description').nth(9)).toHaveText(
+    'The 50 U.S. states, excluding the District of Columbia and all territories.',
   );
   await expect(
     page.getByText(
@@ -89,6 +96,26 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     .click();
   await expect(page.locator('.active-player .quiz-name')).toHaveText(
     'Asia UN Countries',
+  );
+});
+
+test('selects and starts the 50-state regional quiz', async ({ page }) => {
+  await page.goto('/TerraDash/');
+  await page.getByRole('button', { name: /US States/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'US States' });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByText('50 locations')).toBeVisible();
+  await expect(dialog).toContainText(
+    'The 50 U.S. states, excluding the District of Columbia and all territories.',
+  );
+  await dialog.getByRole('button', { name: 'Start US States Quiz' }).click();
+  await expect(page.locator('.active-player .quiz-name')).toHaveText(
+    'US States',
+  );
+  await expect(page.locator('.regional-map')).toHaveCount(1);
+  await expect(page.locator('.regional-map')).toHaveAttribute(
+    'viewBox',
+    '10 35 500 295',
   );
 });
 

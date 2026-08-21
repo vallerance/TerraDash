@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import candidateData from '../data/generated/non-un-candidates.json';
+import usStateData from '../data/generated/us-states.json';
 import {
   defaultCatalog,
   defaultQuiz,
@@ -10,7 +11,7 @@ import {
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
     expect(defaultCatalog).toHaveLength(195);
-    expect(playableLocations).toHaveLength(277);
+    expect(playableLocations).toHaveLength(327);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(
@@ -33,7 +34,7 @@ describe('regional quiz partition', () => {
       'Oceania UN Countries',
       'Caribbean UN Countries',
     ]);
-    expect(quizOptions).toHaveLength(9);
+    expect(quizOptions).toHaveLength(10);
     expect(
       quizOptions
         .slice(0, 8)
@@ -99,6 +100,16 @@ describe('regional quiz partition', () => {
         (id) => !playableLocations.some((location) => location.id === id),
       ),
     ).toBe(true);
+  });
+
+  it('defines exactly the 50 ISO state IDs and no federal district or territories', () => {
+    expect(usStateData).toHaveLength(50);
+    expect(new Set(usStateData.map(({ id }) => id)).size).toBe(50);
+    expect(usStateData.every(({ id }) => /^US-[A-Z]{2}$/.test(id))).toBe(true);
+    expect(usStateData.some(({ id }) => id === 'US-DC')).toBe(false);
+    const usStates = quizOptions.find(({ id }) => id === 'us-states');
+    expect(usStates?.name).toBe('US States');
+    expect(usStates?.locationIds).toEqual(usStateData.map(({ id }) => id));
   });
 
   it('maps New Caledonia to its exact features, not British Columbia', () => {

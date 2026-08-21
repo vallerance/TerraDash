@@ -443,5 +443,12 @@
     "name": "Non-UN Countries, Independent Territories, and Autonomous Regions",
     "description": "Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.",
     "candidateSet": "non-un"
+  },
+  {
+    "id": "us-states",
+    "name": "US States",
+    "description": "The 50 U.S. states, excluding the District of Columbia and all territories.",
+    "category": "regional",
+    "stateSet": "us-states"
   }
 ]
