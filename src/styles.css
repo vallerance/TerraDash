@@ -192,6 +192,9 @@ main.app-shell:has(.active-player) {
   background: transparent;
   cursor: pointer;
 }
+.quiz-submenu-arrow::after {
+  content: '▸';
+}
 .quiz-submenu > button:hover,
 .quiz-submenu > button[aria-expanded='true'] {
   color: #7dd3fc;
