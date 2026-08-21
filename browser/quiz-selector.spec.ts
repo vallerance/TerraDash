@@ -26,7 +26,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle, 'Regional quizzes'),
+      .concat(nonUnTitle, 'Regional quizzes ▸'),
   );
   await menu.getByRole('menuitem', { name: 'Regional quizzes' }).click();
   await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
