@@ -70,6 +70,8 @@ const insetSource = JSON.parse(
 const ids = new Set(catalog.map((item) => item.id));
 const playable = [...catalog, ...candidates];
 const playableIds = new Set(playable.map((item) => item.id));
+const configured = locations.filter((item) => !playableIds.has(item.id));
+const insetLocations = [...playable, ...configured];
 const locationIds = new Set(locations.map((item) => item.id));
 if (locations.length !== locationIds.size)
   throw new Error('Generated location registry contains duplicate IDs');
@@ -155,21 +157,24 @@ for (const candidate of candidates) {
     );
 }
 if (
-  Object.keys(map.locationFeatureIds ?? {}).length !== 277 ||
-  Object.keys(inset.locationFeatureIds ?? {}).length !== 277
+  Object.keys(map.locationFeatureIds ?? {}).length !== playable.length ||
+  Object.keys(inset.locationFeatureIds ?? {}).length !== insetLocations.length
 )
   throw new Error(
-    'Main and inset indexes must cover exactly 277 playable locations',
+    'Main and inset indexes must cover their configured location sets',
   );
 if (
-  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 277 ||
-  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 277 ||
+  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== playable.length ||
+  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !==
+    insetLocations.length ||
   JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
-    JSON.stringify(Object.keys(inset.locationFeatureIds).sort())
+    JSON.stringify(playable.map(({ id }) => id).sort()) ||
+  JSON.stringify(Object.keys(inset.locationFeatureIds).sort()) !==
+    JSON.stringify(insetLocations.map(({ id }) => id).sort())
 )
-  throw new Error('Main and inset indexes must have identical playable IDs');
-for (const item of playable) {
-  const mainRefs = map.locationFeatureIds[item.id];
+  throw new Error('Generated location indexes do not match configured IDs');
+for (const item of insetLocations) {
+  const mainRefs = map.locationFeatureIds[item.id] ?? item.geometryRefs;
   const insetRefs = inset.locationFeatureIds[item.id];
   if (!mainRefs?.length || !insetRefs?.length)
     throw new Error(`Missing playable geometry refs for ${item.id}`);
@@ -179,9 +184,8 @@ for (const item of playable) {
   )
     throw new Error(`Unresolvable playable geometry ref for ${item.id}`);
   if (
-    item.id.startsWith('non-un:') &&
-    (JSON.stringify(mainRefs) !== JSON.stringify(item.geometryRefs) ||
-      JSON.stringify(insetRefs) !== JSON.stringify(item.geometryRefs))
+    (item.id.startsWith('non-un:') || !playableIds.has(item.id)) &&
+    JSON.stringify(insetRefs) !== JSON.stringify(item.geometryRefs)
   )
     throw new Error(`Custom geometry ref parity mismatch for ${item.id}`);
 }
