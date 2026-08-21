@@ -397,17 +397,22 @@ function AppDisclaimer() {
 function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
   const { navigate } = useBrowserRoute();
   const [open, setOpen] = useState(false);
+  const [regionalOpen, setRegionalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = 'quiz-menu';
   useEffect(() => {
     if (!open) return;
     const closeOnOutside = (event: PointerEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) setOpen(false);
+      if (!menuRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+        setRegionalOpen(false);
+      }
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
         menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
+        setRegionalOpen(false);
       }
     };
     document.addEventListener('pointerdown', closeOnOutside);
@@ -417,6 +422,30 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       document.removeEventListener('keydown', closeOnEscape);
     };
   }, [open]);
+  const globalQuizzes = quizOptions.filter(
+    (quiz) => quiz.category !== 'regional',
+  );
+  const regionalQuizzes = quizOptions.filter(
+    (quiz) => quiz.category === 'regional',
+  );
+  const renderQuizLink = (quiz: (typeof quizOptions)[number]) => (
+    <a
+      key={quiz.id}
+      role="menuitem"
+      aria-current={quiz.id === selectedQuizId ? 'page' : undefined}
+      href={`${import.meta.env.BASE_URL}?quiz=${encodeURIComponent(quiz.id)}&select=1`}
+      onClick={(event) => {
+        event.preventDefault();
+        setOpen(false);
+        setRegionalOpen(false);
+        navigate(event.currentTarget.href);
+      }}
+    >
+      {quiz.id === 'non-un'
+        ? 'Non-UN Countries, Independent Territories, and Autonomous Regions'
+        : quiz.name.replace(' UN Countries', '')}
+    </a>
+  );
   return (
     <div className="quiz-menu" ref={menuRef}>
       <button
@@ -442,23 +471,28 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       </button>
       {open && (
         <div className="quiz-menu-popover" id={menuId} role="menu">
-          {quizOptions.map((quiz) => (
-            <a
-              key={quiz.id}
-              role="menuitem"
-              aria-current={quiz.id === selectedQuizId ? 'page' : undefined}
-              href={`${import.meta.env.BASE_URL}?quiz=${encodeURIComponent(quiz.id)}&select=1`}
-              onClick={(event) => {
-                event.preventDefault();
-                setOpen(false);
-                navigate(event.currentTarget.href);
-              }}
-            >
-              {quiz.id === 'non-un'
-                ? 'Non-UN Countries, Independent Territories, and Autonomous Regions'
-                : quiz.name.replace(' UN Countries', '')}
-            </a>
-          ))}
+          {globalQuizzes.map(renderQuizLink)}
+          {regionalQuizzes.length > 0 && (
+            <div className="quiz-submenu">
+              <button
+                type="button"
+                role="menuitem"
+                aria-haspopup="menu"
+                aria-expanded={regionalOpen}
+                onClick={() => setRegionalOpen((value) => !value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowRight') setRegionalOpen(true);
+                }}
+              >
+                Regional quizzes <span aria-hidden="true">▸</span>
+              </button>
+              {regionalOpen && (
+                <div className="quiz-submenu-popover" role="menu">
+                  {regionalQuizzes.map(renderQuizLink)}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

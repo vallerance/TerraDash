@@ -26,7 +26,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle),
+      .concat(nonUnTitle, 'Regional quizzes'),
   );
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',

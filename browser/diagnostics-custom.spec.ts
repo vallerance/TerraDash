@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import locations from '../data/generated/locations.json';
 
 test('diagnostics exposes and renders a custom exact geometry', async ({
   page,
@@ -6,7 +7,7 @@ test('diagnostics exposes and renders a custom exact geometry', async ({
   await page.goto('/TerraDash/diagnostics.html?location=non-un:abkhazia');
   const select = page.locator('.diagnostics-control select');
   await expect(select).toHaveValue('non-un:abkhazia');
-  await expect(select.locator('option')).toHaveCount(277);
+  await expect(select.locator('option')).toHaveCount(locations.length);
   await expect(page.locator('.diagnostics-selected-name')).toHaveText(
     'Abkhazia',
   );
