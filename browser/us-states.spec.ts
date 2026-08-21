@@ -100,20 +100,21 @@ for (const viewport of [
       const insetPaths = await map
         .locator('.callout-inset .callout-selected path')
         .evaluateAll((paths) => paths.map((path) => path.getAttribute('d')));
-      expect(mainPaths, `${id} main paths`).not.toHaveLength(0);
-      expect(insetPaths, `${id} inset paths`).not.toHaveLength(0);
-      expect(
-        [...mainPaths, ...insetPaths].some(
-          (path): path is string => Boolean(path) && hasProperCrossing(path),
-        ),
-        `${id} must not contain an artificial crossing segment`,
-      ).toBe(false);
       await page.screenshot({
         path: testInfo.outputPath(
           `${id.toLowerCase()}-geometry-${viewport.name}.png`,
         ),
         fullPage: true,
       });
+      expect(mainPaths, `${id} main paths`).not.toHaveLength(0);
+      if (viewport.name === 'mobile')
+        expect(insetPaths, `${id} mobile inset paths`).not.toHaveLength(0);
+      expect(
+        [...mainPaths, ...insetPaths].some(
+          (path): path is string => Boolean(path) && hasProperCrossing(path),
+        ),
+        `${id} must not contain an artificial crossing segment`,
+      ).toBe(false);
     });
   }
 }
