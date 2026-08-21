@@ -57,6 +57,7 @@ describe('regional quiz partition', () => {
     );
     expect(layer.viewBox).toBe('-100 35 671.9444444444445 295');
     expect(layer.preserveAspectRatio).toBe('xMidYMid meet');
+    expect(layer.standardParallel).toBe(38);
     expect(layer.wrapWidth).toBe(1440);
     expect(layer.seamLongitude).toBe(0);
     expect(layer.contextFeatureIds).not.toContain('ne:1159321369');
@@ -131,6 +132,7 @@ describe('regional quiz partition', () => {
         baseLayerLocationIds: ['iso:AFG'],
         viewBox: '1 2 3 4',
         preserveAspectRatio: 'xMinYMin meet',
+        standardParallel: 25,
         wrapWidth: 360,
         seamLongitude: -30,
         wrapActive: false,
@@ -140,6 +142,7 @@ describe('regional quiz partition', () => {
     const layer = mapLayerForQuiz(synthetic, playableLocations[0]);
     expect(layer.viewBox).toBe('1 2 3 4');
     expect(layer.preserveAspectRatio).toBe('xMinYMin meet');
+    expect(layer.standardParallel).toBe(25);
     expect(layer.wrapWidth).toBe(360);
     expect(layer.seamLongitude).toBe(-30);
     expect(layer.wrapActive).toBe(false);

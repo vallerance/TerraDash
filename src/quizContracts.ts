@@ -32,6 +32,7 @@ export type QuizMapInput = {
   baseLayerLocationIds?: string[];
   viewBox?: string;
   preserveAspectRatio?: string;
+  standardParallel?: number;
   wrapWidth?: number;
   seamLongitude?: number;
   wrapActive?: boolean;
@@ -44,6 +45,7 @@ export type MapLayer = {
   wrapActive: boolean;
   viewBox: string;
   preserveAspectRatio?: string;
+  standardParallel: number;
   wrapWidth: number;
   seamLongitude: number;
   selectable: boolean;
@@ -77,6 +79,7 @@ const defaultMap: MapLayer = {
   activePaths: [],
   wrapActive: true,
   viewBox: '',
+  standardParallel: 0,
   wrapWidth: 1440,
   seamLongitude: 152,
   selectable: false,
@@ -105,6 +108,7 @@ export function mapLayerForQuiz(
     wrapActive: config?.wrapActive ?? defaultMap.wrapActive,
     viewBox: config?.viewBox ?? defaultMap.viewBox,
     preserveAspectRatio: config?.preserveAspectRatio,
+    standardParallel: config?.standardParallel ?? defaultMap.standardParallel,
     wrapWidth: config?.wrapWidth ?? 1440,
     seamLongitude: config?.seamLongitude ?? defaultMap.seamLongitude,
     selectable: config?.selectable ?? defaultMap.selectable,
