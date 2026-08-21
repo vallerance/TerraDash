@@ -59,9 +59,6 @@ export function MapView({
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const [viewportHeight, setViewportHeight] = useState(map.height);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
-  const activeCopies = regionalMap
-    ? highlightedPaths.map((path) => ({ path, transform: 0 }))
-    : wrappedPathCopies(highlightedPaths);
   const insetSelectedPaths = selectedInsetGeometryPaths(
     active.id,
     active.geometryRefs,
@@ -172,6 +169,9 @@ export function MapView({
         MAP_OVERLAP_REFERENCE_UNITS,
       ).map((transform) => ({ path, transform })),
     );
+  const activeCopies = regionalMap
+    ? highlightedPaths.map((path) => ({ path, transform: 0 }))
+    : wrappedPathCopies(highlightedPaths);
   const wrappedInsetPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
