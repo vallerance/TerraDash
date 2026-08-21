@@ -41,6 +41,9 @@ main {
   flex-direction: column;
   overflow: hidden;
 }
+main > .app-header + * {
+  margin-top: var(--map-stage-header-gap);
+}
 main.standalone-page {
   height: auto;
   min-height: 100dvh;
