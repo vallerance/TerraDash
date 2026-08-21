@@ -7,7 +7,6 @@ Antarctica,True,True,False,False,2,AQ,,
 Aruba,True,True,True,True,4,AW,NL-AW,Country
 Azores,False,False,False,True,1,,PT-20,Autonomous region
 Bermuda,True,True,True,False,3,BM,,
-Bolzano / South Tyrol,False,False,False,True,1,,IT-BZ,Autonomous province
 "Bonaire, Sint Eustatius and Saba",True,True,False,False,2,BQ,,
 Bougainville,False,False,False,True,1,,PG-NSB,Autonomous region
 Bouvet Island,True,True,False,False,2,BV,,
@@ -71,7 +70,6 @@ Svalbard and Jan Mayen,True,True,False,True,3,SJ,NO-21;NO-22,Arctic region
 Taiwan,True,False,True,False,2,TW,,
 Tibet / Xizang,False,False,False,True,1,,CN-XZ,Autonomous region
 Tokelau,True,True,False,False,2,TK,,
-Trentino,False,False,False,True,1,,IT-TN,Autonomous province
 Trentino-Alto Adige/Südtirol,False,False,False,True,1,,IT-32,Autonomous region
 Turks and Caicos Islands,True,True,True,False,3,TC,,
 United States Minor Outlying Islands,True,True,False,True,3,UM,US-UM,Outlying area

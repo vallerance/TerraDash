@@ -491,6 +491,9 @@ const NON_UN_COMPONENTS = {
   Galicia: ['ES-C', 'ES-LU', 'ES-OR', 'ES-PO'],
   Valencia: ['ES-A', 'ES-CS', 'ES-V'],
   'Friuli-Venezia Giulia': ['IT-GO', 'IT-PN', 'IT-TS', 'IT-UD'],
+  // Trentino and Bolzano/South Tyrol are intentionally excluded from the
+  // Non-UN quiz because both overlap the retained Trentino-Alto Adige/Südtirol
+  // region; keep their source keys only for the retained aggregate mapping.
   'Trentino-Alto Adige/Südtirol': ['IT-BZ', 'IT-TN'],
   'United States Minor Outlying Islands': [
     'JQI',
@@ -642,10 +645,10 @@ const mainFeatureIds = new Set(
   ),
 );
 if (
-  playableLocations.length !== 279 ||
+  playableLocations.length !== 277 ||
   new Set(playableLocationIds).size !== playableLocations.length
 )
-  throw new Error('Playable catalog must contain exactly 279 unique locations');
+  throw new Error('Playable catalog must contain exactly 277 unique locations');
 const playableLocationFeatureIds = Object.fromEntries(
   playableLocations.map((location) => [location.id, location.geometryRefs]),
 );

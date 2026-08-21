@@ -108,10 +108,10 @@ for (const item of catalog) {
   if (!item.bounds || item.bounds.some((value) => !Number.isFinite(value)))
     throw new Error(`Missing projected bounds for ${item.id}`);
 }
-if (candidates.length !== 84)
-  throw new Error('Expected exactly 84 non-UN candidates');
-if (playable.length !== 279 || playableIds.size !== 279)
-  throw new Error('Expected exactly 279 unique playable locations');
+if (candidates.length !== 82)
+  throw new Error('Expected exactly 82 non-UN candidates');
+if (playable.length !== 277 || playableIds.size !== 277)
+  throw new Error('Expected exactly 277 unique playable locations');
 if ([...removedCandidateIds].some((id) => playableIds.has(id)))
   throw new Error('Removed Spanish candidates remain playable');
 for (const candidate of candidates) {
@@ -129,15 +129,15 @@ for (const candidate of candidates) {
     );
 }
 if (
-  Object.keys(map.locationFeatureIds ?? {}).length !== 279 ||
-  Object.keys(inset.locationFeatureIds ?? {}).length !== 279
+  Object.keys(map.locationFeatureIds ?? {}).length !== 277 ||
+  Object.keys(inset.locationFeatureIds ?? {}).length !== 277
 )
   throw new Error(
-    'Main and inset indexes must cover exactly 279 playable locations',
+    'Main and inset indexes must cover exactly 277 playable locations',
   );
 if (
-  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 279 ||
-  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 279 ||
+  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 277 ||
+  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 277 ||
   JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
     JSON.stringify(Object.keys(inset.locationFeatureIds).sort())
 )

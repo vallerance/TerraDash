@@ -133,7 +133,7 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await page.getByRole('button', { name: title }).click();
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText('84 locations')).toBeVisible();
+  await expect(dialog.getByText('82 locations')).toBeVisible();
   await expect(dialog.locator('em')).toHaveText(
     'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
   );

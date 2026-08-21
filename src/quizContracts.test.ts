@@ -10,7 +10,7 @@ import {
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
     expect(defaultCatalog).toHaveLength(195);
-    expect(playableLocations).toHaveLength(279);
+    expect(playableLocations).toHaveLength(277);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(
@@ -52,8 +52,8 @@ describe('regional quiz partition', () => {
     expect(regionalIds.every((id) => worldIds.has(id))).toBe(true);
   });
 
-  it('defines 84 candidates with nonempty supplemental exact geometry refs', () => {
-    expect(candidateData).toHaveLength(84);
+  it('defines 82 candidates with nonempty supplemental exact geometry refs', () => {
+    expect(candidateData).toHaveLength(82);
     expect(
       candidateData.every(
         ({ geometryRefs }) =>
@@ -63,6 +63,8 @@ describe('regional quiz partition', () => {
           ),
       ),
     ).toBe(true);
+    expect(playableLocations.some(({ id }) => id === 'non-un:trentino')).toBe(false);
+    expect(playableLocations.some(({ id }) => id === 'non-un:bolzano-south-tyrol')).toBe(false);
     const nonUnQuiz = quizOptions.find(({ id }) => id === 'non-un');
     expect(nonUnQuiz?.name).toBe(
       'Non-UN Countries, Independent Territories, and Autonomous Regions',
