@@ -63,8 +63,12 @@ describe('regional quiz partition', () => {
           ),
       ),
     ).toBe(true);
-    expect(playableLocations.some(({ id }) => id === 'non-un:trentino')).toBe(false);
-    expect(playableLocations.some(({ id }) => id === 'non-un:bolzano-south-tyrol')).toBe(false);
+    expect(playableLocations.some(({ id }) => id === 'non-un:trentino')).toBe(
+      false,
+    );
+    expect(
+      playableLocations.some(({ id }) => id === 'non-un:bolzano-south-tyrol'),
+    ).toBe(false);
     const nonUnQuiz = quizOptions.find(({ id }) => id === 'non-un');
     expect(nonUnQuiz?.name).toBe(
       'Non-UN Countries, Independent Territories, and Autonomous Regions',
