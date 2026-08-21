@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import catalog from '../data/generated/catalog.json';
 import candidates from '../data/generated/non-un-candidates.json';
 import quizLocations from '../data/generated/quiz-locations.json';
+import map from '../data/generated/map.json';
 import {
   highlightedGeometryPaths,
   selectedInsetGeometryPaths,
@@ -73,12 +74,26 @@ describe('mapped quiz layer contract', () => {
   it('renders configured context, selectable state target, and shared tiny callout', () => {
     const frame = renderState('US-RI');
     expect(frame.querySelector('.world-map')?.getAttribute('viewBox')).toBe(
-      '10 35 500 295',
+      '-100 0 773.333 340',
     );
+    expect(
+      frame.querySelector('.world-map')?.getAttribute('preserveAspectRatio'),
+    ).toBe('xMidYMid meet');
     expect(frame.querySelectorAll('.map-base-layers > g')).toHaveLength(50);
     expectActiveStatePaths(frame, 'US-RI');
     expect(frame.querySelector('.map-callout')).toBeTruthy();
     expect(frame.querySelector('.callout-selected')).toBeTruthy();
+    expect(
+      frame.querySelectorAll('.callout-inset .callout-selected path').length,
+    ).toBeGreaterThan(0);
+    expect(
+      [
+        ...frame.querySelectorAll('.callout-inset .callout-selected path'),
+      ].every((path) => path.getAttribute('d')),
+    ).toBe(true);
+    expect(frame.querySelectorAll('.countries .country').length).toBe(
+      map.sourceFeatureIds.length - 1,
+    );
   });
 
   it('keeps the shared large-region callout threshold bypass', () => {

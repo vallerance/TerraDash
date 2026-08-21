@@ -1,4 +1,15 @@
 import { expect, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const generatedMap = JSON.parse(
+  readFileSync(new URL('../data/generated/map.json', import.meta.url), 'utf8'),
+);
+const usQuiz = JSON.parse(
+  readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
+).find((quiz: { id: string }) => quiz.id === 'us-states');
+const expectedContextFeatureCount =
+  generatedMap.sourceFeatureIds.length -
+  (usQuiz.map.contextFeatureExclusions?.length ?? 0);
 
 for (const viewport of [
   { name: 'wide', width: 1440, height: 900 },
@@ -18,7 +29,8 @@ for (const viewport of [
     ]) {
       await page.goto(`/TerraDash/diagnostics.html?location=${id}`);
       const map = page.locator('.world-map');
-      await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+      await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+      await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
       const state = map
         .locator(`.active-fill > path[data-location-id="${id}"]`)
         .first();
@@ -165,6 +177,44 @@ test('renders shared tiny-state callout geometry and attempt colors at wide view
   });
 });
 
+for (const viewport of [
+  { name: 'wide', width: 1440, height: 900 },
+  { name: 'tablet', width: 768, height: 900 },
+  { name: 'mobile', width: 390, height: 844 },
+]) {
+  test(`keeps context and RI magnifier visible on ${viewport.name}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/TerraDash/diagnostics.html?location=US-RI');
+    const map = page.locator('.world-map');
+    await expect(map.locator('.countries .country')).toHaveCount(
+      expectedContextFeatureCount,
+    );
+    for (const id of ['ne:1159320467', 'ne:1159321055']) {
+      const feature = map.locator(`[data-feature-id="${id}"]`);
+      await expect(feature).toBeVisible();
+      const box = await feature.boundingBox();
+      expect(box?.width, id).toBeGreaterThan(0);
+      expect(box?.height, id).toBeGreaterThan(0);
+    }
+    const callout = map.locator('.callout-inset');
+    await expect(callout).toBeVisible();
+    await expect(callout.locator('.callout-selected path')).not.toHaveCount(0);
+    const selectedBox = await callout
+      .locator('.callout-selected path')
+      .first()
+      .boundingBox();
+    const calloutBox = await callout.boundingBox();
+    expect(selectedBox).not.toBeNull();
+    expect(calloutBox).not.toBeNull();
+    expect(selectedBox!.x + selectedBox!.width).toBeGreaterThan(calloutBox!.x);
+    expect(selectedBox!.x).toBeLessThan(calloutBox!.x + calloutBox!.width);
+    expect(selectedBox!.y + selectedBox!.height).toBeGreaterThan(calloutBox!.y);
+    expect(selectedBox!.y).toBeLessThan(calloutBox!.y + calloutBox!.height);
+  });
+}
+
 test('keeps shared threshold bypass for large state callout at wide viewport', async ({
   page,
 }) => {
@@ -237,7 +287,8 @@ test('keeps the reported wide US States composition inside its layout bands', as
   ).toBeLessThanOrEqual(1777);
 
   const map = page.locator('.world-map');
-  await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+  await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+  await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
   await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
   await page.screenshot({
     path: testInfo.outputPath('us-states-layout-1777x1171.png'),
@@ -328,7 +379,8 @@ for (const viewport of [
     await page.goto('/TerraDash/?quiz=us-states&start=1');
     await expect(page.locator('.active-player')).toBeVisible();
     const map = page.locator('.world-map');
-    await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+    await expect(map).toHaveAttribute('viewBox', '-100 0 773.333 340');
+    await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
     await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
     await page.screenshot({
       path: testInfo.outputPath(`us-states-${viewport.name}.png`),

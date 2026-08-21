@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import candidateData from '../data/generated/non-un-candidates.json';
 import mainSource from './main.tsx?raw';
 import boundarySource from './quizMapBoundary.ts?raw';
+import map from '../data/generated/map.json';
 import {
   defaultCatalog,
   defaultQuiz,
@@ -54,9 +55,65 @@ describe('regional quiz partition', () => {
       mappedQuiz!,
       playableLocations.find(({ id }) => id === mappedQuiz!.locationIds[0])!,
     );
-    expect(layer.viewBox).toBe('10 35 500 295');
+    expect(layer.viewBox).toBe('-100 0 773.333 340');
+    expect(layer.preserveAspectRatio).toBe('xMidYMid meet');
+    expect(layer.wrapWidth).toBe(1440);
+    expect(layer.seamLongitude).toBe(0);
     expect(layer.contextFeatureIds).not.toContain('ne:1159321369');
     expect(layer.baseLayers).toHaveLength(50);
+  });
+
+  it('keeps the configured regional viewport ratio and normalized geography contained', () => {
+    const mappedQuiz = quizOptions.find((quiz) => quiz.map)!;
+    const layer = mapLayerForQuiz(
+      mappedQuiz,
+      playableLocations.find(({ id }) => id === mappedQuiz.locationIds[0])!,
+    );
+    const [, , width, height] = layer.viewBox.split(/\s+/).map(Number);
+    expect(width / height).toBeCloseTo(41 / 18, 3);
+    const points = (paths: string[]) =>
+      paths.flatMap((path) =>
+        [...path.matchAll(/(-?[\d.]+),(-?[\d.]+)/g)].map(([, x, y]) => [
+          Number(x),
+          Number(y),
+        ]),
+      );
+    const bounds = (paths: string[]) => {
+      const values = points(paths);
+      return [
+        Math.min(...values.map(([x]) => x)),
+        Math.max(...values.map(([x]) => x)),
+        Math.min(...values.map(([, y]) => y)),
+        Math.max(...values.map(([, y]) => y)),
+      ];
+    };
+    const statePaths = layer.baseLayers.flatMap(({ paths }) => paths);
+    const stateBounds = bounds(
+      statePaths.map((path) =>
+        path.replace(/(-?[\d.]+),/g, (value) => {
+          const x = Number(value.slice(0, -1));
+          return `${x > layer.wrapWidth / 2 ? x - layer.wrapWidth : x},`;
+        }),
+      ),
+    );
+    const contextBounds = (id: keyof typeof map.features) =>
+      bounds(map.features[id].paths);
+    const [, minY, widthValue, heightValue] = layer.viewBox
+      .split(/\s+/)
+      .map(Number);
+    const [minX] = layer.viewBox.split(/\s+/).map(Number);
+    const maxY = minY + heightValue;
+    const maxX = minX + widthValue;
+    for (const [left, right, top, bottom] of [
+      stateBounds,
+      contextBounds('ne:1159320467'),
+      contextBounds('ne:1159321055'),
+    ]) {
+      expect(left).toBeGreaterThan(minX);
+      expect(right).toBeLessThan(maxX);
+      expect(top).toBeGreaterThan(minY);
+      expect(bottom).toBeLessThan(maxY);
+    }
   });
 
   it('supports a second mapped quiz through a data-shaped config only', () => {
@@ -68,12 +125,18 @@ describe('regional quiz partition', () => {
         contextFeatureExclusions: [],
         baseLayerLocationIds: ['iso:AFG'],
         viewBox: '1 2 3 4',
+        preserveAspectRatio: 'xMinYMin meet',
+        wrapWidth: 360,
+        seamLongitude: -30,
         wrapActive: false,
         selectable: true,
       },
     } as (typeof quizOptions)[number];
     const layer = mapLayerForQuiz(synthetic, playableLocations[0]);
     expect(layer.viewBox).toBe('1 2 3 4');
+    expect(layer.preserveAspectRatio).toBe('xMinYMin meet');
+    expect(layer.wrapWidth).toBe(360);
+    expect(layer.seamLongitude).toBe(-30);
     expect(layer.wrapActive).toBe(false);
     expect(layer.selectable).toBe(true);
   });

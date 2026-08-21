@@ -638,8 +638,11 @@
         "US-WI",
         "US-WY"
       ],
-      "viewBox": "10 35 500 295",
-      "wrapActive": false,
+      "viewBox": "-100 0 773.333 340",
+      "preserveAspectRatio": "xMidYMid meet",
+      "wrapWidth": 1440,
+      "seamLongitude": 0,
+      "wrapActive": true,
       "selectable": true
     }
   }

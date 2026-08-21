@@ -15,13 +15,13 @@ import {
   deriveCalloutLayout,
   calloutLeaderLines,
   MAP_OVERLAP_REFERENCE_UNITS,
-  MAP_SEAM_LONGITUDE,
   mapXForLongitude,
   sharedInsetViewBox,
   wrappedOffsets,
   wrappedPointPositions,
   wrappedPathOffsets,
   wrappedViewportBounds,
+  type ViewportBounds,
 } from './footprint';
 import { QuizProvider } from './QuizContext';
 import {
@@ -59,14 +59,27 @@ export function MapView({
     active.id,
     active.geometryRefs,
   );
-  const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, map.width);
+  const parsedViewBox = layer.viewBox.trim().split(/\s+/).map(Number);
+  const viewportBounds: ViewportBounds | undefined =
+    parsedViewBox.length === 4 && parsedViewBox.every(Number.isFinite)
+      ? [
+          parsedViewBox[0],
+          parsedViewBox[0] + parsedViewBox[2],
+          parsedViewBox[1],
+          parsedViewBox[1] + parsedViewBox[3],
+        ]
+      : undefined;
+  const seamX = mapXForLongitude(layer.seamLongitude, layer.wrapWidth);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
-  const [renderedMapStart] = wrappedViewportBounds(map.width, seamX);
-  const scale = viewportWidth / renderedMapWidth;
+  const [renderedMapStart, renderedMapEnd] = viewportBounds
+    ? viewportBounds
+    : wrappedViewportBounds(layer.wrapWidth, seamX);
+  const coordinateViewportWidth = renderedMapEnd - renderedMapStart;
+  const scale = viewportWidth / coordinateViewportWidth;
   const callout = deriveCalloutModel(
     highlightedPaths,
     scale,
-    map.width,
+    layer.wrapWidth,
     undefined,
     undefined,
     seamX,
@@ -75,17 +88,18 @@ export function MapView({
     ? wrappedOffsets(
         callout.sourceCenter[0],
         callout.sourceCenter[0],
-        map.width,
+        layer.wrapWidth,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
       )
     : [];
   const sourceOffset =
     callout && sourceOffsets.length
       ? sourceOffsets.reduce(
           (best, offset) =>
-            Math.abs(callout.sourceCenter[0] + offset - map.width / 2) <
-            Math.abs(callout.sourceCenter[0] + best - map.width / 2)
+            Math.abs(callout.sourceCenter[0] + offset - layer.wrapWidth / 2) <
+            Math.abs(callout.sourceCenter[0] + best - layer.wrapWidth / 2)
               ? offset
               : best,
           sourceOffsets[0],
@@ -108,9 +122,10 @@ export function MapView({
     ? deriveCalloutLayout(
         displayedCallout,
         scale,
-        map.width,
+        layer.wrapWidth,
         viewportHeight / scale,
         viewportWidth,
+        viewportBounds,
       )
     : undefined;
   const positionedCallout =
@@ -139,6 +154,7 @@ export function MapView({
         inset.width,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
       ).reduce((best, point) =>
         Math.abs(point[0] - insetViewBox.x - insetViewBox.size / 2) <
         Math.abs(best[0] - insetViewBox.x - insetViewBox.size / 2)
@@ -158,9 +174,10 @@ export function MapView({
     paths.flatMap((path) =>
       wrappedPathOffsets(
         [path],
-        map.width,
+        layer.wrapWidth,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
       ).map((transform) => ({ path, transform })),
     );
   const activePathCopies = layer.wrapActive
@@ -173,6 +190,7 @@ export function MapView({
         inset.width,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
       ).map((transform) => ({ path, transform })),
     );
   useEffect(() => {
@@ -204,6 +222,7 @@ export function MapView({
         layer.viewBox ||
         `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
       }
+      preserveAspectRatio={layer.preserveAspectRatio}
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >
@@ -220,6 +239,7 @@ export function MapView({
           return (
             <g
               key={id}
+              data-feature-id={id}
               aria-hidden="true"
               className={
                 active.geometryRefs.includes(id) ? 'country active' : 'country'
@@ -240,9 +260,15 @@ export function MapView({
         <g className="map-base-layers" aria-hidden="true">
           {layer.baseLayers.map((baseLayer) => (
             <g key={baseLayer.id} data-layer-id={baseLayer.id}>
-              {baseLayer.paths.map((path, index) => (
-                <path key={`${baseLayer.id}:${index}`} d={path} />
-              ))}
+              {wrappedPathCopies(baseLayer.paths).map(
+                ({ path, transform }, index) => (
+                  <path
+                    key={`${baseLayer.id}:${transform}:${index}`}
+                    d={path}
+                    transform={`translate(${transform} 0)`}
+                  />
+                ),
+              )}
             </g>
           ))}
         </g>

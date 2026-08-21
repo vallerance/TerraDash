@@ -31,6 +31,9 @@ export type QuizMapInput = {
   contextFeatureExclusions?: string[];
   baseLayerLocationIds?: string[];
   viewBox?: string;
+  preserveAspectRatio?: string;
+  wrapWidth?: number;
+  seamLongitude?: number;
   wrapActive?: boolean;
   selectable?: boolean;
 };
@@ -40,6 +43,9 @@ export type MapLayer = {
   activePaths: string[];
   wrapActive: boolean;
   viewBox: string;
+  preserveAspectRatio?: string;
+  wrapWidth: number;
+  seamLongitude: number;
   selectable: boolean;
 };
 
@@ -71,6 +77,8 @@ const defaultMap: MapLayer = {
   activePaths: [],
   wrapActive: true,
   viewBox: '',
+  wrapWidth: 1440,
+  seamLongitude: 152,
   selectable: false,
 };
 const locationsById = new Map(
@@ -96,6 +104,9 @@ export function mapLayerForQuiz(
     activePaths: highlightedGeometryPaths(active.geometryRefs),
     wrapActive: config?.wrapActive ?? defaultMap.wrapActive,
     viewBox: config?.viewBox ?? defaultMap.viewBox,
+    preserveAspectRatio: config?.preserveAspectRatio,
+    wrapWidth: config?.wrapWidth ?? 1440,
+    seamLongitude: config?.seamLongitude ?? defaultMap.seamLongitude,
     selectable: config?.selectable ?? defaultMap.selectable,
   };
 }

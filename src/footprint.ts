@@ -35,6 +35,7 @@ export const CALLOUT_GAP_PX = 72;
 export const CALLOUT_AREA_SCALE = 2;
 export const CALLOUT_RADIUS_SCALE = Math.sqrt(CALLOUT_AREA_SCALE);
 export const CALLOUT_MAGNIFICATION_RATIO = 5;
+export type ViewportBounds = [number, number, number, number];
 
 export function sharedInsetViewBox(center: Point, radius: number) {
   return {
@@ -66,6 +67,7 @@ export function deriveCalloutLayout(
   mapWidth: number,
   mapHeight: number,
   viewportWidth: number,
+  viewportBounds?: ViewportBounds,
 ): CalloutLayout {
   // The map is intentionally wide, so its rendered height is much smaller on
   // phones. Fit the callout to that height before converting CSS pixels back
@@ -90,7 +92,8 @@ export function deriveCalloutLayout(
   const margin = 24 / scale;
   const gap = CALLOUT_GAP_PX / scale;
   const seamX = mapXForLongitude(MAP_SEAM_LONGITUDE, mapWidth);
-  const [viewportMin, viewportMax] = wrappedViewportBounds(mapWidth, seamX);
+  const [viewportMin, viewportMax, viewportMinY, viewportMaxY] =
+    viewportBounds ?? [...wrappedViewportBounds(mapWidth, seamX), 0, mapHeight];
   const sourceX = Math.max(
     viewportMin + sourceRadius,
     Math.min(viewportMax - sourceRadius, callout.sourceCenter[0]),
@@ -107,8 +110,8 @@ export function deriveCalloutLayout(
   const initialCenterX = preferredFits
     ? preferred
     : Math.max(minX, Math.min(maxX, opposite));
-  const minY = radius + margin;
-  const maxY = mapHeight - radius - margin;
+  const minY = viewportMinY + radius + margin;
+  const maxY = viewportMaxY - radius - margin;
   const initialCenterY = Math.max(minY, Math.min(maxY, sourceY));
   const requiredDistance = sourceRadius + gap + radius;
   const candidates: Point[] = [
@@ -540,12 +543,10 @@ export function wrappedOffsets(
   width: number,
   seamX: number,
   overlap = MAP_OVERLAP_REFERENCE_UNITS,
+  viewportBounds?: [number, number],
 ): number[] {
-  const [viewportMin, viewportMax] = wrappedViewportBounds(
-    width,
-    seamX,
-    overlap,
-  );
+  const [viewportMin, viewportMax] =
+    viewportBounds ?? wrappedViewportBounds(width, seamX, overlap);
   // The viewport moves independently of the map copies. Shifting both by the
   // seam produces the same visible longitudes regardless of the configured
   // edge, which made the previous 127° change a visual no-op.
@@ -561,10 +562,16 @@ export function wrappedPointPositions(
   width: number,
   seamX: number,
   overlap = MAP_OVERLAP_REFERENCE_UNITS,
+  viewportBounds?: [number, number],
 ): Point[] {
-  return wrappedOffsets(point[0], point[0], width, seamX, overlap).map(
-    (transform) => [point[0] + transform, point[1]],
-  );
+  return wrappedOffsets(
+    point[0],
+    point[0],
+    width,
+    seamX,
+    overlap,
+    viewportBounds,
+  ).map((transform) => [point[0] + transform, point[1]]);
 }
 
 export function wrappedPathOffsets(
@@ -572,6 +579,7 @@ export function wrappedPathOffsets(
   width: number,
   seamX: number,
   overlap = MAP_OVERLAP_REFERENCE_UNITS,
+  viewportBounds?: [number, number],
 ): number[] {
   const xs = pathPoints(paths).map(([x]) => x);
   return wrappedOffsets(
@@ -580,5 +588,6 @@ export function wrappedPathOffsets(
     width,
     seamX,
     overlap,
+    viewportBounds,
   );
 }
