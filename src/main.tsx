@@ -348,6 +348,27 @@ export function MapView({
                   </g>
                 );
               })}
+              {layer.baseLayers.length > 0 && (
+                <g className="callout-context">
+                  {layer.baseLayers.map((baseLayer) => (
+                    <g
+                      key={baseLayer.id}
+                      className="country"
+                      data-layer-id={baseLayer.id}
+                    >
+                      {wrappedInsetPathCopies(baseLayer.paths).map(
+                        ({ path, transform }, index) => (
+                          <path
+                            key={`${baseLayer.id}:${transform}:${index}`}
+                            d={path}
+                            transform={`translate(${transform} 0)`}
+                          />
+                        ),
+                      )}
+                    </g>
+                  ))}
+                </g>
+              )}
               <g className="callout-selected">
                 {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
                   wrappedInsetPathCopies([path]).map(

@@ -83,6 +83,15 @@ describe('mapped quiz layer contract', () => {
     expectActiveStatePaths(frame, 'US-RI');
     expect(frame.querySelector('.map-callout')).toBeTruthy();
     expect(frame.querySelector('.callout-selected')).toBeTruthy();
+    expect(frame.querySelectorAll('.callout-context > .country')).toHaveLength(
+      50,
+    );
+    expect(
+      frame.querySelector('.callout-context [data-layer-id="US-MA"] path'),
+    ).toBeTruthy();
+    expect(
+      frame.querySelector('.callout-context [data-layer-id="US-RI"] path'),
+    ).toBeTruthy();
     expect(
       frame.querySelectorAll('.callout-inset .callout-selected path').length,
     ).toBeGreaterThan(0);
