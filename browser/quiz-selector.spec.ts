@@ -18,6 +18,69 @@ const quizNames = [
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
 
+for (const fixture of [
+  { name: 'wide', width: 1440, height: 900 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'mobile', width: 375, height: 667 },
+]) {
+  test(`home centered-content ${fixture.name} screenshot`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({
+      width: fixture.width,
+      height: fixture.height,
+    });
+    await page.goto('/TerraDash/');
+
+    const home = page.locator('.home-page');
+    await expect(home).toBeVisible();
+    await expect(page.locator('.active-player')).toHaveCount(0);
+    await expect(page.locator('#start-title')).toHaveText(
+      'Name every place on the map',
+    );
+    await expect(page.locator('#start-title')).not.toContainText('.');
+    await expect(page.locator('.home-graphic')).toBeVisible();
+    await expect(page.locator('.home-guidance')).toBeVisible();
+
+    const layout = await page.evaluate(() => {
+      const home = document.querySelector<HTMLElement>('.home-page')!;
+      const heading = document.querySelector<HTMLElement>('#start-title')!;
+      const graphic = document.querySelector<HTMLElement>('.home-graphic')!;
+      const guidance = document.querySelector<HTMLElement>('.home-guidance')!;
+      const sectionHeading = document.querySelector<HTMLElement>(
+        '.quiz-option-section h2',
+      )!;
+      const center = (element: Element) => {
+        const rect = element.getBoundingClientRect();
+        return (rect.left + rect.right) / 2;
+      };
+      return {
+        homeCenter: center(home),
+        headingCenter: center(heading),
+        graphicCenter: center(graphic),
+        guidanceCenter: center(guidance),
+        headingAlignment: getComputedStyle(heading).textAlign,
+        guidanceAlignment: getComputedStyle(guidance).textAlign,
+        guidanceSectionGap:
+          sectionHeading.getBoundingClientRect().top -
+          guidance.getBoundingClientRect().bottom,
+      };
+    });
+
+    expect(Math.abs(layout.headingCenter - layout.homeCenter)).toBeLessThan(1);
+    expect(Math.abs(layout.graphicCenter - layout.homeCenter)).toBeLessThan(1);
+    expect(Math.abs(layout.guidanceCenter - layout.homeCenter)).toBeLessThan(1);
+    expect(layout.headingAlignment).toBe('center');
+    expect(layout.guidanceAlignment).toBe('left');
+    expect(layout.guidanceSectionGap).toBeGreaterThan(0);
+
+    await page.screenshot({
+      path: testInfo.outputPath(`home-centered-${fixture.name}.png`),
+      fullPage: true,
+    });
+  });
+}
+
 test('Quizzes menu exposes all destinations and enters the selected quiz', async ({
   page,
 }) => {
