@@ -81,6 +81,12 @@ const usaAdm1 = checkedSourceBytes(
 const usaAdm1ByIso = new Map(
   usaAdm1.features.map((feature) => [feature.properties.shapeISO, feature]),
 );
+const naturalEarthAdm1 = checkedSourceBytes(
+  SUPPLEMENTAL_SOURCES.find(({ id }) => id === 'admin1'),
+);
+const expectedUsaOverrideCount = naturalEarthAdm1.features.filter((feature) =>
+  usaAdm1ByIso.has(feature.properties.iso_3166_2),
+).length;
 function parseCsv(text) {
   return text
     .trim()
@@ -443,9 +449,9 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
 const usaGeometryOverrides = supplementalFeatures.filter(
   ({ geometrySource }) => geometrySource === 'gb:usa-adm1',
 );
-if (usaGeometryOverrides.length !== usaAdm1.features.length)
+if (usaGeometryOverrides.length !== expectedUsaOverrideCount)
   throw new Error(
-    `USA ADM1 geometry scope drift: expected ${usaAdm1.features.length} overrides, got ${usaGeometryOverrides.length}`,
+    `USA ADM1 geometry scope drift: expected ${expectedUsaOverrideCount} overrides, got ${usaGeometryOverrides.length}`,
   );
 const featuresByKey = new Map();
 for (const feature of features)
