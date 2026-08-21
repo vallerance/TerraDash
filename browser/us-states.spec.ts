@@ -306,6 +306,39 @@ for (const viewport of [
   });
 }
 
+for (const viewport of [
+  { name: 'wide', width: 1440, height: 900 },
+  { name: 'tablet', width: 768, height: 900 },
+  { name: 'mobile', width: 390, height: 844 },
+]) {
+  test(`captures Massachusetts high-resolution context on ${viewport.name}`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/TerraDash/diagnostics.html?location=US-MA');
+    const map = page.locator('.world-map');
+    const contextPath = map.locator(
+      '.callout-context [data-layer-id="US-MA"] path',
+    );
+    const mainPath = map.locator(
+      '.map-base-layers [data-layer-id="US-MA"] path',
+    );
+    await expect(map.locator('.callout-inset')).toBeVisible();
+    await expect(contextPath).not.toHaveCount(0);
+    const [contextData, mainData] = await Promise.all([
+      contextPath.first().getAttribute('d'),
+      mainPath.first().getAttribute('d'),
+    ]);
+    expect(contextData).toBeTruthy();
+    expect(mainData).toBeTruthy();
+    expect(contextData).not.toBe(mainData);
+    await page.screenshot({
+      path: testInfo.outputPath(`us-states-ma-callout-${viewport.name}.png`),
+      fullPage: true,
+    });
+  });
+}
+
 test('keeps shared threshold bypass for large state callout at wide viewport', async ({
   page,
 }) => {
