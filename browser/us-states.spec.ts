@@ -170,6 +170,7 @@ for (const viewport of [
     await expect(page.locator('.active-player')).toBeVisible();
     const map = page.locator('.regional-map');
     await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+    await expect(map.locator('.countries')).toHaveCount(0);
     await expect(map.locator('.regional-state-borders > g')).toHaveCount(50);
     await page.screenshot({
       path: testInfo.outputPath(`us-states-${viewport.name}.png`),

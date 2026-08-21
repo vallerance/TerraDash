@@ -219,29 +219,33 @@ export function MapView({
         height={map.height}
         className="ocean"
       />
-      <g className="countries">
-        {map.sourceFeatureIds.map((id) => {
-          const feature = map.features[id as keyof typeof map.features];
-          const copies = wrappedPathCopies(feature.paths);
-          return (
-            <g
-              key={id}
-              aria-hidden="true"
-              className={
-                active.geometryRefs.includes(id) ? 'country active' : 'country'
-              }
-            >
-              {copies.map(({ path, transform }, index) => (
-                <path
-                  key={`${transform}:${index}`}
-                  d={path}
-                  transform={`translate(${transform} 0)`}
-                />
-              ))}
-            </g>
-          );
-        })}
-      </g>
+      {!regionalMap && (
+        <g className="countries">
+          {map.sourceFeatureIds.map((id) => {
+            const feature = map.features[id as keyof typeof map.features];
+            const copies = wrappedPathCopies(feature.paths);
+            return (
+              <g
+                key={id}
+                aria-hidden="true"
+                className={
+                  active.geometryRefs.includes(id)
+                    ? 'country active'
+                    : 'country'
+                }
+              >
+                {copies.map(({ path, transform }, index) => (
+                  <path
+                    key={`${transform}:${index}`}
+                    d={path}
+                    transform={`translate(${transform} 0)`}
+                  />
+                ))}
+              </g>
+            );
+          })}
+        </g>
+      )}
       {regionalMap && (
         <g className="regional-state-borders" aria-hidden="true">
           {usStateData.map((state) => (
