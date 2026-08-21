@@ -31,7 +31,7 @@ for (const viewport of [
       const map = page.locator('.world-map');
       await expect(map).toHaveAttribute(
         'viewBox',
-        '-100 0 774.4444444444445 340',
+        '-100 35 671.9444444444445 295',
       );
       await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
       const state = map
@@ -294,7 +294,7 @@ test('keeps the reported wide US States composition inside its layout bands', as
   ).toBeLessThanOrEqual(1777);
 
   const map = page.locator('.world-map');
-  await expect(map).toHaveAttribute('viewBox', '-100 0 774.4444444444445 340');
+  await expect(map).toHaveAttribute('viewBox', '-100 35 671.9444444444445 295');
   await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
   await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
   await page.screenshot({
@@ -388,7 +388,7 @@ for (const viewport of [
     const map = page.locator('.world-map');
     await expect(map).toHaveAttribute(
       'viewBox',
-      '-100 0 774.4444444444445 340',
+      '-100 35 671.9444444444445 295',
     );
     await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
     await expect(map.locator('.map-base-layers > g')).toHaveCount(50);
