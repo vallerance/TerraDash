@@ -62,12 +62,6 @@ function quizDescription(quiz: QuizOption): ReactNode {
       </>
     );
   }
-  if (quiz.id === 'us-states') {
-    return (
-      quiz.description ??
-      'The 50 U.S. states, excluding the District of Columbia and all territories.'
-    );
-  }
   const region = quiz.name.replace(/ UN Countries$/, '');
   return `UN Member and UN Observer states in ${region}`;
 }
@@ -472,27 +466,6 @@ export function QuizPlayer({
   }
 
   if (state.phase === 'idle') {
-    const regionalOptions = quizOptions.filter(
-      (option) => option.category === 'regional',
-    );
-    const standardOptions = quizOptions.filter(
-      (option) => option.category !== 'regional',
-    );
-    const renderQuizOption = (option: QuizOption) => (
-      <button
-        className="quiz-option"
-        key={option.id}
-        type="button"
-        onClick={() => setSelectedQuizOption(option)}
-      >
-        {renderQuizThumbnail?.(option)}
-        <strong>{option.name}</strong>
-        <span>{option.locationIds.length} locations</span>
-        <span className="quiz-option-description">
-          {quizDescription(option)}
-        </span>
-      </button>
-    );
     return (
       <section className="player-card home-page" aria-labelledby="start-title">
         <div className="home-graphic" aria-hidden="true">
@@ -513,22 +486,21 @@ export function QuizPlayer({
         </ul>
         {quizOptions.length > 0 && (
           <div className="quiz-options" aria-label="Choose a quiz">
-            <section
-              className="quiz-option-section"
-              aria-labelledby="global-quizzes-title"
-            >
-              <h2 id="global-quizzes-title">Global quizzes</h2>
-              {standardOptions.map(renderQuizOption)}
-            </section>
-            {regionalOptions.length > 0 && (
-              <section
-                className="quiz-option-section"
-                aria-labelledby="regional-quizzes-title"
+            {quizOptions.map((option) => (
+              <button
+                className="quiz-option"
+                key={option.id}
+                type="button"
+                onClick={() => setSelectedQuizOption(option)}
               >
-                <h2 id="regional-quizzes-title">Regional quizzes</h2>
-                {regionalOptions.map(renderQuizOption)}
-              </section>
-            )}
+                {renderQuizThumbnail?.(option)}
+                <strong>{option.name}</strong>
+                <span>{option.locationIds.length} locations</span>
+                <span className="quiz-option-description">
+                  {quizDescription(option)}
+                </span>
+              </button>
+            ))}
           </div>
         )}
         {quizOptions.length === 0 && (

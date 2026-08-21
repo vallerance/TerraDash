@@ -33,12 +33,7 @@ export function QuizProvider({
   children: ReactNode;
 }) {
   const config = useMemo(
-    () =>
-      createEngineConfig(
-        quiz,
-        catalog.filter((location) => quiz.locationIds.includes(location.id)),
-        rng,
-      ),
+    () => createEngineConfig(quiz, catalog, rng),
     [quiz, catalog, rng],
   );
   const [state, dispatch] = useReducer(

@@ -11,7 +11,6 @@ import map from '../data/generated/map.json';
 import inset from '../data/generated/inset.json';
 import catalog from '../data/generated/catalog.json';
 import candidateData from '../data/generated/non-un-candidates.json';
-import usStateData from '../data/generated/us-states.json';
 import {
   deriveCalloutModel,
   deriveCalloutLayout,
@@ -28,12 +27,7 @@ import {
 import { QuizProvider } from './QuizContext';
 import { playableLocations, quizOptions, worldQuiz } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
-import {
-  isUsStatesLocation,
-  mapLocationForQuizId,
-  mapViewBoxForQuiz,
-  US_STATES_VIEW_BOX,
-} from './quizMapBoundary';
+import { mapLocationForQuizId } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';
 import { MapBoxShell } from './MapBoxShell';
@@ -44,18 +38,8 @@ import {
 } from './mapGeometry';
 import './styles.css';
 
-type Location =
-  | (typeof catalog)[number]
-  | (typeof candidateData)[number]
-  | (typeof usStateData)[number];
-export function MapView({
-  active,
-  quizId,
-}: {
-  active: Location;
-  quizId?: string;
-}) {
-  const regionalMap = quizId === 'us-states' || isUsStatesLocation(active.id);
+type Location = (typeof catalog)[number] | (typeof candidateData)[number];
+export function MapView({ active }: { active: Location }) {
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const [viewportHeight, setViewportHeight] = useState(map.height);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
@@ -67,16 +51,14 @@ export function MapView({
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const [renderedMapStart] = wrappedViewportBounds(map.width, seamX);
   const scale = viewportWidth / renderedMapWidth;
-  const callout = regionalMap
-    ? undefined
-    : deriveCalloutModel(
-        highlightedPaths,
-        scale,
-        map.width,
-        undefined,
-        undefined,
-        seamX,
-      );
+  const callout = deriveCalloutModel(
+    highlightedPaths,
+    scale,
+    map.width,
+    undefined,
+    undefined,
+    seamX,
+  );
   const sourceOffsets = callout
     ? wrappedOffsets(
         callout.sourceCenter[0],
@@ -169,9 +151,6 @@ export function MapView({
         MAP_OVERLAP_REFERENCE_UNITS,
       ).map((transform) => ({ path, transform })),
     );
-  const activeCopies = regionalMap
-    ? highlightedPaths.map((path) => ({ path, transform: 0 }))
-    : wrappedPathCopies(highlightedPaths);
   const wrappedInsetPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
@@ -205,11 +184,8 @@ export function MapView({
   }, []);
   return (
     <svg
-      className={`world-map${regionalMap ? ' regional-map' : ''}`}
-      viewBox={
-        mapViewBoxForQuiz(quizId, active.id) ??
-        `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
-      }
+      className="world-map"
+      viewBox={`${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`}
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >
@@ -219,67 +195,50 @@ export function MapView({
         height={map.height}
         className="ocean"
       />
-      {!regionalMap && (
-        <g className="countries">
-          {map.sourceFeatureIds.map((id) => {
-            const feature = map.features[id as keyof typeof map.features];
-            const copies = wrappedPathCopies(feature.paths);
-            return (
-              <g
-                key={id}
-                aria-hidden="true"
-                className={
-                  active.geometryRefs.includes(id)
-                    ? 'country active'
-                    : 'country'
-                }
-              >
-                {copies.map(({ path, transform }, index) => (
-                  <path
-                    key={`${transform}:${index}`}
-                    d={path}
-                    transform={`translate(${transform} 0)`}
-                  />
-                ))}
-              </g>
-            );
-          })}
-        </g>
-      )}
-      {regionalMap && (
-        <g className="regional-state-borders" aria-hidden="true">
-          {usStateData.map((state) => (
-            <g key={state.id} data-state-id={state.id}>
-              {highlightedGeometryPaths(state.geometryRefs).map(
-                (path, index) => (
-                  <path key={`${state.id}:${index}`} d={path} />
-                ),
-              )}
+      <g className="countries">
+        {map.sourceFeatureIds.map((id) => {
+          const feature = map.features[id as keyof typeof map.features];
+          const copies = wrappedPathCopies(feature.paths);
+          return (
+            <g
+              key={id}
+              aria-hidden="true"
+              className={
+                active.geometryRefs.includes(id) ? 'country active' : 'country'
+              }
+            >
+              {copies.map(({ path, transform }, index) => (
+                <path
+                  key={`${transform}:${index}`}
+                  d={path}
+                  transform={`translate(${transform} 0)`}
+                />
+              ))}
             </g>
-          ))}
-        </g>
-      )}
-      <g className="active-fill" aria-hidden={regionalMap ? undefined : true}>
-        {activeCopies.map(({ path, transform }, index) => (
-          <path
-            key={`${transform}:${index}`}
-            d={path}
-            transform={`translate(${transform} 0)`}
-            data-location-id={regionalMap ? active.id : undefined}
-            role={regionalMap ? 'button' : undefined}
-            tabIndex={regionalMap ? 0 : undefined}
-            aria-label={regionalMap ? active.name : undefined}
-          />
-        ))}
+          );
+        })}
+      </g>
+      <g className="active-fill" aria-hidden="true">
+        {wrappedPathCopies(highlightedPaths).map(
+          ({ path, transform }, index) => (
+            <path
+              key={`${transform}:${index}`}
+              d={path}
+              transform={`translate(${transform} 0)`}
+            />
+          ),
+        )}
       </g>
       <g className="active-outline" aria-hidden="true">
-        {activeCopies.map(({ path, transform }, index) => (
-          <path
-            key={`${transform}:${index}`}
-            d={path}
-            transform={`translate(${transform} 0)`}
-          />
-        ))}
+        {wrappedPathCopies(highlightedPaths).map(
+          ({ path, transform }, index) => (
+            <path
+              key={`${transform}:${index}`}
+              d={path}
+              transform={`translate(${transform} 0)`}
+            />
+          ),
+        )}
       </g>
       {callout && displayedCallout && (
         <g className="map-callout" aria-hidden="true">
@@ -406,22 +365,17 @@ function AppDisclaimer() {
 function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
   const { navigate } = useBrowserRoute();
   const [open, setOpen] = useState(false);
-  const [regionalOpen, setRegionalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = 'quiz-menu';
   useEffect(() => {
     if (!open) return;
     const closeOnOutside = (event: PointerEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-        setRegionalOpen(false);
-      }
+      if (!menuRef.current?.contains(event.target as Node)) setOpen(false);
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
         menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
-        setRegionalOpen(false);
       }
     };
     document.addEventListener('pointerdown', closeOnOutside);
@@ -431,30 +385,6 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       document.removeEventListener('keydown', closeOnEscape);
     };
   }, [open]);
-  const globalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category !== 'regional',
-  );
-  const regionalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category === 'regional',
-  );
-  const renderQuizLink = (quiz: (typeof quizOptions)[number]) => (
-    <a
-      key={quiz.id}
-      role="menuitem"
-      aria-current={quiz.id === selectedQuizId ? 'page' : undefined}
-      href={`${import.meta.env.BASE_URL}?quiz=${encodeURIComponent(quiz.id)}&select=1`}
-      onClick={(event) => {
-        event.preventDefault();
-        setOpen(false);
-        setRegionalOpen(false);
-        navigate(event.currentTarget.href);
-      }}
-    >
-      {quiz.id === 'non-un'
-        ? 'Non-UN Countries, Independent Territories, and Autonomous Regions'
-        : quiz.name.replace(' UN Countries', '')}
-    </a>
-  );
   return (
     <div className="quiz-menu" ref={menuRef}>
       <button
@@ -480,28 +410,23 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       </button>
       {open && (
         <div className="quiz-menu-popover" id={menuId} role="menu">
-          {globalQuizzes.map(renderQuizLink)}
-          {regionalQuizzes.length > 0 && (
-            <div className="quiz-submenu">
-              <button
-                type="button"
-                role="menuitem"
-                aria-haspopup="menu"
-                aria-expanded={regionalOpen}
-                onClick={() => setRegionalOpen((value) => !value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'ArrowRight') setRegionalOpen(true);
-                }}
-              >
-                Regional quizzes <span aria-hidden="true">▸</span>
-              </button>
-              {regionalOpen && (
-                <div className="quiz-submenu-popover" role="menu">
-                  {regionalQuizzes.map(renderQuizLink)}
-                </div>
-              )}
-            </div>
-          )}
+          {quizOptions.map((quiz) => (
+            <a
+              key={quiz.id}
+              role="menuitem"
+              aria-current={quiz.id === selectedQuizId ? 'page' : undefined}
+              href={`${import.meta.env.BASE_URL}?quiz=${encodeURIComponent(quiz.id)}&select=1`}
+              onClick={(event) => {
+                event.preventDefault();
+                setOpen(false);
+                navigate(event.currentTarget.href);
+              }}
+            >
+              {quiz.id === 'non-un'
+                ? 'Non-UN Countries, Independent Territories, and Autonomous Regions'
+                : quiz.name.replace(' UN Countries', '')}
+            </a>
+          ))}
         </div>
       )}
     </div>
@@ -591,12 +516,11 @@ const thumbnailViewBoxes: Record<string, string> = {
   'south-america': '420 300 300 360',
   oceania: '1030 330 360 270',
   caribbean: '430 220 260 190',
-  'us-states': US_STATES_VIEW_BOX,
 };
 
 function QuizThumbnail({ quiz }: { quiz: (typeof quizOptions)[number] }) {
   const locationIds = new Set(quiz.locationIds);
-  const paths = [...catalog, ...candidateData, ...usStateData]
+  const paths = [...catalog, ...candidateData]
     .filter((location) => locationIds.has(location.id))
     .flatMap((location) =>
       location.geometryRefs.flatMap(
@@ -776,10 +700,7 @@ function App() {
             setAutoStart(true);
           }}
           renderMap={(active) => (
-            <MapView
-              active={mapLocationForQuizId(active.id)! as Location}
-              quizId={selectedQuiz.id}
-            />
+            <MapView active={mapLocationForQuizId(active.id)! as Location} />
           )}
           renderQuizThumbnail={(quiz) => <QuizThumbnail quiz={quiz} />}
         />

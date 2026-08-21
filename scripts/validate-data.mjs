@@ -5,7 +5,6 @@ const map = JSON.parse(fs.readFileSync('data/generated/map.json'));
 const candidates = JSON.parse(
   fs.readFileSync('data/generated/non-un-candidates.json'),
 );
-const usStates = JSON.parse(fs.readFileSync('data/generated/us-states.json'));
 const inset = JSON.parse(fs.readFileSync('data/generated/inset.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 const removedCandidateIds = new Set([
@@ -67,7 +66,7 @@ const insetSource = JSON.parse(
   fs.readFileSync('data/source/ne_10m_admin_0_countries.geojson'),
 );
 const ids = new Set(catalog.map((item) => item.id));
-const playable = [...catalog, ...candidates, ...usStates];
+const playable = [...catalog, ...candidates];
 const playableIds = new Set(playable.map((item) => item.id));
 if (catalog.length !== 195 || ids.size !== 195)
   throw new Error('Expected 195 unique catalog entries');
@@ -111,21 +110,8 @@ for (const item of catalog) {
 }
 if (candidates.length !== 82)
   throw new Error('Expected exactly 82 non-UN candidates');
-if (usStates.length !== 50 || new Set(usStates.map(({ id }) => id)).size !== 50)
-  throw new Error('Expected exactly 50 unique US state locations');
-if (
-  usStates.some(
-    ({ id, geometryRefs }) =>
-      !/^US-[A-Z]{2}$/.test(id) ||
-      !geometryRefs?.length ||
-      geometryRefs.some((ref) => !ref.startsWith('ne:admin1:')),
-  )
-)
-  throw new Error('US States must use explicit Natural Earth Admin-1 refs');
-if (usStates.some(({ id }) => id === 'US-DC'))
-  throw new Error('US States must exclude the District of Columbia');
-if (playable.length !== 327 || playableIds.size !== 327)
-  throw new Error('Expected exactly 327 unique playable locations');
+if (playable.length !== 277 || playableIds.size !== 277)
+  throw new Error('Expected exactly 277 unique playable locations');
 if ([...removedCandidateIds].some((id) => playableIds.has(id)))
   throw new Error('Removed Spanish candidates remain playable');
 for (const candidate of candidates) {
@@ -142,35 +128,16 @@ for (const candidate of candidates) {
       `Invalid exact geometry for non-UN candidate ${candidate.id}`,
     );
 }
-for (const state of usStates) {
-  if (!map.locationFeatureIds[state.id]?.length)
-    throw new Error(`US state missing from main location index: ${state.id}`);
-  if (!inset.locationFeatureIds[state.id]?.length)
-    throw new Error(`US state missing from inset location index: ${state.id}`);
-  if (
-    map.locationFeatureIds[state.id].join('|') !== state.geometryRefs.join('|')
-  )
-    throw new Error(
-      `US state main refs differ from authoritative source: ${state.id}`,
-    );
-  if (
-    inset.locationFeatureIds[state.id].join('|') !==
-    state.geometryRefs.join('|')
-  )
-    throw new Error(
-      `US state inset refs differ from authoritative source: ${state.id}`,
-    );
-}
 if (
-  Object.keys(map.locationFeatureIds ?? {}).length !== 327 ||
-  Object.keys(inset.locationFeatureIds ?? {}).length !== 327
+  Object.keys(map.locationFeatureIds ?? {}).length !== 277 ||
+  Object.keys(inset.locationFeatureIds ?? {}).length !== 277
 )
   throw new Error(
-    'Main and inset indexes must cover exactly 327 playable locations',
+    'Main and inset indexes must cover exactly 277 playable locations',
   );
 if (
-  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 327 ||
-  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 327 ||
+  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== 277 ||
+  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !== 277 ||
   JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
     JSON.stringify(Object.keys(inset.locationFeatureIds).sort())
 )

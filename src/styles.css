@@ -174,43 +174,6 @@ main.app-shell:has(.active-player) {
   color: #7dd3fc;
   background: #1b3655;
 }
-.quiz-submenu {
-  position: relative;
-}
-.quiz-submenu > button {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0.5rem 0.65rem;
-  border: 0;
-  border-radius: 0.4rem;
-  color: #c7d6e8;
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-align: left;
-  background: transparent;
-  cursor: pointer;
-}
-.quiz-submenu > button:hover,
-.quiz-submenu > button[aria-expanded='true'] {
-  color: #7dd3fc;
-  background: #1b3655;
-}
-.quiz-submenu-popover {
-  position: absolute;
-  z-index: 21;
-  top: 0;
-  left: calc(100% + 0.35rem);
-  display: grid;
-  width: min(22rem, calc(100vw - 2rem));
-  min-width: 15rem;
-  padding: 0.35rem;
-  border: 1px solid #34506f;
-  border-radius: 0.7rem;
-  background: #102238;
-  box-shadow: 0 1rem 2rem #0006;
-}
 .app-footer {
   display: flex;
   flex: 0 0 auto;
@@ -397,15 +360,6 @@ h2 {
   gap: var(--home-content-gap);
   margin: 0;
 }
-.quiz-option-section {
-  display: contents;
-}
-.quiz-option-section h2 {
-  grid-column: 1 / -1;
-  margin: 0.5rem 0 -0.25rem;
-  color: #dbeafe;
-  font-size: 0.95rem;
-}
 .quiz-option {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
@@ -461,9 +415,6 @@ h2 {
 }
 .quiz-option-thumbnail-non-un svg {
   fill: #5ec8e5;
-}
-.quiz-option-thumbnail-us-states svg {
-  fill: #d58a4d;
 }
 .quiz-option-thumbnail img {
   object-fit: contain;
@@ -1105,15 +1056,6 @@ input {
   height: auto;
   background: #10233c;
 }
-.regional-map {
-  background: #10233c;
-}
-.regional-state-borders path {
-  fill: #294866;
-  stroke: #7fa6c4;
-  stroke-width: 0.45;
-  vector-effect: non-scaling-stroke;
-}
 .diagnostics-control {
   display: grid;
   gap: 0.1rem;
@@ -1149,13 +1091,6 @@ input {
 }
 .active-fill path {
   fill: var(--attempt-color, #f59e0b);
-}
-.regional-map .active-fill path {
-  pointer-events: auto;
-  cursor: pointer;
-}
-.map-stage .map-frame:has(.regional-map) {
-  aspect-ratio: 7 / 4;
 }
 .map-callout {
   pointer-events: none;
@@ -1302,13 +1237,6 @@ input {
     top: 5.2rem;
     right: var(--page-gutter);
     left: var(--page-gutter);
-    width: auto;
-    min-width: 0;
-  }
-  .quiz-submenu-popover {
-    top: calc(100% + 0.25rem);
-    right: 0;
-    left: 0;
     width: auto;
     min-width: 0;
   }

@@ -64,7 +64,6 @@ if (insetSourceSha256 !== INSET_SOURCE_SHA256)
   );
 const insetSource = JSON.parse(insetSourceBytes);
 const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
-const usStateDefinitions = JSON.parse(fs.readFileSync('data/us-states.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 function parseCsv(text) {
   return text
@@ -630,38 +629,6 @@ if (
 const referencedSupplementalIds = new Set(
   nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
 );
-if (
-  usStateDefinitions.length !== 50 ||
-  new Set(usStateDefinitions.map(({ id }) => id)).size !== 50 ||
-  usStateDefinitions.some(
-    ({ id, name, sourceRef }) =>
-      !/^US-[A-Z]{2}$/.test(id) || !name || !sourceRef.startsWith('ne:admin1:'),
-  )
-)
-  throw new Error(
-    'US States source must contain exactly 50 explicit ISO 3166-2 state mappings',
-  );
-const usStateLocations = usStateDefinitions.map((state) => {
-  const feature = supplementalFeatures.find(
-    ({ id, source }) => id === state.sourceRef && source === 'admin1',
-  );
-  if (!feature)
-    throw new Error(
-      `US state ${state.id} must resolve to its explicit Admin-1 source ref ${state.sourceRef}`,
-    );
-  if (!feature.sourceCodes.includes(state.id))
-    throw new Error(
-      `US state ${state.id} source ref has mismatched ISO 3166-2 metadata`,
-    );
-  referencedSupplementalIds.add(state.sourceRef);
-  return {
-    id: state.id,
-    name: state.name,
-    geometryRefs: [state.sourceRef],
-    anchor: feature.anchor,
-    bounds: feature.bounds,
-  };
-});
 const playableSupplementalFeatures = supplementalFeatures.filter(({ id }) =>
   referencedSupplementalIds.has(id),
 );
@@ -670,11 +637,7 @@ if (
   new Set(locations.map((x) => x.iso3)).size !== 195
 )
   throw new Error('Catalog must contain exactly 195 unique ISO3 locations');
-const playableLocations = [
-  ...locations,
-  ...nonUnCandidates,
-  ...usStateLocations,
-];
+const playableLocations = [...locations, ...nonUnCandidates];
 const playableLocationIds = playableLocations.map(({ id }) => id);
 const mainFeatureIds = new Set(
   [...features, ...playableSupplementalFeatures].flatMap(
@@ -682,10 +645,10 @@ const mainFeatureIds = new Set(
   ),
 );
 if (
-  playableLocations.length !== 327 ||
+  playableLocations.length !== 277 ||
   new Set(playableLocationIds).size !== playableLocations.length
 )
-  throw new Error('Playable catalog must contain exactly 327 unique locations');
+  throw new Error('Playable catalog must contain exactly 277 unique locations');
 const playableLocationFeatureIds = Object.fromEntries(
   playableLocations.map((location) => [location.id, location.geometryRefs]),
 );
@@ -757,10 +720,6 @@ fs.writeFileSync(
   JSON.stringify(nonUnCandidates, null, 2) + '\n',
 );
 fs.writeFileSync(
-  'data/generated/us-states.json',
-  JSON.stringify(usStateLocations, null, 2) + '\n',
-);
-fs.writeFileSync(
   'data/generated/manifest.json',
   JSON.stringify(
     {
@@ -772,9 +731,6 @@ fs.writeFileSync(
       locations: playableLocationFeatureIds,
       nonUnCandidates: Object.fromEntries(
         nonUnCandidates.map((x) => [x.name, x.geometryRefs]),
-      ),
-      usStates: Object.fromEntries(
-        usStateLocations.map((x) => [x.id, x.geometryRefs]),
       ),
       inset: {
         sourceSha256: INSET_SOURCE_SHA256,
@@ -809,13 +765,11 @@ const insetFeatures = insetSource.features.map((feature) => {
     bounds: bounds(points),
   };
 });
-const exactInsetFeatureIds = new Set(
-  [...nonUnCandidates, ...usStateLocations].flatMap(
-    ({ geometryRefs }) => geometryRefs,
-  ),
+const nonUnInsetFeatureIds = new Set(
+  nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
 );
 const supplementalInsetFeatures = playableSupplementalFeatures
-  .filter(({ id }) => exactInsetFeatureIds.has(id))
+  .filter(({ id }) => nonUnInsetFeatureIds.has(id))
   .map((feature) => {
     const { paths, polygons } = buildGeometryFeature(
       feature.geometry,
@@ -846,11 +800,9 @@ const insetFeaturesById = new Map(
 );
 const insetLocationFeatures = Object.fromEntries(
   playableLocations.map((location) => {
-    const refs =
-      (location.id.startsWith('non-un:') || location.id.startsWith('US-')) &&
-      location.geometryRefs?.length
-        ? location.geometryRefs
-        : (insetFeaturesByKey.get(location.iso3) ?? []).map(({ id }) => id);
+    const refs = location.id.startsWith('non-un:')
+      ? location.geometryRefs
+      : (insetFeaturesByKey.get(location.iso3) ?? []).map(({ id }) => id);
     if (!refs.length || refs.some((id) => !insetFeaturesById.has(id)))
       throw new Error(
         `No exact inset feature for every geometry ref in ${location.id}`,
@@ -881,12 +833,10 @@ const inset = {
       'Inset boundaries are shown for gameplay visualization and do not imply endorsement of any boundary claim.',
   },
   selection: {
-    rule: 'all quiz-eligible catalog locations plus every exact supplemental feature referenced by a Non-UN candidate or US state',
-    catalogLocations:
-      locations.length + nonUnCandidates.length + usStateLocations.length,
+    rule: 'all quiz-eligible catalog locations plus every exact supplemental feature referenced by a Non-UN candidate',
+    catalogLocations: locations.length + nonUnCandidates.length,
     standardLocations: locations.length,
     nonUnCandidates: nonUnCandidates.length,
-    usStates: usStateLocations.length,
     neighborPaddingProjectedUnits: 24,
   },
   sourceFeatureIds: insetFeatures.map(({ id }) => id),
@@ -914,7 +864,6 @@ execFileSync(
     'data/generated/map.json',
     'data/generated/quiz.json',
     'data/generated/non-un-candidates.json',
-    'data/generated/us-states.json',
     'data/generated/inset.json',
   ],
   { stdio: 'ignore' },
