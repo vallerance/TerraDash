@@ -50,7 +50,6 @@ main.standalone-page {
 main.app-shell:has(.active-player) {
   height: 100dvh;
   overflow: hidden;
-  row-gap: var(--map-stage-header-gap);
 }
 .app-header {
   display: flex;
