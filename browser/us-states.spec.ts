@@ -315,7 +315,7 @@ for (const viewport of [
     page,
   }, testInfo) => {
     await page.setViewportSize(viewport);
-    await page.goto('/TerraDash/diagnostics.html?location=US-MA');
+    await page.goto('/TerraDash/diagnostics.html?location=US-RI');
     const map = page.locator('.world-map');
     const contextPath = map.locator(
       '.callout-context [data-layer-id="US-MA"] path',
