@@ -1,5 +1,4 @@
-import catalog from '../data/generated/catalog.json';
-import candidates from '../data/generated/non-un-candidates.json';
+import locations from '../data/generated/locations.json';
 
 export type RenderLocation = {
   id: string;
@@ -10,8 +9,5 @@ export type RenderLocation = {
 };
 
 export function mapLocationForQuizId(id: string): RenderLocation | undefined {
-  const location =
-    catalog.find((location) => location.id === id) ??
-    candidates.find((location) => location.id === id);
-  return location;
+  return locations.find((location) => location.id === id);
 }

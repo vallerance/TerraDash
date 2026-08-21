@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 const catalog = JSON.parse(fs.readFileSync('data/generated/catalog.json'));
 const quiz = JSON.parse(fs.readFileSync('data/generated/quiz.json'));
+const quizzes = JSON.parse(fs.readFileSync('data/quizzes.json'));
+const locations = JSON.parse(fs.readFileSync('data/generated/locations.json'));
 const map = JSON.parse(fs.readFileSync('data/generated/map.json'));
 const candidates = JSON.parse(
   fs.readFileSync('data/generated/non-un-candidates.json'),
@@ -68,6 +70,30 @@ const insetSource = JSON.parse(
 const ids = new Set(catalog.map((item) => item.id));
 const playable = [...catalog, ...candidates];
 const playableIds = new Set(playable.map((item) => item.id));
+const locationIds = new Set(locations.map((item) => item.id));
+if (locations.length !== locationIds.size)
+  throw new Error('Generated location registry contains duplicate IDs');
+for (const definition of quizzes) {
+  if (!Array.isArray(definition.locationIds))
+    throw new Error(`Quiz ${definition.id} must declare locationIds`);
+  if (
+    new Set(definition.locationIds).size !== definition.locationIds.length ||
+    definition.locationIds.some((id) => !locationIds.has(id))
+  )
+    throw new Error(`Quiz ${definition.id} has invalid locationIds`);
+  const mapConfig = definition.map;
+  if (!mapConfig) continue;
+  for (const id of mapConfig.baseLayerLocationIds ?? [])
+    if (!locationIds.has(id) || !definition.locationIds.includes(id))
+      throw new Error(
+        `Quiz ${definition.id} has invalid base layer location ${id}`,
+      );
+  for (const id of mapConfig.contextFeatureExclusions ?? [])
+    if (!map.features[id])
+      throw new Error(
+        `Quiz ${definition.id} excludes unknown context feature ${id}`,
+      );
+}
 if (catalog.length !== 195 || ids.size !== 195)
   throw new Error('Expected 195 unique catalog entries');
 if (new Set(catalog.map((item) => item.iso3)).size !== 195)

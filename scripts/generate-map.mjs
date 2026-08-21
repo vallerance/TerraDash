@@ -64,6 +64,7 @@ if (insetSourceSha256 !== INSET_SOURCE_SHA256)
   );
 const insetSource = JSON.parse(insetSourceBytes);
 const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
+const quizLocations = JSON.parse(fs.readFileSync('data/quiz-locations.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 function parseCsv(text) {
   return text
@@ -718,6 +719,18 @@ fs.writeFileSync(
 fs.writeFileSync(
   'data/generated/non-un-candidates.json',
   JSON.stringify(nonUnCandidates, null, 2) + '\n',
+);
+fs.writeFileSync(
+  'data/generated/quiz-locations.json',
+  JSON.stringify(quizLocations, null, 2) + '\n',
+);
+fs.writeFileSync(
+  'data/generated/locations.json',
+  JSON.stringify(
+    [...locations, ...nonUnCandidates, ...quizLocations],
+    null,
+    2,
+  ) + '\n',
 );
 fs.writeFileSync(
   'data/generated/manifest.json',
