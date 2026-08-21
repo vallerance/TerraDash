@@ -74,13 +74,6 @@
     "bounds": [460.49, 230.45, 461.3, 230.97]
   },
   {
-    "id": "non-un:bolzano-south-tyrol",
-    "name": "Bolzano / South Tyrol",
-    "geometryRefs": ["ne:admin1:1159310921"],
-    "anchor": [761.81, 171.66],
-    "bounds": [761.81, 171.66, 769.88, 175.1]
-  },
-  {
     "id": "non-un:bonaire-sint-eustatius-and-saba",
     "name": "Bonaire, Sint Eustatius and Saba",
     "geometryRefs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"],
@@ -639,13 +632,6 @@
     ],
     "anchor": [30.05, 394.25],
     "bounds": [30.06, 394.26, 35.24, 397.43]
-  },
-  {
-    "id": "non-un:trentino",
-    "name": "Trentino",
-    "geometryRefs": ["ne:admin1:1159316949"],
-    "anchor": [762.1, 173.91],
-    "bounds": [762.1, 173.91, 767.89, 177.2]
   },
   {
     "id": "non-un:trentino-alto-adige-su-dtirol",

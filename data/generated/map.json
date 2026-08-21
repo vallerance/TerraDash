@@ -687,7 +687,6 @@
       "ne:map-subunit:1159321189"
     ],
     "non-un:bermuda": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"],
-    "non-un:bolzano-south-tyrol": ["ne:admin1:1159310921"],
     "non-un:bonaire-sint-eustatius-and-saba": [
       "ne:map-unit:1159321107",
       "ne:map-subunit:1159321107"
@@ -911,7 +910,6 @@
       "ne:map-unit:1159321137",
       "ne:map-subunit:1159321137"
     ],
-    "non-un:trentino": ["ne:admin1:1159316949"],
     "non-un:trentino-alto-adige-su-dtirol": [
       "ne:admin1:1159310921",
       "ne:admin1:1159316949"
