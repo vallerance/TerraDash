@@ -44,6 +44,7 @@ const SUPPLEMENTAL_SOURCES = [
   },
   {
     id: 'usa-adm1',
+    emit: false,
     prefix: 'gb',
     path: 'data/source/geoBoundaries-USA-ADM1_simplified.geojson',
     url: 'https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson',
@@ -87,6 +88,22 @@ const naturalEarthAdm1 = checkedSourceBytes(
 const expectedUsaOverrideCount = naturalEarthAdm1.features.filter((feature) =>
   usaAdm1ByIso.has(feature.properties.iso_3166_2),
 ).length;
+const unmatchedUsaSourceIds = usaAdm1.features
+  .filter(
+    (feature) =>
+      !naturalEarthAdm1.features.some(
+        (candidate) =>
+          candidate.properties.iso_3166_2 === feature.properties.shapeISO,
+      ),
+  )
+  .map((feature) => feature.properties.shapeISO);
+if (
+  JSON.stringify(unmatchedUsaSourceIds) !==
+  JSON.stringify(['SU-SD', 'US-AS', 'US-VI', 'US-GU', 'US-MP'])
+)
+  throw new Error(
+    `USA ADM1 unmatched source scope drift: ${unmatchedUsaSourceIds.join(', ')}`,
+  );
 function parseCsv(text) {
   return text
     .trim()
@@ -381,7 +398,9 @@ const features = source.features.map((feature) => {
     }),
   };
 });
-const supplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap((definition) =>
+const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
+  ({ emit = true }) => emit,
+).flatMap((definition) =>
   checkedSourceBytes(definition).features.map((feature) => {
     const p = feature.properties;
     const preferred = usaAdm1ByIso.get(p.iso_3166_2);
@@ -773,6 +792,7 @@ fs.writeFileSync(
       supplementalSources: SUPPLEMENTAL_SOURCES,
       geometrySourceOverrides: {
         'gb:usa-adm1': usaGeometryOverrides.map(({ id }) => id),
+        'gb:usa-adm1-unmatched': unmatchedUsaSourceIds,
       },
       generatedAt: 'deterministic',
       featureIds: Object.keys(map.features),
