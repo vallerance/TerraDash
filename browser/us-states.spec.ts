@@ -187,7 +187,7 @@ for (const viewport of [
 ]) {
   test(`keeps context and RI magnifier visible on ${viewport.name}`, async ({
     page,
-  }) => {
+  }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.goto('/TerraDash/diagnostics.html?location=US-RI');
     const map = page.locator('.world-map');
@@ -215,6 +215,10 @@ for (const viewport of [
     expect(selectedBox!.x).toBeLessThan(calloutBox!.x + calloutBox!.width);
     expect(selectedBox!.y + selectedBox!.height).toBeGreaterThan(calloutBox!.y);
     expect(selectedBox!.y).toBeLessThan(calloutBox!.y + calloutBox!.height);
+    await page.screenshot({
+      path: testInfo.outputPath(`us-states-ri-callout-${viewport.name}.png`),
+      fullPage: true,
+    });
   });
 }
 
