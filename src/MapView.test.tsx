@@ -58,6 +58,17 @@ function renderState(id: string) {
   return frame;
 }
 
+function expectActiveStatePaths(frame: HTMLElement, id: string) {
+  const active = quizLocations.find((entry) => entry.id === id)!;
+  const rendered = [...frame.querySelectorAll('.active-fill path')];
+  expect(rendered.map((path) => path.getAttribute('d'))).toEqual(
+    highlightedGeometryPaths(active.geometryRefs),
+  );
+  expect(
+    rendered.every((path) => path.getAttribute('data-location-id') === id),
+  ).toBe(true);
+}
+
 describe('mapped quiz layer contract', () => {
   it('renders configured context, selectable state target, and shared tiny callout', () => {
     const frame = renderState('US-RI');
@@ -65,9 +76,7 @@ describe('mapped quiz layer contract', () => {
       '10 35 500 295',
     );
     expect(frame.querySelectorAll('.map-base-layers > g')).toHaveLength(50);
-    expect(
-      frame.querySelectorAll('.active-fill path[data-location-id]'),
-    ).toHaveLength(1);
+    expectActiveStatePaths(frame, 'US-RI');
     expect(frame.querySelector('.map-callout')).toBeTruthy();
     expect(frame.querySelector('.callout-selected')).toBeTruthy();
   });
@@ -75,9 +84,7 @@ describe('mapped quiz layer contract', () => {
   it('keeps the shared large-region callout threshold bypass', () => {
     const frame = renderState('US-TX');
     expect(frame.querySelector('.map-callout')).toBeNull();
-    expect(
-      frame.querySelectorAll('.active-fill path[data-location-id]'),
-    ).toHaveLength(1);
+    expectActiveStatePaths(frame, 'US-TX');
   });
 });
 
