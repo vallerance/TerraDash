@@ -495,7 +495,7 @@ export function QuizPlayer({
             <circle cx="188" cy="34" r="4" />
           </svg>
         </div>
-        <h1 id="start-title">Name every place on the map.</h1>
+        <h1 id="start-title">Name every place on the map</h1>
         <ul className="home-guidance" aria-label="How TerraDash works">
           <li>Choose a quiz</li>
           <li>Identify every location with three attempts each</li>

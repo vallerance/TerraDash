@@ -66,6 +66,21 @@ function renderPlayer(
 }
 
 describe('QuizPlayer integration', () => {
+  it('centers the home introduction while preserving left-aligned guidance', () => {
+    const options: QuizOption[] = [
+      { id: 'world', name: 'World UN Countries', locationIds: ['iso:AAA'] },
+    ];
+    const container = renderPlayer(catalog, options);
+    const home = container.querySelector('.home-page')!;
+    const heading = home.querySelector('h1')!;
+    const guidance = home.querySelector('.home-guidance')!;
+
+    expect(heading.textContent).toBe('Name every place on the map');
+    expect(heading.textContent).not.toContain('.');
+    expect(guidance.tagName).toBe('UL');
+    expect(guidance.textContent).toContain('Choose a quiz');
+  });
+
   it('scopes suggestions to the active quiz while retaining the full map catalog', async () => {
     const container = document.createElement('div');
     document.body.append(container);
