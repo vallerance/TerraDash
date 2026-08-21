@@ -189,7 +189,10 @@ export function MapView({
     projectMapY(cutoutCenter[1]),
   ];
   const projectedSourceCenter: [number, number] = positionedCallout
-    ? [positionedCallout.sourceCenter[0], projectMapY(positionedCallout.sourceCenter[1])]
+    ? [
+        positionedCallout.sourceCenter[0],
+        projectMapY(positionedCallout.sourceCenter[1]),
+      ]
     : [0, 0];
   const projectedLeaderLines = leaderLines.map((line) => ({
     ...line,
@@ -264,62 +267,64 @@ export function MapView({
       />
       <g className="map-projection" transform={projectionTransform}>
         <g className="countries">
-        {layer.contextFeatureIds.map((id) => {
-          const feature = map.features[id as keyof typeof map.features];
-          const copies = wrappedPathCopies(feature.paths);
-          return (
-            <g
-              key={id}
-              data-feature-id={id}
-              aria-hidden="true"
-              className={
-                active.geometryRefs.includes(id) ? 'country active' : 'country'
-              }
-            >
-              {copies.map(({ path, transform }, index) => (
-                <path
-                  key={`${transform}:${index}`}
-                  d={path}
-                  transform={`translate(${transform} 0)`}
-                />
-              ))}
-            </g>
-          );
-        })}
-      </g>
-      {layer.baseLayers.length > 0 && (
-        <g className="map-base-layers" aria-hidden="true">
-          {layer.baseLayers.map((baseLayer) => (
-            <g key={baseLayer.id} data-layer-id={baseLayer.id}>
-              {wrappedPathCopies(baseLayer.paths).map(
-                ({ path, transform }, index) => (
+          {layer.contextFeatureIds.map((id) => {
+            const feature = map.features[id as keyof typeof map.features];
+            const copies = wrappedPathCopies(feature.paths);
+            return (
+              <g
+                key={id}
+                data-feature-id={id}
+                aria-hidden="true"
+                className={
+                  active.geometryRefs.includes(id)
+                    ? 'country active'
+                    : 'country'
+                }
+              >
+                {copies.map(({ path, transform }, index) => (
                   <path
-                    key={`${baseLayer.id}:${transform}:${index}`}
+                    key={`${transform}:${index}`}
                     d={path}
                     transform={`translate(${transform} 0)`}
                   />
-                ),
-              )}
-            </g>
+                ))}
+              </g>
+            );
+          })}
+        </g>
+        {layer.baseLayers.length > 0 && (
+          <g className="map-base-layers" aria-hidden="true">
+            {layer.baseLayers.map((baseLayer) => (
+              <g key={baseLayer.id} data-layer-id={baseLayer.id}>
+                {wrappedPathCopies(baseLayer.paths).map(
+                  ({ path, transform }, index) => (
+                    <path
+                      key={`${baseLayer.id}:${transform}:${index}`}
+                      d={path}
+                      transform={`translate(${transform} 0)`}
+                    />
+                  ),
+                )}
+              </g>
+            ))}
+          </g>
+        )}
+        <g
+          className="active-fill"
+          aria-hidden={layer.selectable ? undefined : true}
+        >
+          {activePathCopies.map(({ path, transform }, index) => (
+            <path
+              key={`${transform}:${index}`}
+              d={path}
+              transform={`translate(${transform} 0)`}
+              data-location-id={layer.selectable ? active.id : undefined}
+              role={layer.selectable ? 'button' : undefined}
+              tabIndex={layer.selectable ? 0 : undefined}
+              aria-label={layer.selectable ? active.name : undefined}
+            />
           ))}
         </g>
-      )}
-      <g
-        className="active-fill"
-        aria-hidden={layer.selectable ? undefined : true}
-      >
-        {activePathCopies.map(({ path, transform }, index) => (
-          <path
-            key={`${transform}:${index}`}
-            d={path}
-            transform={`translate(${transform} 0)`}
-            data-location-id={layer.selectable ? active.id : undefined}
-            role={layer.selectable ? 'button' : undefined}
-            tabIndex={layer.selectable ? 0 : undefined}
-            aria-label={layer.selectable ? active.name : undefined}
-          />
-        ))}
-      </g>
         <g className="active-outline" aria-hidden="true">
           {activePathCopies.map(({ path, transform }, index) => (
             <path
@@ -363,68 +368,71 @@ export function MapView({
                 width={insetViewBox.size}
                 height={insetViewBox.size}
               />
-              <g className="callout-inset-projection" transform={insetProjectionTransform}>
-              {inset.sourceFeatureIds.map((id) => {
-                const feature =
-                  inset.features[id as keyof typeof inset.features];
-                return (
-                  <g key={id} className="country">
-                    {wrappedInsetPathCopies(feature.paths).map(
-                      ({ path, transform }, index) => (
+              <g
+                className="callout-inset-projection"
+                transform={insetProjectionTransform}
+              >
+                {inset.sourceFeatureIds.map((id) => {
+                  const feature =
+                    inset.features[id as keyof typeof inset.features];
+                  return (
+                    <g key={id} className="country">
+                      {wrappedInsetPathCopies(feature.paths).map(
+                        ({ path, transform }, index) => (
+                          <path
+                            key={`${id}:${transform}:${index}`}
+                            d={path}
+                            transform={`translate(${transform} 0)`}
+                          />
+                        ),
+                      )}
+                    </g>
+                  );
+                })}
+                {layer.baseLayers.length > 0 && (
+                  <g className="callout-context">
+                    {layer.baseLayers.map((baseLayer) => (
+                      <g
+                        key={baseLayer.id}
+                        className="country"
+                        data-layer-id={baseLayer.id}
+                      >
+                        {wrappedInsetPathCopies(
+                          insetGeometryPaths(baseLayer.id),
+                        ).map(({ path, transform }, index) => (
+                          <path
+                            key={`${baseLayer.id}:${transform}:${index}`}
+                            d={path}
+                            transform={`translate(${transform} 0)`}
+                          />
+                        ))}
+                      </g>
+                    ))}
+                  </g>
+                )}
+                <g className="callout-selected">
+                  {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
+                    wrappedInsetPathCopies([path]).map(
+                      ({ path: wrappedPath, transform }, index) => (
                         <path
-                          key={`${id}:${transform}:${index}`}
-                          d={path}
+                          key={`${pathIndex}:${kind}:${transform}:${index}`}
+                          className={`inset-selected-${kind}`}
+                          d={wrappedPath}
                           transform={`translate(${transform} 0)`}
+                          fillRule="evenodd"
                         />
                       ),
-                    )}
-                  </g>
-                );
-              })}
-              {layer.baseLayers.length > 0 && (
-                <g className="callout-context">
-                  {layer.baseLayers.map((baseLayer) => (
-                    <g
-                      key={baseLayer.id}
-                      className="country"
-                      data-layer-id={baseLayer.id}
-                    >
-                      {wrappedInsetPathCopies(
-                        insetGeometryPaths(baseLayer.id),
-                      ).map(({ path, transform }, index) => (
-                        <path
-                          key={`${baseLayer.id}:${transform}:${index}`}
-                          d={path}
-                          transform={`translate(${transform} 0)`}
-                        />
-                      ))}
-                    </g>
-                  ))}
-                </g>
-              )}
-              <g className="callout-selected">
-                {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
-                  wrappedInsetPathCopies([path]).map(
-                    ({ path: wrappedPath, transform }, index) => (
-                      <path
-                        key={`${pathIndex}:${kind}:${transform}:${index}`}
-                        className={`inset-selected-${kind}`}
-                        d={wrappedPath}
-                        transform={`translate(${transform} 0)`}
-                        fillRule="evenodd"
-                      />
                     ),
-                  ),
-                )}
-                {insetDot && insetDotCenter && (
-                  <circle
-                    className="inset-selected-dot"
-                    cx={insetDotCenter[0]}
-                    cy={insetDotCenter[1]}
-                    r={insetDot.diameter / 2 / insetRenderedScale}
-                  />
-                )}
-              </g>
+                  )}
+                  {insetDot && insetDotCenter && (
+                    <circle
+                      className="inset-selected-dot"
+                      cx={insetDotCenter[0]}
+                      cy={insetDotCenter[1]}
+                      r={insetDot.diameter / 2 / insetRenderedScale}
+                    />
+                  )}
+                </g>
               </g>
             </svg>
           </g>

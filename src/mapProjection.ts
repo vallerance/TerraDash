@@ -1,6 +1,8 @@
 export function standardParallelYScale(standardParallel: number) {
   if (!Number.isFinite(standardParallel) || Math.abs(standardParallel) >= 90)
-    throw new Error('standardParallel must be a finite latitude between -90 and 90 degrees');
+    throw new Error(
+      'standardParallel must be a finite latitude between -90 and 90 degrees',
+    );
   return 1 / Math.cos((standardParallel * Math.PI) / 180);
 }
 

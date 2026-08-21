@@ -13,7 +13,9 @@ describe('equirectangular standard parallel rendering', () => {
   });
 
   it('uses the secant of the standard parallel as the equivalent north-south scale', () => {
-    expect(standardParallelYScale(38)).toBeCloseTo(1 / Math.cos((38 * Math.PI) / 180));
+    expect(standardParallelYScale(38)).toBeCloseTo(
+      1 / Math.cos((38 * Math.PI) / 180),
+    );
     expect(projectYForStandardParallel(100, 38, 200)).toBeLessThan(100);
     expect(projectYForStandardParallel(300, 38, 200)).toBeGreaterThan(300);
   });
