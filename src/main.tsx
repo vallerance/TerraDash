@@ -59,6 +59,9 @@ export function MapView({
   const [viewportWidth, setViewportWidth] = useState(map.width);
   const [viewportHeight, setViewportHeight] = useState(map.height);
   const highlightedPaths = highlightedGeometryPaths(active.geometryRefs);
+  const activeCopies = regionalMap
+    ? highlightedPaths.map((path) => ({ path, transform: 0 }))
+    : wrappedPathCopies(highlightedPaths);
   const insetSelectedPaths = selectedInsetGeometryPaths(
     active.id,
     active.geometryRefs,
@@ -253,30 +256,26 @@ export function MapView({
         </g>
       )}
       <g className="active-fill" aria-hidden={regionalMap ? undefined : true}>
-        {wrappedPathCopies(highlightedPaths).map(
-          ({ path, transform }, index) => (
-            <path
-              key={`${transform}:${index}`}
-              d={path}
-              transform={`translate(${transform} 0)`}
-              data-location-id={regionalMap ? active.id : undefined}
-              role={regionalMap ? 'button' : undefined}
-              tabIndex={regionalMap ? 0 : undefined}
-              aria-label={regionalMap ? active.name : undefined}
-            />
-          ),
-        )}
+        {activeCopies.map(({ path, transform }, index) => (
+          <path
+            key={`${transform}:${index}`}
+            d={path}
+            transform={`translate(${transform} 0)`}
+            data-location-id={regionalMap ? active.id : undefined}
+            role={regionalMap ? 'button' : undefined}
+            tabIndex={regionalMap ? 0 : undefined}
+            aria-label={regionalMap ? active.name : undefined}
+          />
+        ))}
       </g>
       <g className="active-outline" aria-hidden="true">
-        {wrappedPathCopies(highlightedPaths).map(
-          ({ path, transform }, index) => (
-            <path
-              key={`${transform}:${index}`}
-              d={path}
-              transform={`translate(${transform} 0)`}
-            />
-          ),
-        )}
+        {activeCopies.map(({ path, transform }, index) => (
+          <path
+            key={`${transform}:${index}`}
+            d={path}
+            transform={`translate(${transform} 0)`}
+          />
+        ))}
       </g>
       {callout && displayedCallout && (
         <g className="map-callout" aria-hidden="true">
