@@ -462,6 +462,9 @@ h2 {
 .quiz-option-thumbnail-non-un svg {
   fill: #5ec8e5;
 }
+.quiz-option-thumbnail-us-states svg {
+  fill: #d58a4d;
+}
 .quiz-option-thumbnail img {
   object-fit: contain;
   padding: 0.75rem;
@@ -1104,6 +1107,12 @@ input {
 }
 .regional-map {
   background: #10233c;
+}
+.regional-state-borders path {
+  fill: #294866;
+  stroke: #7fa6c4;
+  stroke-width: 0.45;
+  vector-effect: non-scaling-stroke;
 }
 .diagnostics-control {
   display: grid;

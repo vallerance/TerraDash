@@ -46,3 +46,27 @@ test('regional submenu is keyboard accessible and viewport-contained', async ({
     'US States',
   ]);
 });
+
+for (const viewport of [
+  { name: 'wide', width: 1440, height: 900 },
+  { name: 'tablet', width: 768, height: 900 },
+  { name: 'mobile', width: 390, height: 844 },
+]) {
+  test(`captures the complete US States map on ${viewport.name}`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({
+      width: viewport.width,
+      height: viewport.height,
+    });
+    await page.goto('/TerraDash/?quiz=us-states&start=1');
+    await expect(page.locator('.active-player')).toBeVisible();
+    const map = page.locator('.regional-map');
+    await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+    await expect(map.locator('.regional-state-borders path')).toHaveCount(50);
+    await page.screenshot({
+      path: testInfo.outputPath(`us-states-${viewport.name}.png`),
+      fullPage: true,
+    });
+  });
+}
