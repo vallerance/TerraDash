@@ -46,9 +46,9 @@ const SUPPLEMENTAL_SOURCES = [
     id: 'usa-adm1',
     emit: false,
     prefix: 'gb',
-    path: 'data/source/geoBoundaries-USA-ADM1_simplified.geojson',
+    path: 'data/source/geoBoundaries-USA-MI-WI.geojson',
     url: 'https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson',
-    sha256: '9d7a32244a5c3c2868d039355db2fdd9eb903ef255cfda128decd20bedc0dfbe',
+    sha256: '766e551ce9f4b717b7d84024da8f577c53c46da767d240e777dbb0f2e293356b',
     license: 'Public domain',
     attribution: 'geoBoundaries v6.0.0 (source: United States Census Bureau)',
   },
@@ -79,6 +79,13 @@ const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 const usaAdm1 = checkedSourceBytes(
   SUPPLEMENTAL_SOURCES.find(({ id }) => id === 'usa-adm1'),
 );
+const expectedUsaOverrideCodes = ['US-MI', 'US-WI'];
+if (
+  JSON.stringify(
+    usaAdm1.features.map(({ properties }) => properties.shapeISO),
+  ) !== JSON.stringify(expectedUsaOverrideCodes)
+)
+  throw new Error('USA ADM1 override scope must be exactly US-MI and US-WI');
 const usaAdm1ByIso = new Map(
   usaAdm1.features.map((feature) => [feature.properties.shapeISO, feature]),
 );
@@ -97,10 +104,7 @@ const unmatchedUsaSourceIds = usaAdm1.features
       ),
   )
   .map((feature) => feature.properties.shapeISO);
-if (
-  JSON.stringify(unmatchedUsaSourceIds) !==
-  JSON.stringify(['SU-SD', 'US-AS', 'US-VI', 'US-GU', 'US-MP'])
-)
+if (JSON.stringify(unmatchedUsaSourceIds) !== JSON.stringify([]))
   throw new Error(
     `USA ADM1 unmatched source scope drift: ${unmatchedUsaSourceIds.join(', ')}`,
   );
