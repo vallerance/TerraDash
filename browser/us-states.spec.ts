@@ -96,6 +96,7 @@ test('keeps the reported wide US States composition inside its layout bands', as
 
   const map = page.locator('.regional-map');
   await expect(map).toHaveAttribute('viewBox', '10 35 500 295');
+  await expect(map).toHaveAttribute('preserveAspectRatio', 'none');
   await expect(map.locator('.regional-state-borders > g')).toHaveCount(50);
   await page.screenshot({
     path: testInfo.outputPath('us-states-layout-1777x1171.png'),

@@ -19,7 +19,7 @@ import {
   type PanelPlacement,
   unionRects,
 } from './panelPlacement';
-import { mapWidthForStage, US_STATES_MAP_ASPECT_RATIO } from './mapLayout';
+import { mapWidthForStage } from './mapLayout';
 import { resultMoodForScore } from './resultMood';
 import { MapBoxShell } from './MapBoxShell';
 import type { QuizOption } from './quizContracts';
@@ -693,9 +693,6 @@ export function QuizPlayer({
       aria-labelledby="quiz-title"
     >
       <MapBoxShell
-        mapAspectRatio={
-          quizId === 'us-states' ? US_STATES_MAP_ASPECT_RATIO : undefined
-        }
         prompt={
           <>
             <div className="quiz-prompt">

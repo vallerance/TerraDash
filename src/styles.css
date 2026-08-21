@@ -1106,6 +1106,7 @@ input {
   background: #10233c;
 }
 .regional-map {
+  height: 100%;
   background: #10233c;
 }
 .regional-state-borders path {
@@ -1153,9 +1154,6 @@ input {
 .regional-map .active-fill path {
   pointer-events: auto;
   cursor: pointer;
-}
-.map-stage .map-frame:has(.regional-map) {
-  aspect-ratio: 500 / 295;
 }
 .map-callout {
   pointer-events: none;
