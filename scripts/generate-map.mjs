@@ -252,71 +252,9 @@ function exactRingPath(points) {
     'Z'
   );
 }
-function splitDisconnectedRing(ring) {
-  const points = cleanRing(ring);
-  if (points.length < 100) return [ring];
-
-  let centroids = [
-    points.reduce((best, point) => (point[1] < best[1] ? point : best)),
-    points.reduce((best, point) => (point[1] > best[1] ? point : best)),
-  ];
-  for (let iteration = 0; iteration < 20; iteration += 1) {
-    const groups = [[], []];
-    for (const point of points) {
-      const group =
-        Math.hypot(point[0] - centroids[0][0], point[1] - centroids[0][1]) <
-        Math.hypot(point[0] - centroids[1][0], point[1] - centroids[1][1])
-          ? 0
-          : 1;
-      groups[group].push(point);
-    }
-    centroids = groups.map((group) =>
-      group.reduce(
-        ([x, y], [nextX, nextY]) => [
-          x + nextX / group.length,
-          y + nextY / group.length,
-        ],
-        [0, 0],
-      ),
-    );
-  }
-
-  const labels = points.map((point) =>
-    Math.hypot(point[0] - centroids[0][0], point[1] - centroids[0][1]) <
-    Math.hypot(point[0] - centroids[1][0], point[1] - centroids[1][1])
-      ? 0
-      : 1,
-  );
-  const transitions = labels.reduce(
-    (count, label, index) =>
-      count + (label !== labels[(index + 1) % labels.length] ? 1 : 0),
-    0,
-  );
-  const centroidLatitudeGap = Math.abs(centroids[0][1] - centroids[1][1]);
-  if (transitions !== 2 || centroidLatitudeGap < 1.25) return [ring];
-
-  const start = labels.findIndex(
-    (label, index) =>
-      label !== labels[(index + labels.length - 1) % labels.length],
-  );
-  const components = [[], []];
-  for (let offset = 0; offset < points.length; offset += 1) {
-    const index = (start + offset) % points.length;
-    components[labels[index]].push(points[index]);
-  }
-  return components;
-}
-function normalizePolygon(polygon) {
-  if (polygon.length !== 1) return [polygon];
-  return splitDisconnectedRing(polygon[0]).map((ring) => [ring]);
-}
-function normalizedPolygons(geometry) {
+function insetPolygonData(geometry, featureId) {
   const polygons =
     geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
-  return polygons.flatMap(normalizePolygon);
-}
-function insetPolygonData(geometry, featureId) {
-  const polygons = normalizedPolygons(geometry);
   return polygons.map((polygon, polygonIndex) => {
     const rings = polygon.map((ring, ringIndex) => {
       const checked = validateRing(ring);
@@ -360,7 +298,8 @@ function ringPath(ring, tolerance = 0.55) {
   );
 }
 function geometryPaths(geometry, tolerance = 0.55) {
-  const polygons = normalizedPolygons(geometry);
+  const polygons =
+    geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
   return polygons.flatMap((polygon) =>
     polygon.map((ring) => ringPath(ring, tolerance)),
   );

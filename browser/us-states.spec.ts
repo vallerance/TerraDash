@@ -100,9 +100,6 @@ for (const viewport of [
       const insetPaths = await map
         .locator('.callout-inset .callout-selected path')
         .evaluateAll((paths) => paths.map((path) => path.getAttribute('d')));
-      const insetContextPaths = await map
-        .locator('.callout-inset .country path')
-        .evaluateAll((paths) => paths.map((path) => path.getAttribute('d')));
       await page.screenshot({
         path: testInfo.outputPath(
           `${id.toLowerCase()}-geometry-${viewport.name}.png`,
@@ -112,15 +109,6 @@ for (const viewport of [
       expect(mainPaths, `${id} main paths`).not.toHaveLength(0);
       if (viewport.name === 'mobile')
         expect(insetPaths, `${id} mobile inset paths`).not.toHaveLength(0);
-      if (id === 'US-MI') {
-        expect(mainPaths, `${id} main multipart paths`).toHaveLength(2);
-        if (viewport.name === 'mobile')
-          expect(insetPaths, `${id} inset multipart paths`).toHaveLength(2);
-      }
-      expect(
-        insetContextPaths.every((path) => path?.match(/M/g)?.length === 1),
-        `${id} inset context paths must remain independent subpaths`,
-      ).toBe(true);
       expect(
         [...mainPaths, ...insetPaths].some(
           (path): path is string => Boolean(path) && hasProperCrossing(path),
