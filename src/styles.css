@@ -1092,6 +1092,16 @@ input {
 .active-fill path {
   fill: var(--attempt-color, #f59e0b);
 }
+.active-fill path[data-location-id] {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.map-base-layers path {
+  fill: #294866;
+  stroke: #7fa6c4;
+  stroke-width: 0.45;
+  vector-effect: non-scaling-stroke;
+}
 .map-callout {
   pointer-events: none;
 }

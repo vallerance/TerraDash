@@ -1,70 +1,113 @@
-import catalogData from '../data/generated/catalog.json';
+import locationsData from '../data/generated/locations.json';
 import quizData from '../data/generated/quiz.json';
 import quizzesData from '../data/quizzes.json';
-import candidateData from '../data/generated/non-un-candidates.json';
 import type { CatalogLocation, QuizDefinition } from './quizEngine';
+import map from '../data/generated/map.json';
+import { highlightedGeometryPaths } from './mapGeometry';
 
-export const defaultCatalog: CatalogLocation[] = catalogData.map(
-  ({ id, name }) => ({
-    id,
-    name,
-  }),
-);
-
-export const candidateCatalog: CatalogLocation[] = candidateData.map(
-  ({ id, name }) => ({
-    id,
-    name,
-  }),
-);
-
-export const playableLocations = [...catalogData, ...candidateData];
+export const playableLocations = locationsData;
 
 export const defaultQuiz: QuizDefinition = {
   id: quizData.id,
   locationIds: [...quizData.locationIds],
 };
+export const defaultCatalog: CatalogLocation[] = defaultQuiz.locationIds.map(
+  (id) => {
+    const location = playableLocations.find(
+      (candidate) => candidate.id === id,
+    )!;
+    return { id: location.id, name: location.name };
+  },
+);
 
 export type QuizOption = QuizDefinition & {
   name: string;
   description?: string;
+  category?: 'regional';
+  map?: QuizMapInput;
 };
 
-const catalogByIso3 = new Map(
-  catalogData.map((location) => [location.iso3, location]),
-);
+export type QuizMapInput = {
+  contextFeatureExclusions?: string[];
+  baseLayerLocationIds?: string[];
+  viewBox?: string;
+  wrapActive?: boolean;
+  selectable?: boolean;
+};
+export type MapLayer = {
+  contextFeatureIds: readonly string[];
+  baseLayers: readonly { id: string; paths: string[] }[];
+  activePaths: string[];
+  wrapActive: boolean;
+  viewBox: string;
+  selectable: boolean;
+};
+
 type QuizInput = {
   id: string;
   name: string;
   description?: string;
-} & (
-  | { candidateSet: 'non-un'; locationIso3?: never; locationIds?: never }
-  | { locationIds: string[]; candidateSet?: never; locationIso3?: never }
-  | { locationIso3: string[]; candidateSet?: never; locationIds?: never }
-);
+  category?: 'regional';
+  locationIds: string[];
+  map?: QuizMapInput;
+};
 
 export const quizOptions: QuizOption[] = (quizzesData as QuizInput[]).map(
   (quiz): QuizOption => {
-    const locationIds =
-      quiz.candidateSet === 'non-un'
-        ? candidateData.map(({ id }) => id)
-        : 'locationIds' in quiz
-          ? (quiz.locationIds ?? [])
-          : quiz.locationIso3.map((iso3) => {
-              const location = catalogByIso3.get(iso3);
-              if (!location)
-                throw new Error(
-                  `Quiz location is absent from catalog: ${iso3}`,
-                );
-              return location.id;
-            });
     return {
       id: quiz.id,
       name: quiz.name,
       description: quiz.description,
-      locationIds,
+      category: quiz.category,
+      map: quiz.map,
+      locationIds: quiz.locationIds,
     };
   },
 );
+
+const defaultMap: MapLayer = {
+  contextFeatureIds: map.sourceFeatureIds,
+  baseLayers: [],
+  activePaths: [],
+  wrapActive: true,
+  viewBox: '',
+  selectable: false,
+};
+const locationsById = new Map(
+  playableLocations.map((location) => [location.id, location]),
+);
+export function mapLayerForQuiz(
+  quiz: QuizOption,
+  active: { geometryRefs: string[] },
+): MapLayer {
+  const config = quiz.map;
+  const exclusions = new Set(config?.contextFeatureExclusions ?? []);
+  return {
+    contextFeatureIds: map.sourceFeatureIds.filter((id) => !exclusions.has(id)),
+    baseLayers: (config?.baseLayerLocationIds ?? [])
+      .map((id) => locationsById.get(id))
+      .filter((location): location is (typeof playableLocations)[number] =>
+        Boolean(location),
+      )
+      .map((location) => ({
+        id: location.id,
+        paths: highlightedGeometryPaths(location.geometryRefs),
+      })),
+    activePaths: highlightedGeometryPaths(active.geometryRefs),
+    wrapActive: config?.wrapActive ?? defaultMap.wrapActive,
+    viewBox: config?.viewBox ?? defaultMap.viewBox,
+    selectable: config?.selectable ?? defaultMap.selectable,
+  };
+}
+
+export function mapLayerForLocation(active: {
+  id: string;
+  geometryRefs: string[];
+}): MapLayer {
+  const quiz = quizOptions.find((candidate) =>
+    candidate.locationIds.includes(active.id),
+  );
+  return mapLayerForQuiz(quiz ?? worldQuiz, active);
+}
 
 export const worldQuiz = quizOptions[0];
