@@ -89,8 +89,10 @@ test('keeps every active state inside the regional viewport', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/TerraDash/diagnostics.html?location=US-AL');
+  const select = page.locator('.diagnostics-control select');
   for (const id of stateIds) {
-    await page.goto(`/TerraDash/diagnostics.html?location=${id}`);
+    await select.selectOption(id);
     const map = page.locator('.regional-map');
     const mapBox = await map.boundingBox();
     const state = map
@@ -128,7 +130,6 @@ test('identifies a visible state and advances the US States quiz', async ({
 
   const input = page.getByRole('combobox', { name: 'Location name' });
   await input.fill(targetName!);
-  await page.getByRole('option', { name: targetName!, exact: true }).click();
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.locator('.status-correct strong')).toHaveText('1/1');
   await expect(page.locator('.status-remaining strong')).toHaveText('49');
