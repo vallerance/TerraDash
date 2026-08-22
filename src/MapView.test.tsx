@@ -82,9 +82,7 @@ describe('mapped quiz layer contract', () => {
     expect(
       frame.querySelector('.world-map')?.getAttribute('preserveAspectRatio'),
     ).toBe('xMidYMid meet');
-    expect(
-      frame.querySelector('.map-projection')?.getAttribute('transform'),
-    ).toContain('scale(1 1.269');
+    expect(frame.querySelector('.map-projection')).toBeNull();
     expect(frame.querySelectorAll('.map-base-layers > g')).toHaveLength(50);
     expectActiveStatePaths(frame, 'US-RI');
     expect(frame.querySelector('.map-callout')).toBeTruthy();
@@ -170,9 +168,7 @@ describe('MapView small-region callout rendering', () => {
     const worldMap = frame.querySelector('.world-map');
     expect(worldMap?.hasAttribute('preserveAspectRatio')).toBe(false);
     expect(worldMap?.getAttribute('viewBox')).toBe('-1428 0 1640 720');
-    expect(
-      worldMap?.querySelector('.map-projection')?.hasAttribute('transform'),
-    ).toBe(false);
+    expect(worldMap?.querySelector('.map-projection')).toBeNull();
     expect(worldMap?.querySelector('rect.ocean')?.getAttribute('x')).toBe(
       '-1428',
     );
