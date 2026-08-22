@@ -12,6 +12,7 @@ import {
   selectedInsetGeometryPaths,
 } from './mapGeometry';
 import { MapView } from './main';
+import { projectPathForStandardParallel } from './mapProjection';
 import {
   mapLayerForLocation,
   mapLayerForQuiz,
@@ -63,9 +64,10 @@ function renderState(id: string) {
 function expectActiveStatePaths(frame: HTMLElement, id: string) {
   const active = quizLocations.find((entry) => entry.id === id)!;
   const rendered = [...frame.querySelectorAll('.active-fill path')];
-  expect(rendered.map((path) => path.getAttribute('d'))).toEqual(
-    highlightedGeometryPaths(active.geometryRefs),
+  const projected = highlightedGeometryPaths(active.geometryRefs).map((path) =>
+    projectPathForStandardParallel(path, 38, 182.5),
   );
+  expect(rendered.map((path) => path.getAttribute('d'))).toEqual(projected);
   expect(
     rendered.every((path) => path.getAttribute('data-location-id') === id),
   ).toBe(true);
@@ -80,9 +82,7 @@ describe('mapped quiz layer contract', () => {
     expect(
       frame.querySelector('.world-map')?.getAttribute('preserveAspectRatio'),
     ).toBe('xMidYMid meet');
-    expect(
-      frame.querySelector('.map-projection')?.getAttribute('transform'),
-    ).toContain('scale(1 1.269');
+    expect(frame.querySelector('.map-projection')).toBeNull();
     expect(frame.querySelectorAll('.map-base-layers > g')).toHaveLength(50);
     expectActiveStatePaths(frame, 'US-RI');
     expect(frame.querySelector('.map-callout')).toBeTruthy();
@@ -101,7 +101,11 @@ describe('mapped quiz layer contract', () => {
         '.callout-context [data-layer-id="US-MA"] path',
       ),
     ].map((path) => path.getAttribute('d'));
-    expect(insetNeighborPaths).toEqual(insetGeometryPaths('US-MA'));
+    expect(insetNeighborPaths).toEqual(
+      insetGeometryPaths('US-MA').map((path) =>
+        projectPathForStandardParallel(path, 38, 182.5),
+      ),
+    );
     expect(insetNeighborPaths).not.toEqual(
       highlightedGeometryPaths(
         quizLocations.find((entry) => entry.id === 'US-MA')!.geometryRefs,
@@ -164,9 +168,7 @@ describe('MapView small-region callout rendering', () => {
     const worldMap = frame.querySelector('.world-map');
     expect(worldMap?.hasAttribute('preserveAspectRatio')).toBe(false);
     expect(worldMap?.getAttribute('viewBox')).toBe('-1428 0 1640 720');
-    expect(
-      worldMap?.querySelector('.map-projection')?.hasAttribute('transform'),
-    ).toBe(false);
+    expect(worldMap?.querySelector('.map-projection')).toBeNull();
     expect(worldMap?.querySelector('rect.ocean')?.getAttribute('x')).toBe(
       '-1428',
     );

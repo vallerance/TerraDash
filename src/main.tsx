@@ -44,8 +44,9 @@ import {
   tinyInsetDot,
 } from './mapGeometry';
 import {
+  projectPathForStandardParallel,
   projectYForStandardParallel,
-  standardParallelTransform,
+  standardParallelYScale,
 } from './mapProjection';
 import './styles.css';
 
@@ -77,12 +78,29 @@ export function MapView({
   const projectionCenterY = viewportBounds
     ? (viewportBounds[2] + viewportBounds[3]) / 2
     : map.height / 2;
-  const projectionTransform = standardParallelTransform(
-    layer.standardParallel,
-    projectionCenterY,
-  );
-  const projectMapY = (y: number) =>
-    projectYForStandardParallel(y, layer.standardParallel, projectionCenterY);
+  const projectPath = (path: string) =>
+    projectPathForStandardParallel(
+      path,
+      layer.standardParallel,
+      projectionCenterY,
+    );
+  const projectedHighlightedPaths = highlightedPaths.map(projectPath);
+  const projectedInsetSelectedPaths = insetSelectedPaths.map((region) => ({
+    ...region,
+    path: projectPath(region.path),
+    center: [
+      region.center[0],
+      projectYForStandardParallel(
+        region.center[1],
+        layer.standardParallel,
+        projectionCenterY,
+      ),
+    ] as [number, number],
+    span: [
+      region.span[0],
+      region.span[1] * standardParallelYScale(layer.standardParallel),
+    ] as [number, number],
+  }));
   const seamX = mapXForLongitude(layer.seamLongitude, layer.wrapWidth);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const [renderedMapStart, renderedMapEnd] = viewportBounds
@@ -91,7 +109,7 @@ export function MapView({
   const coordinateViewportWidth = renderedMapEnd - renderedMapStart;
   const scale = viewportWidth / coordinateViewportWidth;
   const callout = deriveCalloutModel(
-    highlightedPaths,
+    projectedHighlightedPaths,
     scale,
     layer.wrapWidth,
     undefined,
@@ -161,7 +179,10 @@ export function MapView({
   const insetRenderedScale = cutoutLayout
     ? (cutoutRadius * scale) / cutoutLayout.sourceRadius
     : 0;
-  const insetDot = tinyInsetDot(insetSelectedPaths, insetRenderedScale);
+  const insetDot = tinyInsetDot(
+    projectedInsetSelectedPaths,
+    insetRenderedScale,
+  );
   const insetDotCenter = insetDot
     ? wrappedPointPositions(
         insetDot.center,
@@ -184,48 +205,31 @@ export function MapView({
         cutoutRadius,
       )
     : [];
-  const projectedCutoutCenter: [number, number] = [
-    cutoutCenter[0],
-    projectMapY(cutoutCenter[1]),
-  ];
-  const projectedSourceCenter: [number, number] = positionedCallout
-    ? [
-        positionedCallout.sourceCenter[0],
-        projectMapY(positionedCallout.sourceCenter[1]),
-      ]
-    : [0, 0];
-  const projectedLeaderLines = leaderLines.map((line) => ({
-    ...line,
-    y1: projectMapY(line.y1),
-    y2: projectMapY(line.y2),
-  }));
-  const insetProjectionTransform = standardParallelTransform(
-    layer.standardParallel,
-    insetViewBox.y + insetViewBox.size / 2,
-  );
   const wrappedPathCopies = (paths: string[]) =>
-    paths.flatMap((path) =>
-      wrappedPathOffsets(
-        [path],
+    paths.flatMap((path) => {
+      const projectedPath = projectPath(path);
+      return wrappedPathOffsets(
+        [projectedPath],
         layer.wrapWidth,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
         viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
-      ).map((transform) => ({ path, transform })),
-    );
+      ).map((transform) => ({ path: projectedPath, transform }));
+    });
   const activePathCopies = layer.wrapActive
     ? wrappedPathCopies(highlightedPaths)
-    : highlightedPaths.map((path) => ({ path, transform: 0 }));
+    : projectedHighlightedPaths.map((path) => ({ path, transform: 0 }));
   const wrappedInsetPathCopies = (paths: string[]) =>
-    paths.flatMap((path) =>
-      wrappedPathOffsets(
-        [path],
+    paths.flatMap((path) => {
+      const projectedPath = projectPath(path);
+      return wrappedPathOffsets(
+        [projectedPath],
         inset.width,
         seamX,
         MAP_OVERLAP_REFERENCE_UNITS,
         viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
-      ).map((transform) => ({ path, transform })),
-    );
+      ).map((transform) => ({ path: projectedPath, transform }));
+    });
   useEffect(() => {
     const frame = document.querySelector('.map-frame');
     if (!frame) return;
@@ -265,75 +269,71 @@ export function MapView({
         height={map.height}
         className="ocean"
       />
-      <g className="map-projection" transform={projectionTransform}>
-        <g className="countries">
-          {layer.contextFeatureIds.map((id) => {
-            const feature = map.features[id as keyof typeof map.features];
-            const copies = wrappedPathCopies(feature.paths);
-            return (
-              <g
-                key={id}
-                data-feature-id={id}
-                aria-hidden="true"
-                className={
-                  active.geometryRefs.includes(id)
-                    ? 'country active'
-                    : 'country'
-                }
-              >
-                {copies.map(({ path, transform }, index) => (
+      <g className="countries">
+        {layer.contextFeatureIds.map((id) => {
+          const feature = map.features[id as keyof typeof map.features];
+          const copies = wrappedPathCopies(feature.paths);
+          return (
+            <g
+              key={id}
+              data-feature-id={id}
+              aria-hidden="true"
+              className={
+                active.geometryRefs.includes(id) ? 'country active' : 'country'
+              }
+            >
+              {copies.map(({ path, transform }, index) => (
+                <path
+                  key={`${transform}:${index}`}
+                  d={path}
+                  transform={`translate(${transform} 0)`}
+                />
+              ))}
+            </g>
+          );
+        })}
+      </g>
+      {layer.baseLayers.length > 0 && (
+        <g className="map-base-layers" aria-hidden="true">
+          {layer.baseLayers.map((baseLayer) => (
+            <g key={baseLayer.id} data-layer-id={baseLayer.id}>
+              {wrappedPathCopies(baseLayer.paths).map(
+                ({ path, transform }, index) => (
                   <path
-                    key={`${transform}:${index}`}
+                    key={`${baseLayer.id}:${transform}:${index}`}
                     d={path}
                     transform={`translate(${transform} 0)`}
                   />
-                ))}
-              </g>
-            );
-          })}
-        </g>
-        {layer.baseLayers.length > 0 && (
-          <g className="map-base-layers" aria-hidden="true">
-            {layer.baseLayers.map((baseLayer) => (
-              <g key={baseLayer.id} data-layer-id={baseLayer.id}>
-                {wrappedPathCopies(baseLayer.paths).map(
-                  ({ path, transform }, index) => (
-                    <path
-                      key={`${baseLayer.id}:${transform}:${index}`}
-                      d={path}
-                      transform={`translate(${transform} 0)`}
-                    />
-                  ),
-                )}
-              </g>
-            ))}
-          </g>
-        )}
-        <g
-          className="active-fill"
-          aria-hidden={layer.selectable ? undefined : true}
-        >
-          {activePathCopies.map(({ path, transform }, index) => (
-            <path
-              key={`${transform}:${index}`}
-              d={path}
-              transform={`translate(${transform} 0)`}
-              data-location-id={layer.selectable ? active.id : undefined}
-              role={layer.selectable ? 'button' : undefined}
-              tabIndex={layer.selectable ? 0 : undefined}
-              aria-label={layer.selectable ? active.name : undefined}
-            />
+                ),
+              )}
+            </g>
           ))}
         </g>
-        <g className="active-outline" aria-hidden="true">
-          {activePathCopies.map(({ path, transform }, index) => (
-            <path
-              key={`${transform}:${index}`}
-              d={path}
-              transform={`translate(${transform} 0)`}
-            />
-          ))}
-        </g>
+      )}
+      <g
+        className="active-fill"
+        aria-hidden={layer.selectable ? undefined : true}
+      >
+        {activePathCopies.map(({ path, transform }, index) => (
+          <path
+            key={`${transform}:${index}`}
+            d={path}
+            transform={`translate(${transform} 0)`}
+            data-location-id={layer.selectable ? active.id : undefined}
+            role={layer.selectable ? 'button' : undefined}
+            tabIndex={layer.selectable ? 0 : undefined}
+            aria-label={layer.selectable ? active.name : undefined}
+          />
+        ))}
+      </g>
+      <g className="active-outline" aria-hidden="true">
+        {activePathCopies.map(({ path, transform }, index) => (
+          <path
+            key={`${transform}:${index}`}
+            d={path}
+            transform={`translate(${transform} 0)`}
+          />
+        ))}
       </g>
       {callout && displayedCallout && (
         <g className="map-callout" aria-hidden="true">
@@ -342,8 +342,8 @@ export function MapView({
               id={`map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')}`}
             >
               <circle
-                cx={projectedCutoutCenter[0]}
-                cy={projectedCutoutCenter[1]}
+                cx={cutoutCenter[0]}
+                cy={cutoutCenter[1]}
                 r={cutoutRadius}
               />
             </clipPath>
@@ -354,8 +354,8 @@ export function MapView({
           >
             <svg
               className="callout-inset"
-              x={projectedCutoutCenter[0] - cutoutRadius}
-              y={projectedCutoutCenter[1] - cutoutRadius}
+              x={cutoutCenter[0] - cutoutRadius}
+              y={cutoutCenter[1] - cutoutRadius}
               width={cutoutRadius * 2}
               height={cutoutRadius * 2}
               viewBox={`${insetViewBox.x} ${insetViewBox.y} ${insetViewBox.size} ${insetViewBox.size}`}
@@ -368,87 +368,82 @@ export function MapView({
                 width={insetViewBox.size}
                 height={insetViewBox.size}
               />
-              <g
-                className="callout-inset-projection"
-                transform={insetProjectionTransform}
-              >
-                {inset.sourceFeatureIds.map((id) => {
-                  const feature =
-                    inset.features[id as keyof typeof inset.features];
-                  return (
-                    <g key={id} className="country">
-                      {wrappedInsetPathCopies(feature.paths).map(
-                        ({ path, transform }, index) => (
-                          <path
-                            key={`${id}:${transform}:${index}`}
-                            d={path}
-                            transform={`translate(${transform} 0)`}
-                          />
-                        ),
-                      )}
-                    </g>
-                  );
-                })}
-                {layer.baseLayers.length > 0 && (
-                  <g className="callout-context">
-                    {layer.baseLayers.map((baseLayer) => (
-                      <g
-                        key={baseLayer.id}
-                        className="country"
-                        data-layer-id={baseLayer.id}
-                      >
-                        {wrappedInsetPathCopies(
-                          insetGeometryPaths(baseLayer.id),
-                        ).map(({ path, transform }, index) => (
-                          <path
-                            key={`${baseLayer.id}:${transform}:${index}`}
-                            d={path}
-                            transform={`translate(${transform} 0)`}
-                          />
-                        ))}
-                      </g>
-                    ))}
-                  </g>
-                )}
-                <g className="callout-selected">
-                  {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
-                    wrappedInsetPathCopies([path]).map(
-                      ({ path: wrappedPath, transform }, index) => (
+              {inset.sourceFeatureIds.map((id) => {
+                const feature =
+                  inset.features[id as keyof typeof inset.features];
+                return (
+                  <g key={id} className="country">
+                    {wrappedInsetPathCopies(feature.paths).map(
+                      ({ path, transform }, index) => (
                         <path
-                          key={`${pathIndex}:${kind}:${transform}:${index}`}
-                          className={`inset-selected-${kind}`}
-                          d={wrappedPath}
+                          key={`${id}:${transform}:${index}`}
+                          d={path}
                           transform={`translate(${transform} 0)`}
-                          fillRule="evenodd"
                         />
                       ),
-                    ),
-                  )}
-                  {insetDot && insetDotCenter && (
-                    <circle
-                      className="inset-selected-dot"
-                      cx={insetDotCenter[0]}
-                      cy={insetDotCenter[1]}
-                      r={insetDot.diameter / 2 / insetRenderedScale}
-                    />
-                  )}
+                    )}
+                  </g>
+                );
+              })}
+              {layer.baseLayers.length > 0 && (
+                <g className="callout-context">
+                  {layer.baseLayers.map((baseLayer) => (
+                    <g
+                      key={baseLayer.id}
+                      className="country"
+                      data-layer-id={baseLayer.id}
+                    >
+                      {wrappedInsetPathCopies(
+                        insetGeometryPaths(baseLayer.id),
+                      ).map(({ path, transform }, index) => (
+                        <path
+                          key={`${baseLayer.id}:${transform}:${index}`}
+                          d={path}
+                          transform={`translate(${transform} 0)`}
+                        />
+                      ))}
+                    </g>
+                  ))}
                 </g>
+              )}
+              <g className="callout-selected">
+                {insetSelectedPaths.flatMap(({ path, kind }, pathIndex) =>
+                  wrappedInsetPathCopies([path]).map(
+                    ({ path: wrappedPath, transform }, index) => (
+                      <path
+                        key={`${pathIndex}:${kind}:${transform}:${index}`}
+                        className={`inset-selected-${kind}`}
+                        d={wrappedPath}
+                        transform={`translate(${transform} 0)`}
+                        fillRule="evenodd"
+                      />
+                    ),
+                  ),
+                )}
+                {insetDot && insetDotCenter && (
+                  <circle
+                    className="inset-selected-dot"
+                    cx={insetDotCenter[0]}
+                    cy={insetDotCenter[1]}
+                    r={insetDot.diameter / 2 / insetRenderedScale}
+                  />
+                )}
               </g>
             </svg>
           </g>
           <circle
             className="callout-cutout"
-            cx={projectedCutoutCenter[0]}
-            cy={projectedCutoutCenter[1]}
+            cx={cutoutCenter[0]}
+            cy={cutoutCenter[1]}
             r={cutoutRadius}
           />
           <circle
             className="callout-source"
-            cx={projectedSourceCenter[0]}
-            cy={projectedSourceCenter[1]}
+            cx={positionedCallout!.sourceCenter[0]}
+            cy={positionedCallout!.sourceCenter[1]}
             r={cutoutLayout!.sourceRadius}
           />
-          {projectedLeaderLines.map((line, index) => (
+          {leaderLines.map((line, index) => (
             <line key={index} className="callout-leader" {...line} />
           ))}
         </g>
