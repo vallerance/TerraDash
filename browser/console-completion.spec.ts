@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
-import quizzes from '../data/quizzes.json';
+import { readFileSync } from 'node:fs';
+
+const quizzes = JSON.parse(
+  readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
+);
 
 test('completes the active quiz through the browser console command', async ({
   page,

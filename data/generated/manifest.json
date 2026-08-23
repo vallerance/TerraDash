@@ -6,50 +6,72 @@
       "id": "admin1",
       "path": "data/source/ne_10m_admin_1_states_provinces.geojson",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_1_states_provinces.geojson",
-      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5"
+      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
     },
     {
       "id": "disputed",
       "path": "data/source/ne_10m_admin_0_disputed_areas.geojson",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_disputed_areas.geojson",
-      "sha256": "9cafef8b7dfb6b164dc58f218f981f4ace9f716f6c03795d4c62d1ac9f3d50f5"
+      "sha256": "9cafef8b7dfb6b164dc58f218f981f4ace9f716f6c03795d4c62d1ac9f3d50f5",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
     },
     {
       "id": "map-unit",
       "path": "data/source/ne_10m_admin_0_map_units.geojson",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_units.geojson",
-      "sha256": "57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862"
+      "sha256": "57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
     },
     {
       "id": "map-subunit",
       "path": "data/source/ne_10m_admin_0_map_subunits.geojson",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson",
-      "sha256": "76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071"
+      "sha256": "76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
     },
     {
       "id": "aze-adm1",
-      "prefix": "gb",
       "path": "data/source/geoBoundaries-AZE-ADM1.geojson",
       "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/v6.0.0/releaseData/gbOpen/AZE/ADM1/geoBoundaries-AZE-ADM1.geojson",
       "sha256": "f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666",
+      "prefix": "gb",
       "license": "Open Data Commons Open Database License 1.0",
       "attribution": "geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)"
     },
     {
       "id": "usa-adm1",
-      "emit": false,
-      "prefix": "gb",
       "path": "data/source/geoBoundaries-USA-MI-WI.geojson",
       "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson",
       "sha256": "766e551ce9f4b717b7d84024da8f577c53c46da767d240e777dbb0f2e293356b",
+      "prefix": "gb",
+      "emit": false,
       "license": "Public domain",
       "attribution": "geoBoundaries v6.0.0 (source: United States Census Bureau)"
     }
   ],
-  "geometrySourceOverrides": {
-    "gb:usa-adm1": ["ne:admin1:1159314665", "ne:admin1:1159315321"],
-    "gb:usa-adm1-unmatched": []
-  },
+  "geometrySourceReplacements": [
+    {
+      "id": "ne:admin1:1159314665",
+      "canonicalFeatureId": "ne:admin1:1159314665",
+      "source": "usa-adm1",
+      "featureKey": "US-MI"
+    },
+    {
+      "id": "ne:admin1:1159315321",
+      "canonicalFeatureId": "ne:admin1:1159315321",
+      "source": "usa-adm1",
+      "featureKey": "US-WI"
+    }
+  ],
   "generatedAt": "deterministic",
   "featureIds": [
     "ne:1159321441",
@@ -2404,6 +2426,56 @@
     "iso:ZWE": ["ne:1159321441"],
     "iso:VAT": ["ne:1159321407"],
     "iso:PSE": ["ne:1159320899:part:0", "ne:1159320899:part:1"],
+    "US-AL": ["ne:admin1:1159315233"],
+    "US-AK": ["ne:admin1:1159308731"],
+    "US-AZ": ["ne:admin1:1159315341"],
+    "US-AR": ["ne:admin1:1159315355"],
+    "US-CA": ["ne:admin1:1159308415"],
+    "US-CO": ["ne:admin1:1159315343"],
+    "US-CT": ["ne:admin1:1159315301"],
+    "US-DE": ["ne:admin1:1159315325"],
+    "US-FL": ["ne:admin1:1159315207"],
+    "US-GA": ["ne:admin1:1159311857"],
+    "US-HI": ["ne:admin1:1159308409"],
+    "US-ID": ["ne:admin1:1159315339"],
+    "US-IL": ["ne:admin1:1159315309"],
+    "US-IN": ["ne:admin1:1159315311"],
+    "US-IA": ["ne:admin1:1159315357"],
+    "US-KS": ["ne:admin1:1159315359"],
+    "US-KY": ["ne:admin1:1159315313"],
+    "US-LA": ["ne:admin1:1159315221"],
+    "US-ME": ["ne:admin1:1159308501"],
+    "US-MD": ["ne:admin1:1159315329"],
+    "US-MA": ["ne:admin1:1159312157"],
+    "US-MI": ["ne:admin1:1159314665"],
+    "US-MN": ["ne:admin1:1159315297"],
+    "US-MS": ["ne:admin1:1159315231"],
+    "US-MO": ["ne:admin1:1159315361"],
+    "US-MT": ["ne:admin1:1159315333"],
+    "US-NE": ["ne:admin1:1159315363"],
+    "US-NV": ["ne:admin1:1159315345"],
+    "US-NH": ["ne:admin1:1159315303"],
+    "US-NJ": ["ne:admin1:1159315267"],
+    "US-NM": ["ne:admin1:1159315347"],
+    "US-NY": ["ne:admin1:1159312155"],
+    "US-NC": ["ne:admin1:1159314887"],
+    "US-ND": ["ne:admin1:1159315337"],
+    "US-OH": ["ne:admin1:1159315315"],
+    "US-OK": ["ne:admin1:1159315365"],
+    "US-OR": ["ne:admin1:1159309549"],
+    "US-PA": ["ne:admin1:1159315331"],
+    "US-RI": ["ne:admin1:1159312213"],
+    "US-SC": ["ne:admin1:1159315307"],
+    "US-SD": ["ne:admin1:1159315367"],
+    "US-TN": ["ne:admin1:1159315319"],
+    "US-TX": ["ne:admin1:1159315211"],
+    "US-UT": ["ne:admin1:1159315349"],
+    "US-VT": ["ne:admin1:1159315305"],
+    "US-VA": ["ne:admin1:1159315259"],
+    "US-WA": ["ne:admin1:1159309547"],
+    "US-WV": ["ne:admin1:1159315323"],
+    "US-WI": ["ne:admin1:1159315321"],
+    "US-WY": ["ne:admin1:1159315351"],
     "non-un:abkhazia": ["ne:disputed:1159320785"],
     "non-un:adjara": [
       "ne:admin1:1159314341",
@@ -2746,321 +2818,6 @@
       "ne:map-unit:1159320621",
       "ne:map-subunit:1159320621"
     ]
-  },
-  "nonUnCandidates": {
-    "Abkhazia": ["ne:disputed:1159320785"],
-    "Adjara": [
-      "ne:admin1:1159314341",
-      "ne:map-unit:1159320781",
-      "ne:map-subunit:1159320781"
-    ],
-    "American Samoa": [
-      "ne:disputed:1159321403",
-      "ne:map-unit:1159321357",
-      "ne:map-subunit:1159321357"
-    ],
-    "Anguilla": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"],
-    "Antarctica": [
-      "ne:admin1:1159315599",
-      "ne:map-unit:1159320335",
-      "ne:map-subunit:1159320337",
-      "ne:map-subunit:1159320343",
-      "ne:map-subunit:1159320341"
-    ],
-    "Aruba": [
-      "ne:admin1:1159315531",
-      "ne:map-unit:1159321097",
-      "ne:map-subunit:1159321097"
-    ],
-    "Azores": [
-      "ne:admin1:1159310543",
-      "ne:map-unit:1159321189",
-      "ne:map-subunit:1159321189"
-    ],
-    "Bermuda": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"],
-    "Bolzano / South Tyrol": ["ne:admin1:1159310921"],
-    "Bonaire, Sint Eustatius and Saba": [
-      "ne:map-unit:1159321107",
-      "ne:map-subunit:1159321107"
-    ],
-    "Bougainville": [
-      "ne:admin1:1159309695",
-      "ne:map-unit:1159321175",
-      "ne:map-subunit:1159321175"
-    ],
-    "Bouvet Island": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"],
-    "British Indian Ocean Territory": [
-      "ne:admin1:1159315473",
-      "ne:disputed:1159320723",
-      "ne:map-unit:1159320723",
-      "ne:map-subunit:1159320723"
-    ],
-    "British Virgin Islands": [
-      "ne:admin1:1159315557",
-      "ne:map-unit:1159320739",
-      "ne:map-subunit:1159320739"
-    ],
-    "Cayman Islands": [
-      "ne:admin1:1159315563",
-      "ne:map-unit:1159320707",
-      "ne:map-subunit:1159320707"
-    ],
-    "Christmas Island": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"],
-    "Cocos (Keeling) Islands": [
-      "ne:map-unit:1159320367",
-      "ne:map-subunit:1159320367"
-    ],
-    "Cook Islands": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"],
-    "Costa Caribe Norte": ["ne:admin1:1159309037"],
-    "Costa Caribe Sur": ["ne:admin1:1159308989"],
-    "Curaçao": [
-      "ne:admin1:1159315529",
-      "ne:map-unit:1159321099",
-      "ne:map-subunit:1159321099"
-    ],
-    "Donetsk People's Republic": ["ne:disputed:1763286545"],
-    "England": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"],
-    "Falkland Islands (Malvinas)": [
-      "ne:disputed:1159320711",
-      "ne:map-unit:1159320711",
-      "ne:map-subunit:1159320711"
-    ],
-    "Faroe Islands": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"],
-    "French Guiana": [
-      "ne:admin1:1159311355",
-      "ne:disputed:1159320683",
-      "ne:map-unit:1159320655",
-      "ne:map-subunit:1159320655"
-    ],
-    "French Polynesia": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"],
-    "French Southern Territories": [
-      "ne:disputed:1159320677",
-      "ne:disputed:1159320667",
-      "ne:disputed:1159320665",
-      "ne:disputed:1159320679",
-      "ne:disputed:1159320675",
-      "ne:map-unit:1159320631",
-      "ne:map-subunit:1159320677",
-      "ne:map-subunit:1159320669",
-      "ne:map-subunit:1159320667",
-      "ne:map-subunit:1159320665",
-      "ne:map-subunit:1159320679",
-      "ne:map-subunit:1159320675"
-    ],
-    "Friuli-Venezia Giulia": [
-      "ne:admin1:1159316967",
-      "ne:admin1:1159316965",
-      "ne:admin1:1159316969",
-      "ne:admin1:1159310919"
-    ],
-    "Gagauzia": ["ne:admin1:1159312587"],
-    "Gibraltar": [
-      "ne:admin1:1159315683",
-      "ne:disputed:1159320719",
-      "ne:map-unit:1159320719",
-      "ne:map-subunit:1159320719"
-    ],
-    "Gorno-Badakhshan": ["ne:admin1:1159308469"],
-    "Greenland": [
-      "ne:disputed:1159320559",
-      "ne:map-unit:1159320551",
-      "ne:map-subunit:1159320551"
-    ],
-    "Guadeloupe": [
-      "ne:admin1:1159315647",
-      "ne:map-unit:1159320653",
-      "ne:map-subunit:1159320653"
-    ],
-    "Guam": [
-      "ne:admin1:1159315535",
-      "ne:map-unit:1159321359",
-      "ne:map-subunit:1159321359"
-    ],
-    "Guangxi": ["ne:admin1:1159310341"],
-    "Guernsey": [
-      "ne:map-unit:1159320715",
-      "ne:map-subunit:1159320757",
-      "ne:map-subunit:1159320761",
-      "ne:map-subunit:1159320755",
-      "ne:map-subunit:1159320759"
-    ],
-    "Heard Island and McDonald Islands": [
-      "ne:admin1:1159315607",
-      "ne:map-unit:1159320361",
-      "ne:map-subunit:1159320361"
-    ],
-    "Hong Kong": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"],
-    "Inner Mongolia": ["ne:admin1:1159312757"],
-    "Isle of Man": [
-      "ne:admin1:1159315475",
-      "ne:map-unit:1159320721",
-      "ne:map-subunit:1159320721"
-    ],
-    "Jersey": [
-      "ne:admin1:1159315593",
-      "ne:map-unit:1159320725",
-      "ne:map-subunit:1159320725"
-    ],
-    "Jewish Autonomous Oblast": ["ne:admin1:1159313605"],
-    "Kosovo": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"],
-    "Luhansk People's Republic": ["ne:disputed:1763286547"],
-    "Macao": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
-    "Madeira": [
-      "ne:admin1:1159310443",
-      "ne:map-unit:1159321191",
-      "ne:map-subunit:1159321191"
-    ],
-    "Martinique": [
-      "ne:admin1:1159311599",
-      "ne:map-unit:1159320657",
-      "ne:map-subunit:1159320657"
-    ],
-    "Mayotte": [
-      "ne:admin1:1159315621",
-      "ne:disputed:1159320659",
-      "ne:map-unit:1159320659",
-      "ne:map-subunit:1159320659"
-    ],
-    "Montserrat": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"],
-    "Nakhchivan": ["gb:aze-adm1:63332228B45413776644545"],
-    "New Caledonia": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
-    "Ningxia": ["ne:admin1:1159312659"],
-    "Niue": [
-      "ne:admin1:1159315491",
-      "ne:map-unit:1159321133",
-      "ne:map-subunit:1159321133"
-    ],
-    "Norfolk Island": [
-      "ne:admin1:1159315615",
-      "ne:map-unit:1159320365",
-      "ne:map-subunit:1159320365"
-    ],
-    "North Borneo": ["ne:disputed:1763510959"],
-    "Northern Cyprus": ["ne:1159320531"],
-    "Northern Ireland": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"],
-    "Northern Mariana Islands": [
-      "ne:admin1:1159316107",
-      "ne:map-unit:1159321361",
-      "ne:map-subunit:1159321361"
-    ],
-    "Pitcairn": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"],
-    "Príncipe": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"],
-    "Puerto Rico": [
-      "ne:admin1:1159315553",
-      "ne:map-unit:1159321363",
-      "ne:map-subunit:1159321363"
-    ],
-    "Réunion": [
-      "ne:admin1:1159315617",
-      "ne:map-unit:1159320661",
-      "ne:map-subunit:1159320661"
-    ],
-    "Saint Barthélemy": [
-      "ne:admin1:1159315649",
-      "ne:map-unit:1159320633",
-      "ne:map-subunit:1159320633"
-    ],
-    "Saint Helena, Ascension and Tristan da Cunha": ["ne:map-unit:1159320733"],
-    "Saint Martin (French part)": [
-      "ne:map-unit:1159320639",
-      "ne:map-subunit:1159320639"
-    ],
-    "Saint Pierre and Miquelon": [
-      "ne:admin1:1159315673",
-      "ne:map-unit:1159320647",
-      "ne:map-subunit:1159320647"
-    ],
-    "Sardinia": ["ne:map-subunit:1159320921"],
-    "Scotland": [
-      "ne:disputed:1159320775",
-      "ne:map-unit:1159320747",
-      "ne:map-subunit:1159320747"
-    ],
-    "Sicily": ["ne:map-subunit:1159320929"],
-    "Sint Maarten (Dutch part)": [
-      "ne:admin1:1159315549",
-      "ne:map-unit:1159321103",
-      "ne:map-subunit:1159321103"
-    ],
-    "Somaliland": ["ne:1159321259"],
-    "South Georgia and the South Sandwich Islands": [
-      "ne:admin1:1159315467",
-      "ne:map-unit:1159320731"
-    ],
-    "South Ossetia": ["ne:disputed:1159320787"],
-    "Svalbard and Jan Mayen": [
-      "ne:admin1:1159309689",
-      "ne:map-unit:1159321119",
-      "ne:map-subunit:1159321119"
-    ],
-    "Taiwan": [
-      "ne:disputed:1159321335",
-      "ne:map-unit:1159321335",
-      "ne:map-subunit:1159321335"
-    ],
-    "Tibet / Xizang": ["ne:admin1:1159312655"],
-    "Tokelau": [
-      "ne:admin1:1159315503",
-      "ne:map-unit:1159321137",
-      "ne:map-subunit:1159321137"
-    ],
-    "Transnistria": ["ne:disputed:1159321047"],
-    "Trentino": ["ne:admin1:1159316949"],
-    "Trentino-Alto Adige/Südtirol": [
-      "ne:admin1:1159310921",
-      "ne:admin1:1159316949"
-    ],
-    "Turks and Caicos Islands": [
-      "ne:map-unit:1159320737",
-      "ne:map-subunit:1159320737"
-    ],
-    "United States Minor Outlying Islands": [
-      "ne:map-unit:1159321381",
-      "ne:map-subunit:1159321381",
-      "ne:map-unit:1159321375",
-      "ne:map-subunit:1159321375",
-      "ne:map-unit:1159321377",
-      "ne:map-subunit:1159321377",
-      "ne:map-unit:1159321379",
-      "ne:map-subunit:1159321379",
-      "ne:disputed:1159321391",
-      "ne:map-unit:1159321391",
-      "ne:map-subunit:1159321391",
-      "ne:map-unit:1159321389",
-      "ne:map-subunit:1159321389",
-      "ne:disputed:1159321373",
-      "ne:map-unit:1159321373",
-      "ne:map-subunit:1159321373",
-      "ne:map-unit:1159321387",
-      "ne:map-subunit:1159321387",
-      "ne:map-unit:1159321385",
-      "ne:map-subunit:1159321385"
-    ],
-    "United States Virgin Islands": [
-      "ne:map-unit:1159321371",
-      "ne:map-subunit:1159321371"
-    ],
-    "Valle d’Aosta": ["ne:admin1:1159310915"],
-    "Vojvodina": [
-      "ne:disputed:1729635105",
-      "ne:disputed:1729635103",
-      "ne:map-unit:1159321271",
-      "ne:map-subunit:1159321271"
-    ],
-    "Wales": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"],
-    "Wallis and Futuna": [
-      "ne:map-unit:1159320649",
-      "ne:map-subunit:1159320649"
-    ],
-    "Western Sahara": [
-      "ne:admin1:1159315575",
-      "ne:disputed:1159321037",
-      "ne:disputed:1159321223",
-      "ne:map-unit:1159321223",
-      "ne:map-subunit:1159321223"
-    ],
-    "Xinjiang": ["ne:admin1:1159312657"],
-    "Åland Islands": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"]
   },
   "inset": {
     "sourceSha256": "239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255",

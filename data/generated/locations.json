@@ -1,1603 +1,3799 @@
 [
   {
     "id": "iso:AFG",
-    "iso3": "AFG",
     "name": "Afghanistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AFG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320319"],
     "anchor": [985.99, 223.34],
     "bounds": [961.94, 206.17, 1019.57, 242.43]
   },
   {
     "id": "iso:ALB",
-    "iso3": "ALB",
     "name": "Albania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ALB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320325"],
     "anchor": [800.46, 197.38],
     "bounds": [797.12, 189.41, 804.12, 201.39]
   },
   {
     "id": "iso:DZA",
-    "iso3": "DZA",
     "name": "Algeria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DZA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320565"],
     "anchor": [731.23, 250.41],
     "bounds": [685.27, 211.66, 767.87, 283.95]
   },
   {
     "id": "iso:AND",
-    "iso3": "AND",
     "name": "Andorra",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AND"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320327"],
     "anchor": [726.16, 189.81],
     "bounds": [725.66, 189.81, 726.82, 189.99]
   },
   {
     "id": "iso:AGO",
-    "iso3": "AGO",
     "name": "Angola",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AGO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320323"],
     "anchor": [791.94, 408.73],
     "bounds": [766.97, 377.72, 815.87, 432.08]
   },
   {
     "id": "iso:ATG",
-    "iso3": "ATG",
     "name": "Antigua and Barbuda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ATG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320345"],
     "anchor": [472.84, 290.59],
     "bounds": [472.45, 289.18, 473.14, 291.85]
   },
   {
     "id": "iso:ARG",
-    "iso3": "ARG",
     "name": "Argentina",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320331"],
     "anchor": [463.31, 494],
     "bounds": [425.69, 447.21, 505.33, 580.13]
   },
   {
     "id": "iso:ARM",
-    "iso3": "ARM",
     "name": "Armenia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320333"],
     "anchor": [899.2, 198.16],
     "bounds": [893.76, 194.84, 905.96, 204.49]
   },
   {
     "id": "iso:AUS",
-    "iso3": "AUS",
     "name": "Australia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AUS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320355"],
     "anchor": [1256.2, 456.52],
     "bounds": [1171.79, 400.62, 1355.84, 578.84]
   },
   {
     "id": "iso:AUT",
-    "iso3": "AUT",
     "name": "Austria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AUT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320379"],
     "anchor": [776.52, 169.92],
     "bounds": [758.1, 164, 788.59, 174.4]
   },
   {
     "id": "iso:AZE",
-    "iso3": "AZE",
     "name": "Azerbaijan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AZE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320381"],
     "anchor": [908.84, 198.39],
     "bounds": [899.27, 192.44, 921.46, 206.36]
   },
   {
     "id": "iso:BHS",
-    "iso3": "BHS",
     "name": "Bahamas",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BHS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320415"],
     "anchor": [411.41, 254.39],
     "bounds": [404.06, 252.39, 429.01, 276.1]
   },
   {
     "id": "iso:BHR",
-    "iso3": "BHR",
     "name": "Bahrain",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BHR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320413"],
     "anchor": [922.22, 255.78],
     "bounds": [921.88, 255.08, 922.43, 256.47]
   },
   {
     "id": "iso:BGD",
-    "iso3": "BGD",
     "name": "Bangladesh",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BGD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320407"],
     "anchor": [1078.74, 263.14],
     "bounds": [1072.09, 253.71, 1090.53, 276.83]
   },
   {
     "id": "iso:BRB",
-    "iso3": "BRB",
     "name": "Barbados",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320449"],
     "anchor": [481.72, 307.35],
     "bounds": [481.41, 306.79, 482.03, 307.67]
   },
   {
     "id": "iso:BLR",
-    "iso3": "BLR",
     "name": "Belarus",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BLR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320427"],
     "anchor": [833.67, 144.71],
     "bounds": [812.7, 135.42, 850.83, 154.94]
   },
   {
     "id": "iso:BEL",
-    "iso3": "BEL",
     "name": "Belgium",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BEL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320389"],
     "anchor": [739.2, 156.86],
     "bounds": [730.1, 154.12, 745.46, 161.78]
   },
   {
     "id": "iso:BLZ",
-    "iso3": "BLZ",
     "name": "Belize",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BLZ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320431"],
     "anchor": [365.15, 291.19],
     "bounds": [363.05, 286.09, 368.59, 296.44]
   },
   {
     "id": "iso:BEN",
-    "iso3": "BEN",
     "name": "Benin",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BEN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320399"],
     "anchor": [729.41, 318.7],
     "bounds": [723.12, 310.46, 735.34, 335.13]
   },
   {
     "id": "iso:BTN",
-    "iso3": "BTN",
     "name": "Bhutan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BTN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320453"],
     "anchor": [1080.16, 249.85],
     "bounds": [1074.96, 246.82, 1088.33, 253.19]
   },
   {
     "id": "iso:BOL",
-    "iso3": "BOL",
     "name": "Bolivia (Plurinational State of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BOL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320439"],
     "anchor": [461.63, 426.66],
     "bounds": [441.5, 398.85, 490.02, 451.56]
   },
   {
     "id": "iso:BIH",
-    "iso3": "BIH",
     "name": "Bosnia and Herzegovina",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BIH"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320417"],
     "anchor": [792.27, 183.64],
     "bounds": [782.95, 178.89, 798.34, 189.76]
   },
   {
     "id": "iso:BWA",
-    "iso3": "BWA",
     "name": "Botswana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BWA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320461"],
     "anchor": [816.72, 448.41],
     "bounds": [799.91, 431.17, 837.46, 467.36]
   },
   {
     "id": "iso:BRA",
-    "iso3": "BRA",
     "name": "Brazil",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320441"],
     "anchor": [521.76, 408.39],
     "bounds": [423.99, 339.19, 580.78, 494.97]
   },
   {
     "id": "iso:BRN",
-    "iso3": "BRN",
     "name": "Brunei Darussalam",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320451"],
     "anchor": [1178.21, 342.21],
     "bounds": [1176.26, 340.4, 1181.16, 343.85]
   },
   {
     "id": "iso:BGR",
-    "iso3": "BGR",
     "name": "Bulgaria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BGR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320409"],
     "anchor": [820.63, 189.96],
     "bounds": [809.38, 183.05, 834.34, 195.03]
   },
   {
     "id": "iso:BFA",
-    "iso3": "BFA",
     "name": "Burkina Faso",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BFA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320405"],
     "anchor": [714.54, 309.31],
     "bounds": [697.91, 299.72, 729.56, 322.3]
   },
   {
     "id": "iso:BDI",
-    "iso3": "BDI",
     "name": "Burundi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BDI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320387"],
     "anchor": [839.67, 373.33],
     "bounds": [836.25, 369.36, 843.16, 377.8]
   },
   {
     "id": "iso:CPV",
-    "iso3": "CPV",
     "name": "Cabo Verde",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CPV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320523"],
     "anchor": [625.44, 299.7],
     "bounds": [618.65, 291.29, 629.16, 300.57]
   },
   {
     "id": "iso:KHM",
-    "iso3": "KHM",
     "name": "Cambodia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KHM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320979"],
     "anchor": [1138.02, 309.41],
     "bounds": [1129.28, 301.18, 1150.38, 318.36]
   },
   {
     "id": "iso:CMR",
-    "iso3": "CMR",
     "name": "Cameroon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CMR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320509"],
     "anchor": [769.89, 341.66],
     "bounds": [754.22, 307.69, 784.54, 353.1]
   },
   {
     "id": "iso:CAN",
-    "iso3": "CAN",
     "name": "Canada",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CAN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320467"],
     "anchor": [312.36, 118.7],
     "bounds": [155.99, 27.93, 509.39, 193.3]
   },
   {
     "id": "iso:CAF",
-    "iso3": "CAF",
     "name": "Central African Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CAF"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320463"],
     "anchor": [803.63, 332.04],
     "bounds": [777.76, 316.32, 829.61, 350.92]
   },
   {
     "id": "iso:TCD",
-    "iso3": "TCD",
     "name": "Chad",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TCD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321301"],
     "anchor": [794.58, 299.43],
     "bounds": [773.79, 266.22, 815.92, 329.97]
   },
   {
     "id": "iso:CHL",
-    "iso3": "CHL",
     "name": "Chile",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320493"],
     "anchor": [430.72, 512.61],
     "bounds": [282.26, 430.02, 454.11, 583.56]
   },
   {
     "id": "iso:CHN",
-    "iso3": "CHN",
     "name": "China",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320471"],
     "anchor": [1145.35, 230.01],
     "bounds": [1014.53, 145.81, 1259.01, 287.13]
   },
   {
     "id": "iso:COL",
-    "iso3": "COL",
     "name": "Colombia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320517"],
     "anchor": [427.3, 346.51],
     "bounds": [403.9, 310.32, 452.46, 376.94]
   },
   {
     "id": "iso:COM",
-    "iso3": "COM",
     "name": "Comoros",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320521"],
     "anchor": [893.27, 406.91],
     "bounds": [892.91, 405.5, 898.02, 409.43]
   },
   {
     "id": "iso:COG",
-    "iso3": "COG",
     "name": "Republic of the Congo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320515"],
     "anchor": [783.6, 359.43],
     "bounds": [764.52, 345.58, 794.49, 380.02]
   },
   {
     "id": "iso:COD",
-    "iso3": "COD",
     "name": "Democratic Republic of the Congo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320513"],
     "anchor": [813.84, 367.43],
     "bounds": [768.85, 338.75, 845.1, 413.75]
   },
   {
     "id": "iso:CRI",
-    "iso3": "CRI",
     "name": "Costa Rica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CRI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320525"],
     "anchor": [383.69, 319.74],
     "bounds": [376.37, 315.24, 389.75, 327.72]
   },
   {
     "id": "iso:CIV",
-    "iso3": "CIV",
     "name": "Côte d'Ivoire",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CIV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320507"],
     "anchor": [697.73, 330.03],
     "bounds": [685.59, 317.1, 709.98, 342.59]
   },
   {
     "id": "iso:HRV",
-    "iso3": "HRV",
     "name": "Croatia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HRV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320833"],
     "anchor": [785.49, 176.78],
     "bounds": [774.31, 173.86, 797.6, 190.27]
   },
   {
     "id": "iso:CUB",
-    "iso3": "CUB",
     "name": "Cuba",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CUB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320527"],
     "anchor": [408.1, 274.66],
     "bounds": [380.45, 267.35, 423.39, 280.58]
   },
   {
     "id": "iso:CYP",
-    "iso3": "CYP",
     "name": "Cyprus",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CYP"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320533"],
     "anchor": [852.34, 220.35],
     "bounds": [849.27, 219.32, 856.2, 221.7]
   },
   {
     "id": "iso:CZE",
-    "iso3": "CZE",
     "name": "Czechia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CZE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320535"],
     "anchor": [781.51, 160.47],
     "bounds": [768.36, 155.88, 795.33, 165.69]
   },
   {
     "id": "iso:DNK",
-    "iso3": "DNK",
     "name": "Denmark",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DNK"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320547"],
     "anchor": [756.07, 136.13],
     "bounds": [752.53, 129.05, 780.35, 141.28]
   },
   {
     "id": "iso:DJI",
-    "iso3": "DJI",
     "name": "Djibouti",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DJI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320541"],
     "anchor": [890, 312.09],
     "bounds": [887.17, 309.17, 893.52, 316.08]
   },
   {
     "id": "iso:DMA",
-    "iso3": "DMA",
     "name": "Dominica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DMA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320543"],
     "anchor": [474.62, 298.16],
     "bounds": [474.17, 297.47, 474.87, 299]
   },
   {
     "id": "iso:DOM",
-    "iso3": "DOM",
     "name": "Dominican Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DOM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320563"],
     "anchor": [437.38, 283.58],
     "bounds": [432, 280.42, 446.64, 289.46]
   },
   {
     "id": "iso:ECU",
-    "iso3": "ECU",
     "name": "Ecuador",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ECU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320567"],
     "anchor": [407.25, 365.04],
     "bounds": [353.41, 354.18, 418.96, 379.88]
   },
   {
     "id": "iso:EGY",
-    "iso3": "EGY",
     "name": "Egypt",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "EGY"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320575"],
     "anchor": [837.78, 255.26],
     "bounds": [818.81, 233.38, 867.49, 272.02]
   },
   {
     "id": "iso:SLV",
-    "iso3": "SLV",
     "name": "El Salvador",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321253"],
     "anchor": [364.44, 305.26],
     "bounds": [359.62, 302.34, 369.07, 307.26]
   },
   {
     "id": "iso:GNQ",
-    "iso3": "GNQ",
     "name": "Equatorial Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GNQ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320801"],
     "anchor": [755.96, 350.67],
     "bounds": [753.9, 344.97, 765.34, 356.16]
   },
   {
     "id": "iso:ERI",
-    "iso3": "ERI",
     "name": "Eritrea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ERI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320581"],
     "anchor": [873.14, 296.85],
     "bounds": [865.71, 287.98, 892.47, 310.48]
   },
   {
     "id": "iso:EST",
-    "iso3": "EST",
     "name": "Estonia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "EST"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320615"],
     "anchor": [823.47, 125.1],
     "bounds": [807.45, 121.44, 832.6, 129.89]
   },
   {
     "id": "iso:SWZ",
-    "iso3": "SWZ",
     "name": "Eswatini",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SWZ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321289"],
     "anchor": [845.87, 466.13],
     "bounds": [843.16, 462.97, 848.45, 469.22]
   },
   {
     "id": "iso:ETH",
-    "iso3": "ETH",
     "name": "Ethiopia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ETH"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320617"],
     "anchor": [876.35, 327.87],
     "bounds": [852.05, 300.59, 911.91, 346.18]
   },
   {
     "id": "iso:FJI",
-    "iso3": "FJI",
     "name": "Fiji",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FJI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320625"],
     "anchor": [1431.9, 431.3],
     "bounds": [0.1, 410.02, 1440, 446.78]
   },
   {
     "id": "iso:FIN",
-    "iso3": "FIN",
     "name": "Finland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FIN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320623"],
     "anchor": [829.11, 106.99],
     "bounds": [802.49, 79.75, 846.14, 120.69]
   },
   {
     "id": "iso:FRA",
-    "iso3": "FRA",
     "name": "France",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FRA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320637"],
     "anchor": [730.21, 173.22],
     "bounds": [473.01, 155.61, 943.19, 445.36]
   },
   {
     "id": "iso:GAB",
-    "iso3": "GAB",
     "name": "Gabon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GAB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320693"],
     "anchor": [767.34, 361.75],
     "bounds": [754.81, 350.8, 777.9, 375.67]
   },
   {
     "id": "iso:GMB",
-    "iso3": "GMB",
     "name": "Gambia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GMB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320797"],
     "anchor": [660.01, 305.43],
     "bounds": [652.95, 304.75, 664.69, 307.74]
   },
   {
     "id": "iso:GEO",
-    "iso3": "GEO",
     "name": "Georgia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GEO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320779"],
     "anchor": [894.94, 192.52],
     "bounds": [879.91, 185.86, 906.69, 195.72]
   },
   {
     "id": "iso:DEU",
-    "iso3": "DEU",
     "name": "Germany",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DEU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320539"],
     "anchor": [758.71, 156.15],
     "bounds": [743.43, 139.77, 779.86, 170.88]
   },
   {
     "id": "iso:GHA",
-    "iso3": "GHA",
     "name": "Ghana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GHA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320793"],
     "anchor": [715.85, 329.13],
     "bounds": [707.06, 315.54, 724.75, 340.95]
   },
   {
     "id": "iso:GRC",
-    "iso3": "GRC",
     "name": "Greece",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GRC"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320811"],
     "anchor": [806.9, 202.03],
     "bounds": [798.59, 193.13, 832.93, 220.26]
   },
   {
     "id": "iso:GRD",
-    "iso3": "GRD",
     "name": "Grenada",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GRD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320813"],
     "anchor": [473.28, 311.55],
     "bounds": [473.14, 311.11, 473.57, 311.95]
   },
   {
     "id": "iso:GTM",
-    "iso3": "GTM",
     "name": "Guatemala",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GTM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320815"],
     "anchor": [358.01, 300.07],
     "bounds": [351.06, 288.73, 367.09, 305.05]
   },
   {
     "id": "iso:GIN",
-    "iso3": "GIN",
     "name": "Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GIN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320795"],
     "anchor": [679.93, 317.53],
     "bounds": [659.8, 309.3, 689.28, 331.14]
   },
   {
     "id": "iso:GNB",
-    "iso3": "GNB",
     "name": "Guinea-Bissau",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GNB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320799"],
     "anchor": [661.9, 311.35],
     "bounds": [653.15, 309.28, 665.17, 316.24]
   },
   {
     "id": "iso:GUY",
-    "iso3": "GUY",
     "name": "Guyana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GUY"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320817"],
     "anchor": [484.23, 339.5],
     "bounds": [474.44, 325.8, 494.07, 355.2]
   },
   {
     "id": "iso:HTI",
-    "iso3": "HTI",
     "name": "Haiti",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HTI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320839"],
     "anchor": [431.1, 282.94],
     "bounds": [422.16, 279.75, 433.42, 287.84]
   },
   {
     "id": "iso:HND",
-    "iso3": "HND",
     "name": "Honduras",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HND"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320827"],
     "anchor": [372.45, 300.82],
     "bounds": [362.55, 294.15, 387.37, 308.08]
   },
   {
     "id": "iso:HUN",
-    "iso3": "HUN",
     "name": "Hungary",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HUN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320841"],
     "anchor": [797.79, 171.65],
     "bounds": [784.37, 165.89, 811.51, 176.93]
   },
   {
     "id": "iso:ISL",
-    "iso3": "ISL",
     "name": "Iceland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ISL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320917"],
     "anchor": [645.31, 100.88],
     "bounds": [622.1, 93.91, 665.72, 106.37]
   },
   {
     "id": "iso:IND",
-    "iso3": "IND",
     "name": "India",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IND"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320847"],
     "anchor": [1037.43, 269.25],
     "bounds": [992.66, 218.02, 1109.34, 332.68]
   },
   {
     "id": "iso:IDN",
-    "iso3": "IDN",
     "name": "Indonesia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IDN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320845"],
     "anchor": [1127.57, 363.82],
     "bounds": [1100.87, 336.44, 1283.9, 403.64]
   },
   {
     "id": "iso:IRN",
-    "iso3": "IRN",
     "name": "Iran (Islamic Republic of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320881"],
     "anchor": [939.73, 231.34],
     "bounds": [896.09, 200.93, 973.22, 259.19]
   },
   {
     "id": "iso:IRQ",
-    "iso3": "IRQ",
     "name": "Iraq",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRQ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320887"],
     "anchor": [893.05, 227.62],
     "bounds": [875.09, 210.51, 914.19, 243.62]
   },
   {
     "id": "iso:IRL",
-    "iso3": "IRL",
     "name": "Ireland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320877"],
     "anchor": [688.81, 147.69],
     "bounds": [678.57, 138.56, 695.89, 154.07]
   },
   {
     "id": "iso:ISR",
-    "iso3": "ISR",
     "name": "Israel",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ISR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320895"],
     "anchor": [859.39, 236.36],
     "bounds": [856.98, 226.34, 863.55, 242.09]
   },
   {
     "id": "iso:ITA",
-    "iso3": "ITA",
     "name": "Italy",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ITA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320919"],
     "anchor": [764.31, 181.07],
     "bounds": [746.54, 171.67, 793.84, 213.25]
   },
   {
     "id": "iso:JAM",
-    "iso3": "JAM",
     "name": "Jamaica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JAM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320931"],
     "anchor": [410.72, 287.45],
     "bounds": [406.64, 285.91, 415.16, 289.14]
   },
   {
     "id": "iso:JPN",
-    "iso3": "JPN",
     "name": "Japan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JPN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320937"],
     "anchor": [1273.77, 215.43],
     "bounds": [1214.72, 177.96, 1303.33, 262.88]
   },
   {
     "id": "iso:JOR",
-    "iso3": "JOR",
     "name": "Jordan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JOR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320935"],
     "anchor": [865.5, 236.78],
     "bounds": [859.8, 226.51, 877.17, 243.24]
   },
   {
     "id": "iso:KAZ",
-    "iso3": "KAZ",
     "name": "Kazakhstan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KAZ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320967"],
     "anchor": [994.74, 163.78],
     "bounds": [906.64, 138.44, 1069.19, 197.52]
   },
   {
     "id": "iso:KEN",
-    "iso3": "KEN",
     "name": "Kenya",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KEN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320971"],
     "anchor": [871.63, 357.8],
     "bounds": [855.61, 338.03, 887.54, 378.71]
   },
   {
     "id": "iso:KIR",
-    "iso3": "KIR",
     "name": "Kiribati",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KIR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320981"],
     "anchor": [90.46, 352.72],
     "bounds": [21.95, 344.31, 1419.09, 405.76]
   },
   {
     "id": "iso:PRK",
-    "iso3": "PRK",
     "name": "Democratic People's Republic of Korea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRK"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321181"],
     "anchor": [1225.78, 200.46],
     "bounds": [1217.55, 188.1, 1242.75, 209.1]
   },
   {
     "id": "iso:KOR",
-    "iso3": "KOR",
     "name": "Republic of Korea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KOR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320985"],
     "anchor": [1232.52, 214.46],
     "bounds": [1224.03, 205.51, 1243.66, 227.11]
   },
   {
     "id": "iso:KWT",
-    "iso3": "KWT",
     "name": "Kuwait",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KWT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321009"],
     "anchor": [909.26, 242.35],
     "bounds": [906.13, 239.69, 913.77, 245.87]
   },
   {
     "id": "iso:KGZ",
-    "iso3": "KGZ",
     "name": "Kyrgyzstan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KGZ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320977"],
     "anchor": [1018.13, 193.33],
     "bounds": [997.12, 187.04, 1040.98, 203.17]
   },
   {
     "id": "iso:LAO",
-    "iso3": "LAO",
     "name": "Lao People's Democratic Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LAO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321011"],
     "anchor": [1130.14, 282.27],
     "bounds": [1120.46, 270.02, 1150.61, 304.32]
   },
   {
     "id": "iso:LVA",
-    "iso3": "LVA",
     "name": "Latvia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LVA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321033"],
     "anchor": [821.83, 131.73],
     "bounds": [804.13, 127.84, 832.59, 137.33]
   },
   {
     "id": "iso:LBN",
-    "iso3": "LBN",
     "name": "Lebanon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321013"],
     "anchor": [863.97, 223.47],
     "bounds": [860.43, 221.37, 866.34, 227.67]
   },
   {
     "id": "iso:LSO",
-    "iso3": "LSO",
     "name": "Lesotho",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LSO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321027"],
     "anchor": [832.99, 477.92],
     "bounds": [828.23, 474.33, 837.56, 482.52]
   },
   {
     "id": "iso:LBR",
-    "iso3": "LBR",
     "name": "Liberia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321015"],
     "anchor": [682.16, 334.21],
     "bounds": [673.97, 326.06, 690.18, 342.59]
   },
   {
     "id": "iso:LBY",
-    "iso3": "LBY",
     "name": "Libya",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBY"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321017"],
     "anchor": [792.04, 253.44],
     "bounds": [757.24, 227.27, 820.6, 282.01]
   },
   {
     "id": "iso:LIE",
-    "iso3": "LIE",
     "name": "Liechtenstein",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LIE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321021"],
     "anchor": [758.24, 171.55],
     "bounds": [758.11, 170.92, 758.32, 171.77]
   },
   {
     "id": "iso:LTU",
-    "iso3": "LTU",
     "name": "Lithuania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LTU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321029"],
     "anchor": [816.36, 139.59],
     "bounds": [803.83, 134.36, 827.1, 144.32]
   },
   {
     "id": "iso:LUX",
-    "iso3": "LUX",
     "name": "Luxembourg",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LUX"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321031"],
     "anchor": [744.31, 161.07],
     "bounds": [742.98, 159.52, 745.95, 162.19]
   },
   {
     "id": "iso:MDG",
-    "iso3": "MDG",
     "name": "Madagascar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321051"],
     "anchor": [906.82, 434.51],
     "bounds": [893.06, 408.32, 921.62, 462.17]
   },
   {
     "id": "iso:MWI",
-    "iso3": "MWI",
     "name": "Malawi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MWI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321081"],
     "anchor": [854.43, 413.55],
     "bounds": [850.68, 397.58, 863.57, 428.47]
   },
   {
     "id": "iso:MYS",
-    "iso3": "MYS",
     "name": "Malaysia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MYS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321083"],
     "anchor": [1175.35, 349.89],
     "bounds": [1118.59, 330.59, 1197.02, 356.55]
   },
   {
     "id": "iso:MDV",
-    "iso3": "MDV",
     "name": "Maldives",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321053"],
     "anchor": [1014.03, 343.3],
     "bounds": [1013.67, 343.34, 1014.05, 347.07]
   },
   {
     "id": "iso:MLI",
-    "iso3": "MLI",
     "name": "Mali",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MLI"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321063"],
     "anchor": [711.85, 285.23],
     "bounds": [670.88, 260.02, 736.91, 319.43]
   },
   {
     "id": "iso:MLT",
-    "iso3": "MLT",
     "name": "Malta",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MLT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321065"],
     "anchor": [777.73, 216.43],
     "bounds": [777.25, 215.89, 778.26, 216.59]
   },
   {
     "id": "iso:MHL",
-    "iso3": "MHL",
     "name": "Marshall Islands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MHL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321057"],
     "anchor": [1404.77, 331.67],
     "bounds": [1387.56, 315.39, 1407.03, 336.68]
   },
   {
     "id": "iso:MRT",
-    "iso3": "MRT",
     "name": "Mauritania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MRT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321075"],
     "anchor": [681.04, 281.65],
     "bounds": [651.81, 250.86, 700.71, 300.76]
   },
   {
     "id": "iso:MUS",
-    "iso3": "MUS",
     "name": "Mauritius",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MUS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321079"],
     "anchor": [950.26, 441.2],
     "bounds": [949.27, 439.96, 950.63, 441.94]
   },
   {
     "id": "iso:MEX",
-    "iso3": "MEX",
     "name": "Mexico",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MEX"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321055"],
     "anchor": [310.84, 264.32],
     "bounds": [246.53, 229.14, 373.14, 301.82]
   },
   {
     "id": "iso:FSM",
-    "iso3": "FSM",
     "name": "Micronesia (Federated States of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FSM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320691"],
     "anchor": [1352.94, 332.45],
     "bounds": [1272.57, 322, 1371.93, 338.7]
   },
   {
     "id": "iso:MDA",
-    "iso3": "MDA",
     "name": "Republic of Moldova",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321045"],
     "anchor": [833.95, 170.26],
     "bounds": [826.48, 166.09, 840.52, 178.2]
   },
   {
     "id": "iso:MCO",
-    "iso3": "MCO",
     "name": "Monaco",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MCO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321043"],
     "anchor": [749.59, 185.04],
     "bounds": [749.75, 185, 749.75, 185]
   },
   {
     "id": "iso:MNG",
-    "iso3": "MNG",
     "name": "Mongolia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MNG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321071"],
     "anchor": [1136.6, 176.01],
     "bounds": [1070.97, 151.53, 1199.58, 193.62]
   },
   {
     "id": "iso:MNE",
-    "iso3": "MNE",
     "name": "Montenegro",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MNE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321069"],
     "anchor": [796.57, 188.79],
     "bounds": [793.75, 185.87, 801.39, 192.52]
   },
   {
     "id": "iso:MAR",
-    "iso3": "MAR",
     "name": "Morocco",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MAR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321035"],
     "anchor": [691.25, 233.4],
     "bounds": [651.99, 216.39, 715.74, 274.32]
   },
   {
     "id": "iso:MOZ",
-    "iso3": "MOZ",
     "name": "Mozambique",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MOZ"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321073"],
     "anchor": [871.35, 415.77],
     "bounds": [840.93, 401.86, 883.38, 467.4]
   },
   {
     "id": "iso:MMR",
-    "iso3": "MMR",
     "name": "Myanmar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MMR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321067"],
     "anchor": [1103.22, 273.7],
     "bounds": [1088.72, 245.96, 1124.52, 320.27]
   },
   {
     "id": "iso:NAM",
-    "iso3": "NAM",
     "name": "Namibia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NAM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321085"],
     "anchor": [788.43, 442.3],
     "bounds": [766.97, 427.87, 821.04, 475.76]
   },
   {
     "id": "iso:NRU",
-    "iso3": "NRU",
     "name": "Nauru",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NRU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321123"],
     "anchor": [1387.73, 362.08],
     "bounds": [1387.83, 362.07, 1387.83, 362.07]
   },
   {
     "id": "iso:NPL",
-    "iso3": "NPL",
     "name": "Nepal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NPL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321121"],
     "anchor": [1054.56, 246.81],
     "bounds": [1040.21, 238.55, 1072.44, 254.56]
   },
   {
     "id": "iso:NLD",
-    "iso3": "NLD",
     "name": "Netherlands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NLD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321101"],
     "anchor": [742.45, 150.31],
     "bounds": [446.52, 145.67, 748.79, 311.42]
   },
   {
     "id": "iso:NZL",
-    "iso3": "NZL",
     "name": "New Zealand",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NZL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321135"],
     "anchor": [1411.15, 519.04],
     "bounds": [12.61, 394.32, 1434.14, 569.99]
   },
   {
     "id": "iso:NIC",
-    "iso3": "NIC",
     "name": "Nicaragua",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NIC"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321091"],
     "anchor": [379.72, 309.32],
     "bounds": [369.33, 300.03, 387.37, 316.86]
   },
   {
     "id": "iso:NER",
-    "iso3": "NER",
     "name": "Niger",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NER"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321087"],
     "anchor": [758.02, 290.22],
     "bounds": [720.66, 265.93, 783.85, 313.21]
   },
   {
     "id": "iso:NGA",
-    "iso3": "NGA",
     "name": "Nigeria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NGA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321089"],
     "anchor": [750.01, 322.24],
     "bounds": [730.83, 304.51, 778.48, 342.89]
   },
   {
     "id": "iso:MKD",
-    "iso3": "MKD",
     "name": "North Macedonia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MKD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321061"],
     "anchor": [806.22, 193.77],
     "bounds": [801.96, 190.57, 812.01, 196.52]
   },
   {
     "id": "iso:NOR",
-    "iso3": "NOR",
     "name": "Norway",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NOR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321109"],
     "anchor": [758.72, 114.57],
     "bounds": [683.6, 38.09, 854.52, 127.9]
   },
   {
     "id": "iso:OMN",
-    "iso3": "OMN",
     "name": "Oman",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "OMN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321151"],
     "anchor": [949.35, 271.52],
     "bounds": [927.91, 254.57, 959.29, 293.41]
   },
   {
     "id": "iso:PAK",
-    "iso3": "PAK",
     "name": "Pakistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PAK"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321153"],
     "anchor": [994.18, 242.69],
     "bounds": [963.37, 212.11, 1028.19, 264.99]
   },
   {
     "id": "iso:PLW",
-    "iso3": "PLW",
     "name": "Palau",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PLW"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321171"],
     "anchor": [1258.32, 329.93],
     "bounds": [1244.69, 329.15, 1258.6, 347.9]
   },
   {
     "id": "iso:PAN",
-    "iso3": "PAN",
     "name": "Panama",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PAN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321161"],
     "anchor": [398.59, 325.11],
     "bounds": [387.89, 321.61, 411.22, 331.1]
   },
   {
     "id": "iso:PNG",
-    "iso3": "PNG",
     "name": "Papua New Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PNG"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321173"],
     "anchor": [1295.64, 382.78],
     "bounds": [1283.9, 365.41, 1343.83, 406.35]
   },
   {
     "id": "iso:PRY",
-    "iso3": "PRY",
     "name": "Paraguay",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRY"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321195"],
     "anchor": [479.41, 446.7],
     "bounds": [469.4, 437.14, 503.03, 470.22]
   },
   {
     "id": "iso:PER",
-    "iso3": "PER",
     "name": "Peru",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PER"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321163"],
     "anchor": [428.4, 411.91],
     "bounds": [394.65, 360.17, 445.26, 433.38]
   },
   {
     "id": "iso:PHL",
-    "iso3": "PHL",
     "name": "Philippines",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PHL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321169"],
     "anchor": [1209.86, 315.21],
     "bounds": [1187.97, 276.87, 1226.33, 339.72]
   },
   {
     "id": "iso:POL",
-    "iso3": "POL",
     "name": "Poland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "POL"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321179"],
     "anchor": [797.96, 152.04],
     "bounds": [776.51, 140.66, 816.38, 163.92]
   },
   {
     "id": "iso:PRT",
-    "iso3": "PRT",
     "name": "Portugal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321187"],
     "anchor": [686.91, 201.57],
     "bounds": [594.96, 191.45, 695.15, 229.35]
   },
   {
     "id": "iso:QAT",
-    "iso3": "QAT",
     "name": "Qatar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "QAT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321197"],
     "anchor": [924.57, 259.05],
     "bounds": [923.02, 255.39, 926.44, 261.57]
   },
   {
     "id": "iso:ROU",
-    "iso3": "ROU",
     "name": "Romania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ROU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321199"],
     "anchor": [819.89, 177.07],
     "bounds": [800.97, 166.95, 838.82, 185.32]
   },
   {
     "id": "iso:RUS",
-    "iso3": "RUS",
     "name": "Russian Federation",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "RUS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321201"],
     "anchor": [898.75, 127],
     "bounds": [0, 32.7, 1440, 195.15]
   },
   {
     "id": "iso:RWA",
-    "iso3": "RWA",
     "name": "Rwanda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "RWA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321219"],
     "anchor": [840.42, 367.59],
     "bounds": [835.69, 364.27, 843.31, 371.18]
   },
   {
     "id": "iso:KNA",
-    "iso3": "KNA",
     "name": "Saint Kitts and Nevis",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KNA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320983"],
     "anchor": [468.97, 290.65],
     "bounds": [468.69, 290.45, 469.87, 291.51]
   },
   {
     "id": "iso:LCA",
-    "iso3": "LCA",
     "name": "Saint Lucia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LCA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321019"],
     "anchor": [476.08, 304.43],
     "bounds": [475.71, 303.63, 476.42, 304.71]
   },
   {
     "id": "iso:VCT",
-    "iso3": "VCT",
     "name": "Saint Vincent and the Grenadines",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VCT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321409"],
     "anchor": [474.66, 307.65],
     "bounds": [474.66, 306.57, 475.44, 309.22]
   },
   {
     "id": "iso:WSM",
-    "iso3": "WSM",
     "name": "Samoa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "WSM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321423"],
     "anchor": [30.25, 414.56],
     "bounds": [28.89, 413.86, 34.18, 416.19]
   },
   {
     "id": "iso:SMR",
-    "iso3": "SMR",
     "name": "San Marino",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SMR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321255"],
     "anchor": [769.76, 184.26],
     "bounds": [769.94, 184.39, 769.94, 184.39]
   },
   {
     "id": "iso:STP",
-    "iso3": "STP",
     "name": "Sao Tome and Principe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "STP"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321273"],
     "anchor": [748.08, 356.12],
     "bounds": [745.87, 353.73, 749.7, 359.52]
   },
   {
     "id": "iso:SAU",
-    "iso3": "SAU",
     "name": "Saudi Arabia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SAU"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321225"],
     "anchor": [898.8, 264.77],
     "bounds": [858.5, 231.5, 942.56, 294.51]
   },
   {
     "id": "iso:SEN",
-    "iso3": "SEN",
     "name": "Senegal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SEN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321243"],
     "anchor": [660.89, 299.45],
     "bounds": [649.86, 293.28, 674.44, 310.69]
   },
   {
     "id": "iso:SRB",
-    "iso3": "SRB",
     "name": "Serbia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SRB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321267"],
     "anchor": [803.15, 183.24],
     "bounds": [795.36, 175.38, 811.91, 191.01]
   },
   {
     "id": "iso:SYC",
-    "iso3": "SYC",
     "name": "Seychelles",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SYC"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321291"],
     "anchor": [941.92, 378.71],
     "bounds": [941.53, 378.44, 942.16, 378.77]
   },
   {
     "id": "iso:SLE",
-    "iso3": "SLE",
     "name": "Sierra Leone",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321251"],
     "anchor": [672.95, 325.53],
     "bounds": [666.83, 320.01, 678.87, 332.37]
   },
   {
     "id": "iso:SGP",
-    "iso3": "SGP",
     "name": "Singapore",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SGP"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321247"],
     "anchor": [1135.27, 354.53],
     "bounds": [1134.6, 354.67, 1135.88, 354.7]
   },
   {
     "id": "iso:SVK",
-    "iso3": "SVK",
     "name": "Slovakia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SVK"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321283"],
     "anchor": [796.2, 165.06],
     "bounds": [787.46, 161.61, 810.15, 168.85]
   },
   {
     "id": "iso:SVN",
-    "iso3": "SVN",
     "name": "Slovenia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SVN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321285"],
     "anchor": [779.66, 175.76],
     "bounds": [773.51, 172.55, 786.06, 178.23]
   },
   {
     "id": "iso:SLB",
-    "iso3": "SLB",
     "name": "Solomon Islands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321249"],
     "anchor": [1356.68, 392.12],
     "bounds": [1342.71, 386.55, 1387.72, 407.19]
   },
   {
     "id": "iso:SOM",
-    "iso3": "SOM",
     "name": "Somalia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SOM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321261"],
     "anchor": [900.77, 345.72],
     "bounds": [883.91, 312.22, 925.54, 366.78]
   },
   {
     "id": "iso:ZAF",
-    "iso3": "ZAF",
     "name": "South Africa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZAF"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321431"],
     "anchor": [814.66, 478.84],
     "bounds": [785.79, 448.78, 871.43, 547.78]
   },
   {
     "id": "iso:SSD",
-    "iso3": "SSD",
     "name": "South Sudan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SSD"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321235"],
     "anchor": [841.56, 331.08],
     "bounds": [816.64, 311.13, 861.07, 346.04]
   },
   {
     "id": "iso:ESP",
-    "iso3": "ESP",
     "name": "Spain",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ESP"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320587"],
     "anchor": [706.14, 199.64],
     "bounds": [647.36, 184.94, 737.17, 249.41]
   },
   {
     "id": "iso:LKA",
-    "iso3": "LKA",
     "name": "Sri Lanka",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LKA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321025"],
     "anchor": [1042.82, 329.68],
     "bounds": [1038.85, 320.75, 1047.5, 336.08]
   },
   {
     "id": "iso:SDN",
-    "iso3": "SDN",
     "name": "Sudan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SDN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321229"],
     "anchor": [837.04, 294.68],
     "bounds": [807.3, 271.19, 874.44, 325.34]
   },
   {
     "id": "iso:SUR",
-    "iso3": "SUR",
     "name": "Suriname",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SUR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321281"],
     "anchor": [496.36, 343.42],
     "bounds": [487.87, 336.03, 504.04, 352.57]
   },
   {
     "id": "iso:SWE",
-    "iso3": "SWE",
     "name": "Sweden",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SWE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321287"],
     "anchor": [796.07, 96.56],
     "bounds": [764.59, 83.92, 816.62, 138.41]
   },
   {
     "id": "iso:CHE",
-    "iso3": "CHE",
     "name": "Switzerland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320491"],
     "anchor": [749.86, 173.12],
     "bounds": [743.89, 168.9, 761.82, 176.68]
   },
   {
     "id": "iso:SYR",
-    "iso3": "SYR",
     "name": "Syrian Arab Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SYR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321295"],
     "anchor": [873.11, 219.97],
     "bounds": [863.06, 210.81, 889.44, 230.73]
   },
   {
     "id": "iso:TJK",
-    "iso3": "TJK",
     "name": "Tajikistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TJK"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321307"],
     "anchor": [1010.35, 207.2],
     "bounds": [989.43, 195.86, 1020.48, 213.21]
   },
   {
     "id": "iso:TZA",
-    "iso3": "TZA",
     "name": "United Republic of Tanzania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TZA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321337"],
     "anchor": [859.84, 384.21],
     "bounds": [837.61, 364.01, 881.85, 406.84]
   },
   {
     "id": "iso:THA",
-    "iso3": "THA",
     "name": "Thailand",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "THA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321305"],
     "anchor": [1124.29, 298.16],
     "bounds": [1109.5, 278.55, 1142.56, 337.45]
   },
   {
     "id": "iso:TLS",
-    "iso3": "TLS",
     "name": "Timor-Leste",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TLS"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321313"],
     "anchor": [1223.42, 395.21],
     "bounds": [1216.15, 392.56, 1229.18, 398.05]
   },
   {
     "id": "iso:TGO",
-    "iso3": "TGO",
     "name": "Togo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TGO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321303"],
     "anchor": [724.23, 324.77],
     "bounds": [719.64, 315.54, 727.11, 335.64]
   },
   {
     "id": "iso:TON",
-    "iso3": "TON",
     "name": "Tonga",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TON"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321319"],
     "anchor": [19.35, 444.84],
     "bounds": [18.55, 434.56, 24.19, 445.8]
   },
   {
     "id": "iso:TTO",
-    "iso3": "TTO",
     "name": "Trinidad and Tobago",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TTO"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321321"],
     "anchor": [476.33, 316],
     "bounds": [472.38, 314.7, 477.9, 319.72]
   },
   {
     "id": "iso:TUN",
-    "iso3": "TUN",
     "name": "Tunisia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321327"],
     "anchor": [756.03, 225.25],
     "bounds": [750, 210.64, 766.02, 239.08]
   },
   {
     "id": "iso:TUR",
-    "iso3": "TUR",
     "name": "Türkiye",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321331"],
     "anchor": [858.03, 202.62],
     "bounds": [822.68, 191.63, 899.27, 216.67]
   },
   {
     "id": "iso:TKM",
-    "iso3": "TKM",
     "name": "Turkmenistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TKM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321309"],
     "anchor": [954.71, 200.58],
     "bounds": [929.98, 188.89, 986.3, 219.32]
   },
   {
     "id": "iso:TUV",
-    "iso3": "TUV",
     "name": "Tuvalu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUV"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321333"],
     "anchor": [1436.84, 394.05],
     "bounds": [1436.85, 394.1, 1436.85, 394.1]
   },
   {
     "id": "iso:UGA",
-    "iso3": "UGA",
     "name": "Uganda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UGA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321343"],
     "anchor": [851.79, 352.11],
     "bounds": [838.31, 343.12, 859.91, 365.88]
   },
   {
     "id": "iso:UKR",
-    "iso3": "UKR",
     "name": "Ukraine",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UKR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321345"],
     "anchor": [848.56, 161.1],
     "bounds": [808.57, 150.62, 880.44, 179.06]
   },
   {
     "id": "iso:ARE",
-    "iso3": "ARE",
     "name": "United Arab Emirates",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320329"],
     "anchor": [938.19, 266.13],
     "bounds": [926.29, 255.75, 945.55, 269.5]
   },
   {
     "id": "iso:GBR",
-    "iso3": "GBR",
     "name": "United Kingdom",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GBR"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320713"],
     "anchor": [711.53, 142.39],
     "bounds": [687.42, 116.75, 726.97, 159.85]
   },
   {
     "id": "iso:USA",
-    "iso3": "USA",
     "name": "United States",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "USA"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321369"],
     "anchor": [330.07, 201.85],
     "bounds": [7.22, 74.37, 1438.91, 283.95]
   },
   {
     "id": "iso:URY",
-    "iso3": "URY",
     "name": "Uruguay",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "URY"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321353"],
     "anchor": [496.13, 491.84],
     "bounds": [486.25, 480.43, 507.5, 499.73]
   },
   {
     "id": "iso:UZB",
-    "iso3": "UZB",
     "name": "Uzbekistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UZB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321405"],
     "anchor": [976.02, 193.23],
     "bounds": [943.9, 177.78, 1012.55, 211.31]
   },
   {
     "id": "iso:VUT",
-    "iso3": "VUT",
     "name": "Vanuatu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VUT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321421"],
     "anchor": [1387.64, 421.49],
     "bounds": [1386.27, 414.84, 1399.59, 440.81]
   },
   {
     "id": "iso:VEN",
-    "iso3": "VEN",
     "name": "Venezuela (Bolivarian Republic of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VEN"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321411"],
     "anchor": [461.6, 331.27],
     "bounds": [426.54, 311.29, 480.6, 357.25]
   },
   {
     "id": "iso:VNM",
-    "iso3": "VNM",
     "name": "Viet Nam",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VNM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321417"],
     "anchor": [1141.55, 273.14],
     "bounds": [1128.51, 266.62, 1157.78, 325.61]
   },
   {
     "id": "iso:YEM",
-    "iso3": "YEM",
     "name": "Yemen",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "YEM"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321425"],
     "anchor": [903.5, 298.69],
     "bounds": [890.36, 284.02, 938.04, 310.72]
   },
   {
     "id": "iso:ZMB",
-    "iso3": "ZMB",
     "name": "Zambia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZMB"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321439"],
     "anchor": [825.58, 418.64],
     "bounds": [807.92, 392.77, 854.65, 432.17]
   },
   {
     "id": "iso:ZWE",
-    "iso3": "ZWE",
     "name": "Zimbabwe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZWE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321441"],
     "anchor": [839.7, 435.65],
     "bounds": [821.04, 422.57, 851.97, 449.61]
   },
   {
     "id": "iso:VAT",
-    "iso3": "VAT",
     "name": "Holy See",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VAT"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159321407"],
     "anchor": [769.81, 192.39],
     "bounds": [769.76, 192.41, 769.76, 192.41]
   },
   {
     "id": "iso:PSE",
-    "iso3": "PSE",
     "name": "State of Palestine",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PSE"
+        }
+      ]
+    },
     "geometryRefs": ["ne:1159320899:part:0", "ne:1159320899:part:1"],
     "anchor": [861.17, 231.81],
     "bounds": [856.98, 230.16, 862.21, 235.17]
   },
   {
+    "id": "US-AL",
+    "name": "Alabama",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315233"]
+    },
+    "geometryRefs": ["ne:admin1:1159315233"],
+    "anchor": [366.06, 219.96],
+    "bounds": [366.06, 219.96, 380.41, 239.1]
+  },
+  {
+    "id": "US-AK",
+    "name": "Alaska",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308731"]
+    },
+    "geometryRefs": ["ne:admin1:1159308731"],
+    "anchor": [3.43, 74.35],
+    "bounds": [3.43, 74.35, 1439.12, 154.9]
+  },
+  {
+    "id": "US-AZ",
+    "name": "Arizona",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315341"]
+    },
+    "geometryRefs": ["ne:admin1:1159315341"],
+    "anchor": [260.71, 211.99],
+    "bounds": [260.71, 211.99, 283.81, 234.69]
+  },
+  {
+    "id": "US-AR",
+    "name": "Arkansas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315355"]
+    },
+    "geometryRefs": ["ne:admin1:1159315355"],
+    "anchor": [341.53, 214],
+    "bounds": [341.53, 214, 361.33, 227.96]
+  },
+  {
+    "id": "US-CA",
+    "name": "California",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308415"]
+    },
+    "geometryRefs": ["ne:admin1:1159308415"],
+    "anchor": [222.36, 192],
+    "bounds": [222.36, 192, 263.52, 229.87]
+  },
+  {
+    "id": "US-CO",
+    "name": "Colorado",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315343"]
+    },
+    "geometryRefs": ["ne:admin1:1159315343"],
+    "anchor": [283.81, 196],
+    "bounds": [283.81, 196, 311.84, 212]
+  },
+  {
+    "id": "US-CT",
+    "name": "Connecticut",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315301"]
+    },
+    "geometryRefs": ["ne:admin1:1159315301"],
+    "anchor": [425.43, 191.78],
+    "bounds": [425.43, 191.78, 432.79, 195.99]
+  },
+  {
+    "id": "US-DE",
+    "name": "Delaware",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315325"]
+    },
+    "geometryRefs": ["ne:admin1:1159315325"],
+    "anchor": [417.23, 200.74],
+    "bounds": [417.23, 200.74, 419.77, 206.19]
+  },
+  {
+    "id": "US-FL",
+    "name": "Florida",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315207"]
+    },
+    "geometryRefs": ["ne:admin1:1159315207"],
+    "anchor": [369.63, 236],
+    "bounds": [369.63, 236, 399.85, 261.77]
+  },
+  {
+    "id": "US-GA",
+    "name": "Georgia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159311857"]
+    },
+    "geometryRefs": ["ne:admin1:1159311857"],
+    "anchor": [377.58, 220],
+    "bounds": [377.58, 220, 396.44, 238.52]
+  },
+  {
+    "id": "US-HI",
+    "name": "Hawaii",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308409"]
+    },
+    "geometryRefs": ["ne:admin1:1159308409"],
+    "anchor": [6.84, 246.39],
+    "bounds": [6.84, 246.39, 100.4, 284.38]
+  },
+  {
+    "id": "US-ID",
+    "name": "Idaho",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315339"]
+    },
+    "geometryRefs": ["ne:admin1:1159315339"],
+    "anchor": [251.18, 164.03],
+    "bounds": [251.18, 164.03, 275.8, 192]
+  },
+  {
+    "id": "US-IL",
+    "name": "Illinois",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315309"]
+    },
+    "geometryRefs": ["ne:admin1:1159315309"],
+    "anchor": [353.92, 189.95],
+    "bounds": [353.92, 189.95, 371.92, 212.08]
+  },
+  {
+    "id": "US-IN",
+    "name": "Indiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315311"]
+    },
+    "geometryRefs": ["ne:admin1:1159315311"],
+    "anchor": [367.62, 192.96],
+    "bounds": [367.62, 192.96, 380.78, 208.73]
+  },
+  {
+    "id": "US-IA",
+    "name": "Iowa",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315357"]
+    },
+    "geometryRefs": ["ne:admin1:1159315357"],
+    "anchor": [333.45, 186],
+    "bounds": [333.45, 186, 359.4, 198.43]
+  },
+  {
+    "id": "US-KS",
+    "name": "Kansas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315359"]
+    },
+    "geometryRefs": ["ne:admin1:1159315359"],
+    "anchor": [311.79, 200],
+    "bounds": [311.79, 200, 341.56, 212]
+  },
+  {
+    "id": "US-KY",
+    "name": "Kentucky",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315313"]
+    },
+    "geometryRefs": ["ne:admin1:1159315313"],
+    "anchor": [362.02, 203.42],
+    "bounds": [362.02, 203.42, 392.14, 214.01]
+  },
+  {
+    "id": "US-LA",
+    "name": "Louisiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315221"]
+    },
+    "geometryRefs": ["ne:admin1:1159315221"],
+    "anchor": [343.83, 227.94],
+    "bounds": [343.83, 227.94, 364.58, 244.29]
+  },
+  {
+    "id": "US-ME",
+    "name": "Maine",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308501"]
+    },
+    "geometryRefs": ["ne:admin1:1159308501"],
+    "anchor": [435.66, 170.24],
+    "bounds": [435.66, 170.24, 452.09, 187.66]
+  },
+  {
+    "id": "US-MD",
+    "name": "Maryland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315329"]
+    },
+    "geometryRefs": ["ne:admin1:1159315329"],
+    "anchor": [402.06, 201.11],
+    "bounds": [402.06, 201.11, 419.82, 208.2]
+  },
+  {
+    "id": "US-MA",
+    "name": "Massachusetts",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312157"]
+    },
+    "geometryRefs": ["ne:admin1:1159312157"],
+    "anchor": [425.97, 188.45],
+    "bounds": [425.97, 188.45, 440.3, 195]
+  },
+  {
+    "id": "US-MI",
+    "name": "Michigan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159314665"]
+    },
+    "geometryRefs": ["ne:admin1:1159314665"],
+    "anchor": [358.33, 167.09],
+    "bounds": [358.33, 167.09, 390.34, 193.07]
+  },
+  {
+    "id": "US-MN",
+    "name": "Minnesota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315297"]
+    },
+    "geometryRefs": ["ne:admin1:1159315297"],
+    "anchor": [331.1, 162.52],
+    "bounds": [331.1, 162.52, 362, 186]
+  },
+  {
+    "id": "US-MS",
+    "name": "Mississippi",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315231"]
+    },
+    "geometryRefs": ["ne:admin1:1159315231"],
+    "anchor": [353.37, 220],
+    "bounds": [353.37, 220, 367.65, 239.24]
+  },
+  {
+    "id": "US-MO",
+    "name": "Missouri",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315361"]
+    },
+    "geometryRefs": ["ne:admin1:1159315361"],
+    "anchor": [336.93, 197.52],
+    "bounds": [336.93, 197.52, 363.51, 216.06]
+  },
+  {
+    "id": "US-MT",
+    "name": "Montana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315333"]
+    },
+    "geometryRefs": ["ne:admin1:1159315333"],
+    "anchor": [255.8, 164.03],
+    "bounds": [255.8, 164.03, 303.84, 182.49]
+  },
+  {
+    "id": "US-NE",
+    "name": "Nebraska",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315363"]
+    },
+    "geometryRefs": ["ne:admin1:1159315363"],
+    "anchor": [303.79, 188],
+    "bounds": [303.79, 188, 338.73, 200]
+  },
+  {
+    "id": "US-NV",
+    "name": "Nevada",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315345"]
+    },
+    "geometryRefs": ["ne:admin1:1159315345"],
+    "anchor": [240, 192],
+    "bounds": [240, 192, 263.83, 219.99]
+  },
+  {
+    "id": "US-NH",
+    "name": "New Hampshire",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315303"]
+    },
+    "geometryRefs": ["ne:admin1:1159315303"],
+    "anchor": [430.13, 178.78],
+    "bounds": [430.13, 178.78, 437.17, 189.2]
+  },
+  {
+    "id": "US-NJ",
+    "name": "New Jersey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315267"]
+    },
+    "geometryRefs": ["ne:admin1:1159315267"],
+    "anchor": [417.83, 194.91],
+    "bounds": [417.83, 194.91, 424.37, 204.26]
+  },
+  {
+    "id": "US-NM",
+    "name": "New Mexico",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315347"]
+    },
+    "geometryRefs": ["ne:admin1:1159315347"],
+    "anchor": [283.81, 212],
+    "bounds": [283.81, 212, 308, 234.69]
+  },
+  {
+    "id": "US-NY",
+    "name": "New York",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312155"]
+    },
+    "geometryRefs": ["ne:admin1:1159312155"],
+    "anchor": [400.95, 180.03],
+    "bounds": [400.95, 180.03, 432.32, 197.99]
+  },
+  {
+    "id": "US-NC",
+    "name": "North Carolina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159314887"]
+    },
+    "geometryRefs": ["ne:admin1:1159314887"],
+    "anchor": [382.7, 213.56],
+    "bounds": [382.7, 213.56, 418.1, 224.52]
+  },
+  {
+    "id": "US-ND",
+    "name": "North Dakota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315337"]
+    },
+    "geometryRefs": ["ne:admin1:1159315337"],
+    "anchor": [303.81, 164.03],
+    "bounds": [303.81, 164.03, 333.77, 176.23]
+  },
+  {
+    "id": "US-OH",
+    "name": "Ohio",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315315"]
+    },
+    "geometryRefs": ["ne:admin1:1159315315"],
+    "anchor": [380.71, 190.7],
+    "bounds": [380.71, 190.7, 397.92, 206.25]
+  },
+  {
+    "id": "US-OK",
+    "name": "Oklahoma",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315365"]
+    },
+    "geometryRefs": ["ne:admin1:1159315365"],
+    "anchor": [308, 212],
+    "bounds": [308, 212, 342.06, 225.41]
+  },
+  {
+    "id": "US-OR",
+    "name": "Oregon",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309549"]
+    },
+    "geometryRefs": ["ne:admin1:1159309549"],
+    "anchor": [222.03, 174.98],
+    "bounds": [222.03, 174.98, 254.18, 192]
+  },
+  {
+    "id": "US-PA",
+    "name": "Pennsylvania",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315331"]
+    },
+    "geometryRefs": ["ne:admin1:1159315331"],
+    "anchor": [397.92, 189.85],
+    "bounds": [397.92, 189.85, 421.21, 201.12]
+  },
+  {
+    "id": "US-RI",
+    "name": "Rhode Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312213"]
+    },
+    "geometryRefs": ["ne:admin1:1159312213"],
+    "anchor": [432.51, 191.94],
+    "bounds": [432.51, 191.94, 435.51, 195.2]
+  },
+  {
+    "id": "US-SC",
+    "name": "South Carolina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315307"]
+    },
+    "geometryRefs": ["ne:admin1:1159315307"],
+    "anchor": [386.58, 219.13],
+    "bounds": [386.58, 219.13, 405.71, 231.86]
+  },
+  {
+    "id": "US-SD",
+    "name": "South Dakota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315367"]
+    },
+    "geometryRefs": ["ne:admin1:1159315367"],
+    "anchor": [303.79, 176.23],
+    "bounds": [303.79, 176.23, 334.19, 189.93]
+  },
+  {
+    "id": "US-TN",
+    "name": "Tennessee",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315319"]
+    },
+    "geometryRefs": ["ne:admin1:1159315319"],
+    "anchor": [358.78, 213.24],
+    "bounds": [358.78, 213.24, 393.36, 220.05]
+  },
+  {
+    "id": "US-TX",
+    "name": "Texas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315211"]
+    },
+    "geometryRefs": ["ne:admin1:1159315211"],
+    "anchor": [293.35, 214],
+    "bounds": [293.35, 214, 345.94, 256.62]
+  },
+  {
+    "id": "US-UT",
+    "name": "Utah",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315349"]
+    },
+    "geometryRefs": ["ne:admin1:1159315349"],
+    "anchor": [263.83, 192],
+    "bounds": [263.83, 192, 283.81, 212]
+  },
+  {
+    "id": "US-VT",
+    "name": "Vermont",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315305"]
+    },
+    "geometryRefs": ["ne:admin1:1159315305"],
+    "anchor": [426.59, 179.95],
+    "bounds": [426.59, 179.95, 433.98, 189.08]
+  },
+  {
+    "id": "US-VA",
+    "name": "Virginia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315259"]
+    },
+    "geometryRefs": ["ne:admin1:1159315259"],
+    "anchor": [385.33, 202.2],
+    "bounds": [385.33, 202.2, 419.03, 213.8]
+  },
+  {
+    "id": "US-WA",
+    "name": "Washington",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309547"]
+    },
+    "geometryRefs": ["ne:admin1:1159309547"],
+    "anchor": [221.09, 164.03],
+    "bounds": [221.09, 164.03, 252.48, 177.73]
+  },
+  {
+    "id": "US-WV",
+    "name": "West Virginia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315323"]
+    },
+    "geometryRefs": ["ne:admin1:1159315323"],
+    "anchor": [389.45, 197.41],
+    "bounds": [389.45, 197.41, 409.04, 210.83]
+  },
+  {
+    "id": "US-WI",
+    "name": "Wisconsin",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315321"]
+    },
+    "geometryRefs": ["ne:admin1:1159315321"],
+    "anchor": [348.52, 171.68],
+    "bounds": [348.52, 171.68, 372.76, 190.03]
+  },
+  {
+    "id": "US-WY",
+    "name": "Wyoming",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315351"]
+    },
+    "geometryRefs": ["ne:admin1:1159315351"],
+    "anchor": [275.8, 180],
+    "bounds": [275.8, 180, 303.79, 196]
+  },
+  {
     "id": "non-un:abkhazia",
     "name": "Abkhazia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1159320785"]
+    },
     "geometryRefs": ["ne:disputed:1159320785"],
     "anchor": [885.12, 187.77],
-    "bounds": [879.94, 185.7, 888.62, 190.37]
+    "bounds": [879.94, 185.7, 888.62, 190.37],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Abkhazia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "2",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GE-AB",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
   },
   {
     "id": "non-un:adjara",
     "name": "Adjara",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159314341",
+        "ne:map-unit:1159320781",
+        "ne:map-subunit:1159320781"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159314341",
       "ne:map-unit:1159320781",
       "ne:map-subunit:1159320781"
     ],
     "anchor": [887.56, 193.06],
-    "bounds": [886.08, 192.39, 890.35, 194.28]
+    "bounds": [886.08, 192.39, 890.35, 194.28],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Adjara",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GE-AJ",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
   },
   {
     "id": "non-un:american-samoa",
     "name": "American Samoa",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159321403",
+        "ne:map-unit:1159321357",
+        "ne:map-subunit:1159321357"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159321403",
       "ne:map-unit:1159321357",
       "ne:map-subunit:1159321357"
     ],
     "anchor": [36.57, 412.95],
-    "bounds": [35.71, 404.21, 47.35, 418.13]
+    "bounds": [35.71, 404.21, 47.35, 418.13],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "American Samoa",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "AS",
+      "iso_3166_2_codes": "US-AS",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:anguilla",
     "name": "Anguilla",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"]
+    },
     "geometryRefs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"],
     "anchor": [467.89, 287.03],
-    "bounds": [466.29, 285.63, 468.17, 287.32]
+    "bounds": [466.29, 285.63, 468.17, 287.32],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Anguilla",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AI",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:antarctica",
     "name": "Antarctica",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315599",
+        "ne:map-unit:1159320335",
+        "ne:map-subunit:1159320337",
+        "ne:map-subunit:1159320343",
+        "ne:map-subunit:1159320341"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315599",
       "ne:map-unit:1159320335",
@@ -1606,72 +3802,225 @@
       "ne:map-subunit:1159320341"
     ],
     "anchor": [524.42, 639.67],
-    "bounds": [0, 602.18, 1440, 720]
+    "bounds": [0, 602.18, 1440, 720],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Antarctica",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AQ",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:aruba",
     "name": "Aruba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315531",
+        "ne:map-unit:1159321097",
+        "ne:map-subunit:1159321097"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315531",
       "ne:map-unit:1159321097",
       "ne:map-subunit:1159321097"
     ],
     "anchor": [440.08, 309.85],
-    "bounds": [440.01, 309.69, 440.45, 310.33]
+    "bounds": [440.01, 309.69, 440.45, 310.33],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Aruba",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "AW",
+      "iso_3166_2_codes": "NL-AW",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:azores",
     "name": "Azores",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310543",
+        "ne:map-unit:1159321189",
+        "ne:map-subunit:1159321189"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159310543",
       "ne:map-unit:1159321189",
       "ne:map-subunit:1159321189"
     ],
     "anchor": [610.3, 206.29],
-    "bounds": [594.98, 201.09, 619.73, 212.04]
+    "bounds": [594.98, 201.09, 619.73, 212.04],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Azores",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PT-20",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:bermuda",
     "name": "Bermuda",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"]
+    },
     "geometryRefs": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"],
     "anchor": [460.95, 230.81],
-    "bounds": [460.49, 230.45, 461.3, 230.97]
+    "bounds": [460.49, 230.45, 461.3, 230.97],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bermuda",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:bolzano-south-tyrol",
     "name": "Bolzano / South Tyrol",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310921"]
+    },
     "geometryRefs": ["ne:admin1:1159310921"],
     "anchor": [761.81, 171.66],
-    "bounds": [761.81, 171.66, 769.88, 175.1]
+    "bounds": [761.81, 171.66, 769.88, 175.1],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bolzano / South Tyrol",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-BZ",
+      "iso_3166_2_categories": "Autonomous province"
+    }
   },
   {
     "id": "non-un:bonaire-sint-eustatius-and-saba",
     "name": "Bonaire, Sint Eustatius and Saba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"]
+    },
     "geometryRefs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"],
     "anchor": [467.47, 289.82],
-    "bounds": [446.33, 289.41, 468.01, 311.91]
+    "bounds": [446.33, 289.41, 468.01, 311.91],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bonaire, Sint Eustatius and Saba",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BQ",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:bougainville",
     "name": "Bougainville",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309695",
+        "ne:map-unit:1159321175",
+        "ne:map-subunit:1159321175"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159309695",
       "ne:map-unit:1159321175",
       "ne:map-subunit:1159321175"
     ],
     "anchor": [1340.27, 381.72],
-    "bounds": [1336.61, 373.05, 1343.73, 387.51]
+    "bounds": [1336.61, 373.05, 1343.73, 387.51],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bougainville",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PG-NSB",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:bouvet-island",
     "name": "Bouvet Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"]
+    },
     "geometryRefs": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"],
     "anchor": [733.66, 577.66],
-    "bounds": [733.83, 577.56, 733.83, 577.56]
+    "bounds": [733.83, 577.56, 733.83, 577.56],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bouvet Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BV",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:british-indian-ocean-territory",
     "name": "British Indian Ocean Territory",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315473",
+        "ne:disputed:1159320723",
+        "ne:map-unit:1159320723",
+        "ne:map-subunit:1159320723"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315473",
       "ne:disputed:1159320723",
@@ -1679,111 +4028,353 @@
       "ne:map-subunit:1159320723"
     ],
     "anchor": [1005.3, 383.81],
-    "bounds": [1005.05, 380.94, 1009.94, 389.54]
+    "bounds": [1005.05, 380.94, 1009.94, 389.54],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "British Indian Ocean Territory",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "IO",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:british-virgin-islands",
     "name": "British Virgin Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315557",
+        "ne:map-unit:1159320739",
+        "ne:map-subunit:1159320739"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315557",
       "ne:map-unit:1159320739",
       "ne:map-subunit:1159320739"
     ],
     "anchor": [461.33, 285.89],
-    "bounds": [461.08, 285.1, 462.65, 286.57]
+    "bounds": [461.08, 285.1, 462.65, 286.57],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "British Virgin Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "VG",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:cayman-islands",
     "name": "Cayman Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315563",
+        "ne:map-unit:1159320707",
+        "ne:map-subunit:1159320707"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315563",
       "ne:map-unit:1159320707",
       "ne:map-subunit:1159320707"
     ],
     "anchor": [394.8, 282.16],
-    "bounds": [394.33, 281.05, 401.09, 282.58]
+    "bounds": [394.33, 281.05, 401.09, 282.58],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cayman Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "KY",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:christmas-island",
     "name": "Christmas Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"]
+    },
     "geometryRefs": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"],
     "anchor": [1142.69, 401.96],
-    "bounds": [1142.34, 401.72, 1142.82, 402.07]
+    "bounds": [1142.34, 401.72, 1142.82, 402.07],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Christmas Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CX",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:cocos-keeling-islands",
     "name": "Cocos (Keeling) Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320367", "ne:map-subunit:1159320367"]
+    },
     "geometryRefs": ["ne:map-unit:1159320367", "ne:map-subunit:1159320367"],
     "anchor": [1107.32, 408.64],
-    "bounds": [1107.45, 408.73, 1107.61, 408.8]
+    "bounds": [1107.45, 408.73, 1107.61, 408.8],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cocos (Keeling) Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CC",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:cook-islands",
     "name": "Cook Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"]
+    },
     "geometryRefs": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"],
     "anchor": [80.86, 444.86],
-    "bounds": [56.7, 395.92, 90.75, 447.51]
+    "bounds": [56.7, 395.92, 90.75, 447.51],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cook Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:costa-caribe-norte",
     "name": "Costa Caribe Norte",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309037"]
+    },
     "geometryRefs": ["ne:admin1:1159309037"],
     "anchor": [378.26, 300.01],
-    "bounds": [378.26, 300.01, 388.93, 307.87]
+    "bounds": [378.26, 300.01, 388.93, 307.87],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Costa Caribe Norte",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "NI-AN",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:costa-caribe-sur",
     "name": "Costa Caribe Sur",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308989"]
+    },
     "geometryRefs": ["ne:admin1:1159308989"],
     "anchor": [379.09, 307.02],
-    "bounds": [379.09, 307.02, 387.78, 316.22]
+    "bounds": [379.09, 307.02, 387.78, 316.22],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Costa Caribe Sur",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "NI-AS",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:curac-ao",
     "name": "Curaçao",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315529",
+        "ne:map-unit:1159321099",
+        "ne:map-subunit:1159321099"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315529",
       "ne:map-unit:1159321099",
       "ne:map-subunit:1159321099"
     ],
     "anchor": [443.98, 311.11],
-    "bounds": [443.31, 310.48, 444.88, 311.61]
+    "bounds": [443.31, 310.48, 444.88, 311.61],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Curaçao",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "CW",
+      "iso_3166_2_codes": "NL-CW",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:donetsk-people-s-republic",
     "name": "Donetsk People's Republic",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1763286545"]
+    },
     "geometryRefs": ["ne:disputed:1763286545"],
     "anchor": [872.57, 168.08],
-    "bounds": [869.97, 166.18, 876.14, 171.89]
+    "bounds": [869.97, 166.18, 876.14, 171.89],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Donetsk People's Republic",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:england",
     "name": "England",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"]
+    },
     "geometryRefs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"],
     "anchor": [714.39, 149.56],
-    "bounds": [694.67, 136.82, 726.99, 160.26]
+    "bounds": [694.67, 136.82, 726.99, 160.26],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "England",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-ENG",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:falkland-islands-malvinas",
     "name": "Falkland Islands (Malvinas)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320711",
+        "ne:map-unit:1159320711",
+        "ne:map-subunit:1159320711"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159320711",
       "ne:map-unit:1159320711",
       "ne:map-subunit:1159320711"
     ],
     "anchor": [485.05, 566.44],
-    "bounds": [474.92, 564.18, 488.89, 571.61]
+    "bounds": [474.92, 564.18, 488.89, 571.61],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Falkland Islands (Malvinas)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "FK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:faroe-islands",
     "name": "Faroe Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"]
+    },
     "geometryRefs": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"],
     "anchor": [691.77, 111.26],
-    "bounds": [689.76, 110.44, 694.71, 114.42]
+    "bounds": [689.76, 110.44, 694.71, 114.42],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Faroe Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "FO",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:french-guiana",
     "name": "French Guiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159311355",
+        "ne:disputed:1159320683",
+        "ne:map-unit:1159320655",
+        "ne:map-subunit:1159320655"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159311355",
       "ne:disputed:1159320683",
@@ -1791,18 +4382,65 @@
       "ne:map-subunit:1159320655"
     ],
     "anchor": [505.08, 343.69],
-    "bounds": [501.54, 337.02, 513.4, 351.56]
+    "bounds": [501.54, 337.02, 513.4, 351.56],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Guiana",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GF",
+      "iso_3166_2_codes": "FR-973",
+      "iso_3166_2_categories": "Overseas unique territorial collectivity"
+    }
   },
   {
     "id": "non-un:french-polynesia",
     "name": "French Polynesia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"]
+    },
     "geometryRefs": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"],
     "anchor": [122.15, 430.51],
-    "bounds": [101.91, 392.06, 179.92, 470.32]
+    "bounds": [101.91, 392.06, 179.92, 470.32],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Polynesia",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PF",
+      "iso_3166_2_codes": "FR-PF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
   },
   {
     "id": "non-un:french-southern-territories",
     "name": "French Southern Territories",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320677",
+        "ne:disputed:1159320667",
+        "ne:disputed:1159320665",
+        "ne:disputed:1159320679",
+        "ne:disputed:1159320675",
+        "ne:map-unit:1159320631",
+        "ne:map-subunit:1159320677",
+        "ne:map-subunit:1159320669",
+        "ne:map-subunit:1159320667",
+        "ne:map-subunit:1159320665",
+        "ne:map-subunit:1159320679",
+        "ne:map-subunit:1159320675"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159320677",
       "ne:disputed:1159320667",
@@ -1818,11 +4456,33 @@
       "ne:map-subunit:1159320675"
     ],
     "anchor": [915.82, 451.77],
-    "bounds": [878.78, 406.26, 1030.13, 558.74]
+    "bounds": [878.78, 406.26, 1030.13, 558.74],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Southern Territories",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "TF",
+      "iso_3166_2_codes": "FR-TF",
+      "iso_3166_2_categories": "Overseas territory"
+    }
   },
   {
     "id": "non-un:friuli-venezia-giulia",
     "name": "Friuli-Venezia Giulia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159316967",
+        "ne:admin1:1159316965",
+        "ne:admin1:1159316969",
+        "ne:admin1:1159310919"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159316967",
       "ne:admin1:1159316965",
@@ -1830,18 +4490,57 @@
       "ne:admin1:1159310919"
     ],
     "anchor": [771.83, 175.14],
-    "bounds": [769.34, 173.44, 775.58, 177.47]
+    "bounds": [769.34, 173.44, 775.58, 177.47],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Friuli-Venezia Giulia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-36",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:gagauzia",
     "name": "Gagauzia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312587"]
+    },
     "geometryRefs": ["ne:admin1:1159312587"],
     "anchor": [833.08, 173.99],
-    "bounds": [833.08, 173.99, 835.66, 177.91]
+    "bounds": [833.08, 173.99, 835.66, 177.91],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gagauzia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "MD-GA",
+      "iso_3166_2_categories": "Autonomous territorial unit"
+    }
   },
   {
     "id": "non-un:gibraltar",
     "name": "Gibraltar",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315683",
+        "ne:disputed:1159320719",
+        "ne:map-unit:1159320719",
+        "ne:map-subunit:1159320719"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315683",
       "ne:disputed:1159320719",
@@ -1849,58 +4548,178 @@
       "ne:map-subunit:1159320719"
     ],
     "anchor": [698.6, 215.47],
-    "bounds": [698.57, 215.44, 698.57, 215.44]
+    "bounds": [698.57, 215.44, 698.57, 215.44],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gibraltar",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GI",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:gorno-badakhshan",
     "name": "Gorno-Badakhshan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308469"]
+    },
     "geometryRefs": ["ne:admin1:1159308469"],
     "anchor": [1001.1, 202.13],
-    "bounds": [1001.1, 202.13, 1020.27, 213.29]
+    "bounds": [1001.1, 202.13, 1020.27, 213.29],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gorno-Badakhshan",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "TJ-GB",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:greenland",
     "name": "Greenland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320559",
+        "ne:map-unit:1159320551",
+        "ne:map-subunit:1159320551"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159320559",
       "ne:map-unit:1159320551",
       "ne:map-subunit:1159320551"
     ],
     "anchor": [526.65, 54.04],
-    "bounds": [427.77, 25.59, 674.49, 120.67]
+    "bounds": [427.77, 25.59, 674.49, 120.67],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Greenland",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GL",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:guadeloupe",
     "name": "Guadeloupe",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315647",
+        "ne:map-unit:1159320653",
+        "ne:map-subunit:1159320653"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315647",
       "ne:map-unit:1159320653",
       "ne:map-subunit:1159320653"
     ],
     "anchor": [473.78, 294.52],
-    "bounds": [472.81, 293.95, 476.04, 296.52]
+    "bounds": [472.81, 293.95, 476.04, 296.52],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guadeloupe",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GP",
+      "iso_3166_2_codes": "FR-971",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
   },
   {
     "id": "non-un:guam",
     "name": "Guam",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315535",
+        "ne:map-unit:1159321359",
+        "ne:map-subunit:1159321359"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315535",
       "ne:map-unit:1159321359",
       "ne:map-subunit:1159321359"
     ],
     "anchor": [1298.78, 306.2],
-    "bounds": [1298.72, 305.44, 1299.55, 307.01]
+    "bounds": [1298.72, 305.44, 1299.55, 307.01],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guam",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GU",
+      "iso_3166_2_codes": "US-GU",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:guangxi",
     "name": "Guangxi",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310341"]
+    },
     "geometryRefs": ["ne:admin1:1159310341"],
     "anchor": [1138.15, 254.44],
-    "bounds": [1138.15, 254.44, 1168.2, 275.92]
+    "bounds": [1138.15, 254.44, 1168.2, 275.92],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guangxi",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-GX",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:guernsey",
     "name": "Guernsey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320715",
+        "ne:map-subunit:1159320757",
+        "ne:map-subunit:1159320761",
+        "ne:map-subunit:1159320755",
+        "ne:map-subunit:1159320759"
+      ]
+    },
     "geometryRefs": [
       "ne:map-unit:1159320715",
       "ne:map-subunit:1159320757",
@@ -1909,108 +4728,337 @@
       "ne:map-subunit:1159320759"
     ],
     "anchor": [710.29, 161.96],
-    "bounds": [709.68, 161.07, 711.3, 162.21]
+    "bounds": [709.68, 161.07, 711.3, 162.21],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guernsey",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GG",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:heard-island-and-mcdonald-islands",
     "name": "Heard Island and McDonald Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315607",
+        "ne:map-unit:1159320361",
+        "ne:map-subunit:1159320361"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315607",
       "ne:map-unit:1159320361",
       "ne:map-subunit:1159320361"
     ],
     "anchor": [1013.66, 572.25],
-    "bounds": [1012.94, 571.93, 1014.94, 572.76]
+    "bounds": [1012.94, 571.93, 1014.94, 572.76],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Heard Island and McDonald Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "HM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:hong-kong",
     "name": "Hong Kong",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"]
+    },
     "geometryRefs": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"],
     "anchor": [1176.39, 270.2],
-    "bounds": [1175.39, 269.78, 1177.6, 271.28]
+    "bounds": [1175.39, 269.78, 1177.6, 271.28],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Hong Kong",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "HK",
+      "iso_3166_2_codes": "CN-HK",
+      "iso_3166_2_categories": "Special administrative region"
+    }
   },
   {
     "id": "non-un:inner-mongolia",
     "name": "Inner Mongolia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312757"]
+    },
     "geometryRefs": ["ne:admin1:1159312757"],
     "anchor": [1108.76, 146.91],
-    "bounds": [1108.76, 146.91, 1224.23, 210.42]
+    "bounds": [1108.76, 146.91, 1224.23, 210.42],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Inner Mongolia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-NM",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:isle-of-man",
     "name": "Isle of Man",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315475",
+        "ne:map-unit:1159320721",
+        "ne:map-subunit:1159320721"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315475",
       "ne:map-unit:1159320721",
       "ne:map-subunit:1159320721"
     ],
     "anchor": [701.51, 142.86],
-    "bounds": [700.76, 142.34, 702.59, 143.77]
+    "bounds": [700.76, 142.34, 702.59, 143.77],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Isle of Man",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "IM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:jersey",
     "name": "Jersey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315593",
+        "ne:map-unit:1159320725",
+        "ne:map-subunit:1159320725"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315593",
       "ne:map-unit:1159320725",
       "ne:map-subunit:1159320725"
     ],
     "anchor": [711.45, 163.07],
-    "bounds": [711.07, 162.96, 711.67, 163.26]
+    "bounds": [711.07, 162.96, 711.67, 163.26],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Jersey",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "JE",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:jewish-autonomous-oblast",
     "name": "Jewish Autonomous Oblast",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159313605"]
+    },
     "geometryRefs": ["ne:admin1:1159313605"],
     "anchor": [1242.56, 162.06],
-    "bounds": [1242.56, 162.06, 1259.95, 169.33]
+    "bounds": [1242.56, 162.06, 1259.95, 169.33],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Jewish Autonomous Oblast",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RU-YEV",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:kosovo",
     "name": "Kosovo",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"]
+    },
     "geometryRefs": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"],
     "anchor": [803.44, 189.63],
-    "bounds": [800.14, 186.95, 807.09, 192.62]
+    "bounds": [800.14, 186.95, 807.09, 192.62],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Kosovo",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "2",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RS-KM",
+      "iso_3166_2_categories": "Autonomous province"
+    }
   },
   {
     "id": "non-un:luhansk-people-s-republic",
     "name": "Luhansk People's Republic",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1763286547"]
+    },
     "geometryRefs": ["ne:disputed:1763286547"],
     "anchor": [877.14, 166.96],
-    "bounds": [873.16, 165.42, 879.96, 168.67]
+    "bounds": [873.16, 165.42, 879.96, 168.67],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Luhansk People's Republic",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:macao",
     "name": "Macao",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"]
+    },
     "geometryRefs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
     "anchor": [1174.22, 271.48],
-    "bounds": [1174.15, 271.13, 1174.23, 271.35]
+    "bounds": [1174.15, 271.13, 1174.23, 271.35],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Macao",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MO",
+      "iso_3166_2_codes": "CN-MO",
+      "iso_3166_2_categories": "Special administrative region"
+    }
   },
   {
     "id": "non-un:madeira",
     "name": "Madeira",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310443",
+        "ne:map-unit:1159321191",
+        "ne:map-subunit:1159321191"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159310443",
       "ne:map-unit:1159321191",
       "ne:map-subunit:1159321191"
     ],
     "anchor": [651.81, 228.61],
-    "bounds": [650.99, 227.77, 656.54, 239.87]
+    "bounds": [650.99, 227.77, 656.54, 239.87],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Madeira",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PT-30",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:martinique",
     "name": "Martinique",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159311599",
+        "ne:map-unit:1159320657",
+        "ne:map-subunit:1159320657"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159311599",
       "ne:map-unit:1159320657",
       "ne:map-subunit:1159320657"
     ],
     "anchor": [475.56, 300.97],
-    "bounds": [475.12, 300.61, 476.76, 302.15]
+    "bounds": [475.12, 300.61, 476.76, 302.15],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Martinique",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MQ",
+      "iso_3166_2_codes": "FR-972",
+      "iso_3166_2_categories": "Overseas unique territorial collectivity"
+    }
   },
   {
     "id": "non-un:mayotte",
     "name": "Mayotte",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315621",
+        "ne:disputed:1159320659",
+        "ne:map-unit:1159320659",
+        "ne:map-subunit:1159320659"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315621",
       "ne:disputed:1159320659",
@@ -2018,290 +5066,937 @@
       "ne:map-subunit:1159320659"
     ],
     "anchor": [900.5, 411.02],
-    "bounds": [900.17, 410.79, 901.05, 411.93]
+    "bounds": [900.17, 410.79, 901.05, 411.93],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Mayotte",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "YT",
+      "iso_3166_2_codes": "FR-976",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
   },
   {
     "id": "non-un:montserrat",
     "name": "Montserrat",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"]
+    },
     "geometryRefs": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"],
     "anchor": [471.25, 293.05],
-    "bounds": [471.41, 293.02, 471.41, 293.02]
+    "bounds": [471.41, 293.02, 471.41, 293.02],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Montserrat",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "MS",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:nakhchivan",
     "name": "Nakhchivan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["gb:aze-adm1:63332228B45413776644545"]
+    },
     "geometryRefs": ["gb:aze-adm1:63332228B45413776644545"],
     "anchor": [899.05, 200.92],
-    "bounds": [899.05, 200.92, 904.58, 204.63]
+    "bounds": [899.05, 200.92, 904.58, 204.63],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Nakhchivan",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "AZ-NX",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
   },
   {
     "id": "non-un:new-caledonia",
     "name": "New Caledonia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"]
+    },
     "geometryRefs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
     "anchor": [1380.34, 444.26],
-    "bounds": [1374.73, 438.96, 1405.36, 450.28]
+    "bounds": [1374.73, 438.96, 1405.36, 450.28],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "New Caledonia",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "NC",
+      "iso_3166_2_codes": "FR-NC",
+      "iso_3166_2_categories": "Overseas collectivity with special status"
+    }
   },
   {
     "id": "non-un:ningxia",
     "name": "Ningxia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312659"]
+    },
     "geometryRefs": ["ne:admin1:1159312659"],
     "anchor": [1137.43, 202.51],
-    "bounds": [1137.43, 202.51, 1150.65, 218.98]
+    "bounds": [1137.43, 202.51, 1150.65, 218.98],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Ningxia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-NX",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:niue",
     "name": "Niue",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315491",
+        "ne:map-unit:1159321133",
+        "ne:map-subunit:1159321133"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315491",
       "ne:map-unit:1159321133",
       "ne:map-subunit:1159321133"
     ],
     "anchor": [40.46, 436.07],
-    "bounds": [40.27, 435.86, 40.6, 436.52]
+    "bounds": [40.27, 435.86, 40.6, 436.52],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Niue",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "NU",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:norfolk-island",
     "name": "Norfolk Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315615",
+        "ne:map-unit:1159320365",
+        "ne:map-subunit:1159320365"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315615",
       "ne:map-unit:1159320365",
       "ne:map-subunit:1159320365"
     ],
     "anchor": [1391.86, 476.11],
-    "bounds": [1391.94, 476.07, 1391.94, 476.07]
+    "bounds": [1391.94, 476.07, 1391.94, 476.07],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Norfolk Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "NF",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:north-borneo",
     "name": "North Borneo",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1763510959"]
+    },
     "geometryRefs": ["ne:disputed:1763510959"],
     "anchor": [1190.98, 338.98],
-    "bounds": [1186.04, 330.58, 1197.1, 343.08]
+    "bounds": [1186.04, 330.58, 1197.1, 343.08],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "North Borneo",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:northern-cyprus",
     "name": "Northern Cyprus",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:1159320531"]
+    },
     "geometryRefs": ["ne:1159320531"],
     "anchor": [854.77, 219.14],
-    "bounds": [850.85, 217.35, 858.22, 219.74]
+    "bounds": [850.85, 217.35, 858.22, 219.74],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Cyprus",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:northern-ireland",
     "name": "Northern Ireland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"]
+    },
     "geometryRefs": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"],
     "anchor": [694.13, 141.38],
-    "bounds": [687.3, 138.75, 698.26, 143.86]
+    "bounds": [687.3, 138.75, 698.26, 143.86],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Ireland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-NIR",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:northern-mariana-islands",
     "name": "Northern Mariana Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159316107",
+        "ne:map-unit:1159321361",
+        "ne:map-subunit:1159321361"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159316107",
       "ne:map-unit:1159321361",
       "ne:map-subunit:1159321361"
     ],
     "anchor": [1301.85, 292.14],
-    "bounds": [1299.66, 277.93, 1303.42, 303.27]
+    "bounds": [1299.66, 277.93, 1303.42, 303.27],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Mariana Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MP",
+      "iso_3166_2_codes": "US-MP",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:pitcairn",
     "name": "Pitcairn",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"]
+    },
     "geometryRefs": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"],
     "anchor": [206.73, 457.46],
-    "bounds": [197.02, 455.7, 220.86, 460.27]
+    "bounds": [197.02, 455.7, 220.86, 460.27],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Pitcairn",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "PN",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:pri-ncipe",
     "name": "Príncipe",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"]
+    },
     "geometryRefs": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"],
     "anchor": [749.46, 353.44],
-    "bounds": [749.33, 353.3, 749.85, 353.74]
+    "bounds": [749.33, 353.3, 749.85, 353.74],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Príncipe",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "ST-P",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:puerto-rico",
     "name": "Puerto Rico",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315553",
+        "ne:map-unit:1159321363",
+        "ne:map-subunit:1159321363"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315553",
       "ne:map-unit:1159321363",
       "ne:map-subunit:1159321363"
     ],
     "anchor": [452.25, 286.72],
-    "bounds": [448.58, 286.03, 458.88, 288.26]
+    "bounds": [448.58, 286.03, 458.88, 288.26],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Puerto Rico",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PR",
+      "iso_3166_2_codes": "US-PR",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:re-union",
     "name": "Réunion",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315617",
+        "ne:map-unit:1159320661",
+        "ne:map-subunit:1159320661"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315617",
       "ne:map-unit:1159320661",
       "ne:map-subunit:1159320661"
     ],
     "anchor": [941.73, 444.13],
-    "bounds": [940.9, 443.5, 943.25, 445.47]
+    "bounds": [940.9, 443.5, 943.25, 445.47],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Réunion",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "RE",
+      "iso_3166_2_codes": "FR-974",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
   },
   {
     "id": "non-un:saint-barthe-lemy",
     "name": "Saint Barthélemy",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315649",
+        "ne:map-unit:1159320633",
+        "ne:map-subunit:1159320633"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315649",
       "ne:map-unit:1159320633",
       "ne:map-subunit:1159320633"
     ],
     "anchor": [468.66, 288.42],
-    "bounds": [468.64, 288.47, 468.64, 288.47]
+    "bounds": [468.64, 288.47, 468.64, 288.47],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Barthélemy",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "BL",
+      "iso_3166_2_codes": "FR-BL",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
   },
   {
     "id": "non-un:saint-helena-ascension-and-tristan-da-cunha",
     "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320733"]
+    },
     "geometryRefs": ["ne:map-unit:1159320733"],
     "anchor": [697.15, 423.8],
-    "bounds": [662.57, 391.54, 697.11, 521.4]
+    "bounds": [662.57, 391.54, 697.11, 521.4],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Helena, Ascension and Tristan da Cunha",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "SH",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:saint-martin-french-part",
     "name": "Saint Martin (French part)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320639", "ne:map-subunit:1159320639"]
+    },
     "geometryRefs": ["ne:map-unit:1159320639", "ne:map-subunit:1159320639"],
     "anchor": [467.8, 287.67],
-    "bounds": [467.93, 287.87, 467.93, 287.87]
+    "bounds": [467.93, 287.87, 467.93, 287.87],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Martin (French part)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MF",
+      "iso_3166_2_codes": "FR-MF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
   },
   {
     "id": "non-un:saint-pierre-and-miquelon",
     "name": "Saint Pierre and Miquelon",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315673",
+        "ne:map-unit:1159320647",
+        "ne:map-subunit:1159320647"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315673",
       "ne:map-unit:1159320647",
       "ne:map-subunit:1159320647"
     ],
     "anchor": [494.91, 172.17],
-    "bounds": [494.52, 171.44, 495.4, 172.86]
+    "bounds": [494.52, 171.44, 495.4, 172.86],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Pierre and Miquelon",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PM",
+      "iso_3166_2_codes": "FR-PM",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
   },
   {
     "id": "non-un:sardinia",
     "name": "Sardinia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-subunit:1159320921"]
+    },
     "geometryRefs": ["ne:map-subunit:1159320921"],
     "anchor": [756.19, 199.53],
-    "bounds": [752.59, 194.95, 759.17, 204.54]
+    "bounds": [752.59, 194.95, 759.17, 204.54],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sardinia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-88",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:scotland",
     "name": "Scotland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320775",
+        "ne:map-unit:1159320747",
+        "ne:map-subunit:1159320747"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159320775",
       "ne:map-unit:1159320747",
       "ne:map-subunit:1159320747"
     ],
     "anchor": [690.96, 131.76],
-    "bounds": [665.24, 116.67, 716.91, 141.46]
+    "bounds": [665.24, 116.67, 716.91, 141.46],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Scotland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-SCT",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:sicily",
     "name": "Sicily",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-subunit:1159320929"]
+    },
     "geometryRefs": ["ne:map-subunit:1159320929"],
     "anchor": [776.62, 209.74],
-    "bounds": [768.29, 204.76, 782.11, 213.38]
+    "bounds": [768.29, 204.76, 782.11, 213.38],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sicily",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-82",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:sint-maarten-dutch-part",
     "name": "Sint Maarten (Dutch part)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315549",
+        "ne:map-unit:1159321103",
+        "ne:map-subunit:1159321103"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315549",
       "ne:map-unit:1159321103",
       "ne:map-subunit:1159321103"
     ],
     "anchor": [467.67, 287.81],
-    "bounds": [467.57, 287.75, 467.57, 287.75]
+    "bounds": [467.57, 287.75, 467.57, 287.75],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sint Maarten (Dutch part)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "SX",
+      "iso_3166_2_codes": "NL-SX",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:somaliland",
     "name": "Somaliland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:1159321259"]
+    },
     "geometryRefs": ["ne:1159321259"],
     "anchor": [906.93, 322.22],
-    "bounds": [890.63, 314, 915.75, 328.01]
+    "bounds": [890.63, 314, 915.75, 328.01],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Somaliland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:south-georgia-and-the-south-sandwich-islands",
     "name": "South Georgia and the South Sandwich Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"]
+    },
     "geometryRefs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"],
     "anchor": [573.65, 578.28],
-    "bounds": [551.55, 573.83, 614.96, 597.83]
+    "bounds": [551.55, 573.83, 614.96, 597.83],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "South Georgia and the South Sandwich Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GS",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:south-ossetia",
     "name": "South Ossetia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1159320787"]
+    },
     "geometryRefs": ["ne:disputed:1159320787"],
     "anchor": [896.52, 190.44],
-    "bounds": [894.24, 188.99, 898.58, 192.04]
+    "bounds": [894.24, 188.99, 898.58, 192.04],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "South Ossetia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:svalbard-and-jan-mayen",
     "name": "Svalbard and Jan Mayen",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309689",
+        "ne:map-unit:1159321119",
+        "ne:map-subunit:1159321119"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159309689",
       "ne:map-unit:1159321119",
       "ne:map-subunit:1159321119"
     ],
     "anchor": [782.19, 42.28],
-    "bounds": [761.94, 37.06, 854.56, 62.61]
+    "bounds": [761.94, 37.06, 854.56, 62.61],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Svalbard and Jan Mayen",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "SJ",
+      "iso_3166_2_codes": "NO-21;NO-22",
+      "iso_3166_2_categories": "Arctic region"
+    }
   },
   {
     "id": "non-un:taiwan",
     "name": "Taiwan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159321335",
+        "ne:map-unit:1159321335",
+        "ne:map-subunit:1159321335"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1159321335",
       "ne:map-unit:1159321335",
       "ne:map-subunit:1159321335"
     ],
     "anchor": [1203.47, 265.39],
-    "bounds": [1193.03, 254.53, 1208.28, 272.25]
+    "bounds": [1193.03, 254.53, 1208.28, 272.25],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Taiwan",
+      "iso_3166_1": "True",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "2",
+      "iso_3166_1_code": "TW",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:tibet-xizang",
     "name": "Tibet / Xizang",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312655"]
+    },
     "geometryRefs": ["ne:admin1:1159312655"],
     "anchor": [1033.54, 214.51],
-    "bounds": [1033.54, 214.51, 1116.44, 250.75]
+    "bounds": [1033.54, 214.51, 1116.44, 250.75],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Tibet / Xizang",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-XZ",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:tokelau",
     "name": "Tokelau",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315503",
+        "ne:map-unit:1159321137",
+        "ne:map-subunit:1159321137"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315503",
       "ne:map-unit:1159321137",
       "ne:map-subunit:1159321137"
     ],
     "anchor": [30.05, 394.25],
-    "bounds": [30.06, 394.26, 35.24, 397.43]
+    "bounds": [30.06, 394.26, 35.24, 397.43],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Tokelau",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "TK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:transnistria",
     "name": "Transnistria",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:disputed:1159321047"]
+    },
     "geometryRefs": ["ne:disputed:1159321047"],
     "anchor": [837.01, 170.84],
-    "bounds": [834.08, 167.4, 839.71, 173.79]
+    "bounds": [834.08, 167.4, 839.71, 173.79],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Transnistria",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:trentino",
     "name": "Trentino",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159316949"]
+    },
     "geometryRefs": ["ne:admin1:1159316949"],
     "anchor": [762.1, 173.91],
-    "bounds": [762.1, 173.91, 767.89, 177.2]
+    "bounds": [762.1, 173.91, 767.89, 177.2],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Trentino",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-TN",
+      "iso_3166_2_categories": "Autonomous province"
+    }
   },
   {
     "id": "non-un:trentino-alto-adige-su-dtirol",
     "name": "Trentino-Alto Adige/Südtirol",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310921", "ne:admin1:1159316949"]
+    },
     "geometryRefs": ["ne:admin1:1159310921", "ne:admin1:1159316949"],
     "anchor": [761.95, 172.78],
-    "bounds": [761.81, 171.66, 769.88, 177.2]
+    "bounds": [761.81, 171.66, 769.88, 177.2],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Trentino-Alto Adige/Südtirol",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-32",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:turks-and-caicos-islands",
     "name": "Turks and Caicos Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320737", "ne:map-subunit:1159320737"]
+    },
     "geometryRefs": ["ne:map-unit:1159320737", "ne:map-subunit:1159320737"],
     "anchor": [432.99, 272.73],
-    "bounds": [430.16, 272.38, 435.45, 274.8]
+    "bounds": [430.16, 272.38, 435.45, 274.8],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Turks and Caicos Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "TC",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:united-states-minor-outlying-islands",
     "name": "United States Minor Outlying Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321381",
+        "ne:map-subunit:1159321381",
+        "ne:map-unit:1159321375",
+        "ne:map-subunit:1159321375",
+        "ne:map-unit:1159321377",
+        "ne:map-subunit:1159321377",
+        "ne:map-unit:1159321379",
+        "ne:map-subunit:1159321379",
+        "ne:disputed:1159321391",
+        "ne:map-unit:1159321391",
+        "ne:map-subunit:1159321391",
+        "ne:map-unit:1159321389",
+        "ne:map-subunit:1159321389",
+        "ne:disputed:1159321373",
+        "ne:map-unit:1159321373",
+        "ne:map-subunit:1159321373",
+        "ne:map-unit:1159321387",
+        "ne:map-subunit:1159321387",
+        "ne:map-unit:1159321385",
+        "ne:map-subunit:1159321385"
+      ]
+    },
     "geometryRefs": [
       "ne:map-unit:1159321381",
       "ne:map-subunit:1159321381",
@@ -2325,25 +6020,81 @@
       "ne:map-subunit:1159321385"
     ],
     "anchor": [301.17, 314.24],
-    "bounds": [10.57, 247.14, 1386.48, 361.5]
+    "bounds": [10.57, 247.14, 1386.48, 361.5],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "United States Minor Outlying Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "UM",
+      "iso_3166_2_codes": "US-UM",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:united-states-virgin-islands",
     "name": "United States Virgin Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"]
+    },
     "geometryRefs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"],
     "anchor": [460.88, 289.01],
-    "bounds": [459.83, 286.59, 461.76, 289.27]
+    "bounds": [459.83, 286.59, 461.76, 289.27],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "United States Virgin Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "VI",
+      "iso_3166_2_codes": "US-VI",
+      "iso_3166_2_categories": "Outlying area"
+    }
   },
   {
     "id": "non-un:valle-d-aosta",
     "name": "Valle d’Aosta",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310915"]
+    },
     "geometryRefs": ["ne:admin1:1159310915"],
     "anchor": [747.13, 176.24],
-    "bounds": [747.13, 176.24, 751.68, 178.13]
+    "bounds": [747.13, 176.24, 751.68, 178.13],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Valle d’Aosta",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-23",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:vojvodina",
     "name": "Vojvodina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1729635105",
+        "ne:disputed:1729635103",
+        "ne:map-unit:1159321271",
+        "ne:map-subunit:1159321271"
+      ]
+    },
     "geometryRefs": [
       "ne:disputed:1729635105",
       "ne:disputed:1729635103",
@@ -2351,25 +6102,82 @@
       "ne:map-subunit:1159321271"
     ],
     "anchor": [798.14, 178.29],
-    "bounds": [795.61, 175.33, 806.15, 181.47]
+    "bounds": [795.61, 175.33, 806.15, 181.47],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Vojvodina",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RS-VO",
+      "iso_3166_2_categories": "Autonomous province"
+    }
   },
   {
     "id": "non-un:wales",
     "name": "Wales",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"]
+    },
     "geometryRefs": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"],
     "anchor": [705.42, 151.46],
-    "bounds": [698.84, 146.43, 709.41, 154.41]
+    "bounds": [698.84, 146.43, 709.41, 154.41],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Wales",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-WLS",
+      "iso_3166_2_categories": "Country"
+    }
   },
   {
     "id": "non-un:wallis-and-futuna",
     "name": "Wallis and Futuna",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320649", "ne:map-subunit:1159320649"]
+    },
     "geometryRefs": ["ne:map-unit:1159320649", "ne:map-subunit:1159320649"],
     "anchor": [7.45, 417.15],
-    "bounds": [7.43, 412.84, 15.38, 416.97]
+    "bounds": [7.43, 412.84, 15.38, 416.97],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Wallis and Futuna",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "WF",
+      "iso_3166_2_codes": "FR-WF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
   },
   {
     "id": "non-un:western-sahara",
     "name": "Western Sahara",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315575",
+        "ne:disputed:1159321037",
+        "ne:disputed:1159321223",
+        "ne:map-unit:1159321223",
+        "ne:map-subunit:1159321223"
+      ]
+    },
     "geometryRefs": [
       "ne:admin1:1159315575",
       "ne:disputed:1159321037",
@@ -2378,370 +6186,67 @@
       "ne:map-subunit:1159321223"
     ],
     "anchor": [665.1, 260.16],
-    "bounds": [651.77, 249.35, 685.27, 276.93]
+    "bounds": [651.77, 249.35, 685.27, 276.93],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Western Sahara",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "EH",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   },
   {
     "id": "non-un:xinjiang",
     "name": "Xinjiang",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159312657"]
+    },
     "geometryRefs": ["ne:admin1:1159312657"],
     "anchor": [1014.53, 163.34],
-    "bounds": [1014.53, 163.34, 1105.32, 222.64]
+    "bounds": [1014.53, 163.34, 1105.32, 222.64],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Xinjiang",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-XJ",
+      "iso_3166_2_categories": "Autonomous region"
+    }
   },
   {
     "id": "non-un:a-land-islands",
     "name": "Åland Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"]
+    },
     "geometryRefs": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"],
     "anchor": [799.48, 119.37],
-    "bounds": [798.56, 118.08, 804.35, 120.34]
-  },
-  {
-    "id": "US-AL",
-    "name": "Alabama",
-    "geometryRefs": ["ne:admin1:1159315233"],
-    "anchor": [366.06, 219.96],
-    "bounds": [366.06, 219.96, 380.41, 239.1]
-  },
-  {
-    "id": "US-AK",
-    "name": "Alaska",
-    "geometryRefs": ["ne:admin1:1159308731"],
-    "anchor": [3.43, 74.35],
-    "bounds": [3.43, 74.35, 1439.12, 154.9]
-  },
-  {
-    "id": "US-AZ",
-    "name": "Arizona",
-    "geometryRefs": ["ne:admin1:1159315341"],
-    "anchor": [260.71, 211.99],
-    "bounds": [260.71, 211.99, 283.81, 234.69]
-  },
-  {
-    "id": "US-AR",
-    "name": "Arkansas",
-    "geometryRefs": ["ne:admin1:1159315355"],
-    "anchor": [341.53, 214],
-    "bounds": [341.53, 214, 361.33, 227.96]
-  },
-  {
-    "id": "US-CA",
-    "name": "California",
-    "geometryRefs": ["ne:admin1:1159308415"],
-    "anchor": [222.36, 192],
-    "bounds": [222.36, 192, 263.52, 229.87]
-  },
-  {
-    "id": "US-CO",
-    "name": "Colorado",
-    "geometryRefs": ["ne:admin1:1159315343"],
-    "anchor": [283.81, 196],
-    "bounds": [283.81, 196, 311.84, 212]
-  },
-  {
-    "id": "US-CT",
-    "name": "Connecticut",
-    "geometryRefs": ["ne:admin1:1159315301"],
-    "anchor": [425.43, 191.78],
-    "bounds": [425.43, 191.78, 432.79, 195.99]
-  },
-  {
-    "id": "US-DE",
-    "name": "Delaware",
-    "geometryRefs": ["ne:admin1:1159315325"],
-    "anchor": [417.23, 200.74],
-    "bounds": [417.23, 200.74, 419.77, 206.19]
-  },
-  {
-    "id": "US-FL",
-    "name": "Florida",
-    "geometryRefs": ["ne:admin1:1159315207"],
-    "anchor": [369.63, 236],
-    "bounds": [369.63, 236, 399.85, 261.77]
-  },
-  {
-    "id": "US-GA",
-    "name": "Georgia",
-    "geometryRefs": ["ne:admin1:1159311857"],
-    "anchor": [377.58, 220],
-    "bounds": [377.58, 220, 396.44, 238.52]
-  },
-  {
-    "id": "US-HI",
-    "name": "Hawaii",
-    "geometryRefs": ["ne:admin1:1159308409"],
-    "anchor": [6.84, 246.39],
-    "bounds": [6.84, 246.39, 100.4, 284.38]
-  },
-  {
-    "id": "US-ID",
-    "name": "Idaho",
-    "geometryRefs": ["ne:admin1:1159315339"],
-    "anchor": [251.18, 164.03],
-    "bounds": [251.18, 164.03, 275.8, 192]
-  },
-  {
-    "id": "US-IL",
-    "name": "Illinois",
-    "geometryRefs": ["ne:admin1:1159315309"],
-    "anchor": [353.92, 189.95],
-    "bounds": [353.92, 189.95, 371.92, 212.08]
-  },
-  {
-    "id": "US-IN",
-    "name": "Indiana",
-    "geometryRefs": ["ne:admin1:1159315311"],
-    "anchor": [367.62, 192.96],
-    "bounds": [367.62, 192.96, 380.78, 208.73]
-  },
-  {
-    "id": "US-IA",
-    "name": "Iowa",
-    "geometryRefs": ["ne:admin1:1159315357"],
-    "anchor": [333.45, 186],
-    "bounds": [333.45, 186, 359.4, 198.43]
-  },
-  {
-    "id": "US-KS",
-    "name": "Kansas",
-    "geometryRefs": ["ne:admin1:1159315359"],
-    "anchor": [311.79, 200],
-    "bounds": [311.79, 200, 341.56, 212]
-  },
-  {
-    "id": "US-KY",
-    "name": "Kentucky",
-    "geometryRefs": ["ne:admin1:1159315313"],
-    "anchor": [362.02, 203.42],
-    "bounds": [362.02, 203.42, 392.14, 214.01]
-  },
-  {
-    "id": "US-LA",
-    "name": "Louisiana",
-    "geometryRefs": ["ne:admin1:1159315221"],
-    "anchor": [343.83, 227.94],
-    "bounds": [343.83, 227.94, 364.58, 244.29]
-  },
-  {
-    "id": "US-ME",
-    "name": "Maine",
-    "geometryRefs": ["ne:admin1:1159308501"],
-    "anchor": [435.66, 170.24],
-    "bounds": [435.66, 170.24, 452.09, 187.66]
-  },
-  {
-    "id": "US-MD",
-    "name": "Maryland",
-    "geometryRefs": ["ne:admin1:1159315329"],
-    "anchor": [402.06, 201.11],
-    "bounds": [402.06, 201.11, 419.82, 208.2]
-  },
-  {
-    "id": "US-MA",
-    "name": "Massachusetts",
-    "geometryRefs": ["ne:admin1:1159312157"],
-    "anchor": [425.97, 188.45],
-    "bounds": [425.97, 188.45, 440.3, 195]
-  },
-  {
-    "id": "US-MI",
-    "name": "Michigan",
-    "geometryRefs": ["ne:admin1:1159314665"],
-    "anchor": [358.4, 166.81],
-    "bounds": [358.4, 166.81, 391.42, 193.06]
-  },
-  {
-    "id": "US-MN",
-    "name": "Minnesota",
-    "geometryRefs": ["ne:admin1:1159315297"],
-    "anchor": [331.1, 162.52],
-    "bounds": [331.1, 162.52, 362, 186]
-  },
-  {
-    "id": "US-MS",
-    "name": "Mississippi",
-    "geometryRefs": ["ne:admin1:1159315231"],
-    "anchor": [353.37, 220],
-    "bounds": [353.37, 220, 367.65, 239.24]
-  },
-  {
-    "id": "US-MO",
-    "name": "Missouri",
-    "geometryRefs": ["ne:admin1:1159315361"],
-    "anchor": [336.93, 197.52],
-    "bounds": [336.93, 197.52, 363.51, 216.06]
-  },
-  {
-    "id": "US-MT",
-    "name": "Montana",
-    "geometryRefs": ["ne:admin1:1159315333"],
-    "anchor": [255.8, 164.03],
-    "bounds": [255.8, 164.03, 303.84, 182.49]
-  },
-  {
-    "id": "US-NE",
-    "name": "Nebraska",
-    "geometryRefs": ["ne:admin1:1159315363"],
-    "anchor": [303.79, 188],
-    "bounds": [303.79, 188, 338.73, 200]
-  },
-  {
-    "id": "US-NV",
-    "name": "Nevada",
-    "geometryRefs": ["ne:admin1:1159315345"],
-    "anchor": [240, 192],
-    "bounds": [240, 192, 263.83, 219.99]
-  },
-  {
-    "id": "US-NH",
-    "name": "New Hampshire",
-    "geometryRefs": ["ne:admin1:1159315303"],
-    "anchor": [430.13, 178.78],
-    "bounds": [430.13, 178.78, 437.17, 189.2]
-  },
-  {
-    "id": "US-NJ",
-    "name": "New Jersey",
-    "geometryRefs": ["ne:admin1:1159315267"],
-    "anchor": [417.83, 194.91],
-    "bounds": [417.83, 194.91, 424.37, 204.26]
-  },
-  {
-    "id": "US-NM",
-    "name": "New Mexico",
-    "geometryRefs": ["ne:admin1:1159315347"],
-    "anchor": [283.81, 212],
-    "bounds": [283.81, 212, 308, 234.69]
-  },
-  {
-    "id": "US-NY",
-    "name": "New York",
-    "geometryRefs": ["ne:admin1:1159312155"],
-    "anchor": [400.95, 180.03],
-    "bounds": [400.95, 180.03, 432.32, 197.99]
-  },
-  {
-    "id": "US-NC",
-    "name": "North Carolina",
-    "geometryRefs": ["ne:admin1:1159314887"],
-    "anchor": [382.7, 213.56],
-    "bounds": [382.7, 213.56, 418.1, 224.52]
-  },
-  {
-    "id": "US-ND",
-    "name": "North Dakota",
-    "geometryRefs": ["ne:admin1:1159315337"],
-    "anchor": [303.81, 164.03],
-    "bounds": [303.81, 164.03, 333.77, 176.23]
-  },
-  {
-    "id": "US-OH",
-    "name": "Ohio",
-    "geometryRefs": ["ne:admin1:1159315315"],
-    "anchor": [380.71, 190.7],
-    "bounds": [380.71, 190.7, 397.92, 206.25]
-  },
-  {
-    "id": "US-OK",
-    "name": "Oklahoma",
-    "geometryRefs": ["ne:admin1:1159315365"],
-    "anchor": [308, 212],
-    "bounds": [308, 212, 342.06, 225.41]
-  },
-  {
-    "id": "US-OR",
-    "name": "Oregon",
-    "geometryRefs": ["ne:admin1:1159309549"],
-    "anchor": [222.03, 174.98],
-    "bounds": [222.03, 174.98, 254.18, 192]
-  },
-  {
-    "id": "US-PA",
-    "name": "Pennsylvania",
-    "geometryRefs": ["ne:admin1:1159315331"],
-    "anchor": [397.92, 189.85],
-    "bounds": [397.92, 189.85, 421.21, 201.12]
-  },
-  {
-    "id": "US-RI",
-    "name": "Rhode Island",
-    "geometryRefs": ["ne:admin1:1159312213"],
-    "anchor": [432.51, 191.94],
-    "bounds": [432.51, 191.94, 435.51, 195.2]
-  },
-  {
-    "id": "US-SC",
-    "name": "South Carolina",
-    "geometryRefs": ["ne:admin1:1159315307"],
-    "anchor": [386.58, 219.13],
-    "bounds": [386.58, 219.13, 405.71, 231.86]
-  },
-  {
-    "id": "US-SD",
-    "name": "South Dakota",
-    "geometryRefs": ["ne:admin1:1159315367"],
-    "anchor": [303.79, 176.23],
-    "bounds": [303.79, 176.23, 334.19, 189.93]
-  },
-  {
-    "id": "US-TN",
-    "name": "Tennessee",
-    "geometryRefs": ["ne:admin1:1159315319"],
-    "anchor": [358.78, 213.24],
-    "bounds": [358.78, 213.24, 393.36, 220.05]
-  },
-  {
-    "id": "US-TX",
-    "name": "Texas",
-    "geometryRefs": ["ne:admin1:1159315211"],
-    "anchor": [293.35, 214],
-    "bounds": [293.35, 214, 345.94, 256.62]
-  },
-  {
-    "id": "US-UT",
-    "name": "Utah",
-    "geometryRefs": ["ne:admin1:1159315349"],
-    "anchor": [263.83, 192],
-    "bounds": [263.83, 192, 283.81, 212]
-  },
-  {
-    "id": "US-VT",
-    "name": "Vermont",
-    "geometryRefs": ["ne:admin1:1159315305"],
-    "anchor": [426.59, 179.95],
-    "bounds": [426.59, 179.95, 433.98, 189.08]
-  },
-  {
-    "id": "US-VA",
-    "name": "Virginia",
-    "geometryRefs": ["ne:admin1:1159315259"],
-    "anchor": [385.33, 202.2],
-    "bounds": [385.33, 202.2, 419.03, 213.8]
-  },
-  {
-    "id": "US-WA",
-    "name": "Washington",
-    "geometryRefs": ["ne:admin1:1159309547"],
-    "anchor": [221.09, 164.03],
-    "bounds": [221.09, 164.03, 252.48, 177.73]
-  },
-  {
-    "id": "US-WV",
-    "name": "West Virginia",
-    "geometryRefs": ["ne:admin1:1159315323"],
-    "anchor": [389.45, 197.41],
-    "bounds": [389.45, 197.41, 409.04, 210.83]
-  },
-  {
-    "id": "US-WI",
-    "name": "Wisconsin",
-    "geometryRefs": ["ne:admin1:1159315321"],
-    "anchor": [348.39, 170.77],
-    "bounds": [348.39, 170.77, 375, 190.02]
-  },
-  {
-    "id": "US-WY",
-    "name": "Wyoming",
-    "geometryRefs": ["ne:admin1:1159315351"],
-    "anchor": [275.8, 180],
-    "bounds": [275.8, 180, 303.79, 196]
+    "bounds": [798.56, 118.08, 804.35, 120.34],
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Åland Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AX",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
   }
 ]
