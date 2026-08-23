@@ -17,8 +17,8 @@ export function QuizDetailsDialog({
       : null,
   );
   const close = () => {
+    returnFocus.current?.focus();
     onClose();
-    queueMicrotask(() => returnFocus.current?.focus());
   };
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {

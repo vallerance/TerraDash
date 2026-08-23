@@ -34,9 +34,13 @@ describe('Phase 3 ownership boundaries', () => {
   });
 
   it('has one source owner for history mutation and subscription', () => {
-    const historyOwners = Object.entries(sourceModules).filter(([, source]) =>
-      /pushState|replaceState|addEventListener\(['"]popstate/.test(source),
-    );
+    const historyOwners = Object.entries(sourceModules)
+      .filter(
+        ([path]) => !path.endsWith('.test.ts') && !path.endsWith('.test.tsx'),
+      )
+      .filter(([, source]) =>
+        /pushState|replaceState|addEventListener\(['"]popstate/.test(source),
+      );
     expect(historyOwners.map(([path]) => path)).toEqual([
       './routing/browserHistory.ts',
     ]);
