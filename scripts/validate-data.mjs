@@ -143,7 +143,9 @@ validateReplacementContract({
   alternateNamespaces: new Map(
     [...sourceFeatureCache].map(([sourceId, features]) => [
       sourceId,
-      indexNamespace(sourceId, features, (feature) => sourcePropertyKeys(feature.properties)),
+      indexNamespace(sourceId, features, (feature) =>
+        sourcePropertyKeys(feature.properties),
+      ),
     ]),
   ),
 });
