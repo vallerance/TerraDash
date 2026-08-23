@@ -2,8 +2,8 @@
   {
     "id": "non-un:abkhazia",
     "name": "Abkhazia",
-    "geometryRefs": ["ne:admin1:1159314601"],
-    "anchor": [879.94, 185.7],
+    "geometryRefs": ["ne:disputed:1159320785"],
+    "anchor": [885.12, 187.77],
     "bounds": [879.94, 185.7, 888.62, 190.37]
   },
   {
@@ -20,8 +20,12 @@
   {
     "id": "non-un:american-samoa",
     "name": "American Samoa",
-    "geometryRefs": ["ne:map-unit:1159321357", "ne:map-subunit:1159321357"],
-    "anchor": [37.01, 417.31],
+    "geometryRefs": [
+      "ne:disputed:1159321403",
+      "ne:map-unit:1159321357",
+      "ne:map-subunit:1159321357"
+    ],
+    "anchor": [36.57, 412.95],
     "bounds": [35.71, 404.21, 47.35, 418.13]
   },
   {
@@ -74,6 +78,13 @@
     "bounds": [460.49, 230.45, 461.3, 230.97]
   },
   {
+    "id": "non-un:bolzano-south-tyrol",
+    "name": "Bolzano / South Tyrol",
+    "geometryRefs": ["ne:admin1:1159310921"],
+    "anchor": [761.81, 171.66],
+    "bounds": [761.81, 171.66, 769.88, 175.1]
+  },
+  {
     "id": "non-un:bonaire-sint-eustatius-and-saba",
     "name": "Bonaire, Sint Eustatius and Saba",
     "geometryRefs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"],
@@ -103,10 +114,11 @@
     "name": "British Indian Ocean Territory",
     "geometryRefs": [
       "ne:admin1:1159315473",
+      "ne:disputed:1159320723",
       "ne:map-unit:1159320723",
       "ne:map-subunit:1159320723"
     ],
-    "anchor": [1005.28, 383.49],
+    "anchor": [1005.3, 383.81],
     "bounds": [1005.05, 380.94, 1009.94, 389.54]
   },
   {
@@ -178,6 +190,13 @@
     "bounds": [443.31, 310.48, 444.88, 311.61]
   },
   {
+    "id": "non-un:donetsk-people-s-republic",
+    "name": "Donetsk People's Republic",
+    "geometryRefs": ["ne:disputed:1763286545"],
+    "anchor": [872.57, 168.08],
+    "bounds": [869.97, 166.18, 876.14, 171.89]
+  },
+  {
     "id": "non-un:england",
     "name": "England",
     "geometryRefs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"],
@@ -187,9 +206,13 @@
   {
     "id": "non-un:falkland-islands-malvinas",
     "name": "Falkland Islands (Malvinas)",
-    "geometryRefs": ["ne:map-unit:1159320711", "ne:map-subunit:1159320711"],
+    "geometryRefs": [
+      "ne:disputed:1159320711",
+      "ne:map-unit:1159320711",
+      "ne:map-subunit:1159320711"
+    ],
     "anchor": [485.05, 566.44],
-    "bounds": [474.92, 564.28, 488.89, 569.37]
+    "bounds": [474.92, 564.18, 488.89, 571.61]
   },
   {
     "id": "non-un:faroe-islands",
@@ -203,10 +226,11 @@
     "name": "French Guiana",
     "geometryRefs": [
       "ne:admin1:1159311355",
+      "ne:disputed:1159320683",
       "ne:map-unit:1159320655",
       "ne:map-subunit:1159320655"
     ],
-    "anchor": [505.67, 341.67],
+    "anchor": [505.08, 343.69],
     "bounds": [501.54, 337.02, 513.4, 351.56]
   },
   {
@@ -220,6 +244,11 @@
     "id": "non-un:french-southern-territories",
     "name": "French Southern Territories",
     "geometryRefs": [
+      "ne:disputed:1159320677",
+      "ne:disputed:1159320667",
+      "ne:disputed:1159320665",
+      "ne:disputed:1159320679",
+      "ne:disputed:1159320675",
       "ne:map-unit:1159320631",
       "ne:map-subunit:1159320677",
       "ne:map-subunit:1159320669",
@@ -228,8 +257,8 @@
       "ne:map-subunit:1159320679",
       "ne:map-subunit:1159320675"
     ],
-    "anchor": [927.34, 466.83],
-    "bounds": [878.91, 406.26, 1030.13, 558.74]
+    "anchor": [915.82, 451.77],
+    "bounds": [878.78, 406.26, 1030.13, 558.74]
   },
   {
     "id": "non-un:friuli-venezia-giulia",
@@ -255,6 +284,7 @@
     "name": "Gibraltar",
     "geometryRefs": [
       "ne:admin1:1159315683",
+      "ne:disputed:1159320719",
       "ne:map-unit:1159320719",
       "ne:map-subunit:1159320719"
     ],
@@ -271,8 +301,12 @@
   {
     "id": "non-un:greenland",
     "name": "Greenland",
-    "geometryRefs": ["ne:map-unit:1159320551", "ne:map-subunit:1159320551"],
-    "anchor": [562.66, 62.72],
+    "geometryRefs": [
+      "ne:disputed:1159320559",
+      "ne:map-unit:1159320551",
+      "ne:map-subunit:1159320551"
+    ],
+    "anchor": [526.65, 54.04],
     "bounds": [427.77, 25.59, 674.49, 120.67]
   },
   {
@@ -379,6 +413,13 @@
     "bounds": [800.14, 186.95, 807.09, 192.62]
   },
   {
+    "id": "non-un:luhansk-people-s-republic",
+    "name": "Luhansk People's Republic",
+    "geometryRefs": ["ne:disputed:1763286547"],
+    "anchor": [877.14, 166.96],
+    "bounds": [873.16, 165.42, 879.96, 168.67]
+  },
+  {
     "id": "non-un:macao",
     "name": "Macao",
     "geometryRefs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"],
@@ -412,10 +453,11 @@
     "name": "Mayotte",
     "geometryRefs": [
       "ne:admin1:1159315621",
+      "ne:disputed:1159320659",
       "ne:map-unit:1159320659",
       "ne:map-subunit:1159320659"
     ],
-    "anchor": [900.46, 411],
+    "anchor": [900.5, 411.02],
     "bounds": [900.17, 410.79, 901.05, 411.93]
   },
   {
@@ -435,9 +477,13 @@
   {
     "id": "non-un:new-caledonia",
     "name": "New Caledonia",
-    "geometryRefs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
-    "anchor": [1380.34, 444.26],
-    "bounds": [1374.73, 438.96, 1405.36, 450.28]
+    "geometryRefs": [
+      "ne:disputed:1159320687",
+      "ne:map-unit:1159320641",
+      "ne:map-subunit:1159320641"
+    ],
+    "anchor": [1389.64, 446.04],
+    "bounds": [1374.73, 438.96, 1408.23, 450.28]
   },
   {
     "id": "non-un:ningxia",
@@ -467,6 +513,20 @@
     ],
     "anchor": [1391.86, 476.11],
     "bounds": [1391.94, 476.07, 1391.94, 476.07]
+  },
+  {
+    "id": "non-un:north-borneo",
+    "name": "North Borneo",
+    "geometryRefs": ["ne:disputed:1763510959"],
+    "anchor": [1190.98, 338.98],
+    "bounds": [1186.04, 330.58, 1197.1, 343.08]
+  },
+  {
+    "id": "non-un:northern-cyprus",
+    "name": "Northern Cyprus",
+    "geometryRefs": ["ne:1159320531"],
+    "anchor": [854.77, 219.14],
+    "bounds": [850.85, 217.35, 858.22, 219.74]
   },
   {
     "id": "non-un:northern-ireland",
@@ -568,8 +628,12 @@
   {
     "id": "non-un:scotland",
     "name": "Scotland",
-    "geometryRefs": ["ne:map-unit:1159320747", "ne:map-subunit:1159320747"],
-    "anchor": [703.82, 132.83],
+    "geometryRefs": [
+      "ne:disputed:1159320775",
+      "ne:map-unit:1159320747",
+      "ne:map-subunit:1159320747"
+    ],
+    "anchor": [690.96, 131.76],
     "bounds": [665.24, 116.67, 716.91, 141.46]
   },
   {
@@ -591,11 +655,25 @@
     "bounds": [467.57, 287.75, 467.57, 287.75]
   },
   {
+    "id": "non-un:somaliland",
+    "name": "Somaliland",
+    "geometryRefs": ["ne:1159321259"],
+    "anchor": [906.93, 322.22],
+    "bounds": [890.63, 314, 915.75, 328.01]
+  },
+  {
     "id": "non-un:south-georgia-and-the-south-sandwich-islands",
     "name": "South Georgia and the South Sandwich Islands",
     "geometryRefs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"],
     "anchor": [573.65, 578.28],
     "bounds": [551.55, 573.83, 614.96, 597.83]
+  },
+  {
+    "id": "non-un:south-ossetia",
+    "name": "South Ossetia",
+    "geometryRefs": ["ne:disputed:1159320787"],
+    "anchor": [896.52, 190.44],
+    "bounds": [894.24, 188.99, 898.58, 192.04]
   },
   {
     "id": "non-un:svalbard-and-jan-mayen",
@@ -611,9 +689,13 @@
   {
     "id": "non-un:taiwan",
     "name": "Taiwan",
-    "geometryRefs": ["ne:map-unit:1159321335", "ne:map-subunit:1159321335"],
+    "geometryRefs": [
+      "ne:disputed:1159321335",
+      "ne:map-unit:1159321335",
+      "ne:map-subunit:1159321335"
+    ],
     "anchor": [1203.47, 265.39],
-    "bounds": [1193.14, 258.85, 1207.62, 272.25]
+    "bounds": [1193.03, 254.53, 1208.28, 272.25]
   },
   {
     "id": "non-un:tibet-xizang",
@@ -632,6 +714,20 @@
     ],
     "anchor": [30.05, 394.25],
     "bounds": [30.06, 394.26, 35.24, 397.43]
+  },
+  {
+    "id": "non-un:transnistria",
+    "name": "Transnistria",
+    "geometryRefs": ["ne:disputed:1159321047"],
+    "anchor": [837.01, 170.84],
+    "bounds": [834.08, 167.4, 839.71, 173.79]
+  },
+  {
+    "id": "non-un:trentino",
+    "name": "Trentino",
+    "geometryRefs": ["ne:admin1:1159316949"],
+    "anchor": [762.1, 173.91],
+    "bounds": [762.1, 173.91, 767.89, 177.2]
   },
   {
     "id": "non-un:trentino-alto-adige-su-dtirol",
@@ -659,10 +755,12 @@
       "ne:map-subunit:1159321377",
       "ne:map-unit:1159321379",
       "ne:map-subunit:1159321379",
+      "ne:disputed:1159321391",
       "ne:map-unit:1159321391",
       "ne:map-subunit:1159321391",
       "ne:map-unit:1159321389",
       "ne:map-subunit:1159321389",
+      "ne:disputed:1159321373",
       "ne:map-unit:1159321373",
       "ne:map-subunit:1159321373",
       "ne:map-unit:1159321387",
@@ -670,7 +768,7 @@
       "ne:map-unit:1159321385",
       "ne:map-subunit:1159321385"
     ],
-    "anchor": [234.27, 317.53],
+    "anchor": [301.17, 314.24],
     "bounds": [10.57, 247.14, 1386.48, 361.5]
   },
   {
@@ -690,8 +788,13 @@
   {
     "id": "non-un:vojvodina",
     "name": "Vojvodina",
-    "geometryRefs": ["ne:map-unit:1159321271", "ne:map-subunit:1159321271"],
-    "anchor": [799.72, 177.79],
+    "geometryRefs": [
+      "ne:disputed:1729635105",
+      "ne:disputed:1729635103",
+      "ne:map-unit:1159321271",
+      "ne:map-subunit:1159321271"
+    ],
+    "anchor": [798.14, 178.29],
     "bounds": [795.61, 175.33, 806.15, 181.47]
   },
   {
@@ -713,10 +816,12 @@
     "name": "Western Sahara",
     "geometryRefs": [
       "ne:admin1:1159315575",
+      "ne:disputed:1159321037",
+      "ne:disputed:1159321223",
       "ne:map-unit:1159321223",
       "ne:map-subunit:1159321223"
     ],
-    "anchor": [663.58, 259.2],
+    "anchor": [665.1, 260.16],
     "bounds": [651.77, 249.35, 685.27, 276.93]
   },
   {
