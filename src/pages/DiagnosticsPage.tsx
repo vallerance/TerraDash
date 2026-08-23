@@ -1,8 +1,9 @@
 import { AppDisclaimer, AppFooter, AppHeader } from '../shell/AppChrome';
 import { MapBoxShell } from '../MapBoxShell';
 import { DiagnosticsMap } from '../map/MapView';
-import { mapLocationForQuizId, playableLocations } from '../quizMapBoundary';
-import type { CatalogLocation } from '../quizEngine';
+import { mapLocationForQuizId } from '../quizMapBoundary';
+import { playableLocations } from '../contracts/playableLocation';
+import type { RenderLocation } from '../quizMapBoundary';
 
 export function DiagnosticsPage({
   locationId,
@@ -11,7 +12,7 @@ export function DiagnosticsPage({
   locationId: string;
   onLocationChange: (locationId: string) => void;
 }) {
-  const location = mapLocationForQuizId(locationId)! as CatalogLocation;
+  const location = mapLocationForQuizId(locationId)! as RenderLocation;
   return (
     <main className="diagnostics-page">
       <AppHeader />
