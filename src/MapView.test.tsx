@@ -12,7 +12,6 @@ import {
   selectedInsetGeometryPaths,
 } from './mapGeometry';
 import { MapView } from './main';
-import { projectPathForStandardParallel } from './mapProjection';
 import {
   mapLayerForLocation,
   mapLayerForQuiz,
@@ -64,10 +63,9 @@ function renderState(id: string) {
 function expectActiveStatePaths(frame: HTMLElement, id: string) {
   const active = quizLocations.find((entry) => entry.id === id)!;
   const rendered = [...frame.querySelectorAll('.active-fill path')];
-  const projected = highlightedGeometryPaths(active.geometryRefs).map((path) =>
-    projectPathForStandardParallel(path, 38, 182.5),
+  expect(rendered.map((path) => path.getAttribute('d'))).toEqual(
+    highlightedGeometryPaths(active.geometryRefs),
   );
-  expect(rendered.map((path) => path.getAttribute('d'))).toEqual(projected);
   expect(
     rendered.every((path) => path.getAttribute('data-location-id') === id),
   ).toBe(true);
@@ -103,11 +101,7 @@ describe('mapped quiz layer contract', () => {
         '.callout-context [data-layer-id="US-MA"] path',
       ),
     ].map((path) => path.getAttribute('d'));
-    expect(insetNeighborPaths).toEqual(
-      insetGeometryPaths('US-MA').map((path) =>
-        projectPathForStandardParallel(path, 38, 182.5),
-      ),
-    );
+    expect(insetNeighborPaths).toEqual(insetGeometryPaths('US-MA'));
     expect(insetNeighborPaths).not.toEqual(
       highlightedGeometryPaths(
         quizLocations.find((entry) => entry.id === 'US-MA')!.geometryRefs,
