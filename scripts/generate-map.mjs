@@ -573,6 +573,7 @@ const NON_UN_COMPONENTS = {
 };
 const NON_UN_EXACT_REFS = {
   Kosovo: ['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'],
+  'New Caledonia': ['ne:map-unit:1159320641', 'ne:map-subunit:1159320641'],
   Abkhazia: ['ne:disputed:1159320785'],
   'South Ossetia': ['ne:disputed:1159320787'],
   Transnistria: ['ne:disputed:1159321047'],
