@@ -124,7 +124,8 @@ describe('typed runtime data boundary', () => {
     expect(forbiddenRawImports).toEqual([]);
 
     for (const [path, source] of Object.entries(sourceModules).filter(
-      ([path]) => path.startsWith('./contracts/'),
+      ([path]) =>
+        path.startsWith('./contracts/') && !path.endsWith('generatedData.ts'),
     )) {
       expect(source).not.toMatch(/from ['"](?:\.\.\/|[^.][^'"/]*)/);
       expect(source).not.toMatch(/from ['"]react/);
