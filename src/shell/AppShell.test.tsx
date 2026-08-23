@@ -3,7 +3,9 @@ import { act, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it } from 'vitest';
 import { QuizProvider } from '../QuizContext';
+import { QuizPage } from '../pages/QuizPage';
 import { QuizDetailsDialog } from '../quizSelection/QuizDetailsDialog';
+import { playableLocations, quizOptions, worldQuiz } from '../quizContracts';
 import type { QuizOption } from '../quizContracts';
 import { AppShell } from './AppShell';
 
@@ -93,7 +95,7 @@ function renderShell() {
 
 describe('AppShell selection and route handoff', () => {
   it('keeps pending selection transient, restores focus on cancel, and commits once on start', async () => {
-    const { host } = renderShell();
+    const { host, mounts } = renderShell();
     const trigger = host.querySelector(
       '[data-quiz-trigger]',
     ) as HTMLButtonElement;
@@ -109,6 +111,22 @@ describe('AppShell selection and route handoff', () => {
 
     await act(async () => trigger.click());
     await act(async () =>
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })),
+    );
+    expect(document.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+
+    await act(async () => trigger.click());
+    const backdrop = document.querySelector(
+      '.quiz-dialog-backdrop',
+    ) as HTMLElement;
+    await act(async () =>
+      backdrop.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })),
+    );
+    expect(document.querySelector('[role="dialog"]')).toBeNull();
+
+    await act(async () => trigger.click());
+    await act(async () =>
       (document.querySelector('.primary-action') as HTMLButtonElement).click(),
     );
     expect(window.location.search).toBe('?quiz=asia&start=1');
@@ -117,6 +135,7 @@ describe('AppShell selection and route handoff', () => {
         .querySelector('[data-provider-key]')
         ?.getAttribute('data-provider-key'),
     ).toBe('asia');
+    expect(mounts).toEqual(['world', 'asia']);
   });
 
   it('consumes start once for a provider and leaves Play Again idle', async () => {
@@ -146,5 +165,36 @@ describe('AppShell selection and route handoff', () => {
         ?.getAttribute('data-provider-key'),
     ).toBe('world');
     expect(host.querySelector('[data-auto-start]')).toBeNull();
+  });
+
+  it('proves the real shell-to-QuizPage path consumes start before Play again', async () => {
+    window.history.replaceState({}, '', '/TerraDash/?quiz=world&start=1');
+    const host = document.createElement('div');
+    document.body.append(host);
+    root = createRoot(host);
+    act(() => {
+      root!.render(
+        <AppShell
+          quizOptions={quizOptions}
+          locationIds={playableLocations.map((location) => location.id)}
+          defaultQuizId={worldQuiz.id}
+          renderQuiz={(input) => <QuizPage {...input} />}
+          highScores={<div />}
+          diagnostics={() => <div />}
+        />,
+      );
+    });
+    expect(host.querySelector('.active-player')).toBeTruthy();
+    await act(async () => window.terraDash?.completeQuiz?.());
+    expect(host.querySelector('.quiz-results')).toBeTruthy();
+    await act(async () =>
+      (
+        [...host.querySelectorAll('button.primary-action')].find(
+          (button) => button.textContent === 'Play again',
+        ) as HTMLButtonElement
+      ).click(),
+    );
+    expect(host.querySelector('.home-page')).toBeTruthy();
+    expect(host.querySelector('.active-player')).toBeNull();
   });
 });
