@@ -2037,13 +2037,9 @@
   {
     "id": "non-un:new-caledonia",
     "name": "New Caledonia",
-    "geometryRefs": [
-      "ne:disputed:1159320687",
-      "ne:map-unit:1159320641",
-      "ne:map-subunit:1159320641"
-    ],
-    "anchor": [1389.64, 446.04],
-    "bounds": [1374.73, 438.96, 1408.23, 450.28]
+    "geometryRefs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
+    "anchor": [1380.34, 444.26],
+    "bounds": [1374.73, 438.96, 1405.36, 450.28]
   },
   {
     "id": "non-un:ningxia",

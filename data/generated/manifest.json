@@ -2051,7 +2051,6 @@
     "ne:disputed:1159320679",
     "ne:disputed:1159320675",
     "ne:disputed:1159320559",
-    "ne:disputed:1159320687",
     "ne:map-unit:1159320655",
     "ne:map-unit:1159321223",
     "ne:map-unit:1159320639",
@@ -2599,7 +2598,6 @@
     ],
     "non-un:nakhchivan": ["gb:aze-adm1:63332228B45413776644545"],
     "non-un:new-caledonia": [
-      "ne:disputed:1159320687",
       "ne:map-unit:1159320641",
       "ne:map-subunit:1159320641"
     ],
@@ -2925,11 +2923,7 @@
     ],
     "Montserrat": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"],
     "Nakhchivan": ["gb:aze-adm1:63332228B45413776644545"],
-    "New Caledonia": [
-      "ne:disputed:1159320687",
-      "ne:map-unit:1159320641",
-      "ne:map-subunit:1159320641"
-    ],
+    "New Caledonia": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"],
     "Ningxia": ["ne:admin1:1159312659"],
     "Niue": [
       "ne:admin1:1159315491",
