@@ -121,10 +121,9 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     (quiz: { category?: string }) => !quiz.category,
   );
   const descriptions = globalDefinitions.map(
-    (quiz: { id: string; name: string }) => {
+    (quiz: { id: string; name: string; description?: string }) => {
       if (quiz.id === 'world') return 'All UN Member and UN Observer states';
-      if (quiz.id === 'non-un')
-        return 'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.';
+      if (quiz.description) return quiz.description;
       return `UN Member and UN Observer states in ${quiz.name.replace(/ UN Countries$/, '')}`;
     },
   );
@@ -149,15 +148,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(
     globalSection.locator('.quiz-option-description').nth(nonUnIndex),
   ).toHaveText(
-    'Non-UN Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
-  );
-  await expect(
-    globalSection
-      .locator('.quiz-option-description')
-      .nth(nonUnIndex)
-      .locator('em'),
-  ).toHaveText(
-    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+    "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
   );
   await expect(
     page.getByText(
@@ -236,8 +227,8 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('89 locations')).toBeVisible();
-  await expect(dialog.locator('em')).toHaveText(
-    'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+  await expect(dialog.locator('p')).toHaveText(
+    "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
   );
   await page.goto('/TerraDash/?quiz=non-un&start=1');
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);

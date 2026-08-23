@@ -50,18 +50,6 @@ type QuizPlayerProps = {
 type FeedbackTone = 'correct' | 'incorrect' | 'missed' | '';
 function quizDescription(quiz: QuizOption): ReactNode {
   if (quiz.id === 'world') return 'All UN Member and UN Observer states';
-  if (quiz.id === 'non-un') {
-    return (
-      <>
-        Non-UN{' '}
-        <em>
-          Countries and regions listed in ISO 3166-1, UN M49, the List of
-          Economies published by the World Bank Group, or under select
-          categories in ISO 3166-2.
-        </em>
-      </>
-    );
-  }
   if (quiz.description) return quiz.description;
   const region = quiz.name.replace(/ UN Countries$/, '');
   return `UN Member and UN Observer states in ${region}`;
