@@ -1,0 +1,4 @@
+[
+  {"id":"fixture:one","name":"Fixture One","resolution":{"kind":"source-keys","keys":[{"source":"fixture-base","key":"ONE"}]}},
+  {"id":"fixture:two","name":"Fixture Two","resolution":{"kind":"exact-refs","refs":["fixture:base:TWO"]}}
+]

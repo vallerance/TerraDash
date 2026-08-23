@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import {
+  indexNamespace,
+  resolveLocationFeatures,
+  sourcePropertyKeys,
+  validateReplacementContract,
+} from './map-contract.mjs';
 
 const WIDTH = 1440;
 const HEIGHT = 720;
@@ -498,22 +504,33 @@ const featuresById = new Map([
   ...features.map((feature) => [feature.id, feature]),
   ...supplementalFeatures.map((feature) => [feature.id, feature]),
 ]);
-const locations = authoredLocations.map((location) => {
-  const resolution = location.resolution;
-  const matches =
-    resolution.kind === 'exact-refs'
-      ? resolution.refs.map((ref) => featuresById.get(ref)).filter(Boolean)
-      : resolution.keys.flatMap(({ source, key }) => {
-          if (source !== 'natural-earth-admin0')
-            throw new Error(
-              `Unknown canonical location source namespace ${source}`,
-            );
-          return featuresByKey.get(key) ?? [];
-        });
+const namespaces = new Map([
+  ['natural-earth-admin0', indexNamespace('natural-earth-admin0', features)],
+  ...SUPPLEMENTAL_SOURCES.map(({ id }) => [
+    id,
+    indexNamespace(id, supplementalFeatures.filter(({ source }) => source === id)),
+  ]),
+]);
+const resolvedLocations = resolveLocationFeatures(authoredLocations, {
+  namespaces,
+  featuresById,
+});
+validateReplacementContract({
+  locations: authoredLocations,
+  resolvedLocations,
+  replacements,
+  sources: checkedSupplementalSources,
+  appliedCanonicalFeatureIds: new Set(supplementalFeatures.map(({ id }) => id)),
+  alternateNamespaces: new Map(
+    SUPPLEMENTAL_SOURCES.map(({ id }) => [
+      id,
+      indexNamespace(id, checkedSupplementalSources.get(id).features, (feature) => sourcePropertyKeys(feature.properties)),
+    ]),
+  ),
+});
+const locations = resolvedLocations.map(({ location, matches }) => {
   if (!matches.length)
-    throw new Error(
-      `No canonical feature for ${location.id} (${location.name})`,
-    );
+    throw new Error(`No canonical feature for ${location.id} (${location.name})`);
   const geometryRefs =
     overrides[location.id] ?? matches.map((feature) => feature.id);
   const points = matches.flatMap((feature) => pathPoints(feature.paths));
@@ -687,14 +704,18 @@ const insetFeaturesById = new Map(
 );
 const insetLocationFeatures = Object.fromEntries(
   locations.map((location) => {
-    const refs =
-      location.resolution?.kind === 'source-keys'
-        ? location.resolution.keys.flatMap(({ source, key }) =>
-            source === 'natural-earth-admin0'
-              ? (insetFeaturesByKey.get(key) ?? []).map(({ id }) => id)
-              : [],
-          )
-        : location.geometryRefs;
+    const insetNamespaces = new Map([
+      ['natural-earth-admin0', indexNamespace('natural-earth-admin0', insetFeatures)],
+      ...SUPPLEMENTAL_SOURCES.map(({ id }) => [
+        id,
+        indexNamespace(id, supplementalInsetFeatures.filter(({ source }) => source === id)),
+      ]),
+    ]);
+    const refs = location.resolution?.kind === 'source-keys'
+      ? location.resolution.keys.flatMap(({ source, key }) =>
+          (insetNamespaces.get(source)?.index.get(key) ?? []).map(({ id }) => id),
+        )
+      : location.geometryRefs;
     if (!refs.length || refs.some((id) => !insetFeaturesById.has(id)))
       throw new Error(
         `No exact inset feature for every geometry ref in ${location.id}`,

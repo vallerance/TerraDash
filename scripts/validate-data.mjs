@@ -1,5 +1,10 @@
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import {
+  indexNamespace,
+  validateReplacementContract,
+  sourcePropertyKeys,
+} from './map-contract.mjs';
 
 const read = (path) => JSON.parse(fs.readFileSync(path, 'utf8'));
 const sameSet = (left, right) =>
@@ -123,6 +128,25 @@ for (const [sourceId, definition] of Object.entries(
   sourceFeatureCache.set(sourceId, features);
 }
 const replacements = geometrySources.replacements ?? [];
+const generatedResolvedLocations = authored.map((location) => ({
+  location,
+  matches: (generated.find(({ id }) => id === location.id)?.geometryRefs ?? [])
+    .map((id) => (map.features[id] ? { ...map.features[id], id } : undefined))
+    .filter(Boolean),
+}));
+validateReplacementContract({
+  locations: authored,
+  resolvedLocations: generatedResolvedLocations,
+  replacements,
+  sources: new Set(Object.keys(geometrySources.sources ?? {})),
+  appliedCanonicalFeatureIds: new Set(Object.keys(map.features)),
+  alternateNamespaces: new Map(
+    [...sourceFeatureCache].map(([sourceId, features]) => [
+      sourceId,
+      indexNamespace(sourceId, features, (feature) => sourcePropertyKeys(feature.properties)),
+    ]),
+  ),
+});
 const replacementKeys = new Set();
 for (const replacement of replacements) {
   if (

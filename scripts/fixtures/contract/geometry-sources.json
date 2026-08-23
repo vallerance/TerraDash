@@ -1,0 +1,1 @@
+{"sources":{"fixture-base":{"path":"base.geojson"},"fixture-alternate":{"path":"alternate.geojson"}},"replacements":[{"locationId":"fixture:two","canonicalFeatureId":"fixture:base:TWO","source":"fixture-alternate","featureKey":"TWO"}]}
