@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import {
   indexNamespace,
+  validateSourceUsage,
   validateReplacementContract,
   sourcePropertyKeys,
 } from './map-contract.mjs';
@@ -148,6 +149,15 @@ validateReplacementContract({
       ),
     ]),
   ),
+});
+validateSourceUsage({
+  sources: new Set(Object.keys(geometrySources.sources ?? {})),
+  emittedSourceIds: new Set(
+    Object.entries(geometrySources.sources ?? {})
+      .filter(([, definition]) => definition.emit !== false)
+      .map(([sourceId]) => sourceId),
+  ),
+  appliedSourceIds: new Set(replacements.map(({ source }) => source)),
 });
 const replacementKeys = new Set();
 for (const replacement of replacements) {

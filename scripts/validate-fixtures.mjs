@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
+  applyGeometryReplacements,
   expectReject,
   indexNamespace,
   resolveLocationFeatures,
   validateQuizMembership,
   validateReplacementContract,
+  validateSourceUsage,
 } from './map-contract.mjs';
 
 const root = new URL('./fixtures/contract/', import.meta.url);
@@ -36,6 +38,21 @@ const resolvedLocations = resolveLocationFeatures(locations, {
 });
 validateQuizMembership(locations, quizzes);
 const replacement = sources.replacements[0];
+const applied = applyGeometryReplacements({
+  features: canonical,
+  replacements: sources.replacements,
+  alternateNamespaces: new Map([
+    [
+      'fixture-alternate',
+      indexNamespace('fixture-alternate', alternateFeatures),
+    ],
+  ]),
+});
+validateSourceUsage({
+  sources: new Set(Object.keys(sources.sources)),
+  emittedSourceIds: new Set(['fixture-base']),
+  appliedSourceIds: applied.appliedSourceIds,
+});
 validateReplacementContract({
   locations,
   resolvedLocations,
@@ -51,9 +68,17 @@ validateReplacementContract({
 });
 assert.equal(replacement.source, 'fixture-alternate');
 assert.equal(
-  alternateFeatures.find(({ keys }) => keys.includes(replacement.featureKey))
-    .geometry.coordinates[0][0][0],
+  applied.byCanonical.get(replacement.canonicalFeatureId).geometry
+    .coordinates[0][0][0],
   10,
+);
+assert.deepEqual(
+  applied.byCanonical.get(replacement.canonicalFeatureId).replacement,
+  {
+    canonicalFeatureId: replacement.canonicalFeatureId,
+    source: replacement.source,
+    featureKey: replacement.featureKey,
+  },
 );
 assert.equal(
   resolvedLocations.find(
@@ -140,6 +165,24 @@ expectReject(
       ],
     }),
   /not owned/,
+);
+expectReject(
+  () =>
+    applyGeometryReplacements({
+      features: canonical,
+      replacements: [{ ...replacement, canonicalFeatureId: 'fixture:unknown' }],
+      alternateNamespaces: valid.alternateNamespaces,
+    }),
+  /unused/,
+);
+expectReject(
+  () =>
+    validateSourceUsage({
+      sources: new Set(['fixture-base', 'fixture-unused']),
+      emittedSourceIds: new Set(['fixture-base']),
+      appliedSourceIds: applied.appliedSourceIds,
+    }),
+  /unused/,
 );
 expectReject(
   () =>

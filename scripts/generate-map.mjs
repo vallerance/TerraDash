@@ -3,8 +3,10 @@ import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import {
   indexNamespace,
+  applyGeometryReplacements,
   resolveLocationFeatures,
   sourcePropertyKeys,
+  validateSourceUsage,
   validateReplacementContract,
 } from './map-contract.mjs';
 
@@ -349,60 +351,40 @@ const checkedSupplementalSources = new Map(
   ]),
 );
 const replacements = geometrySources.replacements ?? [];
-const replacementByCanonical = new Map();
-for (const replacement of replacements) {
-  if (
-    !replacement?.locationId ||
-    !replacement.canonicalFeatureId ||
-    !replacement.source ||
-    !replacement.featureKey ||
-    replacementByCanonical.has(replacement.canonicalFeatureId)
-  )
-    throw new Error('Geometry replacements require unique complete provenance');
-  if (!checkedSupplementalSources.has(replacement.source))
-    throw new Error(
-      `Geometry replacement references unknown source ${replacement.source}`,
-    );
-  replacementByCanonical.set(replacement.canonicalFeatureId, replacement);
-}
-const sourceFeatureKeys = (properties) =>
-  [
-    properties.iso_3166_2,
-    properties.ISO_A2,
-    properties.ISO_A2_EH,
-    properties.iso_a2,
-    properties.SU_A3,
-    properties.ADM0_A3,
-    properties.adm0_a3,
-    properties.name,
-    properties.name_en,
-    properties.NAME,
-    properties.NAME_LONG,
-    properties.SUBUNIT,
-    properties.shapeID,
-    properties.shapeName,
-    properties.shapeISO,
-    properties.shapeGroup,
-    properties.shapeType,
-    properties.BRK_A3,
-    properties.BRK_NAME,
-  ].filter(Boolean);
-const alternateFeatureByKey = new Map();
-for (const replacement of replacements) {
-  const matches = checkedSupplementalSources
-    .get(replacement.source)
-    .features.filter((feature) =>
-      sourceFeatureKeys(feature.properties).includes(replacement.featureKey),
-    );
-  if (matches.length !== 1)
-    throw new Error(
-      `Geometry replacement feature key must resolve exactly once: ${replacement.source}/${replacement.featureKey}`,
-    );
-  alternateFeatureByKey.set(
-    `${replacement.source}/${replacement.featureKey}`,
-    matches[0],
-  );
-}
+const alternateNamespaces = new Map(
+  SUPPLEMENTAL_SOURCES.map(({ id }) => [
+    id,
+    indexNamespace(id, checkedSupplementalSources.get(id).features, (feature) =>
+      sourcePropertyKeys(feature.properties),
+    ),
+  ]),
+);
+const canonicalSupplementalFeatures = SUPPLEMENTAL_SOURCES.flatMap(
+  (definition) =>
+    checkedSupplementalSources.get(definition.id).features.map((feature) => {
+      const sourceId =
+        feature.properties.NE_ID ??
+        feature.properties.ne_id ??
+        feature.properties.adm1_code ??
+        feature.properties.shapeID;
+      return {
+        id: `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`,
+        geometry: feature.geometry,
+      };
+    }),
+);
+const appliedReplacements = applyGeometryReplacements({
+  features: canonicalSupplementalFeatures,
+  replacements,
+  alternateNamespaces,
+});
+validateSourceUsage({
+  sources: new Set(SUPPLEMENTAL_SOURCES.map(({ id }) => id)),
+  emittedSourceIds: new Set(
+    SUPPLEMENTAL_SOURCES.filter(({ emit = true }) => emit).map(({ id }) => id),
+  ),
+  appliedSourceIds: appliedReplacements.appliedSourceIds,
+});
 const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
   ({ emit = true }) => emit,
 ).flatMap((definition) =>
@@ -410,13 +392,9 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
     const p = feature.properties;
     const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
-    const replacement = replacementByCanonical.get(id);
-    const replacementFeature = replacement
-      ? alternateFeatureByKey.get(
-          `${replacement.source}/${replacement.featureKey}`,
-        )
-      : undefined;
-    const geometry = replacementFeature?.geometry ?? feature.geometry;
+    const applied = appliedReplacements.byCanonical.get(id);
+    const replacement = applied?.replacement;
+    const geometry = applied?.geometry ?? feature.geometry;
     const { paths } = buildGeometryFeature(geometry, id);
     const points = pathPoints(paths);
     return {
@@ -426,13 +404,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
       geometrySource: replacement
         ? `${SUPPLEMENTAL_SOURCES.find(({ id: source }) => source === replacement.source).prefix ?? 'ne'}:${replacement.source}`
         : definition.id,
-      replacement: replacement
-        ? {
-            canonicalFeatureId: replacement.canonicalFeatureId,
-            source: replacement.source,
-            featureKey: replacement.featureKey,
-          }
-        : undefined,
+      replacement: applied?.replacement,
       sourceCodes: [
         p.iso_3166_2,
         p.ISO_A2,

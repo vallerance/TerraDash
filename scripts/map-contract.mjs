@@ -40,6 +40,60 @@ export function sourcePropertyKeys(properties = {}) {
   ].filter(Boolean);
 }
 
+export function applyGeometryReplacements({
+  features,
+  replacements,
+  alternateNamespaces,
+}) {
+  const byCanonical = new Map();
+  const appliedSourceIds = new Set();
+  for (const feature of features) {
+    const replacement = (replacements ?? []).find(
+      ({ canonicalFeatureId }) => canonicalFeatureId === feature.id,
+    );
+    if (!replacement) continue;
+    const namespace = alternateNamespaces.get(replacement.source);
+    if (!namespace)
+      throw new Error(
+        `Missing alternate source namespace ${replacement.source}`,
+      );
+    const matches = namespace.index.get(replacement.featureKey) ?? [];
+    if (matches.length !== 1)
+      throw new Error(
+        `Geometry replacement feature key must resolve exactly once: ${replacement.source}/${replacement.featureKey}`,
+      );
+    byCanonical.set(feature.id, {
+      geometry: matches[0].geometry,
+      replacement: {
+        canonicalFeatureId: replacement.canonicalFeatureId,
+        source: replacement.source,
+        featureKey: replacement.featureKey,
+      },
+    });
+    appliedSourceIds.add(replacement.source);
+  }
+  const unused = (replacements ?? []).filter(
+    ({ canonicalFeatureId }) => !byCanonical.has(canonicalFeatureId),
+  );
+  if (unused.length)
+    throw new Error(
+      `Geometry replacement is unused: ${unused[0].canonicalFeatureId}`,
+    );
+  return { byCanonical, appliedSourceIds };
+}
+
+export function validateSourceUsage({
+  sources,
+  emittedSourceIds,
+  appliedSourceIds,
+}) {
+  const used = new Set([...emittedSourceIds, ...appliedSourceIds]);
+  for (const source of sources)
+    if (!used.has(source))
+      throw new Error(`Geometry source is unused: ${source}`);
+  return used;
+}
+
 export function resolveLocationFeatures(
   locations,
   { namespaces, featuresById },
