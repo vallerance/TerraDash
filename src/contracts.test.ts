@@ -49,6 +49,61 @@ describe('typed runtime data boundary', () => {
   });
 
   it('resolves every configured member and geometry reference through the adapter', () => {
+    const reviewedIds = new Set(reviewed.locationIds);
+    const mainLocationIds = Object.keys(generatedMap.locationFeatureIds);
+    const insetLocationIds = Object.keys(generatedInset.locationFeatureIds);
+    expect(new Set(mainLocationIds)).toEqual(reviewedIds);
+    expect(new Set(insetLocationIds)).toEqual(reviewedIds);
+
+    for (const id of reviewed.locationIds) {
+      const mainRefs =
+        generatedMap.locationFeatureIds[
+          id as keyof typeof generatedMap.locationFeatureIds
+        ];
+      const insetRefs =
+        generatedInset.locationFeatureIds[
+          id as keyof typeof generatedInset.locationFeatureIds
+        ];
+      expect(mainRefs, `${id} main index`).toBeDefined();
+      expect(insetRefs, `${id} inset index`).toBeDefined();
+      for (const ref of mainRefs!) {
+        expect(
+          generatedMap.features[ref as keyof typeof generatedMap.features],
+          `${id} main ${ref}`,
+        ).toBeDefined();
+      }
+      for (const ref of insetRefs!) {
+        expect(
+          generatedInset.features[ref as keyof typeof generatedInset.features],
+          `${id} inset ${ref}`,
+        ).toBeDefined();
+      }
+      expect(
+        generatedManifest.locations[
+          id as keyof typeof generatedManifest.locations
+        ],
+      ).toEqual(mainRefs);
+    }
+
+    expect(new Set(generatedManifest.featureIds)).toEqual(
+      new Set(Object.keys(generatedMap.features)),
+    );
+    expect(new Set(generatedManifest.inset.featureIds)).toEqual(
+      new Set(Object.keys(generatedInset.features)),
+    );
+    for (const replacement of generatedManifest.geometrySourceReplacements) {
+      expect(
+        generatedMap.features[
+          replacement.canonicalFeatureId as keyof typeof generatedMap.features
+        ],
+      ).toBeDefined();
+      expect(
+        generatedManifest.supplementalSources.some(
+          ({ id }) => id === replacement.source,
+        ),
+      ).toBe(true);
+    }
+
     for (const quiz of configuredQuizzes) {
       for (const id of quiz.locationIds) {
         const location = playableLocationsById.get(id);
@@ -84,7 +139,8 @@ describe('typed runtime data boundary', () => {
     const contractFiles = sourceFiles(join(sourceRoot, 'contracts'));
     for (const path of contractFiles) {
       const source = readFileSync(path, 'utf8');
-      expect(source).not.toMatch(/from ['"][^'"]*\.tsx?['"]|from ['"]react/);
+      expect(source).not.toMatch(/from ['"](?:\.\.\/|[^.][^'"/]*)/);
+      expect(source).not.toMatch(/from ['"]react/);
     }
   });
 });
