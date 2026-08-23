@@ -226,7 +226,8 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await page.getByRole('button', { name: title }).click();
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText('89 locations')).toBeVisible();
+  const nonUnCount = quizDefinitions.find(({ id }) => id === 'non-un').locationIds.length;
+  await expect(dialog.getByText(`${nonUnCount} locations`)).toBeVisible();
   await expect(
     dialog.getByText(
       "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",

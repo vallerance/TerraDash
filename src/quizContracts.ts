@@ -1,24 +1,10 @@
 import locationsData from '../data/generated/locations.json';
-import quizData from '../data/generated/quiz.json';
 import quizzesData from '../data/quizzes.json';
 import type { CatalogLocation, QuizDefinition } from './quizEngine';
 import map from '../data/generated/map.json';
 import { highlightedGeometryPaths } from './mapGeometry';
 
 export const playableLocations = locationsData;
-
-export const defaultQuiz: QuizDefinition = {
-  id: quizData.id,
-  locationIds: [...quizData.locationIds],
-};
-export const defaultCatalog: CatalogLocation[] = defaultQuiz.locationIds.map(
-  (id) => {
-    const location = playableLocations.find(
-      (candidate) => candidate.id === id,
-    )!;
-    return { id: location.id, name: location.name };
-  },
-);
 
 export type QuizOption = QuizDefinition & {
   name: string;
@@ -70,6 +56,19 @@ export const quizOptions: QuizOption[] = (quizzesData as QuizInput[]).map(
       map: quiz.map,
       locationIds: quiz.locationIds,
     };
+  },
+);
+export const worldQuiz = quizOptions.find(({ id }) => id === 'world')!;
+export const defaultQuiz: QuizDefinition = {
+  id: worldQuiz.id,
+  locationIds: [...worldQuiz.locationIds],
+};
+export const defaultCatalog: CatalogLocation[] = defaultQuiz.locationIds.map(
+  (id) => {
+    const location = playableLocations.find(
+      (candidate) => candidate.id === id,
+    )!;
+    return { id: location.id, name: location.name };
   },
 );
 
@@ -124,5 +123,3 @@ export function mapLayerForLocation(active: {
   );
   return mapLayerForQuiz(quiz ?? worldQuiz, active);
 }
-
-export const worldQuiz = quizOptions[0];

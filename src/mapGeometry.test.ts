@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import catalog from '../data/generated/catalog.json';
-import candidates from '../data/generated/non-un-candidates.json';
+import locations from '../data/generated/locations.json';
 import map from '../data/generated/map.json';
 import inset from '../data/generated/inset.json';
 import {
@@ -12,6 +11,9 @@ import {
   tinyInsetDot,
 } from './mapGeometry';
 import { pathPoints } from './footprint';
+
+const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
+const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));
 
 describe('map geometry resolution', () => {
   it('renders each parent source feature once and excludes generated parts from the base layer', () => {

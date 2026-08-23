@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import catalog from '../data/generated/catalog.json';
+import locations from '../data/generated/locations.json';
 import map from '../data/generated/map.json';
 import {
   COMPONENT_CLUSTER_PROXIMITY_PX,
@@ -24,6 +24,8 @@ import {
   wrappedOffsets,
   wrappedViewportBounds,
 } from './footprint';
+
+const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
 
 function pathsFor(id: string) {
   const item = catalog.find((entry) => entry.id === id)!;

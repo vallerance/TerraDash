@@ -2,10 +2,13 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import catalog from '../data/generated/catalog.json';
-import candidates from '../data/generated/non-un-candidates.json';
+import locations from '../data/generated/locations.json';
+import reviewed from '../data/reviewed-invariants.json';
 import { playableLocations } from './quizContracts';
 import { DiagnosticsMap } from './diagnostics';
+
+const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
+const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));
 
 let root: ReturnType<typeof createRoot> | undefined;
 
@@ -36,8 +39,11 @@ describe('DiagnosticsMap consumer contract', () => {
   });
 
   it('keeps diagnostics coverage aligned with every playable location', () => {
-    expect(playableLocations).toHaveLength(336);
-    expect(new Set(playableLocations.map(({ id }) => id)).size).toBe(336);
-    expect(candidates).toHaveLength(91);
+    expect(new Set(playableLocations.map(({ id }) => id))).toEqual(
+      new Set(reviewed.locationIds),
+    );
+    expect(new Set(candidates.map(({ id }) => id))).toEqual(
+      new Set(reviewed.relationships.nonUnCandidateIds),
+    );
   });
 });

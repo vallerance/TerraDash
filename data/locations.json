@@ -1,0 +1,5274 @@
+[
+  {
+    "id": "iso:AFG",
+    "name": "Afghanistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AFG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ALB",
+    "name": "Albania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ALB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DZA",
+    "name": "Algeria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DZA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:AND",
+    "name": "Andorra",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AND"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:AGO",
+    "name": "Angola",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AGO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ATG",
+    "name": "Antigua and Barbuda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ATG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ARG",
+    "name": "Argentina",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ARM",
+    "name": "Armenia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:AUS",
+    "name": "Australia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AUS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:AUT",
+    "name": "Austria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AUT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:AZE",
+    "name": "Azerbaijan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "AZE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BHS",
+    "name": "Bahamas",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BHS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BHR",
+    "name": "Bahrain",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BHR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BGD",
+    "name": "Bangladesh",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BGD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BRB",
+    "name": "Barbados",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BLR",
+    "name": "Belarus",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BLR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BEL",
+    "name": "Belgium",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BEL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BLZ",
+    "name": "Belize",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BLZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BEN",
+    "name": "Benin",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BEN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BTN",
+    "name": "Bhutan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BTN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BOL",
+    "name": "Bolivia (Plurinational State of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BOL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BIH",
+    "name": "Bosnia and Herzegovina",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BIH"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BWA",
+    "name": "Botswana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BWA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BRA",
+    "name": "Brazil",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BRN",
+    "name": "Brunei Darussalam",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BRN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BGR",
+    "name": "Bulgaria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BGR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BFA",
+    "name": "Burkina Faso",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BFA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:BDI",
+    "name": "Burundi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "BDI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CPV",
+    "name": "Cabo Verde",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CPV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KHM",
+    "name": "Cambodia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KHM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CMR",
+    "name": "Cameroon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CMR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CAN",
+    "name": "Canada",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CAN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CAF",
+    "name": "Central African Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CAF"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TCD",
+    "name": "Chad",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TCD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CHL",
+    "name": "Chile",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CHN",
+    "name": "China",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:COL",
+    "name": "Colombia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:COM",
+    "name": "Comoros",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:COG",
+    "name": "Republic of the Congo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:COD",
+    "name": "Democratic Republic of the Congo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "COD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CRI",
+    "name": "Costa Rica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CRI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CIV",
+    "name": "Côte d'Ivoire",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CIV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:HRV",
+    "name": "Croatia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HRV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CUB",
+    "name": "Cuba",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CUB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CYP",
+    "name": "Cyprus",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CYP"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CZE",
+    "name": "Czechia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CZE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DNK",
+    "name": "Denmark",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DNK"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DJI",
+    "name": "Djibouti",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DJI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DMA",
+    "name": "Dominica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DMA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DOM",
+    "name": "Dominican Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DOM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ECU",
+    "name": "Ecuador",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ECU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:EGY",
+    "name": "Egypt",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "EGY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SLV",
+    "name": "El Salvador",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GNQ",
+    "name": "Equatorial Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GNQ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ERI",
+    "name": "Eritrea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ERI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:EST",
+    "name": "Estonia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "EST"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SWZ",
+    "name": "Eswatini",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SWZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ETH",
+    "name": "Ethiopia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ETH"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:FJI",
+    "name": "Fiji",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FJI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:FIN",
+    "name": "Finland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FIN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:FRA",
+    "name": "France",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FRA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GAB",
+    "name": "Gabon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GAB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GMB",
+    "name": "Gambia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GMB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GEO",
+    "name": "Georgia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GEO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:DEU",
+    "name": "Germany",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "DEU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GHA",
+    "name": "Ghana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GHA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GRC",
+    "name": "Greece",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GRC"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GRD",
+    "name": "Grenada",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GRD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GTM",
+    "name": "Guatemala",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GTM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GIN",
+    "name": "Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GIN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GNB",
+    "name": "Guinea-Bissau",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GNB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GUY",
+    "name": "Guyana",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GUY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:HTI",
+    "name": "Haiti",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HTI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:HND",
+    "name": "Honduras",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HND"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:HUN",
+    "name": "Hungary",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "HUN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ISL",
+    "name": "Iceland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ISL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:IND",
+    "name": "India",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IND"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:IDN",
+    "name": "Indonesia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IDN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:IRN",
+    "name": "Iran (Islamic Republic of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:IRQ",
+    "name": "Iraq",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRQ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:IRL",
+    "name": "Ireland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "IRL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ISR",
+    "name": "Israel",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ISR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ITA",
+    "name": "Italy",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ITA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:JAM",
+    "name": "Jamaica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JAM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:JPN",
+    "name": "Japan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JPN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:JOR",
+    "name": "Jordan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "JOR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KAZ",
+    "name": "Kazakhstan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KAZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KEN",
+    "name": "Kenya",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KEN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KIR",
+    "name": "Kiribati",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KIR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PRK",
+    "name": "Democratic People's Republic of Korea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRK"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KOR",
+    "name": "Republic of Korea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KOR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KWT",
+    "name": "Kuwait",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KWT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KGZ",
+    "name": "Kyrgyzstan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KGZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LAO",
+    "name": "Lao People's Democratic Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LAO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LVA",
+    "name": "Latvia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LVA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LBN",
+    "name": "Lebanon",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LSO",
+    "name": "Lesotho",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LSO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LBR",
+    "name": "Liberia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LBY",
+    "name": "Libya",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LBY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LIE",
+    "name": "Liechtenstein",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LIE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LTU",
+    "name": "Lithuania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LTU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LUX",
+    "name": "Luxembourg",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LUX"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MDG",
+    "name": "Madagascar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MWI",
+    "name": "Malawi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MWI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MYS",
+    "name": "Malaysia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MYS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MDV",
+    "name": "Maldives",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MLI",
+    "name": "Mali",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MLI"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MLT",
+    "name": "Malta",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MLT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MHL",
+    "name": "Marshall Islands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MHL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MRT",
+    "name": "Mauritania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MRT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MUS",
+    "name": "Mauritius",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MUS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MEX",
+    "name": "Mexico",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MEX"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:FSM",
+    "name": "Micronesia (Federated States of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "FSM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MDA",
+    "name": "Republic of Moldova",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MDA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MCO",
+    "name": "Monaco",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MCO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MNG",
+    "name": "Mongolia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MNG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MNE",
+    "name": "Montenegro",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MNE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MAR",
+    "name": "Morocco",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MAR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MOZ",
+    "name": "Mozambique",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MOZ"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MMR",
+    "name": "Myanmar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MMR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NAM",
+    "name": "Namibia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NAM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NRU",
+    "name": "Nauru",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NRU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NPL",
+    "name": "Nepal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NPL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NLD",
+    "name": "Netherlands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NLD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NZL",
+    "name": "New Zealand",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NZL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NIC",
+    "name": "Nicaragua",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NIC"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NER",
+    "name": "Niger",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NER"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NGA",
+    "name": "Nigeria",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NGA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:MKD",
+    "name": "North Macedonia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "MKD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:NOR",
+    "name": "Norway",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "NOR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:OMN",
+    "name": "Oman",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "OMN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PAK",
+    "name": "Pakistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PAK"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PLW",
+    "name": "Palau",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PLW"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PAN",
+    "name": "Panama",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PAN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PNG",
+    "name": "Papua New Guinea",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PNG"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PRY",
+    "name": "Paraguay",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PER",
+    "name": "Peru",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PER"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PHL",
+    "name": "Philippines",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PHL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:POL",
+    "name": "Poland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "POL"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PRT",
+    "name": "Portugal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PRT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:QAT",
+    "name": "Qatar",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "QAT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ROU",
+    "name": "Romania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ROU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:RUS",
+    "name": "Russian Federation",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "RUS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:RWA",
+    "name": "Rwanda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "RWA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:KNA",
+    "name": "Saint Kitts and Nevis",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "KNA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LCA",
+    "name": "Saint Lucia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LCA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:VCT",
+    "name": "Saint Vincent and the Grenadines",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VCT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:WSM",
+    "name": "Samoa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "WSM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SMR",
+    "name": "San Marino",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SMR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:STP",
+    "name": "Sao Tome and Principe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "STP"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SAU",
+    "name": "Saudi Arabia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SAU"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SEN",
+    "name": "Senegal",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SEN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SRB",
+    "name": "Serbia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SRB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SYC",
+    "name": "Seychelles",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SYC"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SLE",
+    "name": "Sierra Leone",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SGP",
+    "name": "Singapore",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SGP"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SVK",
+    "name": "Slovakia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SVK"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SVN",
+    "name": "Slovenia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SVN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SLB",
+    "name": "Solomon Islands",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SLB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SOM",
+    "name": "Somalia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SOM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ZAF",
+    "name": "South Africa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZAF"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SSD",
+    "name": "South Sudan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SSD"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ESP",
+    "name": "Spain",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ESP"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:LKA",
+    "name": "Sri Lanka",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "LKA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SDN",
+    "name": "Sudan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SDN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SUR",
+    "name": "Suriname",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SUR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SWE",
+    "name": "Sweden",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SWE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:CHE",
+    "name": "Switzerland",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "CHE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:SYR",
+    "name": "Syrian Arab Republic",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "SYR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TJK",
+    "name": "Tajikistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TJK"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TZA",
+    "name": "United Republic of Tanzania",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TZA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:THA",
+    "name": "Thailand",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "THA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TLS",
+    "name": "Timor-Leste",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TLS"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TGO",
+    "name": "Togo",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TGO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TON",
+    "name": "Tonga",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TON"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TTO",
+    "name": "Trinidad and Tobago",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TTO"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TUN",
+    "name": "Tunisia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TUR",
+    "name": "Türkiye",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TKM",
+    "name": "Turkmenistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TKM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:TUV",
+    "name": "Tuvalu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "TUV"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:UGA",
+    "name": "Uganda",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UGA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:UKR",
+    "name": "Ukraine",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UKR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ARE",
+    "name": "United Arab Emirates",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ARE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:GBR",
+    "name": "United Kingdom",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "GBR"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:USA",
+    "name": "United States",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "USA"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:URY",
+    "name": "Uruguay",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "URY"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:UZB",
+    "name": "Uzbekistan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "UZB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:VUT",
+    "name": "Vanuatu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VUT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:VEN",
+    "name": "Venezuela (Bolivarian Republic of)",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VEN"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:VNM",
+    "name": "Viet Nam",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VNM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:YEM",
+    "name": "Yemen",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "YEM"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ZMB",
+    "name": "Zambia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZMB"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:ZWE",
+    "name": "Zimbabwe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "ZWE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:VAT",
+    "name": "Holy See",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "VAT"
+        }
+      ]
+    }
+  },
+  {
+    "id": "iso:PSE",
+    "name": "State of Palestine",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "natural-earth-admin0",
+          "key": "PSE"
+        }
+      ]
+    }
+  },
+  {
+    "id": "US-AL",
+    "name": "Alabama",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315233"
+      ]
+    }
+  },
+  {
+    "id": "US-AK",
+    "name": "Alaska",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308731"
+      ]
+    }
+  },
+  {
+    "id": "US-AZ",
+    "name": "Arizona",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315341"
+      ]
+    }
+  },
+  {
+    "id": "US-AR",
+    "name": "Arkansas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315355"
+      ]
+    }
+  },
+  {
+    "id": "US-CA",
+    "name": "California",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308415"
+      ]
+    }
+  },
+  {
+    "id": "US-CO",
+    "name": "Colorado",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315343"
+      ]
+    }
+  },
+  {
+    "id": "US-CT",
+    "name": "Connecticut",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315301"
+      ]
+    }
+  },
+  {
+    "id": "US-DE",
+    "name": "Delaware",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315325"
+      ]
+    }
+  },
+  {
+    "id": "US-FL",
+    "name": "Florida",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315207"
+      ]
+    }
+  },
+  {
+    "id": "US-GA",
+    "name": "Georgia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159311857"
+      ]
+    }
+  },
+  {
+    "id": "US-HI",
+    "name": "Hawaii",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308409"
+      ]
+    }
+  },
+  {
+    "id": "US-ID",
+    "name": "Idaho",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315339"
+      ]
+    }
+  },
+  {
+    "id": "US-IL",
+    "name": "Illinois",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315309"
+      ]
+    }
+  },
+  {
+    "id": "US-IN",
+    "name": "Indiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315311"
+      ]
+    }
+  },
+  {
+    "id": "US-IA",
+    "name": "Iowa",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315357"
+      ]
+    }
+  },
+  {
+    "id": "US-KS",
+    "name": "Kansas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315359"
+      ]
+    }
+  },
+  {
+    "id": "US-KY",
+    "name": "Kentucky",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315313"
+      ]
+    }
+  },
+  {
+    "id": "US-LA",
+    "name": "Louisiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315221"
+      ]
+    }
+  },
+  {
+    "id": "US-ME",
+    "name": "Maine",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308501"
+      ]
+    }
+  },
+  {
+    "id": "US-MD",
+    "name": "Maryland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315329"
+      ]
+    }
+  },
+  {
+    "id": "US-MA",
+    "name": "Massachusetts",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312157"
+      ]
+    }
+  },
+  {
+    "id": "US-MI",
+    "name": "Michigan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159314665"
+      ]
+    }
+  },
+  {
+    "id": "US-MN",
+    "name": "Minnesota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315297"
+      ]
+    }
+  },
+  {
+    "id": "US-MS",
+    "name": "Mississippi",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315231"
+      ]
+    }
+  },
+  {
+    "id": "US-MO",
+    "name": "Missouri",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315361"
+      ]
+    }
+  },
+  {
+    "id": "US-MT",
+    "name": "Montana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315333"
+      ]
+    }
+  },
+  {
+    "id": "US-NE",
+    "name": "Nebraska",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315363"
+      ]
+    }
+  },
+  {
+    "id": "US-NV",
+    "name": "Nevada",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315345"
+      ]
+    }
+  },
+  {
+    "id": "US-NH",
+    "name": "New Hampshire",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315303"
+      ]
+    }
+  },
+  {
+    "id": "US-NJ",
+    "name": "New Jersey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315267"
+      ]
+    }
+  },
+  {
+    "id": "US-NM",
+    "name": "New Mexico",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315347"
+      ]
+    }
+  },
+  {
+    "id": "US-NY",
+    "name": "New York",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312155"
+      ]
+    }
+  },
+  {
+    "id": "US-NC",
+    "name": "North Carolina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159314887"
+      ]
+    }
+  },
+  {
+    "id": "US-ND",
+    "name": "North Dakota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315337"
+      ]
+    }
+  },
+  {
+    "id": "US-OH",
+    "name": "Ohio",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315315"
+      ]
+    }
+  },
+  {
+    "id": "US-OK",
+    "name": "Oklahoma",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315365"
+      ]
+    }
+  },
+  {
+    "id": "US-OR",
+    "name": "Oregon",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309549"
+      ]
+    }
+  },
+  {
+    "id": "US-PA",
+    "name": "Pennsylvania",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315331"
+      ]
+    }
+  },
+  {
+    "id": "US-RI",
+    "name": "Rhode Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312213"
+      ]
+    }
+  },
+  {
+    "id": "US-SC",
+    "name": "South Carolina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315307"
+      ]
+    }
+  },
+  {
+    "id": "US-SD",
+    "name": "South Dakota",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315367"
+      ]
+    }
+  },
+  {
+    "id": "US-TN",
+    "name": "Tennessee",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315319"
+      ]
+    }
+  },
+  {
+    "id": "US-TX",
+    "name": "Texas",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315211"
+      ]
+    }
+  },
+  {
+    "id": "US-UT",
+    "name": "Utah",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315349"
+      ]
+    }
+  },
+  {
+    "id": "US-VT",
+    "name": "Vermont",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315305"
+      ]
+    }
+  },
+  {
+    "id": "US-VA",
+    "name": "Virginia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315259"
+      ]
+    }
+  },
+  {
+    "id": "US-WA",
+    "name": "Washington",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309547"
+      ]
+    }
+  },
+  {
+    "id": "US-WV",
+    "name": "West Virginia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315323"
+      ]
+    }
+  },
+  {
+    "id": "US-WI",
+    "name": "Wisconsin",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315321"
+      ]
+    }
+  },
+  {
+    "id": "US-WY",
+    "name": "Wyoming",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315351"
+      ]
+    }
+  },
+  {
+    "id": "non-un:abkhazia",
+    "name": "Abkhazia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320785"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Abkhazia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "2",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GE-AB",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
+  },
+  {
+    "id": "non-un:adjara",
+    "name": "Adjara",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159314341",
+        "ne:map-unit:1159320781",
+        "ne:map-subunit:1159320781"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Adjara",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GE-AJ",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
+  },
+  {
+    "id": "non-un:american-samoa",
+    "name": "American Samoa",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159321403",
+        "ne:map-unit:1159321357",
+        "ne:map-subunit:1159321357"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "American Samoa",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "AS",
+      "iso_3166_2_codes": "US-AS",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:anguilla",
+    "name": "Anguilla",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320703",
+        "ne:map-subunit:1159320703"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Anguilla",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AI",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:antarctica",
+    "name": "Antarctica",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315599",
+        "ne:map-unit:1159320335",
+        "ne:map-subunit:1159320337",
+        "ne:map-subunit:1159320343",
+        "ne:map-subunit:1159320341"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Antarctica",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AQ",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:aruba",
+    "name": "Aruba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315531",
+        "ne:map-unit:1159321097",
+        "ne:map-subunit:1159321097"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Aruba",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "AW",
+      "iso_3166_2_codes": "NL-AW",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:azores",
+    "name": "Azores",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310543",
+        "ne:map-unit:1159321189",
+        "ne:map-subunit:1159321189"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Azores",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PT-20",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:bermuda",
+    "name": "Bermuda",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320705",
+        "ne:map-subunit:1159320705"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bermuda",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:bolzano-south-tyrol",
+    "name": "Bolzano / South Tyrol",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310921"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bolzano / South Tyrol",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-BZ",
+      "iso_3166_2_categories": "Autonomous province"
+    }
+  },
+  {
+    "id": "non-un:bonaire-sint-eustatius-and-saba",
+    "name": "Bonaire, Sint Eustatius and Saba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321107",
+        "ne:map-subunit:1159321107"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bonaire, Sint Eustatius and Saba",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BQ",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:bougainville",
+    "name": "Bougainville",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309695",
+        "ne:map-unit:1159321175",
+        "ne:map-subunit:1159321175"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bougainville",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PG-NSB",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:bouvet-island",
+    "name": "Bouvet Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321111",
+        "ne:map-subunit:1159321111"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Bouvet Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "BV",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:british-indian-ocean-territory",
+    "name": "British Indian Ocean Territory",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315473",
+        "ne:disputed:1159320723",
+        "ne:map-unit:1159320723",
+        "ne:map-subunit:1159320723"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "British Indian Ocean Territory",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "IO",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:british-virgin-islands",
+    "name": "British Virgin Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315557",
+        "ne:map-unit:1159320739",
+        "ne:map-subunit:1159320739"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "British Virgin Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "VG",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:cayman-islands",
+    "name": "Cayman Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315563",
+        "ne:map-unit:1159320707",
+        "ne:map-subunit:1159320707"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cayman Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "KY",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:christmas-island",
+    "name": "Christmas Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320369",
+        "ne:map-subunit:1159320369"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Christmas Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CX",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:cocos-keeling-islands",
+    "name": "Cocos (Keeling) Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320367",
+        "ne:map-subunit:1159320367"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cocos (Keeling) Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CC",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:cook-islands",
+    "name": "Cook Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321129",
+        "ne:map-subunit:1159321129"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Cook Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "CK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:costa-caribe-norte",
+    "name": "Costa Caribe Norte",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309037"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Costa Caribe Norte",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "NI-AN",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:costa-caribe-sur",
+    "name": "Costa Caribe Sur",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308989"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Costa Caribe Sur",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "NI-AS",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:curac-ao",
+    "name": "Curaçao",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315529",
+        "ne:map-unit:1159321099",
+        "ne:map-subunit:1159321099"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Curaçao",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "CW",
+      "iso_3166_2_codes": "NL-CW",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:donetsk-people-s-republic",
+    "name": "Donetsk People's Republic",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1763286545"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Donetsk People's Republic",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:england",
+    "name": "England",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320743",
+        "ne:map-subunit:1159320743"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "England",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-ENG",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:falkland-islands-malvinas",
+    "name": "Falkland Islands (Malvinas)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320711",
+        "ne:map-unit:1159320711",
+        "ne:map-subunit:1159320711"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Falkland Islands (Malvinas)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "FK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:faroe-islands",
+    "name": "Faroe Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320549",
+        "ne:map-subunit:1159320549"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Faroe Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "FO",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:french-guiana",
+    "name": "French Guiana",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159311355",
+        "ne:disputed:1159320683",
+        "ne:map-unit:1159320655",
+        "ne:map-subunit:1159320655"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Guiana",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GF",
+      "iso_3166_2_codes": "FR-973",
+      "iso_3166_2_categories": "Overseas unique territorial collectivity"
+    }
+  },
+  {
+    "id": "non-un:french-polynesia",
+    "name": "French Polynesia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320643",
+        "ne:map-subunit:1159320643"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Polynesia",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PF",
+      "iso_3166_2_codes": "FR-PF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
+  },
+  {
+    "id": "non-un:french-southern-territories",
+    "name": "French Southern Territories",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320677",
+        "ne:disputed:1159320667",
+        "ne:disputed:1159320665",
+        "ne:disputed:1159320679",
+        "ne:disputed:1159320675",
+        "ne:map-unit:1159320631",
+        "ne:map-subunit:1159320677",
+        "ne:map-subunit:1159320669",
+        "ne:map-subunit:1159320667",
+        "ne:map-subunit:1159320665",
+        "ne:map-subunit:1159320679",
+        "ne:map-subunit:1159320675"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "French Southern Territories",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "TF",
+      "iso_3166_2_codes": "FR-TF",
+      "iso_3166_2_categories": "Overseas territory"
+    }
+  },
+  {
+    "id": "non-un:friuli-venezia-giulia",
+    "name": "Friuli-Venezia Giulia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159316967",
+        "ne:admin1:1159316965",
+        "ne:admin1:1159316969",
+        "ne:admin1:1159310919"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Friuli-Venezia Giulia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-36",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:gagauzia",
+    "name": "Gagauzia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312587"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gagauzia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "MD-GA",
+      "iso_3166_2_categories": "Autonomous territorial unit"
+    }
+  },
+  {
+    "id": "non-un:gibraltar",
+    "name": "Gibraltar",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315683",
+        "ne:disputed:1159320719",
+        "ne:map-unit:1159320719",
+        "ne:map-subunit:1159320719"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gibraltar",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GI",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:gorno-badakhshan",
+    "name": "Gorno-Badakhshan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159308469"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Gorno-Badakhshan",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "TJ-GB",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:greenland",
+    "name": "Greenland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320559",
+        "ne:map-unit:1159320551",
+        "ne:map-subunit:1159320551"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Greenland",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GL",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:guadeloupe",
+    "name": "Guadeloupe",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315647",
+        "ne:map-unit:1159320653",
+        "ne:map-subunit:1159320653"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guadeloupe",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GP",
+      "iso_3166_2_codes": "FR-971",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
+  },
+  {
+    "id": "non-un:guam",
+    "name": "Guam",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315535",
+        "ne:map-unit:1159321359",
+        "ne:map-subunit:1159321359"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guam",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "GU",
+      "iso_3166_2_codes": "US-GU",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:guangxi",
+    "name": "Guangxi",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310341"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guangxi",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-GX",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:guernsey",
+    "name": "Guernsey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320715",
+        "ne:map-subunit:1159320757",
+        "ne:map-subunit:1159320761",
+        "ne:map-subunit:1159320755",
+        "ne:map-subunit:1159320759"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Guernsey",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GG",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:heard-island-and-mcdonald-islands",
+    "name": "Heard Island and McDonald Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315607",
+        "ne:map-unit:1159320361",
+        "ne:map-subunit:1159320361"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Heard Island and McDonald Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "HM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:hong-kong",
+    "name": "Hong Kong",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320473",
+        "ne:map-subunit:1159320473"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Hong Kong",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "HK",
+      "iso_3166_2_codes": "CN-HK",
+      "iso_3166_2_categories": "Special administrative region"
+    }
+  },
+  {
+    "id": "non-un:inner-mongolia",
+    "name": "Inner Mongolia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312757"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Inner Mongolia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-NM",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:isle-of-man",
+    "name": "Isle of Man",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315475",
+        "ne:map-unit:1159320721",
+        "ne:map-subunit:1159320721"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Isle of Man",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "IM",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:jersey",
+    "name": "Jersey",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315593",
+        "ne:map-unit:1159320725",
+        "ne:map-subunit:1159320725"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Jersey",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "JE",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:jewish-autonomous-oblast",
+    "name": "Jewish Autonomous Oblast",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159313605"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Jewish Autonomous Oblast",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RU-YEV",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:kosovo",
+    "name": "Kosovo",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321007",
+        "ne:map-subunit:1159321007"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Kosovo",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "2",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RS-KM",
+      "iso_3166_2_categories": "Autonomous province"
+    }
+  },
+  {
+    "id": "non-un:luhansk-people-s-republic",
+    "name": "Luhansk People's Republic",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1763286547"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Luhansk People's Republic",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:macao",
+    "name": "Macao",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320475",
+        "ne:map-subunit:1159320475"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Macao",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MO",
+      "iso_3166_2_codes": "CN-MO",
+      "iso_3166_2_categories": "Special administrative region"
+    }
+  },
+  {
+    "id": "non-un:madeira",
+    "name": "Madeira",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310443",
+        "ne:map-unit:1159321191",
+        "ne:map-subunit:1159321191"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Madeira",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "PT-30",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:martinique",
+    "name": "Martinique",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159311599",
+        "ne:map-unit:1159320657",
+        "ne:map-subunit:1159320657"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Martinique",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MQ",
+      "iso_3166_2_codes": "FR-972",
+      "iso_3166_2_categories": "Overseas unique territorial collectivity"
+    }
+  },
+  {
+    "id": "non-un:mayotte",
+    "name": "Mayotte",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315621",
+        "ne:disputed:1159320659",
+        "ne:map-unit:1159320659",
+        "ne:map-subunit:1159320659"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Mayotte",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "YT",
+      "iso_3166_2_codes": "FR-976",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
+  },
+  {
+    "id": "non-un:montserrat",
+    "name": "Montserrat",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320727",
+        "ne:map-subunit:1159320727"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Montserrat",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "MS",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:nakhchivan",
+    "name": "Nakhchivan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "gb:aze-adm1:63332228B45413776644545"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Nakhchivan",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "AZ-NX",
+      "iso_3166_2_categories": "Autonomous republic"
+    }
+  },
+  {
+    "id": "non-un:new-caledonia",
+    "name": "New Caledonia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320641",
+        "ne:map-subunit:1159320641"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "New Caledonia",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "NC",
+      "iso_3166_2_codes": "FR-NC",
+      "iso_3166_2_categories": "Overseas collectivity with special status"
+    }
+  },
+  {
+    "id": "non-un:ningxia",
+    "name": "Ningxia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312659"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Ningxia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-NX",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:niue",
+    "name": "Niue",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315491",
+        "ne:map-unit:1159321133",
+        "ne:map-subunit:1159321133"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Niue",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "NU",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:norfolk-island",
+    "name": "Norfolk Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315615",
+        "ne:map-unit:1159320365",
+        "ne:map-subunit:1159320365"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Norfolk Island",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "NF",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:north-borneo",
+    "name": "North Borneo",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1763510959"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "North Borneo",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:northern-cyprus",
+    "name": "Northern Cyprus",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:1159320531"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Cyprus",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:northern-ireland",
+    "name": "Northern Ireland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320745",
+        "ne:map-subunit:1159320745"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Ireland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-NIR",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:northern-mariana-islands",
+    "name": "Northern Mariana Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159316107",
+        "ne:map-unit:1159321361",
+        "ne:map-subunit:1159321361"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Northern Mariana Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MP",
+      "iso_3166_2_codes": "US-MP",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:pitcairn",
+    "name": "Pitcairn",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320729",
+        "ne:map-subunit:1159320729"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Pitcairn",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "PN",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:pri-ncipe",
+    "name": "Príncipe",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315955",
+        "ne:map-subunit:1159321277"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Príncipe",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "ST-P",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:puerto-rico",
+    "name": "Puerto Rico",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315553",
+        "ne:map-unit:1159321363",
+        "ne:map-subunit:1159321363"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Puerto Rico",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PR",
+      "iso_3166_2_codes": "US-PR",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:re-union",
+    "name": "Réunion",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315617",
+        "ne:map-unit:1159320661",
+        "ne:map-subunit:1159320661"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Réunion",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "RE",
+      "iso_3166_2_codes": "FR-974",
+      "iso_3166_2_categories": "Overseas departmental collectivity"
+    }
+  },
+  {
+    "id": "non-un:saint-barthe-lemy",
+    "name": "Saint Barthélemy",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315649",
+        "ne:map-unit:1159320633",
+        "ne:map-subunit:1159320633"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Barthélemy",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "BL",
+      "iso_3166_2_codes": "FR-BL",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
+  },
+  {
+    "id": "non-un:saint-helena-ascension-and-tristan-da-cunha",
+    "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320733"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Helena, Ascension and Tristan da Cunha",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "SH",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:saint-martin-french-part",
+    "name": "Saint Martin (French part)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320639",
+        "ne:map-subunit:1159320639"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Martin (French part)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "MF",
+      "iso_3166_2_codes": "FR-MF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
+  },
+  {
+    "id": "non-un:saint-pierre-and-miquelon",
+    "name": "Saint Pierre and Miquelon",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315673",
+        "ne:map-unit:1159320647",
+        "ne:map-subunit:1159320647"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Saint Pierre and Miquelon",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "PM",
+      "iso_3166_2_codes": "FR-PM",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
+  },
+  {
+    "id": "non-un:sardinia",
+    "name": "Sardinia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-subunit:1159320921"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sardinia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-88",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:scotland",
+    "name": "Scotland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320775",
+        "ne:map-unit:1159320747",
+        "ne:map-subunit:1159320747"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Scotland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-SCT",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:sicily",
+    "name": "Sicily",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-subunit:1159320929"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sicily",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-82",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:sint-maarten-dutch-part",
+    "name": "Sint Maarten (Dutch part)",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315549",
+        "ne:map-unit:1159321103",
+        "ne:map-subunit:1159321103"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Sint Maarten (Dutch part)",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "SX",
+      "iso_3166_2_codes": "NL-SX",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:somaliland",
+    "name": "Somaliland",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:1159321259"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Somaliland",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:south-georgia-and-the-south-sandwich-islands",
+    "name": "South Georgia and the South Sandwich Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315467",
+        "ne:map-unit:1159320731"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "South Georgia and the South Sandwich Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "GS",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:south-ossetia",
+    "name": "South Ossetia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159320787"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "South Ossetia",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:svalbard-and-jan-mayen",
+    "name": "Svalbard and Jan Mayen",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159309689",
+        "ne:map-unit:1159321119",
+        "ne:map-subunit:1159321119"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Svalbard and Jan Mayen",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "SJ",
+      "iso_3166_2_codes": "NO-21;NO-22",
+      "iso_3166_2_categories": "Arctic region"
+    }
+  },
+  {
+    "id": "non-un:taiwan",
+    "name": "Taiwan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159321335",
+        "ne:map-unit:1159321335",
+        "ne:map-subunit:1159321335"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Taiwan",
+      "iso_3166_1": "True",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "2",
+      "iso_3166_1_code": "TW",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:tibet-xizang",
+    "name": "Tibet / Xizang",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312655"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Tibet / Xizang",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-XZ",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:tokelau",
+    "name": "Tokelau",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315503",
+        "ne:map-unit:1159321137",
+        "ne:map-subunit:1159321137"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Tokelau",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "TK",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:transnistria",
+    "name": "Transnistria",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1159321047"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Transnistria",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "True",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:trentino",
+    "name": "Trentino",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159316949"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Trentino",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-TN",
+      "iso_3166_2_categories": "Autonomous province"
+    }
+  },
+  {
+    "id": "non-un:trentino-alto-adige-su-dtirol",
+    "name": "Trentino-Alto Adige/Südtirol",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310921",
+        "ne:admin1:1159316949"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Trentino-Alto Adige/Südtirol",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-32",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:turks-and-caicos-islands",
+    "name": "Turks and Caicos Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320737",
+        "ne:map-subunit:1159320737"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Turks and Caicos Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "TC",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:united-states-minor-outlying-islands",
+    "name": "United States Minor Outlying Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321381",
+        "ne:map-subunit:1159321381",
+        "ne:map-unit:1159321375",
+        "ne:map-subunit:1159321375",
+        "ne:map-unit:1159321377",
+        "ne:map-subunit:1159321377",
+        "ne:map-unit:1159321379",
+        "ne:map-subunit:1159321379",
+        "ne:disputed:1159321391",
+        "ne:map-unit:1159321391",
+        "ne:map-subunit:1159321391",
+        "ne:map-unit:1159321389",
+        "ne:map-subunit:1159321389",
+        "ne:disputed:1159321373",
+        "ne:map-unit:1159321373",
+        "ne:map-subunit:1159321373",
+        "ne:map-unit:1159321387",
+        "ne:map-subunit:1159321387",
+        "ne:map-unit:1159321385",
+        "ne:map-subunit:1159321385"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "United States Minor Outlying Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "UM",
+      "iso_3166_2_codes": "US-UM",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:united-states-virgin-islands",
+    "name": "United States Virgin Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159321371",
+        "ne:map-subunit:1159321371"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "United States Virgin Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "VI",
+      "iso_3166_2_codes": "US-VI",
+      "iso_3166_2_categories": "Outlying area"
+    }
+  },
+  {
+    "id": "non-un:valle-d-aosta",
+    "name": "Valle d’Aosta",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159310915"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Valle d’Aosta",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "IT-23",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:vojvodina",
+    "name": "Vojvodina",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:disputed:1729635105",
+        "ne:disputed:1729635103",
+        "ne:map-unit:1159321271",
+        "ne:map-subunit:1159321271"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Vojvodina",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "RS-VO",
+      "iso_3166_2_categories": "Autonomous province"
+    }
+  },
+  {
+    "id": "non-un:wales",
+    "name": "Wales",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320749",
+        "ne:map-subunit:1159320749"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Wales",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "GB-WLS",
+      "iso_3166_2_categories": "Country"
+    }
+  },
+  {
+    "id": "non-un:wallis-and-futuna",
+    "name": "Wallis and Futuna",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320649",
+        "ne:map-subunit:1159320649"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Wallis and Futuna",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "4",
+      "iso_3166_1_code": "WF",
+      "iso_3166_2_codes": "FR-WF",
+      "iso_3166_2_categories": "Overseas collectivity"
+    }
+  },
+  {
+    "id": "non-un:western-sahara",
+    "name": "Western Sahara",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159315575",
+        "ne:disputed:1159321037",
+        "ne:disputed:1159321223",
+        "ne:map-unit:1159321223",
+        "ne:map-subunit:1159321223"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Western Sahara",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "EH",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  },
+  {
+    "id": "non-un:xinjiang",
+    "name": "Xinjiang",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:admin1:1159312657"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Xinjiang",
+      "iso_3166_1": "False",
+      "un_m49": "False",
+      "iso_3166_2_autonomous": "True",
+      "natural_earth_admin0_country": "False",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "1",
+      "iso_3166_1_code": "",
+      "iso_3166_2_codes": "CN-XJ",
+      "iso_3166_2_categories": "Autonomous region"
+    }
+  },
+  {
+    "id": "non-un:a-land-islands",
+    "name": "Åland Islands",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": [
+        "ne:map-unit:1159320621",
+        "ne:map-subunit:1159320621"
+      ]
+    },
+    "evidence": {
+      "type": "non-un-candidate",
+      "entity": "Åland Islands",
+      "iso_3166_1": "True",
+      "un_m49": "True",
+      "iso_3166_2_autonomous": "False",
+      "natural_earth_admin0_country": "True",
+      "natural_earth_admin0_breakaway": "False",
+      "source_count": "3",
+      "iso_3166_1_code": "AX",
+      "iso_3166_2_codes": "",
+      "iso_3166_2_categories": ""
+    }
+  }
+]

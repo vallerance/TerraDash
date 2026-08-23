@@ -1,0 +1,67 @@
+{
+  "sources": {
+    "admin1": {
+      "path": "data/source/ne_10m_admin_1_states_provinces.geojson",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
+    },
+    "disputed": {
+      "path": "data/source/ne_10m_admin_0_disputed_areas.geojson",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_disputed_areas.geojson",
+      "sha256": "9cafef8b7dfb6b164dc58f218f981f4ace9f716f6c03795d4c62d1ac9f3d50f5",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
+    },
+    "map-unit": {
+      "path": "data/source/ne_10m_admin_0_map_units.geojson",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_units.geojson",
+      "sha256": "57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
+    },
+    "map-subunit": {
+      "path": "data/source/ne_10m_admin_0_map_subunits.geojson",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson",
+      "sha256": "76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071",
+      "prefix": "ne",
+      "license": "Public domain",
+      "attribution": "Natural Earth"
+    },
+    "aze-adm1": {
+      "path": "data/source/geoBoundaries-AZE-ADM1.geojson",
+      "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/v6.0.0/releaseData/gbOpen/AZE/ADM1/geoBoundaries-AZE-ADM1.geojson",
+      "sha256": "f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666",
+      "prefix": "gb",
+      "license": "Open Data Commons Open Database License 1.0",
+      "attribution": "geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)"
+    },
+    "usa-adm1": {
+      "path": "data/source/geoBoundaries-USA-MI-WI.geojson",
+      "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson",
+      "sha256": "766e551ce9f4b717b7d84024da8f577c53c46da767d240e777dbb0f2e293356b",
+      "prefix": "gb",
+      "emit": false,
+      "license": "Public domain",
+      "attribution": "geoBoundaries v6.0.0 (source: United States Census Bureau)"
+    }
+  },
+  "replacements": [
+    {
+      "locationId": "US-MI",
+      "canonicalFeatureId": "ne:admin1:1159314665",
+      "source": "usa-adm1",
+      "featureKey": "US-MI"
+    },
+    {
+      "locationId": "US-WI",
+      "canonicalFeatureId": "ne:admin1:1159315321",
+      "source": "usa-adm1",
+      "featureKey": "US-WI"
+    }
+  ]
+}

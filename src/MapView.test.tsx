@@ -2,9 +2,7 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import catalog from '../data/generated/catalog.json';
-import candidates from '../data/generated/non-un-candidates.json';
-import quizLocations from '../data/generated/quiz-locations.json';
+import locations from '../data/generated/locations.json';
 import map from '../data/generated/map.json';
 import {
   highlightedGeometryPaths,
@@ -17,6 +15,10 @@ import {
   mapLayerForQuiz,
   quizOptions,
 } from './quizContracts';
+
+const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
+const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));
+const quizLocations = locations.filter(({ id }) => id.startsWith('US-'));
 
 let root: ReturnType<typeof createRoot> | undefined;
 class TestResizeObserver {

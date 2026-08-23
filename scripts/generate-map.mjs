@@ -14,51 +14,12 @@ const INSET_SOURCE_SHA256 =
   '239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255';
 const INSET_SOURCE_URL =
   'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_countries.geojson';
-const SUPPLEMENTAL_SOURCES = [
-  {
-    id: 'admin1',
-    path: 'data/source/ne_10m_admin_1_states_provinces.geojson',
-    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_1_states_provinces.geojson',
-    sha256: '22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5',
-  },
-  {
-    id: 'disputed',
-    path: 'data/source/ne_10m_admin_0_disputed_areas.geojson',
-    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_disputed_areas.geojson',
-    sha256: '9cafef8b7dfb6b164dc58f218f981f4ace9f716f6c03795d4c62d1ac9f3d50f5',
-  },
-  {
-    id: 'map-unit',
-    path: 'data/source/ne_10m_admin_0_map_units.geojson',
-    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_units.geojson',
-    sha256: '57da82be755f4afccd8f3b14251bb2752f5df1395f47d2d86f817470c4a48862',
-  },
-  {
-    id: 'map-subunit',
-    path: 'data/source/ne_10m_admin_0_map_subunits.geojson',
-    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_subunits.geojson',
-    sha256: '76896018b9265072d8063e118e46df765be0ceb54a803b1a2571ebe25b36a071',
-  },
-  {
-    id: 'aze-adm1',
-    prefix: 'gb',
-    path: 'data/source/geoBoundaries-AZE-ADM1.geojson',
-    url: 'https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/v6.0.0/releaseData/gbOpen/AZE/ADM1/geoBoundaries-AZE-ADM1.geojson',
-    sha256: 'f021170f3a9ef66974555265ede713af0fe02508393c75c5fa60173e10d48666',
-    license: 'Open Data Commons Open Database License 1.0',
-    attribution: 'geoBoundaries v6.0.0 (source: geoBoundaries, OpenStreetMap)',
-  },
-  {
-    id: 'usa-adm1',
-    emit: false,
-    prefix: 'gb',
-    path: 'data/source/geoBoundaries-USA-MI-WI.geojson',
-    url: 'https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/USA/ADM1/geoBoundaries-USA-ADM1_simplified.geojson',
-    sha256: '766e551ce9f4b717b7d84024da8f577c53c46da767d240e777dbb0f2e293356b',
-    license: 'Public domain',
-    attribution: 'geoBoundaries v6.0.0 (source: United States Census Bureau)',
-  },
-];
+const geometrySources = JSON.parse(
+  fs.readFileSync('data/geometry-sources.json', 'utf8'),
+);
+const SUPPLEMENTAL_SOURCES = Object.entries(geometrySources.sources).map(
+  ([id, definition]) => ({ id, ...definition }),
+);
 const sourceBytes = fs.readFileSync(sourcePath);
 const sourceSha256 = crypto
   .createHash('sha256')
@@ -79,41 +40,8 @@ if (insetSourceSha256 !== INSET_SOURCE_SHA256)
     `Natural Earth inset source checksum mismatch: expected ${INSET_SOURCE_SHA256}, got ${insetSourceSha256}`,
   );
 const insetSource = JSON.parse(insetSourceBytes);
-const catalog = JSON.parse(fs.readFileSync('data/catalog.json'));
-const quizLocations = JSON.parse(fs.readFileSync('data/quiz-locations.json'));
+const authoredLocations = JSON.parse(fs.readFileSync('data/locations.json'));
 const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
-const usaAdm1 = checkedSourceBytes(
-  SUPPLEMENTAL_SOURCES.find(({ id }) => id === 'usa-adm1'),
-);
-const expectedUsaOverrideCodes = ['US-MI', 'US-WI'];
-if (
-  JSON.stringify(
-    usaAdm1.features.map(({ properties }) => properties.shapeISO),
-  ) !== JSON.stringify(expectedUsaOverrideCodes)
-)
-  throw new Error('USA ADM1 override scope must be exactly US-MI and US-WI');
-const usaAdm1ByIso = new Map(
-  usaAdm1.features.map((feature) => [feature.properties.shapeISO, feature]),
-);
-const naturalEarthAdm1 = checkedSourceBytes(
-  SUPPLEMENTAL_SOURCES.find(({ id }) => id === 'admin1'),
-);
-const expectedUsaOverrideCount = naturalEarthAdm1.features.filter((feature) =>
-  usaAdm1ByIso.has(feature.properties.iso_3166_2),
-).length;
-const unmatchedUsaSourceIds = usaAdm1.features
-  .filter(
-    (feature) =>
-      !naturalEarthAdm1.features.some(
-        (candidate) =>
-          candidate.properties.iso_3166_2 === feature.properties.shapeISO,
-      ),
-  )
-  .map((feature) => feature.properties.shapeISO);
-if (JSON.stringify(unmatchedUsaSourceIds) !== JSON.stringify([]))
-  throw new Error(
-    `USA ADM1 unmatched source scope drift: ${unmatchedUsaSourceIds.join(', ')}`,
-  );
 function parseCsv(text) {
   return text
     .trim()
@@ -408,22 +336,92 @@ const features = source.features.map((feature) => {
     }),
   };
 });
+const checkedSupplementalSources = new Map(
+  SUPPLEMENTAL_SOURCES.map((definition) => [
+    definition.id,
+    checkedSourceBytes(definition),
+  ]),
+);
+const replacements = geometrySources.replacements ?? [];
+const replacementByCanonical = new Map();
+for (const replacement of replacements) {
+  if (
+    !replacement?.locationId ||
+    !replacement.canonicalFeatureId ||
+    !replacement.source ||
+    !replacement.featureKey ||
+    replacementByCanonical.has(replacement.canonicalFeatureId)
+  )
+    throw new Error('Geometry replacements require unique complete provenance');
+  if (!checkedSupplementalSources.has(replacement.source))
+    throw new Error(`Geometry replacement references unknown source ${replacement.source}`);
+  replacementByCanonical.set(replacement.canonicalFeatureId, replacement);
+}
+const sourceFeatureKeys = (properties) => [
+  properties.iso_3166_2,
+  properties.ISO_A2,
+  properties.ISO_A2_EH,
+  properties.iso_a2,
+  properties.SU_A3,
+  properties.ADM0_A3,
+  properties.adm0_a3,
+  properties.name,
+  properties.name_en,
+  properties.NAME,
+  properties.NAME_LONG,
+  properties.SUBUNIT,
+  properties.shapeID,
+  properties.shapeName,
+  properties.shapeISO,
+  properties.shapeGroup,
+  properties.shapeType,
+  properties.BRK_A3,
+  properties.BRK_NAME,
+].filter(Boolean);
+const alternateFeatureByKey = new Map();
+for (const replacement of replacements) {
+  const matches = checkedSupplementalSources
+    .get(replacement.source)
+    .features.filter((feature) =>
+      sourceFeatureKeys(feature.properties).includes(replacement.featureKey),
+    );
+  if (matches.length !== 1)
+    throw new Error(
+      `Geometry replacement feature key must resolve exactly once: ${replacement.source}/${replacement.featureKey}`,
+    );
+  alternateFeatureByKey.set(
+    `${replacement.source}/${replacement.featureKey}`,
+    matches[0],
+  );
+}
 const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
   ({ emit = true }) => emit,
 ).flatMap((definition) =>
-  checkedSourceBytes(definition).features.map((feature) => {
+  checkedSupplementalSources.get(definition.id).features.map((feature) => {
     const p = feature.properties;
-    const preferred = p.iso_3166_2 ? usaAdm1ByIso.get(p.iso_3166_2) : undefined;
-    const geometry = preferred?.geometry ?? feature.geometry;
     const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
+    const replacement = replacementByCanonical.get(id);
+    const replacementFeature = replacement
+      ? alternateFeatureByKey.get(`${replacement.source}/${replacement.featureKey}`)
+      : undefined;
+    const geometry = replacementFeature?.geometry ?? feature.geometry;
     const { paths } = buildGeometryFeature(geometry, id);
     const points = pathPoints(paths);
     return {
       id,
       source: definition.id,
       geometry,
-      geometrySource: preferred ? 'gb:usa-adm1' : definition.id,
+      geometrySource: replacement
+        ? `${SUPPLEMENTAL_SOURCES.find(({ id: source }) => source === replacement.source).prefix ?? 'ne'}:${replacement.source}`
+        : definition.id,
+      replacement: replacement
+        ? {
+            canonicalFeatureId: replacement.canonicalFeatureId,
+            source: replacement.source,
+            featureKey: replacement.featureKey,
+          }
+        : undefined,
       sourceCodes: [
         p.iso_3166_2,
         p.ISO_A2,
@@ -478,22 +476,32 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
     };
   }),
 );
-const usaGeometryOverrides = supplementalFeatures.filter(
-  ({ geometrySource }) => geometrySource === 'gb:usa-adm1',
-);
-if (usaGeometryOverrides.length !== expectedUsaOverrideCount)
-  throw new Error(
-    `USA ADM1 geometry scope drift: expected ${expectedUsaOverrideCount} overrides, got ${usaGeometryOverrides.length}`,
-  );
+for (const replacement of replacements)
+  if (!supplementalFeatures.some(({ id }) => id === replacement.canonicalFeatureId))
+    throw new Error(
+      `Geometry replacement canonical feature is unused: ${replacement.canonicalFeatureId}`,
+    );
 const featuresByKey = new Map();
 for (const feature of features)
   for (const key of new Set(feature.keys))
     featuresByKey.set(key, [...(featuresByKey.get(key) ?? []), feature]);
-const locations = catalog.map((location) => {
-  const matches = featuresByKey.get(location.iso3) ?? [];
+const featuresById = new Map([
+  ...features.map((feature) => [feature.id, feature]),
+  ...supplementalFeatures.map((feature) => [feature.id, feature]),
+]);
+const locations = authoredLocations.map((location) => {
+  const resolution = location.resolution;
+  const matches =
+    resolution.kind === 'exact-refs'
+      ? resolution.refs.map((ref) => featuresById.get(ref)).filter(Boolean)
+      : resolution.keys.flatMap(({ source, key }) => {
+          if (source !== 'natural-earth-admin0')
+            throw new Error(`Unknown canonical location source namespace ${source}`);
+          return featuresByKey.get(key) ?? [];
+        });
   if (!matches.length)
     throw new Error(
-      `No Natural Earth feature for ${location.iso3} (${location.name})`,
+      `No canonical feature for ${location.id} (${location.name})`,
     );
   const geometryRefs =
     overrides[location.id] ?? matches.map((feature) => feature.id);
@@ -502,229 +510,31 @@ const locations = catalog.map((location) => {
     .map((feature) => feature.anchor)
     .reduce((sum, point) => [sum[0] + point[0], sum[1] + point[1]], [0, 0])
     .map((value) => +(value / matches.length).toFixed(2));
-  return { ...location, geometryRefs, anchor, bounds: bounds(points) };
-});
-
-const candidateRows = parseCsv(
-  fs.readFileSync('data/non-un-candidates.csv', 'utf8'),
-);
-const candidateHeaders = candidateRows.shift();
-const candidateRecords = candidateRows.map((row) =>
-  Object.fromEntries(
-    candidateHeaders.map((header, index) => [header, row[index] ?? '']),
-  ),
-);
-const NON_UN_COMPONENTS = {
-  'Bouvet Island': ['BV'],
-  'Christmas Island': ['CX'],
-  'Cocos (Keeling) Islands': ['CC'],
-  // Natural Earth has only the AZ-NX city municipality. Use the pinned
-  // geoBoundaries ADM1 republic feature instead of silently using that city.
-  Nakhchivan: ['63332228B45413776644545'],
-  // Natural Earth's British Columbia Admin-1 feature lists "New Caledonia"
-  // as a name_alt value. Use the exact NC source key so that alias matching
-  // cannot attach Canada's province to the New Caledonia candidate.
-  'New Caledonia': ['NC'],
-  Andalusia: [
-    'ES-AL',
-    'ES-GR',
-    'ES-H',
-    'ES-J',
-    'ES-MA',
-    'ES-CO',
-    'ES-SE',
-    'ES-CA',
-  ],
-  Aragon: ['ES-HU', 'ES-TE', 'ES-Z'],
-  'Basque Country': ['ES-BI', 'ES-SS', 'ES-VI'],
-  'Canary Islands': ['ES-TF', 'ES-GC'],
-  'Castile and León': [
-    'ES-AV',
-    'ES-BU',
-    'ES-LE',
-    'ES-P',
-    'ES-SA',
-    'ES-SG',
-    'ES-SO',
-    'ES-VA',
-    'ES-ZA',
-  ],
-  'Castilla–La Mancha': ['ES-AB', 'ES-CR', 'ES-CU', 'ES-GU', 'ES-TO'],
-  Catalonia: ['ES-B', 'ES-GI', 'ES-L', 'ES-T'],
-  Extremadura: ['ES-BA', 'ES-CC'],
-  Galicia: ['ES-C', 'ES-LU', 'ES-OR', 'ES-PO'],
-  Valencia: ['ES-A', 'ES-CS', 'ES-V'],
-  'Friuli-Venezia Giulia': ['IT-GO', 'IT-PN', 'IT-TS', 'IT-UD'],
-  // Trentino and Bolzano/South Tyrol are intentionally excluded from the
-  // Non-UN quiz because both overlap the retained Trentino-Alto Adige/Südtirol
-  // region; keep their source keys only for the retained aggregate mapping.
-  'Trentino-Alto Adige/Südtirol': ['IT-BZ', 'IT-TN'],
-  'United States Minor Outlying Islands': [
-    'JQI',
-    'DQI',
-    'FQI',
-    'HQI',
-    'WQI',
-    'MQI',
-    'BQI',
-    'LQI',
-    'KQI',
-  ],
-};
-const NON_UN_EXACT_REFS = {
-  Kosovo: ['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'],
-  'New Caledonia': ['ne:map-unit:1159320641', 'ne:map-subunit:1159320641'],
-  Abkhazia: ['ne:disputed:1159320785'],
-  'South Ossetia': ['ne:disputed:1159320787'],
-  Transnistria: ['ne:disputed:1159321047'],
-  "Luhansk People's Republic": ['ne:disputed:1763286547'],
-  "Donetsk People's Republic": ['ne:disputed:1763286545'],
-  'North Borneo': ['ne:disputed:1763510959'],
-  Somaliland: ['ne:1159321259'],
-  'Northern Cyprus': ['ne:1159320531'],
-};
-const NON_UN_LABEL_ALIASES = {
-  'Valle d’Aosta': ['Aosta Valley', 'Val d’Aoste', 'Aoste'],
-};
-const supplementalByKey = new Map();
-for (const feature of supplementalFeatures)
-  for (const key of new Set(feature.keys))
-    supplementalByKey.set(key, [
-      ...(supplementalByKey.get(key) ?? []),
-      feature,
-    ]);
-function candidateMatches(candidate) {
-  const exactRefs = NON_UN_EXACT_REFS[candidate.entity];
-  if (exactRefs)
-    return [...features, ...supplementalFeatures].filter((feature) =>
-      exactRefs.includes(feature.id),
-    );
-  const componentKeys = NON_UN_COMPONENTS[candidate.entity];
-  if (componentKeys)
-    return componentKeys.flatMap((key) => supplementalByKey.get(key) ?? []);
-  const codes = candidate.iso_3166_2_codes
-    .split(';')
-    .map((code) => code.trim())
-    .filter(Boolean);
-  const iso2 = candidate.iso_3166_1_code;
-  const labels = new Set(
-    [
-      candidate.entity,
-      ...codes,
-      ...(NON_UN_LABEL_ALIASES[candidate.entity] ?? []),
-    ].map(normalizedLabel),
-  );
-  const matches = supplementalFeatures.filter(
-    (feature) =>
-      feature.keys.some((key) => codes.includes(key) || key === iso2) ||
-      feature.labels.some((label) => labels.has(normalizedLabel(label))),
-  );
-  const expectedCountryCodes = new Set(
-    [iso2, ...codes.map((code) => code.split('-')[0])]
-      .filter(Boolean)
-      .map((code) => code.toUpperCase()),
-  );
-  for (const feature of matches) {
-    const codeMatch = feature.sourceCodes.some((code) =>
-      [code, String(code).split('-')[0]]
-        .map((value) => value.toUpperCase())
-        .some((value) => expectedCountryCodes.has(value)),
-    );
-    const normalizedLabelMatch = feature.labels.some((label) =>
-      labels.has(normalizedLabel(label)),
-    );
-    const knownSourceCountryCodes = feature.sourceCodes
-      .map((code) => String(code).split('-')[0].toUpperCase())
-      .filter((code) => !['-99', '-1'].includes(code));
-    if (
-      normalizedLabelMatch &&
-      !codeMatch &&
-      knownSourceCountryCodes.length &&
-      !knownSourceCountryCodes.some((code) => expectedCountryCodes.has(code))
-    )
-      throw new Error(
-        `Ambiguous normalized-label geometry for ${candidate.entity}: ${feature.id} conflicts with declared country codes`,
-      );
-  }
-  return matches;
-}
-const nonUnCandidates = candidateRecords.map((candidate) => {
-  const matches = candidateMatches(candidate);
-  if (!matches.length)
-    throw new Error(
-      `No exact Natural Earth feature for candidate ${candidate.entity}`,
-    );
-  const id = `non-un:${candidate.entity
-    .normalize('NFKD')
-    .replace(/[^a-zA-Z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-    .toLowerCase()}`;
-  const points = matches.flatMap((feature) => pathPoints(feature.paths));
   return {
-    id,
-    name: candidate.entity,
-    geometryRefs: matches.map((feature) => feature.id),
-    anchor: matches
-      .map((feature) => feature.anchor)
-      .reduce((sum, point) => [sum[0] + point[0], sum[1] + point[1]], [0, 0])
-      .map((value) => +(value / matches.length).toFixed(2)),
+    id: location.id,
+    name: location.name,
+    geometryRefs,
+    anchor,
     bounds: bounds(points),
+    evidence: location.evidence,
   };
 });
-if (
-  nonUnCandidates.some(
-    (candidate) =>
-      new Set(candidate.geometryRefs).size !== candidate.geometryRefs.length,
-  )
-)
-  throw new Error('Non-UN candidate geometry refs must be unique.');
-if (
-  new Set(nonUnCandidates.map((candidate) => candidate.name)).size !==
-  nonUnCandidates.length
-)
-  throw new Error('Non-UN candidate names must be unique.');
-if (
-  nonUnCandidates.some(
-    (candidate) =>
-      !candidate.geometryRefs.length ||
-      candidate.geometryRefs.some(
-        (ref) =>
-          !ref.startsWith('ne:admin1:') &&
-          !ref.startsWith('ne:map-unit:') &&
-          !ref.startsWith('ne:map-subunit:') &&
-          !ref.startsWith('gb:aze-adm1:') &&
-          !ref.startsWith('ne:disputed:') &&
-          !features.some((feature) => feature.id === ref),
-      ),
-  )
-)
-  throw new Error(
-    'Every non-UN candidate must use nonempty exact supplemental geometry refs.',
-  );
+
 const referencedSupplementalIds = new Set([
-  ...nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
-  ...quizLocations.flatMap(({ geometryRefs }) => geometryRefs),
+  ...locations.flatMap(({ geometryRefs }) => geometryRefs),
 ]);
 const playableSupplementalFeatures = supplementalFeatures.filter(({ id }) =>
   referencedSupplementalIds.has(id),
 );
-if (
-  locations.length !== 195 ||
-  new Set(locations.map((x) => x.iso3)).size !== 195
-)
-  throw new Error('Catalog must contain exactly 195 unique ISO3 locations');
-const playableLocations = [...locations, ...nonUnCandidates];
+const playableLocations = locations;
 const playableLocationIds = playableLocations.map(({ id }) => id);
 const mainFeatureIds = new Set(
   [...features, ...playableSupplementalFeatures].flatMap(
     ({ id, parts = [] }) => [id, ...parts.map(({ id: partId }) => partId)],
   ),
 );
-if (
-  playableLocations.length !== 286 ||
-  new Set(playableLocationIds).size !== playableLocations.length
-)
-  throw new Error('Playable catalog must contain exactly 286 unique locations');
+if (new Set(playableLocationIds).size !== playableLocationIds.length)
+  throw new Error('Playable location IDs must be globally unique');
 const playableLocationFeatureIds = Object.fromEntries(
   playableLocations.map((location) => [location.id, location.geometryRefs]),
 );
@@ -757,8 +567,8 @@ const map = {
   locationFeatureIds: playableLocationFeatureIds,
   features: Object.fromEntries(
     [...features, ...playableSupplementalFeatures].flatMap(
-      ({ id, paths, anchor, bounds, parts = [] }) => [
-        [id, { paths, anchor, bounds }],
+      ({ id, paths, anchor, bounds, replacement, parts = [] }) => [
+        [id, { paths, anchor, bounds, replacement }],
         ...parts.map(
           ({
             id: partId,
@@ -780,29 +590,9 @@ fs.writeFileSync(
   JSON.stringify(map, null, 2) + '\n',
 );
 fs.writeFileSync(
-  'data/generated/catalog.json',
-  JSON.stringify(locations, null, 2) + '\n',
-);
-fs.writeFileSync(
-  'data/generated/quiz.json',
-  JSON.stringify(
-    { id: 'world-195', locationIds: locations.map((x) => x.id) },
-    null,
-    2,
-  ) + '\n',
-);
-fs.writeFileSync(
-  'data/generated/non-un-candidates.json',
-  JSON.stringify(nonUnCandidates, null, 2) + '\n',
-);
-fs.writeFileSync(
-  'data/generated/quiz-locations.json',
-  JSON.stringify(quizLocations, null, 2) + '\n',
-);
-fs.writeFileSync(
   'data/generated/locations.json',
   JSON.stringify(
-    [...locations, ...nonUnCandidates, ...quizLocations],
+    locations,
     null,
     2,
   ) + '\n',
@@ -814,16 +604,12 @@ fs.writeFileSync(
       sourceSha256: EXPECTED_SOURCE_SHA256,
       sourceUrl: SOURCE_URL,
       supplementalSources: SUPPLEMENTAL_SOURCES,
-      geometrySourceOverrides: {
-        'gb:usa-adm1': usaGeometryOverrides.map(({ id }) => id),
-        'gb:usa-adm1-unmatched': unmatchedUsaSourceIds,
-      },
+      geometrySourceReplacements: supplementalFeatures
+        .filter(({ replacement }) => replacement)
+        .map(({ id, replacement }) => ({ id, ...replacement })),
       generatedAt: 'deterministic',
       featureIds: Object.keys(map.features),
       locations: playableLocationFeatureIds,
-      nonUnCandidates: Object.fromEntries(
-        nonUnCandidates.map((x) => [x.name, x.geometryRefs]),
-      ),
       inset: {
         sourceSha256: INSET_SOURCE_SHA256,
         sourceUrl: INSET_SOURCE_URL,
@@ -858,12 +644,9 @@ const insetFeatures = insetSource.features.map((feature) => {
   };
 });
 const configuredInsetFeatureIds = new Set(
-  quizLocations.flatMap(({ geometryRefs }) => geometryRefs),
+  locations.flatMap(({ geometryRefs }) => geometryRefs),
 );
-const nonUnInsetFeatureIds = new Set([
-  ...nonUnCandidates.flatMap(({ geometryRefs }) => geometryRefs),
-  ...configuredInsetFeatureIds,
-]);
+const nonUnInsetFeatureIds = configuredInsetFeatureIds;
 const supplementalInsetFeatures = playableSupplementalFeatures
   .filter(({ id }) => nonUnInsetFeatureIds.has(id))
   .map((feature) => {
@@ -895,7 +678,7 @@ const insetFeaturesById = new Map(
   ]),
 );
 const insetLocationFeatures = Object.fromEntries(
-  [...playableLocations, ...quizLocations].map((location) => {
+  locations.map((location) => {
     const refs =
       'iso3' in location
         ? (insetFeaturesByKey.get(location.iso3) ?? []).map(({ id }) => id)
@@ -908,10 +691,8 @@ const insetLocationFeatures = Object.fromEntries(
   }),
 );
 if (
-  Object.keys(insetLocationFeatures).length !==
-    playableLocations.length + quizLocations.length ||
-  new Set(Object.keys(insetLocationFeatures)).size !==
-    playableLocations.length + quizLocations.length
+    Object.keys(insetLocationFeatures).length !== locations.length ||
+  new Set(Object.keys(insetLocationFeatures)).size !== locations.length
 )
   throw new Error(
     'Inset location index must have exact playable-location parity',
@@ -933,11 +714,7 @@ const inset = {
   },
   selection: {
     rule: 'all configured quiz locations plus every exact supplemental feature referenced by a configured location',
-    catalogLocations:
-      locations.length + nonUnCandidates.length + quizLocations.length,
-    standardLocations: locations.length,
-    nonUnCandidates: nonUnCandidates.length,
-    configuredLocations: quizLocations.length,
+    catalogLocations: locations.length,
     neighborPaddingProjectedUnits: 24,
   },
   sourceFeatureIds: insetFeatures.map(({ id }) => id),
@@ -960,13 +737,9 @@ execFileSync(
   prettier,
   [
     '--write',
-    'data/generated/catalog.json',
     'data/generated/manifest.json',
     'data/generated/map.json',
-    'data/generated/quiz.json',
-    'data/generated/non-un-candidates.json',
     'data/generated/locations.json',
-    'data/generated/quiz-locations.json',
     'data/generated/inset.json',
   ],
   { stdio: 'ignore' },

@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import quizzes from '../data/quizzes.json';
 
 test('completes the active quiz through the browser console command', async ({
   page,
@@ -12,7 +13,8 @@ test('completes the active quiz through the browser console command', async ({
     page.getByRole('heading', { name: 'Run complete' }),
   ).toBeVisible();
   await expect(page.locator('.results-grid')).toContainText(/10:\d{2}/);
-  await expect(page.locator('.results-grid')).toContainText('195');
+  const worldLocationCount = quizzes.find(({ id }) => id === 'world')!.locationIds.length;
+  await expect(page.locator('.results-grid')).toContainText(String(worldLocationCount));
   await expect(
     page.getByRole('heading', { name: 'High Score Achieved' }),
   ).toBeVisible();

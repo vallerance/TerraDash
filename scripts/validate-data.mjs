@@ -1,279 +1,155 @@
 import fs from 'node:fs';
-const catalog = JSON.parse(fs.readFileSync('data/generated/catalog.json'));
-const quiz = JSON.parse(fs.readFileSync('data/generated/quiz.json'));
-const quizzes = JSON.parse(fs.readFileSync('data/quizzes.json'));
-const locations = JSON.parse(fs.readFileSync('data/generated/locations.json'));
-const map = JSON.parse(fs.readFileSync('data/generated/map.json'));
-const candidates = JSON.parse(
-  fs.readFileSync('data/generated/non-un-candidates.json'),
-);
-const inset = JSON.parse(fs.readFileSync('data/generated/inset.json'));
-const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
-const removedCandidateIds = new Set([
-  'non-un:andalusia',
-  'non-un:aragon',
-  'non-un:asturias',
-  'non-un:balearic-islands',
-  'non-un:basque-country',
-  'non-un:canary-islands',
-  'non-un:cantabria',
-  'non-un:castile-and-leon',
-  'non-un:castilla-la-mancha',
-  'non-un:catalonia',
-  'non-un:extremadura',
-  'non-un:galicia',
-  'non-un:la-rioja',
-  'non-un:madrid',
-  'non-un:murcia',
-  'non-un:navarre',
-  'non-un:valencia',
-]);
-const newCaledonia = candidates.find(({ id }) => id === 'non-un:new-caledonia');
-const forbiddenBritishColumbiaRef = 'ne:admin1:1159307717';
-if (
-  !newCaledonia ||
-  newCaledonia.geometryRefs.length !== 2 ||
-  !newCaledonia.geometryRefs.includes('ne:map-unit:1159320641') ||
-  !newCaledonia.geometryRefs.includes('ne:map-subunit:1159320641') ||
-  newCaledonia.geometryRefs.includes(forbiddenBritishColumbiaRef)
-)
-  throw new Error(
-    'New Caledonia must use only its exact map-unit and map-subunit geometry; British Columbia must not be selected.',
-  );
-const nakhchivan = candidates.find(({ id }) => id === 'non-un:nakhchivan');
-const kosovo = candidates.find(({ id }) => id === 'non-un:kosovo');
-if (
-  !kosovo ||
-  JSON.stringify(kosovo.geometryRefs) !==
-    JSON.stringify(['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'])
-)
-  throw new Error(
-    'Kosovo must use the exact Natural Earth map-unit/subunit pair, not unrelated admin1 same-label features.',
-  );
-const expectedNakhchivanRefs = ['gb:aze-adm1:63332228B45413776644545'];
-if (
-  !nakhchivan ||
-  JSON.stringify(nakhchivan.geometryRefs) !==
-    JSON.stringify(expectedNakhchivanRefs) ||
-  nakhchivan.bounds[2] - nakhchivan.bounds[0] <= 4 ||
-  nakhchivan.bounds[3] - nakhchivan.bounds[1] <= 3
-)
-  throw new Error(
-    'Nakhchivan must use the pinned geoBoundaries autonomous-republic feature, not the Natural Earth Nakhchivan city feature.',
-  );
-const source = JSON.parse(
-  fs.readFileSync('data/source/ne_50m_admin_0_countries.geojson'),
-);
-const insetSource = JSON.parse(
-  fs.readFileSync('data/source/ne_10m_admin_0_countries.geojson'),
-);
-const ids = new Set(catalog.map((item) => item.id));
-const playable = [...catalog, ...candidates];
-const playableIds = new Set(playable.map((item) => item.id));
-const configured = locations.filter((item) => !playableIds.has(item.id));
-const insetLocations = [...playable, ...configured];
-const locationIds = new Set(locations.map((item) => item.id));
-if (locations.length !== locationIds.size)
-  throw new Error('Generated location registry contains duplicate IDs');
-for (const definition of quizzes) {
-  if (!Array.isArray(definition.locationIds))
-    throw new Error(`Quiz ${definition.id} must declare locationIds`);
+import { execFileSync } from 'node:child_process';
+
+const read = (path) => JSON.parse(fs.readFileSync(path, 'utf8'));
+const sameSet = (left, right) =>
+  JSON.stringify([...new Set(left)].sort()) ===
+  JSON.stringify([...new Set(right)].sort());
+
+const authored = read('data/locations.json');
+const generated = read('data/generated/locations.json');
+const quizzes = read('data/quizzes.json');
+const invariants = read('data/reviewed-invariants.json');
+const map = read('data/generated/map.json');
+const inset = read('data/generated/inset.json');
+const geometrySources = read('data/geometry-sources.json');
+const source = read('data/source/ne_50m_admin_0_countries.geojson');
+const insetSource = read('data/source/ne_10m_admin_0_countries.geojson');
+const overrides = read('data/geometry-overrides.json');
+
+const authoredIds = authored.map(({ id }) => id);
+const generatedIds = generated.map(({ id }) => id);
+if (!sameSet(authoredIds, generatedIds))
+  throw new Error('Generated locations do not exactly match the authored registry');
+if (new Set(authoredIds).size !== authoredIds.length)
+  throw new Error('Authored location IDs must be globally unique');
+if (new Set(authored.map(({ name }) => name)).size !== authored.length)
+  throw new Error('Authored location names must be globally unique');
+if (!sameSet(authoredIds, invariants.locationIds))
+  throw new Error('Authored location set changed from the reviewed baseline');
+
+const locationById = new Map(generated.map((location) => [location.id, location]));
+for (const location of authored) {
+  if (!location.id || !location.name || !location.resolution)
+    throw new Error(`Invalid authored location record ${location.id ?? '<missing>'}`);
+  const { resolution } = location;
+  if (!['source-keys', 'exact-refs'].includes(resolution.kind))
+    throw new Error(`Unknown resolution kind for ${location.id}`);
+  if (resolution.kind === 'source-keys') {
+    if (!resolution.keys?.length)
+      throw new Error(`Missing source keys for ${location.id}`);
+    for (const entry of resolution.keys)
+      if (!entry.source || !entry.key)
+        throw new Error(`Source keys require source and key for ${location.id}`);
+  } else if (!resolution.refs?.length)
+    throw new Error(`Missing exact refs for ${location.id}`);
+  const result = locationById.get(location.id);
+  if (!result?.geometryRefs?.length)
+    throw new Error(`Generated location lacks geometry for ${location.id}`);
+}
+
+const quizIds = quizzes.map(({ id }) => id);
+if (new Set(quizIds).size !== quizIds.length)
+  throw new Error('Quiz IDs must be unique');
+for (const quiz of quizzes) {
+  if (!Array.isArray(quiz.locationIds))
+    throw new Error(`Quiz ${quiz.id} must declare locationIds`);
   if (
-    new Set(definition.locationIds).size !== definition.locationIds.length ||
-    definition.locationIds.some((id) => !locationIds.has(id))
+    new Set(quiz.locationIds).size !== quiz.locationIds.length ||
+    quiz.locationIds.some((id) => !locationById.has(id))
   )
-    throw new Error(`Quiz ${definition.id} has invalid locationIds`);
-  const mapConfig = definition.map;
-  if (!mapConfig) continue;
-  for (const id of mapConfig.baseLayerLocationIds ?? [])
-    if (!locationIds.has(id) || !definition.locationIds.includes(id))
-      throw new Error(
-        `Quiz ${definition.id} has invalid base layer location ${id}`,
-      );
-  for (const id of mapConfig.contextFeatureExclusions ?? [])
+    throw new Error(`Quiz ${quiz.id} has duplicate or unresolved locationIds`);
+  for (const id of quiz.map?.baseLayerLocationIds ?? [])
+    if (!quiz.locationIds.includes(id))
+      throw new Error(`Quiz ${quiz.id} base layer location is not a member: ${id}`);
+  for (const id of quiz.map?.contextFeatureExclusions ?? [])
     if (!map.features[id])
-      throw new Error(
-        `Quiz ${definition.id} excludes unknown context feature ${id}`,
-      );
+      throw new Error(`Quiz ${quiz.id} excludes unknown context feature ${id}`);
 }
-if (catalog.length !== 195 || ids.size !== 195)
-  throw new Error('Expected 195 unique catalog entries');
-if (new Set(catalog.map((item) => item.iso3)).size !== 195)
-  throw new Error('Duplicate ISO3');
-if (
-  quiz.locationIds.length !== 195 ||
-  quiz.locationIds.some((id) => !ids.has(id))
-)
-  throw new Error('Quiz does not resolve to catalog');
+for (const quiz of quizzes)
+  if (!sameSet(quiz.locationIds, invariants.quizMemberships[quiz.id] ?? []))
+    throw new Error(`Reviewed membership changed for quiz ${quiz.id}`);
+
 if (map.sourceFeatureIds.length !== source.features.length)
-  throw new Error('Base layer does not include every source feature');
+  throw new Error('Base feature index does not cover the canonical source');
+if (new Set(map.sourceFeatureIds).size !== map.sourceFeatureIds.length)
+  throw new Error('Base feature IDs are not unique');
 if (map.sourceFeatureIds.some((id) => map.supplementalFeatureIds.includes(id)))
-  throw new Error('Base source index must exclude supplemental exact features');
-if (new Set(map.sourceFeatureIds).size !== source.features.length)
-  throw new Error('Base feature IDs are not stable and unique');
-if (
-  map.supplementalFeatureIds.length !== new Set(map.supplementalFeatureIds).size
-)
-  throw new Error('Supplemental feature IDs are not stable and unique');
-if (
-  map.supplementalFeatureIds.some((id) => !map.features[id]) ||
-  inset?.sourceFeatureIds?.some((id) => !inset.features[id])
-)
-  throw new Error('Generated feature indexes contain unknown feature IDs');
-for (const [featureId, feature] of Object.entries(map.features)) {
-  if (!feature.paths.length || !feature.bounds || feature.bounds.length !== 4)
-    throw new Error(`Invalid base feature ${featureId}`);
-  for (const path of feature.paths)
-    if (!/^M[-0-9.,]+(?:L[-0-9.,]+)*Z$/.test(path))
-      throw new Error(`Invalid path for ${featureId}`);
-}
-for (const item of catalog) {
-  if (
-    !item.geometryRefs.length ||
-    item.geometryRefs.some((id) => !map.features[id])
-  )
-    throw new Error(`Missing geometry reference for ${item.id}`);
-  if (!item.bounds || item.bounds.some((value) => !Number.isFinite(value)))
-    throw new Error(`Missing projected bounds for ${item.id}`);
-}
-if (candidates.length !== 91)
-  throw new Error('Expected exactly 91 generated non-UN candidates');
-if (playable.length !== 286 || playableIds.size !== 286)
-  throw new Error('Expected exactly 286 unique playable locations');
-if ([...removedCandidateIds].some((id) => playableIds.has(id)))
-  throw new Error('Removed Spanish candidates remain playable');
-for (const candidate of candidates) {
-  if (
-    !candidate.geometryRefs.length ||
-    candidate.geometryRefs.some(
-      (id) =>
-        !map.features[id] ||
-        (!map.supplementalFeatureIds.includes(id) &&
-          !map.sourceFeatureIds.includes(id)),
-    )
-  )
-    throw new Error(
-      `Invalid exact geometry for non-UN candidate ${candidate.id}`,
-    );
-}
-if (
-  Object.keys(map.locationFeatureIds ?? {}).length !== playable.length ||
-  Object.keys(inset.locationFeatureIds ?? {}).length !== insetLocations.length
-)
-  throw new Error(
-    'Main and inset indexes must cover their configured location sets',
-  );
-if (
-  new Set(Object.keys(map.locationFeatureIds ?? {})).size !== playable.length ||
-  new Set(Object.keys(inset.locationFeatureIds ?? {})).size !==
-    insetLocations.length ||
-  JSON.stringify(Object.keys(map.locationFeatureIds).sort()) !==
-    JSON.stringify(playable.map(({ id }) => id).sort()) ||
-  JSON.stringify(Object.keys(inset.locationFeatureIds).sort()) !==
-    JSON.stringify(insetLocations.map(({ id }) => id).sort())
-)
-  throw new Error('Generated location indexes do not match configured IDs');
-for (const item of insetLocations) {
-  const mainRefs = map.locationFeatureIds[item.id] ?? item.geometryRefs;
-  const insetRefs = inset.locationFeatureIds[item.id];
+  throw new Error('Base feature index contains supplemental IDs');
+if (map.supplementalFeatureIds.some((id) => !map.features[id]))
+  throw new Error('Supplemental feature index contains unknown IDs');
+if (inset.sourceFeatureIds.some((id) => !inset.features[id]))
+  throw new Error('Inset feature index contains unknown IDs');
+
+const mapLocationIds = Object.keys(map.locationFeatureIds ?? {});
+const insetLocationIds = Object.keys(inset.locationFeatureIds ?? {});
+if (!sameSet(mapLocationIds, generatedIds) || !sameSet(insetLocationIds, generatedIds))
+  throw new Error('Generated map indexes do not exactly cover the location registry');
+for (const location of generated) {
+  const mainRefs = map.locationFeatureIds[location.id];
+  const insetRefs = inset.locationFeatureIds[location.id];
   if (!mainRefs?.length || !insetRefs?.length)
-    throw new Error(`Missing playable geometry refs for ${item.id}`);
+    throw new Error(`Missing geometry index entry for ${location.id}`);
+  if (mainRefs.some((id) => !map.features[id]) || insetRefs.some((id) => !inset.features[id]))
+    throw new Error(`Unresolvable geometry index entry for ${location.id}`);
   if (
-    mainRefs.some((id) => !map.features[id]) ||
-    insetRefs.some((id) => !inset.features[id])
+    location.resolution.kind === 'exact-refs' &&
+    JSON.stringify(insetRefs) !== JSON.stringify(location.geometryRefs)
   )
-    throw new Error(`Unresolvable playable geometry ref for ${item.id}`);
-  if (
-    (item.id.startsWith('non-un:') || !playableIds.has(item.id)) &&
-    JSON.stringify(insetRefs) !== JSON.stringify(item.geometryRefs)
-  )
-    throw new Error(`Custom geometry ref parity mismatch for ${item.id}`);
+    throw new Error(`Exact geometry refs changed for ${location.id}`);
 }
-if (
-  inset.width !== map.width ||
-  inset.height !== map.height ||
-  inset.sourceFeatureIds.length !== insetSource.features.length ||
-  new Set(inset.sourceFeatureIds).size !== insetSource.features.length
-)
-  throw new Error(
-    'Inset projection or feature IDs are not stable and complete',
+
+const sourceFeatureCache = new Map();
+for (const [sourceId, definition] of Object.entries(geometrySources.sources ?? {})) {
+  const features = read(definition.path).features;
+  sourceFeatureCache.set(sourceId, features);
+}
+const replacements = geometrySources.replacements ?? [];
+const replacementKeys = new Set();
+for (const replacement of replacements) {
+  if (
+    !replacement.locationId ||
+    !replacement.canonicalFeatureId ||
+    !replacement.source ||
+    !replacement.featureKey
+  )
+    throw new Error('Every geometry replacement requires complete provenance');
+  const pair = `${replacement.locationId}/${replacement.canonicalFeatureId}`;
+  if (replacementKeys.has(pair)) throw new Error(`Duplicate geometry replacement ${pair}`);
+  replacementKeys.add(pair);
+  if (!map.features[replacement.canonicalFeatureId])
+    throw new Error(`Replacement canonical feature is unknown: ${replacement.canonicalFeatureId}`);
+  const features = sourceFeatureCache.get(replacement.source);
+  if (!features) throw new Error(`Replacement source is undefined: ${replacement.source}`);
+  const matches = features.filter((feature) =>
+    [feature.properties.shapeISO, feature.properties.shapeID, feature.properties.shapeName]
+      .filter(Boolean)
+      .includes(replacement.featureKey),
   );
-if (
-  inset.sourceFeatureIds.some((id) => map.supplementalFeatureIds.includes(id))
-)
-  throw new Error(
-    'Inset source index must exclude supplemental exact features',
-  );
-for (const item of catalog) {
-  const refs = inset.locationFeatureIds[item.id];
-  if (!refs?.length || refs.some((id) => !inset.features[id]))
-    throw new Error(`Missing inset geometry reference for ${item.id}`);
+  if (matches.length !== 1)
+    throw new Error(`Replacement feature key is not unique: ${replacement.source}/${replacement.featureKey}`);
+  const generated = map.features[replacement.canonicalFeatureId];
+  if (!generated.replacement ||
+      generated.replacement.canonicalFeatureId !== replacement.canonicalFeatureId ||
+      generated.replacement.source !== replacement.source ||
+      generated.replacement.featureKey !== replacement.featureKey)
+    throw new Error(`Generated replacement provenance is incomplete: ${replacement.canonicalFeatureId}`);
 }
-let insetRingCount = 0;
-let sourceInvalidRingCount = 0;
-let generatorInducedDegenerateCount = 0;
-for (const [featureId, feature] of Object.entries(inset.features)) {
-  if (
-    !feature.paths.length ||
-    !feature.polygons?.length ||
-    !feature.bounds ||
-    feature.bounds.length !== 4
-  )
-    throw new Error(`Invalid inset feature ${featureId}`);
-  for (const path of feature.paths)
-    if (!/^M[-0-9.,]+(?:L[-0-9.,]+)*Z$/.test(path))
-      throw new Error(`Invalid inset path for ${featureId}`);
-  for (const polygon of feature.polygons) {
-    if (!polygon.id || !polygon.path || !polygon.rings?.length)
-      throw new Error(`Invalid inset polygon for ${featureId}`);
-    if (typeof polygon.island !== 'boolean')
-      throw new Error(`Missing island topology for ${featureId}`);
-    for (const ring of polygon.rings) {
-      insetRingCount++;
-      if (!ring.sourceValid) sourceInvalidRingCount++;
-      if (ring.generatorInducedDegenerate) generatorInducedDegenerateCount++;
-      if (
-        !ring.id ||
-        !['exterior', 'interior'].includes(ring.role) ||
-        (ring.role === 'exterior' && ring.containmentParentRingId !== null) ||
-        (ring.role === 'interior' && !ring.containmentParentRingId) ||
-        !ring.path ||
-        !Number.isInteger(ring.sourceVertexCount) ||
-        !Number.isFinite(ring.signedArea) ||
-        typeof ring.sourceClosed !== 'boolean' ||
-        typeof ring.sourceValid !== 'boolean' ||
-        typeof ring.projectedValid !== 'boolean' ||
-        typeof ring.generatorInducedDegenerate !== 'boolean' ||
-        typeof ring.valid !== 'boolean'
-      )
-        throw new Error(`Invalid inset ring for ${featureId}`);
-      if (ring.generatorInducedDegenerate)
-        throw new Error(`Generator-induced inset degeneracy in ${featureId}`);
-    }
-  }
-}
+
 for (const [locationId, refs] of Object.entries(overrides)) {
-  if (
-    !ids.has(locationId) ||
-    refs.length < 2 ||
-    refs.some((id) => !map.features[id])
-  )
+  if (!locationById.has(locationId) || refs.length < 2 || refs.some((id) => !map.features[id]))
     throw new Error(`Invalid reviewed geometry override for ${locationId}`);
 }
-if ((overrides['iso:PSE'] ?? []).length !== 2)
-  throw new Error('Expected a reviewed plural-reference observer fixture');
-for (const fixture of ['iso:FRA', 'iso:USA', 'iso:FJI', 'iso:PSE', 'iso:VAT']) {
-  if (!catalog.find((item) => item.id === fixture))
-    throw new Error(`Missing fixture ${fixture}`);
-}
-console.log(
-  `Data validation passed: ${catalog.length} quiz locations, ${source.features.length} base features, ${insetRingCount} inset rings (source-invalid: ${sourceInvalidRingCount}, generator-induced: ${generatorInducedDegenerateCount}).`,
-);
-const nonUnQuiz = quizzes.find(({ id }) => id === 'non-un');
-if (nonUnQuiz?.locationIds.length !== 89)
-  throw new Error(
-    'Expected 89 final Non-UN quiz members after preserved overrides',
-  );
-for (const excluded of ['non-un:trentino', 'non-un:bolzano-south-tyrol'])
-  if (nonUnQuiz.locationIds.includes(excluded))
-    throw new Error(`Preserved overlap override was removed: ${excluded}`);
+if (!sameSet(invariants.relationships.nonUnCandidateIds, authored.filter(({ id }) => id.startsWith('non-un:')).map(({ id }) => id)))
+  throw new Error('Reviewed Non-UN candidate set changed');
+const nonUn = quizzes.find(({ id }) => id === 'non-un');
+if (!sameSet(nonUn?.locationIds ?? [], invariants.relationships.nonUnMembers))
+  throw new Error('Reviewed Non-UN membership set changed');
+for (const excluded of invariants.relationships.nonUnExcludedOverlap)
+  if (nonUn.locationIds.includes(excluded)) throw new Error(`Overlap exclusion removed: ${excluded}`);
+for (const aggregate of invariants.relationships.nonUnAggregate)
+  if (!nonUn.locationIds.includes(aggregate)) throw new Error(`Aggregate membership removed: ${aggregate}`);
+
+execFileSync(process.execPath, ['scripts/validate-fixtures.mjs'], { stdio: 'inherit' });
+
+console.log(`Data validation passed: ${generated.length} canonical locations, ${source.features.length} base features, ${inset.sourceFeatureIds.length} inset source features.`);

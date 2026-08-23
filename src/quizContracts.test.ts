@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import candidateData from '../data/generated/non-un-candidates.json';
+import locations from '../data/generated/locations.json';
+import reviewed from '../data/reviewed-invariants.json';
 import mainSource from './main.tsx?raw';
 import boundarySource from './quizMapBoundary.ts?raw';
 import map from '../data/generated/map.json';
@@ -11,12 +12,16 @@ import {
   mapLayerForQuiz,
 } from './quizContracts';
 
+const candidateData = locations.filter(({ id }) => id.startsWith('non-un:'));
+
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
-    expect(defaultCatalog).toHaveLength(195);
-    expect(playableLocations).toHaveLength(336);
-    expect(defaultQuiz.locationIds).toHaveLength(195);
-    expect(new Set(defaultQuiz.locationIds).size).toBe(195);
+    expect(new Set(playableLocations.map(({ id }) => id))).toEqual(
+      new Set(reviewed.locationIds),
+    );
+    expect(new Set(defaultQuiz.locationIds)).toEqual(
+      new Set(reviewed.quizMemberships.world),
+    );
     expect(
       defaultQuiz.locationIds.every((id) =>
         defaultCatalog.some((item) => item.id === id),
@@ -164,14 +169,15 @@ describe('regional quiz partition', () => {
     const regionalIds = quizOptions
       .slice(1, 8)
       .flatMap(({ locationIds }) => locationIds);
-    expect(worldIds).toHaveLength(195);
     expect(regionalIds).toHaveLength(worldIds.size);
     expect(new Set(regionalIds).size).toBe(worldIds.size);
     expect(regionalIds.every((id) => worldIds.has(id))).toBe(true);
   });
 
-  it('defines 91 candidates and preserves the overlap exclusions', () => {
-    expect(candidateData).toHaveLength(91);
+  it('preserves candidate evidence and the overlap exclusions', () => {
+    expect(new Set(candidateData.map(({ id }) => id))).toEqual(
+      new Set(reviewed.relationships.nonUnCandidateIds),
+    );
     expect(
       candidateData.every(
         ({ geometryRefs }) =>
@@ -197,7 +203,9 @@ describe('regional quiz partition', () => {
     expect(nonUnQuiz?.description).toBe(
       "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
     );
-    expect(nonUnQuiz?.locationIds).toHaveLength(89);
+    expect(new Set(nonUnQuiz?.locationIds)).toEqual(
+      new Set(reviewed.relationships.nonUnMembers),
+    );
     expect(nonUnQuiz?.locationIds).not.toContain('non-un:trentino');
     expect(nonUnQuiz?.locationIds).not.toContain('non-un:bolzano-south-tyrol');
     expect(
