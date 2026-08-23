@@ -1073,12 +1073,7 @@
       "non-un:western-sahara",
       "non-un:xinjiang"
     ],
-    "nonUnExcludedOverlap": [
-      "non-un:trentino",
-      "non-un:bolzano-south-tyrol"
-    ],
-    "nonUnAggregate": [
-      "non-un:trentino-alto-adige-su-dtirol"
-    ]
+    "nonUnExcludedOverlap": ["non-un:trentino", "non-un:bolzano-south-tyrol"],
+    "nonUnAggregate": ["non-un:trentino-alto-adige-su-dtirol"]
   }
 }

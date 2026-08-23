@@ -354,30 +354,33 @@ for (const replacement of replacements) {
   )
     throw new Error('Geometry replacements require unique complete provenance');
   if (!checkedSupplementalSources.has(replacement.source))
-    throw new Error(`Geometry replacement references unknown source ${replacement.source}`);
+    throw new Error(
+      `Geometry replacement references unknown source ${replacement.source}`,
+    );
   replacementByCanonical.set(replacement.canonicalFeatureId, replacement);
 }
-const sourceFeatureKeys = (properties) => [
-  properties.iso_3166_2,
-  properties.ISO_A2,
-  properties.ISO_A2_EH,
-  properties.iso_a2,
-  properties.SU_A3,
-  properties.ADM0_A3,
-  properties.adm0_a3,
-  properties.name,
-  properties.name_en,
-  properties.NAME,
-  properties.NAME_LONG,
-  properties.SUBUNIT,
-  properties.shapeID,
-  properties.shapeName,
-  properties.shapeISO,
-  properties.shapeGroup,
-  properties.shapeType,
-  properties.BRK_A3,
-  properties.BRK_NAME,
-].filter(Boolean);
+const sourceFeatureKeys = (properties) =>
+  [
+    properties.iso_3166_2,
+    properties.ISO_A2,
+    properties.ISO_A2_EH,
+    properties.iso_a2,
+    properties.SU_A3,
+    properties.ADM0_A3,
+    properties.adm0_a3,
+    properties.name,
+    properties.name_en,
+    properties.NAME,
+    properties.NAME_LONG,
+    properties.SUBUNIT,
+    properties.shapeID,
+    properties.shapeName,
+    properties.shapeISO,
+    properties.shapeGroup,
+    properties.shapeType,
+    properties.BRK_A3,
+    properties.BRK_NAME,
+  ].filter(Boolean);
 const alternateFeatureByKey = new Map();
 for (const replacement of replacements) {
   const matches = checkedSupplementalSources
@@ -403,7 +406,9 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
     const id = `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
     const replacement = replacementByCanonical.get(id);
     const replacementFeature = replacement
-      ? alternateFeatureByKey.get(`${replacement.source}/${replacement.featureKey}`)
+      ? alternateFeatureByKey.get(
+          `${replacement.source}/${replacement.featureKey}`,
+        )
       : undefined;
     const geometry = replacementFeature?.geometry ?? feature.geometry;
     const { paths } = buildGeometryFeature(geometry, id);
@@ -477,7 +482,11 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
   }),
 );
 for (const replacement of replacements)
-  if (!supplementalFeatures.some(({ id }) => id === replacement.canonicalFeatureId))
+  if (
+    !supplementalFeatures.some(
+      ({ id }) => id === replacement.canonicalFeatureId,
+    )
+  )
     throw new Error(
       `Geometry replacement canonical feature is unused: ${replacement.canonicalFeatureId}`,
     );
@@ -496,7 +505,9 @@ const locations = authoredLocations.map((location) => {
       ? resolution.refs.map((ref) => featuresById.get(ref)).filter(Boolean)
       : resolution.keys.flatMap(({ source, key }) => {
           if (source !== 'natural-earth-admin0')
-            throw new Error(`Unknown canonical location source namespace ${source}`);
+            throw new Error(
+              `Unknown canonical location source namespace ${source}`,
+            );
           return featuresByKey.get(key) ?? [];
         });
   if (!matches.length)
@@ -591,11 +602,7 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   'data/generated/locations.json',
-  JSON.stringify(
-    locations,
-    null,
-    2,
-  ) + '\n',
+  JSON.stringify(locations, null, 2) + '\n',
 );
 fs.writeFileSync(
   'data/generated/manifest.json',
@@ -680,8 +687,12 @@ const insetFeaturesById = new Map(
 const insetLocationFeatures = Object.fromEntries(
   locations.map((location) => {
     const refs =
-      'iso3' in location
-        ? (insetFeaturesByKey.get(location.iso3) ?? []).map(({ id }) => id)
+      location.resolution?.kind === 'source-keys'
+        ? location.resolution.keys.flatMap(({ source, key }) =>
+            source === 'natural-earth-admin0'
+              ? (insetFeaturesByKey.get(key) ?? []).map(({ id }) => id)
+              : [],
+          )
         : location.geometryRefs;
     if (!refs.length || refs.some((id) => !insetFeaturesById.has(id)))
       throw new Error(
@@ -691,7 +702,7 @@ const insetLocationFeatures = Object.fromEntries(
   }),
 );
 if (
-    Object.keys(insetLocationFeatures).length !== locations.length ||
+  Object.keys(insetLocationFeatures).length !== locations.length ||
   new Set(Object.keys(insetLocationFeatures)).size !== locations.length
 )
   throw new Error(

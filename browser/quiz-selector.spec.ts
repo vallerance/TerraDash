@@ -226,7 +226,8 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   await page.getByRole('button', { name: title }).click();
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
-  const nonUnCount = quizDefinitions.find(({ id }) => id === 'non-un').locationIds.length;
+  const nonUnCount = quizDefinitions.find(({ id }) => id === 'non-un')
+    .locationIds.length;
   await expect(dialog.getByText(`${nonUnCount} locations`)).toBeVisible();
   await expect(
     dialog.getByText(

@@ -13,8 +13,11 @@ test('completes the active quiz through the browser console command', async ({
     page.getByRole('heading', { name: 'Run complete' }),
   ).toBeVisible();
   await expect(page.locator('.results-grid')).toContainText(/10:\d{2}/);
-  const worldLocationCount = quizzes.find(({ id }) => id === 'world')!.locationIds.length;
-  await expect(page.locator('.results-grid')).toContainText(String(worldLocationCount));
+  const worldLocationCount = quizzes.find(({ id }) => id === 'world')!
+    .locationIds.length;
+  await expect(page.locator('.results-grid')).toContainText(
+    String(worldLocationCount),
+  );
   await expect(
     page.getByRole('heading', { name: 'High Score Achieved' }),
   ).toBeVisible();

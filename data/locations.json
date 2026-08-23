@@ -2539,9 +2539,7 @@
     "name": "Alabama",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315233"
-      ]
+      "refs": ["ne:admin1:1159315233"]
     }
   },
   {
@@ -2549,9 +2547,7 @@
     "name": "Alaska",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308731"
-      ]
+      "refs": ["ne:admin1:1159308731"]
     }
   },
   {
@@ -2559,9 +2555,7 @@
     "name": "Arizona",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315341"
-      ]
+      "refs": ["ne:admin1:1159315341"]
     }
   },
   {
@@ -2569,9 +2563,7 @@
     "name": "Arkansas",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315355"
-      ]
+      "refs": ["ne:admin1:1159315355"]
     }
   },
   {
@@ -2579,9 +2571,7 @@
     "name": "California",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308415"
-      ]
+      "refs": ["ne:admin1:1159308415"]
     }
   },
   {
@@ -2589,9 +2579,7 @@
     "name": "Colorado",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315343"
-      ]
+      "refs": ["ne:admin1:1159315343"]
     }
   },
   {
@@ -2599,9 +2587,7 @@
     "name": "Connecticut",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315301"
-      ]
+      "refs": ["ne:admin1:1159315301"]
     }
   },
   {
@@ -2609,9 +2595,7 @@
     "name": "Delaware",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315325"
-      ]
+      "refs": ["ne:admin1:1159315325"]
     }
   },
   {
@@ -2619,9 +2603,7 @@
     "name": "Florida",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315207"
-      ]
+      "refs": ["ne:admin1:1159315207"]
     }
   },
   {
@@ -2629,9 +2611,7 @@
     "name": "Georgia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159311857"
-      ]
+      "refs": ["ne:admin1:1159311857"]
     }
   },
   {
@@ -2639,9 +2619,7 @@
     "name": "Hawaii",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308409"
-      ]
+      "refs": ["ne:admin1:1159308409"]
     }
   },
   {
@@ -2649,9 +2627,7 @@
     "name": "Idaho",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315339"
-      ]
+      "refs": ["ne:admin1:1159315339"]
     }
   },
   {
@@ -2659,9 +2635,7 @@
     "name": "Illinois",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315309"
-      ]
+      "refs": ["ne:admin1:1159315309"]
     }
   },
   {
@@ -2669,9 +2643,7 @@
     "name": "Indiana",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315311"
-      ]
+      "refs": ["ne:admin1:1159315311"]
     }
   },
   {
@@ -2679,9 +2651,7 @@
     "name": "Iowa",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315357"
-      ]
+      "refs": ["ne:admin1:1159315357"]
     }
   },
   {
@@ -2689,9 +2659,7 @@
     "name": "Kansas",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315359"
-      ]
+      "refs": ["ne:admin1:1159315359"]
     }
   },
   {
@@ -2699,9 +2667,7 @@
     "name": "Kentucky",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315313"
-      ]
+      "refs": ["ne:admin1:1159315313"]
     }
   },
   {
@@ -2709,9 +2675,7 @@
     "name": "Louisiana",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315221"
-      ]
+      "refs": ["ne:admin1:1159315221"]
     }
   },
   {
@@ -2719,9 +2683,7 @@
     "name": "Maine",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308501"
-      ]
+      "refs": ["ne:admin1:1159308501"]
     }
   },
   {
@@ -2729,9 +2691,7 @@
     "name": "Maryland",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315329"
-      ]
+      "refs": ["ne:admin1:1159315329"]
     }
   },
   {
@@ -2739,9 +2699,7 @@
     "name": "Massachusetts",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312157"
-      ]
+      "refs": ["ne:admin1:1159312157"]
     }
   },
   {
@@ -2749,9 +2707,7 @@
     "name": "Michigan",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159314665"
-      ]
+      "refs": ["ne:admin1:1159314665"]
     }
   },
   {
@@ -2759,9 +2715,7 @@
     "name": "Minnesota",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315297"
-      ]
+      "refs": ["ne:admin1:1159315297"]
     }
   },
   {
@@ -2769,9 +2723,7 @@
     "name": "Mississippi",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315231"
-      ]
+      "refs": ["ne:admin1:1159315231"]
     }
   },
   {
@@ -2779,9 +2731,7 @@
     "name": "Missouri",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315361"
-      ]
+      "refs": ["ne:admin1:1159315361"]
     }
   },
   {
@@ -2789,9 +2739,7 @@
     "name": "Montana",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315333"
-      ]
+      "refs": ["ne:admin1:1159315333"]
     }
   },
   {
@@ -2799,9 +2747,7 @@
     "name": "Nebraska",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315363"
-      ]
+      "refs": ["ne:admin1:1159315363"]
     }
   },
   {
@@ -2809,9 +2755,7 @@
     "name": "Nevada",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315345"
-      ]
+      "refs": ["ne:admin1:1159315345"]
     }
   },
   {
@@ -2819,9 +2763,7 @@
     "name": "New Hampshire",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315303"
-      ]
+      "refs": ["ne:admin1:1159315303"]
     }
   },
   {
@@ -2829,9 +2771,7 @@
     "name": "New Jersey",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315267"
-      ]
+      "refs": ["ne:admin1:1159315267"]
     }
   },
   {
@@ -2839,9 +2779,7 @@
     "name": "New Mexico",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315347"
-      ]
+      "refs": ["ne:admin1:1159315347"]
     }
   },
   {
@@ -2849,9 +2787,7 @@
     "name": "New York",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312155"
-      ]
+      "refs": ["ne:admin1:1159312155"]
     }
   },
   {
@@ -2859,9 +2795,7 @@
     "name": "North Carolina",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159314887"
-      ]
+      "refs": ["ne:admin1:1159314887"]
     }
   },
   {
@@ -2869,9 +2803,7 @@
     "name": "North Dakota",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315337"
-      ]
+      "refs": ["ne:admin1:1159315337"]
     }
   },
   {
@@ -2879,9 +2811,7 @@
     "name": "Ohio",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315315"
-      ]
+      "refs": ["ne:admin1:1159315315"]
     }
   },
   {
@@ -2889,9 +2819,7 @@
     "name": "Oklahoma",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315365"
-      ]
+      "refs": ["ne:admin1:1159315365"]
     }
   },
   {
@@ -2899,9 +2827,7 @@
     "name": "Oregon",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159309549"
-      ]
+      "refs": ["ne:admin1:1159309549"]
     }
   },
   {
@@ -2909,9 +2835,7 @@
     "name": "Pennsylvania",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315331"
-      ]
+      "refs": ["ne:admin1:1159315331"]
     }
   },
   {
@@ -2919,9 +2843,7 @@
     "name": "Rhode Island",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312213"
-      ]
+      "refs": ["ne:admin1:1159312213"]
     }
   },
   {
@@ -2929,9 +2851,7 @@
     "name": "South Carolina",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315307"
-      ]
+      "refs": ["ne:admin1:1159315307"]
     }
   },
   {
@@ -2939,9 +2859,7 @@
     "name": "South Dakota",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315367"
-      ]
+      "refs": ["ne:admin1:1159315367"]
     }
   },
   {
@@ -2949,9 +2867,7 @@
     "name": "Tennessee",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315319"
-      ]
+      "refs": ["ne:admin1:1159315319"]
     }
   },
   {
@@ -2959,9 +2875,7 @@
     "name": "Texas",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315211"
-      ]
+      "refs": ["ne:admin1:1159315211"]
     }
   },
   {
@@ -2969,9 +2883,7 @@
     "name": "Utah",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315349"
-      ]
+      "refs": ["ne:admin1:1159315349"]
     }
   },
   {
@@ -2979,9 +2891,7 @@
     "name": "Vermont",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315305"
-      ]
+      "refs": ["ne:admin1:1159315305"]
     }
   },
   {
@@ -2989,9 +2899,7 @@
     "name": "Virginia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315259"
-      ]
+      "refs": ["ne:admin1:1159315259"]
     }
   },
   {
@@ -2999,9 +2907,7 @@
     "name": "Washington",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159309547"
-      ]
+      "refs": ["ne:admin1:1159309547"]
     }
   },
   {
@@ -3009,9 +2915,7 @@
     "name": "West Virginia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315323"
-      ]
+      "refs": ["ne:admin1:1159315323"]
     }
   },
   {
@@ -3019,9 +2923,7 @@
     "name": "Wisconsin",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315321"
-      ]
+      "refs": ["ne:admin1:1159315321"]
     }
   },
   {
@@ -3029,9 +2931,7 @@
     "name": "Wyoming",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315351"
-      ]
+      "refs": ["ne:admin1:1159315351"]
     }
   },
   {
@@ -3039,9 +2939,7 @@
     "name": "Abkhazia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1159320785"
-      ]
+      "refs": ["ne:disputed:1159320785"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3112,10 +3010,7 @@
     "name": "Anguilla",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320703",
-        "ne:map-subunit:1159320703"
-      ]
+      "refs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3213,10 +3108,7 @@
     "name": "Bermuda",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320705",
-        "ne:map-subunit:1159320705"
-      ]
+      "refs": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3237,9 +3129,7 @@
     "name": "Bolzano / South Tyrol",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159310921"
-      ]
+      "refs": ["ne:admin1:1159310921"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3260,10 +3150,7 @@
     "name": "Bonaire, Sint Eustatius and Saba",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159321107",
-        "ne:map-subunit:1159321107"
-      ]
+      "refs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3309,10 +3196,7 @@
     "name": "Bouvet Island",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159321111",
-        "ne:map-subunit:1159321111"
-      ]
+      "refs": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3409,10 +3293,7 @@
     "name": "Christmas Island",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320369",
-        "ne:map-subunit:1159320369"
-      ]
+      "refs": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3433,10 +3314,7 @@
     "name": "Cocos (Keeling) Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320367",
-        "ne:map-subunit:1159320367"
-      ]
+      "refs": ["ne:map-unit:1159320367", "ne:map-subunit:1159320367"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3457,10 +3335,7 @@
     "name": "Cook Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159321129",
-        "ne:map-subunit:1159321129"
-      ]
+      "refs": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3481,9 +3356,7 @@
     "name": "Costa Caribe Norte",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159309037"
-      ]
+      "refs": ["ne:admin1:1159309037"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3504,9 +3377,7 @@
     "name": "Costa Caribe Sur",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308989"
-      ]
+      "refs": ["ne:admin1:1159308989"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3552,9 +3423,7 @@
     "name": "Donetsk People's Republic",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1763286545"
-      ]
+      "refs": ["ne:disputed:1763286545"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3575,10 +3444,7 @@
     "name": "England",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320743",
-        "ne:map-subunit:1159320743"
-      ]
+      "refs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3624,10 +3490,7 @@
     "name": "Faroe Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320549",
-        "ne:map-subunit:1159320549"
-      ]
+      "refs": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3674,10 +3537,7 @@
     "name": "French Polynesia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320643",
-        "ne:map-subunit:1159320643"
-      ]
+      "refs": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3758,9 +3618,7 @@
     "name": "Gagauzia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312587"
-      ]
+      "refs": ["ne:admin1:1159312587"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3807,9 +3665,7 @@
     "name": "Gorno-Badakhshan",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159308469"
-      ]
+      "refs": ["ne:admin1:1159308469"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3905,9 +3761,7 @@
     "name": "Guangxi",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159310341"
-      ]
+      "refs": ["ne:admin1:1159310341"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -3980,10 +3834,7 @@
     "name": "Hong Kong",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320473",
-        "ne:map-subunit:1159320473"
-      ]
+      "refs": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4004,9 +3855,7 @@
     "name": "Inner Mongolia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312757"
-      ]
+      "refs": ["ne:admin1:1159312757"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4077,9 +3926,7 @@
     "name": "Jewish Autonomous Oblast",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159313605"
-      ]
+      "refs": ["ne:admin1:1159313605"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4100,10 +3947,7 @@
     "name": "Kosovo",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159321007",
-        "ne:map-subunit:1159321007"
-      ]
+      "refs": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4124,9 +3968,7 @@
     "name": "Luhansk People's Republic",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1763286547"
-      ]
+      "refs": ["ne:disputed:1763286547"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4147,10 +3989,7 @@
     "name": "Macao",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320475",
-        "ne:map-subunit:1159320475"
-      ]
+      "refs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4247,10 +4086,7 @@
     "name": "Montserrat",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320727",
-        "ne:map-subunit:1159320727"
-      ]
+      "refs": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4271,9 +4107,7 @@
     "name": "Nakhchivan",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "gb:aze-adm1:63332228B45413776644545"
-      ]
+      "refs": ["gb:aze-adm1:63332228B45413776644545"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4294,10 +4128,7 @@
     "name": "New Caledonia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320641",
-        "ne:map-subunit:1159320641"
-      ]
+      "refs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4318,9 +4149,7 @@
     "name": "Ningxia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312659"
-      ]
+      "refs": ["ne:admin1:1159312659"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4391,9 +4220,7 @@
     "name": "North Borneo",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1763510959"
-      ]
+      "refs": ["ne:disputed:1763510959"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4414,9 +4241,7 @@
     "name": "Northern Cyprus",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:1159320531"
-      ]
+      "refs": ["ne:1159320531"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4437,10 +4262,7 @@
     "name": "Northern Ireland",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320745",
-        "ne:map-subunit:1159320745"
-      ]
+      "refs": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4486,10 +4308,7 @@
     "name": "Pitcairn",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320729",
-        "ne:map-subunit:1159320729"
-      ]
+      "refs": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4510,10 +4329,7 @@
     "name": "Príncipe",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315955",
-        "ne:map-subunit:1159321277"
-      ]
+      "refs": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4609,9 +4425,7 @@
     "name": "Saint Helena, Ascension and Tristan da Cunha",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320733"
-      ]
+      "refs": ["ne:map-unit:1159320733"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4632,10 +4446,7 @@
     "name": "Saint Martin (French part)",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320639",
-        "ne:map-subunit:1159320639"
-      ]
+      "refs": ["ne:map-unit:1159320639", "ne:map-subunit:1159320639"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4681,9 +4492,7 @@
     "name": "Sardinia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-subunit:1159320921"
-      ]
+      "refs": ["ne:map-subunit:1159320921"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4729,9 +4538,7 @@
     "name": "Sicily",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-subunit:1159320929"
-      ]
+      "refs": ["ne:map-subunit:1159320929"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4777,9 +4584,7 @@
     "name": "Somaliland",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:1159321259"
-      ]
+      "refs": ["ne:1159321259"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4800,10 +4605,7 @@
     "name": "South Georgia and the South Sandwich Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159315467",
-        "ne:map-unit:1159320731"
-      ]
+      "refs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4824,9 +4626,7 @@
     "name": "South Ossetia",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1159320787"
-      ]
+      "refs": ["ne:disputed:1159320787"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4897,9 +4697,7 @@
     "name": "Tibet / Xizang",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312655"
-      ]
+      "refs": ["ne:admin1:1159312655"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4945,9 +4743,7 @@
     "name": "Transnistria",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:disputed:1159321047"
-      ]
+      "refs": ["ne:disputed:1159321047"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4968,9 +4764,7 @@
     "name": "Trentino",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159316949"
-      ]
+      "refs": ["ne:admin1:1159316949"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -4991,10 +4785,7 @@
     "name": "Trentino-Alto Adige/Südtirol",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159310921",
-        "ne:admin1:1159316949"
-      ]
+      "refs": ["ne:admin1:1159310921", "ne:admin1:1159316949"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5015,10 +4806,7 @@
     "name": "Turks and Caicos Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320737",
-        "ne:map-subunit:1159320737"
-      ]
+      "refs": ["ne:map-unit:1159320737", "ne:map-subunit:1159320737"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5081,10 +4869,7 @@
     "name": "United States Virgin Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159321371",
-        "ne:map-subunit:1159321371"
-      ]
+      "refs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5105,9 +4890,7 @@
     "name": "Valle d’Aosta",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159310915"
-      ]
+      "refs": ["ne:admin1:1159310915"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5154,10 +4937,7 @@
     "name": "Wales",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320749",
-        "ne:map-subunit:1159320749"
-      ]
+      "refs": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5178,10 +4958,7 @@
     "name": "Wallis and Futuna",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320649",
-        "ne:map-subunit:1159320649"
-      ]
+      "refs": ["ne:map-unit:1159320649", "ne:map-subunit:1159320649"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5229,9 +5006,7 @@
     "name": "Xinjiang",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:admin1:1159312657"
-      ]
+      "refs": ["ne:admin1:1159312657"]
     },
     "evidence": {
       "type": "non-un-candidate",
@@ -5252,10 +5027,7 @@
     "name": "Åland Islands",
     "resolution": {
       "kind": "exact-refs",
-      "refs": [
-        "ne:map-unit:1159320621",
-        "ne:map-subunit:1159320621"
-      ]
+      "refs": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"]
     },
     "evidence": {
       "type": "non-un-candidate",

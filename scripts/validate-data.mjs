@@ -20,7 +20,9 @@ const overrides = read('data/geometry-overrides.json');
 const authoredIds = authored.map(({ id }) => id);
 const generatedIds = generated.map(({ id }) => id);
 if (!sameSet(authoredIds, generatedIds))
-  throw new Error('Generated locations do not exactly match the authored registry');
+  throw new Error(
+    'Generated locations do not exactly match the authored registry',
+  );
 if (new Set(authoredIds).size !== authoredIds.length)
   throw new Error('Authored location IDs must be globally unique');
 if (new Set(authored.map(({ name }) => name)).size !== authored.length)
@@ -28,10 +30,14 @@ if (new Set(authored.map(({ name }) => name)).size !== authored.length)
 if (!sameSet(authoredIds, invariants.locationIds))
   throw new Error('Authored location set changed from the reviewed baseline');
 
-const locationById = new Map(generated.map((location) => [location.id, location]));
+const locationById = new Map(
+  generated.map((location) => [location.id, location]),
+);
 for (const location of authored) {
   if (!location.id || !location.name || !location.resolution)
-    throw new Error(`Invalid authored location record ${location.id ?? '<missing>'}`);
+    throw new Error(
+      `Invalid authored location record ${location.id ?? '<missing>'}`,
+    );
   const { resolution } = location;
   if (!['source-keys', 'exact-refs'].includes(resolution.kind))
     throw new Error(`Unknown resolution kind for ${location.id}`);
@@ -40,7 +46,9 @@ for (const location of authored) {
       throw new Error(`Missing source keys for ${location.id}`);
     for (const entry of resolution.keys)
       if (!entry.source || !entry.key)
-        throw new Error(`Source keys require source and key for ${location.id}`);
+        throw new Error(
+          `Source keys require source and key for ${location.id}`,
+        );
   } else if (!resolution.refs?.length)
     throw new Error(`Missing exact refs for ${location.id}`);
   const result = locationById.get(location.id);
@@ -61,7 +69,9 @@ for (const quiz of quizzes) {
     throw new Error(`Quiz ${quiz.id} has duplicate or unresolved locationIds`);
   for (const id of quiz.map?.baseLayerLocationIds ?? [])
     if (!quiz.locationIds.includes(id))
-      throw new Error(`Quiz ${quiz.id} base layer location is not a member: ${id}`);
+      throw new Error(
+        `Quiz ${quiz.id} base layer location is not a member: ${id}`,
+      );
   for (const id of quiz.map?.contextFeatureExclusions ?? [])
     if (!map.features[id])
       throw new Error(`Quiz ${quiz.id} excludes unknown context feature ${id}`);
@@ -83,14 +93,22 @@ if (inset.sourceFeatureIds.some((id) => !inset.features[id]))
 
 const mapLocationIds = Object.keys(map.locationFeatureIds ?? {});
 const insetLocationIds = Object.keys(inset.locationFeatureIds ?? {});
-if (!sameSet(mapLocationIds, generatedIds) || !sameSet(insetLocationIds, generatedIds))
-  throw new Error('Generated map indexes do not exactly cover the location registry');
+if (
+  !sameSet(mapLocationIds, generatedIds) ||
+  !sameSet(insetLocationIds, generatedIds)
+)
+  throw new Error(
+    'Generated map indexes do not exactly cover the location registry',
+  );
 for (const location of generated) {
   const mainRefs = map.locationFeatureIds[location.id];
   const insetRefs = inset.locationFeatureIds[location.id];
   if (!mainRefs?.length || !insetRefs?.length)
     throw new Error(`Missing geometry index entry for ${location.id}`);
-  if (mainRefs.some((id) => !map.features[id]) || insetRefs.some((id) => !inset.features[id]))
+  if (
+    mainRefs.some((id) => !map.features[id]) ||
+    insetRefs.some((id) => !inset.features[id])
+  )
     throw new Error(`Unresolvable geometry index entry for ${location.id}`);
   if (
     location.resolution.kind === 'exact-refs' &&
@@ -100,7 +118,9 @@ for (const location of generated) {
 }
 
 const sourceFeatureCache = new Map();
-for (const [sourceId, definition] of Object.entries(geometrySources.sources ?? {})) {
+for (const [sourceId, definition] of Object.entries(
+  geometrySources.sources ?? {},
+)) {
   const features = read(definition.path).features;
   sourceFeatureCache.set(sourceId, features);
 }
@@ -115,41 +135,71 @@ for (const replacement of replacements) {
   )
     throw new Error('Every geometry replacement requires complete provenance');
   const pair = `${replacement.locationId}/${replacement.canonicalFeatureId}`;
-  if (replacementKeys.has(pair)) throw new Error(`Duplicate geometry replacement ${pair}`);
+  if (replacementKeys.has(pair))
+    throw new Error(`Duplicate geometry replacement ${pair}`);
   replacementKeys.add(pair);
   if (!map.features[replacement.canonicalFeatureId])
-    throw new Error(`Replacement canonical feature is unknown: ${replacement.canonicalFeatureId}`);
+    throw new Error(
+      `Replacement canonical feature is unknown: ${replacement.canonicalFeatureId}`,
+    );
   const features = sourceFeatureCache.get(replacement.source);
-  if (!features) throw new Error(`Replacement source is undefined: ${replacement.source}`);
+  if (!features)
+    throw new Error(`Replacement source is undefined: ${replacement.source}`);
   const matches = features.filter((feature) =>
-    [feature.properties.shapeISO, feature.properties.shapeID, feature.properties.shapeName]
+    [
+      feature.properties.shapeISO,
+      feature.properties.shapeID,
+      feature.properties.shapeName,
+    ]
       .filter(Boolean)
       .includes(replacement.featureKey),
   );
   if (matches.length !== 1)
-    throw new Error(`Replacement feature key is not unique: ${replacement.source}/${replacement.featureKey}`);
+    throw new Error(
+      `Replacement feature key is not unique: ${replacement.source}/${replacement.featureKey}`,
+    );
   const generated = map.features[replacement.canonicalFeatureId];
-  if (!generated.replacement ||
-      generated.replacement.canonicalFeatureId !== replacement.canonicalFeatureId ||
-      generated.replacement.source !== replacement.source ||
-      generated.replacement.featureKey !== replacement.featureKey)
-    throw new Error(`Generated replacement provenance is incomplete: ${replacement.canonicalFeatureId}`);
+  if (
+    !generated.replacement ||
+    generated.replacement.canonicalFeatureId !==
+      replacement.canonicalFeatureId ||
+    generated.replacement.source !== replacement.source ||
+    generated.replacement.featureKey !== replacement.featureKey
+  )
+    throw new Error(
+      `Generated replacement provenance is incomplete: ${replacement.canonicalFeatureId}`,
+    );
 }
 
 for (const [locationId, refs] of Object.entries(overrides)) {
-  if (!locationById.has(locationId) || refs.length < 2 || refs.some((id) => !map.features[id]))
+  if (
+    !locationById.has(locationId) ||
+    refs.length < 2 ||
+    refs.some((id) => !map.features[id])
+  )
     throw new Error(`Invalid reviewed geometry override for ${locationId}`);
 }
-if (!sameSet(invariants.relationships.nonUnCandidateIds, authored.filter(({ id }) => id.startsWith('non-un:')).map(({ id }) => id)))
+if (
+  !sameSet(
+    invariants.relationships.nonUnCandidateIds,
+    authored.filter(({ id }) => id.startsWith('non-un:')).map(({ id }) => id),
+  )
+)
   throw new Error('Reviewed Non-UN candidate set changed');
 const nonUn = quizzes.find(({ id }) => id === 'non-un');
 if (!sameSet(nonUn?.locationIds ?? [], invariants.relationships.nonUnMembers))
   throw new Error('Reviewed Non-UN membership set changed');
 for (const excluded of invariants.relationships.nonUnExcludedOverlap)
-  if (nonUn.locationIds.includes(excluded)) throw new Error(`Overlap exclusion removed: ${excluded}`);
+  if (nonUn.locationIds.includes(excluded))
+    throw new Error(`Overlap exclusion removed: ${excluded}`);
 for (const aggregate of invariants.relationships.nonUnAggregate)
-  if (!nonUn.locationIds.includes(aggregate)) throw new Error(`Aggregate membership removed: ${aggregate}`);
+  if (!nonUn.locationIds.includes(aggregate))
+    throw new Error(`Aggregate membership removed: ${aggregate}`);
 
-execFileSync(process.execPath, ['scripts/validate-fixtures.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['scripts/validate-fixtures.mjs'], {
+  stdio: 'inherit',
+});
 
-console.log(`Data validation passed: ${generated.length} canonical locations, ${source.features.length} base features, ${inset.sourceFeatureIds.length} inset source features.`);
+console.log(
+  `Data validation passed: ${generated.length} canonical locations, ${source.features.length} base features, ${inset.sourceFeatureIds.length} inset source features.`,
+);

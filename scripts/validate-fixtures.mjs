@@ -37,7 +37,10 @@ const locations = [
   {
     id: 'fixture:one',
     name: 'Fixture One',
-    resolution: { kind: 'source-keys', keys: [{ source: 'fixture', key: 'ONE' }] },
+    resolution: {
+      kind: 'source-keys',
+      keys: [{ source: 'fixture', key: 'ONE' }],
+    },
   },
   {
     id: 'fixture:two',
@@ -47,7 +50,9 @@ const locations = [
 ];
 validate({
   locations,
-  quizzes: [{ id: 'fixture-quiz', locationIds: ['fixture:one', 'fixture:two'] }],
+  quizzes: [
+    { id: 'fixture-quiz', locationIds: ['fixture:one', 'fixture:two'] },
+  ],
   sources: source,
   replacements: [
     {
@@ -59,7 +64,8 @@ validate({
   ],
 });
 
-const rejects = (value, message) => assert.throws(() => validate(value), message);
+const rejects = (value, message) =>
+  assert.throws(() => validate(value), message);
 const base = {
   locations,
   quizzes: [{ id: 'fixture-quiz', locationIds: ['fixture:one'] }],
@@ -73,11 +79,19 @@ const base = {
     },
   ],
 };
-rejects({ ...base, replacements: [{ ...base.replacements[0], featureKey: '' }] }, /provenance/);
-rejects({ ...base, replacements: [{ ...base.replacements[0], source: 'missing' }] }, /source/);
+rejects(
+  { ...base, replacements: [{ ...base.replacements[0], featureKey: '' }] },
+  /provenance/,
+);
+rejects(
+  { ...base, replacements: [{ ...base.replacements[0], source: 'missing' }] },
+  /source/,
+);
 rejects(
   { ...base, replacements: [base.replacements[0], base.replacements[0]] },
   /unique/,
 );
 
-console.log('Generic location, quiz, alternate-source, and negative fixtures passed.');
+console.log(
+  'Generic location, quiz, alternate-source, and negative fixtures passed.',
+);
