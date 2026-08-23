@@ -7,7 +7,6 @@ import {
   type PointerEvent,
   type ReactNode,
 } from 'react';
-import { createPortal } from 'react-dom';
 import { suggestionsFor } from './autocomplete';
 import { formatAccuracy } from './accuracy';
 import { countryNameKey } from './countryName';
@@ -25,6 +24,7 @@ import { MapBoxShell } from './MapBoxShell';
 import type { QuizOption } from './quizContracts';
 import { HighScoreTable } from './HighScoreTable';
 import { formatElapsed } from './formatElapsed';
+import { QuizDetailsDialog } from './quizSelection/QuizDetailsDialog';
 import {
   getHighScores,
   getPlayerName,
@@ -40,10 +40,14 @@ type QuizPlayerProps = {
   quizName?: string;
   quizId?: string;
   quizOptions?: readonly QuizOption[];
+  selectedQuizOption?: QuizOption;
+  onSelectQuizOption?: (quiz: QuizOption) => void;
+  onCloseQuizDialog?: () => void;
+  onStartSelectedQuiz?: (quizId: string) => void;
+  /** Compatibility callback for direct QuizPlayer consumers during the shell migration. */
   onSelectQuiz?: (quizId: string) => void;
   autoStart?: boolean;
   onAutoStartHandled?: () => void;
-  initialSelectedQuizId?: string;
   renderQuizThumbnail?: (quiz: QuizOption) => ReactNode;
 };
 
@@ -129,10 +133,13 @@ export function QuizPlayer({
   quizName = 'World UN Countries',
   quizId = 'world',
   quizOptions = [],
+  selectedQuizOption,
+  onSelectQuizOption,
+  onCloseQuizDialog,
+  onStartSelectedQuiz,
   onSelectQuiz,
   autoStart = false,
   onAutoStartHandled,
-  initialSelectedQuizId,
   renderQuizThumbnail,
 }: QuizPlayerProps) {
   const { state, dispatch, locationIds } = useQuiz();
@@ -148,9 +155,6 @@ export function QuizPlayer({
   const [newHighScoreId, setNewHighScoreId] = useState<string | undefined>();
   const [username, setUsername] = useState(getPlayerName);
   const recordedResult = useRef<number | null>(null);
-  const [selectedQuizOption, setSelectedQuizOption] = useState<
-    QuizOption | undefined
-  >(() => quizOptions.find((option) => option.id === initialSelectedQuizId));
   const feedbackTimer = useRef<number | undefined>(undefined);
   const [panelPlacement, setPanelPlacement] = useState<PanelPlacement>({
     left: 16,
@@ -330,15 +334,6 @@ export function QuizPlayer({
   );
 
   useEffect(() => {
-    if (!selectedQuizOption) return;
-    const closeOnEscape = (event: globalThis.KeyboardEvent) => {
-      if (event.key === 'Escape') setSelectedQuizOption(undefined);
-    };
-    window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
-  }, [selectedQuizOption]);
-
-  useEffect(() => {
     if (state.phase === 'active') {
       manualPlacement.current = false;
       setText('');
@@ -505,7 +500,7 @@ export function QuizPlayer({
                       className="quiz-option"
                       key={option.id}
                       type="button"
-                      onClick={() => setSelectedQuizOption(option)}
+                      onClick={() => onSelectQuizOption?.(option)}
                     >
                       {renderQuizThumbnail?.(option)}
                       <strong>{option.name}</strong>
@@ -525,46 +520,15 @@ export function QuizPlayer({
             Start quiz
           </button>
         )}
-        {selectedQuizOption &&
-          createPortal(
-            <div
-              className="quiz-dialog-backdrop"
-              role="presentation"
-              onMouseDown={(event) => {
-                if (event.target === event.currentTarget)
-                  setSelectedQuizOption(undefined);
-              }}
-            >
-              <section
-                className="quiz-dialog"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="quiz-dialog-title"
-              >
-                <button
-                  className="quiz-dialog-close"
-                  type="button"
-                  aria-label="Close quiz details"
-                  onClick={() => setSelectedQuizOption(undefined)}
-                >
-                  ×
-                </button>
-                <p className="eyebrow">TERRADASH · QUIZ</p>
-                <h2 id="quiz-dialog-title">{selectedQuizOption.name}</h2>
-                <p>{selectedQuizOption.locationIds.length} locations</p>
-                <p>{quizDescription(selectedQuizOption)}</p>
-                <button
-                  className="primary-action"
-                  type="button"
-                  autoFocus
-                  onClick={() => onSelectQuiz?.(selectedQuizOption.id)}
-                >
-                  Start {selectedQuizOption.name} Quiz
-                </button>
-              </section>
-            </div>,
-            document.body,
-          )}
+        {selectedQuizOption && (
+          <QuizDetailsDialog
+            quiz={selectedQuizOption}
+            onClose={() => onCloseQuizDialog?.()}
+            onStart={(quizId) =>
+              (onStartSelectedQuiz ?? onSelectQuiz)?.(quizId)
+            }
+          />
+        )}
       </section>
     );
   }

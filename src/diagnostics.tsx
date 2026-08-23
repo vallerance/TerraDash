@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterApp } from './main';
+import { RouterApp } from './routing/RouterApp';
 import { DiagnosticsMap } from './map/MapView';
 import './styles.css';
 

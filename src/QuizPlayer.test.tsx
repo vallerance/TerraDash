@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { act } from 'react';
+import { act, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizPlayer } from './QuizPlayer';
@@ -42,6 +42,21 @@ function renderPlayer(
   const container = document.createElement('div');
   document.body.append(container);
   root = createRoot(container);
+  function ControlledPlayer() {
+    const [selectedQuizOption, setSelectedQuizOption] = useState<QuizOption>();
+    return (
+      <QuizPlayer
+        catalog={catalogOverride}
+        quizName={quizName}
+        quizOptions={quizOptions}
+        selectedQuizOption={selectedQuizOption}
+        onSelectQuizOption={setSelectedQuizOption}
+        onCloseQuizDialog={() => setSelectedQuizOption(undefined)}
+        onStartSelectedQuiz={onSelectQuiz}
+        renderMap={(location) => <div data-map-id={location.id} />}
+      />
+    );
+  }
   act(() => {
     root!.render(
       <QuizProvider
@@ -52,13 +67,7 @@ function renderPlayer(
         catalog={catalogOverride}
         rng={() => 0}
       >
-        <QuizPlayer
-          catalog={catalogOverride}
-          quizName={quizName}
-          quizOptions={quizOptions}
-          onSelectQuiz={onSelectQuiz}
-          renderMap={(location) => <div data-map-id={location.id} />}
-        />
+        <ControlledPlayer />
       </QuizProvider>,
     );
   });
