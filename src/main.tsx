@@ -43,10 +43,7 @@ import {
   selectedInsetGeometryPaths,
   tinyInsetDot,
 } from './mapGeometry';
-import {
-  projectYForStandardParallel,
-  standardParallelTransform,
-} from './mapProjection';
+import { createMapProjection } from './mapProjection';
 import './styles.css';
 
 type Location = (typeof locations)[number];
@@ -77,12 +74,19 @@ export function MapView({
   const projectionCenterY = viewportBounds
     ? (viewportBounds[2] + viewportBounds[3]) / 2
     : map.height / 2;
-  const projectionTransform = standardParallelTransform(
+  const projection = createMapProjection(
     layer.standardParallel,
     projectionCenterY,
   );
-  const projectMapY = (y: number) =>
-    projectYForStandardParallel(y, layer.standardParallel, projectionCenterY);
+  // Rendering uses one group transform. Geometry-dependent calculations use
+  // this same coordinate authority so overlay graphics stay untransformed.
+  const projectedHighlightedPaths = highlightedPaths.map(projection.path);
+  const projectedInsetSelectedPaths = insetSelectedPaths.map((region) => ({
+    ...region,
+    path: projection.path(region.path),
+    center: projection.point(region.center as [number, number]),
+    span: projection.span(region.span as [number, number]),
+  }));
   const seamX = mapXForLongitude(layer.seamLongitude, layer.wrapWidth);
   const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
   const [renderedMapStart, renderedMapEnd] = viewportBounds
@@ -91,7 +95,7 @@ export function MapView({
   const coordinateViewportWidth = renderedMapEnd - renderedMapStart;
   const scale = viewportWidth / coordinateViewportWidth;
   const callout = deriveCalloutModel(
-    highlightedPaths,
+    projectedHighlightedPaths,
     scale,
     layer.wrapWidth,
     undefined,
@@ -161,7 +165,10 @@ export function MapView({
   const insetRenderedScale = cutoutLayout
     ? (cutoutRadius * scale) / cutoutLayout.sourceRadius
     : 0;
-  const insetDot = tinyInsetDot(insetSelectedPaths, insetRenderedScale);
+  const insetDot = tinyInsetDot(
+    projectedInsetSelectedPaths,
+    insetRenderedScale,
+  );
   const insetDotCenter = insetDot
     ? wrappedPointPositions(
         insetDot.center,
@@ -184,25 +191,6 @@ export function MapView({
         cutoutRadius,
       )
     : [];
-  const projectedCutoutCenter: [number, number] = [
-    cutoutCenter[0],
-    projectMapY(cutoutCenter[1]),
-  ];
-  const projectedSourceCenter: [number, number] = positionedCallout
-    ? [
-        positionedCallout.sourceCenter[0],
-        projectMapY(positionedCallout.sourceCenter[1]),
-      ]
-    : [0, 0];
-  const projectedLeaderLines = leaderLines.map((line) => ({
-    ...line,
-    y1: projectMapY(line.y1),
-    y2: projectMapY(line.y2),
-  }));
-  const insetProjectionTransform = standardParallelTransform(
-    layer.standardParallel,
-    insetViewBox.y + insetViewBox.size / 2,
-  );
   const wrappedPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
@@ -265,7 +253,7 @@ export function MapView({
         height={map.height}
         className="ocean"
       />
-      <g className="map-projection" transform={projectionTransform}>
+      <g className="map-projection" transform={projection.transform}>
         <g className="countries">
           {layer.contextFeatureIds.map((id) => {
             const feature = map.features[id as keyof typeof map.features];
@@ -342,8 +330,8 @@ export function MapView({
               id={`map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')}`}
             >
               <circle
-                cx={projectedCutoutCenter[0]}
-                cy={projectedCutoutCenter[1]}
+                cx={cutoutCenter[0]}
+                cy={cutoutCenter[1]}
                 r={cutoutRadius}
               />
             </clipPath>
@@ -354,8 +342,8 @@ export function MapView({
           >
             <svg
               className="callout-inset"
-              x={projectedCutoutCenter[0] - cutoutRadius}
-              y={projectedCutoutCenter[1] - cutoutRadius}
+              x={cutoutCenter[0] - cutoutRadius}
+              y={cutoutCenter[1] - cutoutRadius}
               width={cutoutRadius * 2}
               height={cutoutRadius * 2}
               viewBox={`${insetViewBox.x} ${insetViewBox.y} ${insetViewBox.size} ${insetViewBox.size}`}
@@ -370,7 +358,7 @@ export function MapView({
               />
               <g
                 className="callout-inset-projection"
-                transform={insetProjectionTransform}
+                transform={projection.transform}
               >
                 {inset.sourceFeatureIds.map((id) => {
                   const feature =
@@ -424,31 +412,33 @@ export function MapView({
                       ),
                     ),
                   )}
-                  {insetDot && insetDotCenter && (
-                    <circle
-                      className="inset-selected-dot"
-                      cx={insetDotCenter[0]}
-                      cy={insetDotCenter[1]}
-                      r={insetDot.diameter / 2 / insetRenderedScale}
-                    />
-                  )}
                 </g>
               </g>
+              {insetDot && insetDotCenter && (
+                <g className="callout-selected">
+                  <circle
+                    className="inset-selected-dot"
+                    cx={insetDotCenter[0]}
+                    cy={insetDotCenter[1]}
+                    r={insetDot.diameter / 2 / insetRenderedScale}
+                  />
+                </g>
+              )}
             </svg>
           </g>
           <circle
             className="callout-cutout"
-            cx={projectedCutoutCenter[0]}
-            cy={projectedCutoutCenter[1]}
+            cx={cutoutCenter[0]}
+            cy={cutoutCenter[1]}
             r={cutoutRadius}
           />
           <circle
             className="callout-source"
-            cx={projectedSourceCenter[0]}
-            cy={projectedSourceCenter[1]}
+            cx={positionedCallout!.sourceCenter[0]}
+            cy={positionedCallout!.sourceCenter[1]}
             r={cutoutLayout!.sourceRadius}
           />
-          {projectedLeaderLines.map((line, index) => (
+          {leaderLines.map((line, index) => (
             <line key={index} className="callout-leader" {...line} />
           ))}
         </g>

@@ -85,7 +85,15 @@ describe('mapped quiz layer contract', () => {
     ).toContain('scale(1 1.269');
     expect(frame.querySelectorAll('.map-base-layers > g')).toHaveLength(50);
     expectActiveStatePaths(frame, 'US-RI');
-    expect(frame.querySelector('.map-callout')).toBeTruthy();
+    const geography = frame.querySelector('.map-projection');
+    const callout = frame.querySelector('.map-callout');
+    expect(callout).toBeTruthy();
+    expect(geography?.contains(callout)).toBe(false);
+    expect(
+      frame
+        .querySelector('.callout-inset-projection')
+        ?.getAttribute('transform'),
+    ).toBe(geography?.getAttribute('transform'));
     expect(frame.querySelector('.callout-selected')).toBeTruthy();
     expect(frame.querySelectorAll('.callout-context > .country')).toHaveLength(
       50,

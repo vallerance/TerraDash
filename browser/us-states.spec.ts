@@ -515,3 +515,64 @@ for (const viewport of [
     });
   });
 }
+
+test('keeps projected geography separate from magnifier overlay geometry', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/TerraDash/diagnostics.html?location=US-RI');
+  const map = page.locator('.world-map');
+  const geography = map.locator('.map-projection');
+  const callout = map.locator('.map-callout');
+  const source = map.locator('.callout-source');
+  const cutout = map.locator('.callout-cutout');
+  const active = map
+    .locator('.active-fill path[data-location-id="US-RI"]')
+    .first();
+  const magnified = map.locator('.callout-selected path').first();
+
+  await expect(geography).toHaveAttribute('transform', /scale\(1 1\.269/);
+  await expect(callout).toBeVisible();
+  await expect(source).toBeVisible();
+  await expect(cutout).toBeVisible();
+  await expect(magnified).toBeVisible();
+
+  const geometry = await page.evaluate(() => {
+    const rect = (selector: string) => {
+      const box = document
+        .querySelector<SVGGraphicsElement>(selector)!
+        .getBoundingClientRect();
+      return { x: box.x, y: box.y, width: box.width, height: box.height };
+    };
+    const geography = document.querySelector('.map-projection')!;
+    const callout = document.querySelector('.map-callout')!;
+    return {
+      calloutInsideProjection: geography.contains(callout),
+      source: rect('.callout-source'),
+      cutout: rect('.callout-cutout'),
+      active: rect('.active-fill path[data-location-id="US-RI"]'),
+      magnified: rect('.callout-selected path'),
+    };
+  });
+
+  expect(geometry.calloutInsideProjection).toBe(false);
+  expect(geometry.source.width).toBeCloseTo(geometry.source.height, 1);
+  expect(geometry.cutout.width).toBeCloseTo(geometry.cutout.height, 1);
+
+  const sourceCenter = {
+    x: geometry.source.x + geometry.source.width / 2,
+    y: geometry.source.y + geometry.source.height / 2,
+  };
+  const activeCenter = {
+    x: geometry.active.x + geometry.active.width / 2,
+    y: geometry.active.y + geometry.active.height / 2,
+  };
+  expect(Math.abs(sourceCenter.x - activeCenter.x)).toBeLessThan(
+    geometry.source.width / 2,
+  );
+  expect(Math.abs(sourceCenter.y - activeCenter.y)).toBeLessThan(
+    geometry.source.height / 2,
+  );
+  expect(geometry.magnified.width).toBeGreaterThan(geometry.active.width * 2);
+  expect(geometry.magnified.height).toBeGreaterThan(geometry.active.height * 2);
+});
