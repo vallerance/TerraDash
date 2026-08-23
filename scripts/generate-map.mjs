@@ -524,6 +524,7 @@ const locations = authoredLocations.map((location) => {
   return {
     id: location.id,
     name: location.name,
+    resolution: location.resolution,
     geometryRefs,
     anchor,
     bounds: bounds(points),
