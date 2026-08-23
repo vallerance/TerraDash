@@ -1,6 +1,3 @@
-import { readFileSync, readdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import reviewed from '../data/reviewed-invariants.json';
 import {
@@ -10,23 +7,14 @@ import {
   generatedManifest,
   generatedMap,
 } from './contracts/generatedData';
-import {
-  locationsForQuiz,
-  playableLocationsById,
-  quizOptions,
-} from './contracts/quiz';
+import { locationsForQuiz, quizOptions } from './contracts/quiz';
+import { playableLocationsById } from './contracts/playableLocation';
 
-const sourceRoot = dirname(fileURLToPath(import.meta.url));
-
-function sourceFiles(directory: string): string[] {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) return sourceFiles(path);
-    return entry.name.endsWith('.ts') || entry.name.endsWith('.tsx')
-      ? [path]
-      : [];
-  });
-}
+const sourceModules = import.meta.glob('./**/*.{ts,tsx}', {
+  eager: true,
+  import: 'default',
+  query: '?raw',
+}) as Record<string, string>;
 
 describe('typed runtime data boundary', () => {
   it('preserves the reviewed location and membership sets', () => {
@@ -89,7 +77,7 @@ describe('typed runtime data boundary', () => {
       new Set(Object.keys(generatedMap.features)),
     );
     expect(new Set(generatedManifest.inset.featureIds)).toEqual(
-      new Set(Object.keys(generatedInset.features)),
+      new Set(generatedInset.sourceFeatureIds),
     );
     for (const replacement of generatedManifest.geometrySourceReplacements) {
       expect(
@@ -120,14 +108,13 @@ describe('typed runtime data boundary', () => {
   });
 
   it('keeps raw data readers and UI dependencies behind the contract boundary', () => {
-    const readers = sourceFiles(sourceRoot).filter(
-      (path) =>
+    const readers = Object.entries(sourceModules).filter(
+      ([path]) =>
         !path.endsWith('contracts/generatedData.ts') &&
         !path.endsWith('.test.ts') &&
         !path.endsWith('.test.tsx'),
     );
-    const forbiddenRawImports = readers.flatMap((path) => {
-      const source = readFileSync(path, 'utf8');
+    const forbiddenRawImports = readers.flatMap(([path, source]) => {
       return /data\/generated\/(locations|map|inset|manifest)\.json|data\/quizzes\.json/.test(
         source,
       )
@@ -136,9 +123,9 @@ describe('typed runtime data boundary', () => {
     });
     expect(forbiddenRawImports).toEqual([]);
 
-    const contractFiles = sourceFiles(join(sourceRoot, 'contracts'));
-    for (const path of contractFiles) {
-      const source = readFileSync(path, 'utf8');
+    for (const [path, source] of Object.entries(sourceModules).filter(
+      ([path]) => path.startsWith('./contracts/'),
+    )) {
       expect(source).not.toMatch(/from ['"](?:\.\.\/|[^.][^'"/]*)/);
       expect(source).not.toMatch(/from ['"]react/);
     }

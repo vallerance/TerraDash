@@ -5,6 +5,8 @@ import {
   playableLocationsById,
 } from './playableLocation';
 
+export { playableLocations, playableLocationsById } from './playableLocation';
+
 export type QuizMapInput = {
   contextFeatureExclusions?: string[];
   baseLayerLocationIds?: string[];
