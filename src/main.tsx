@@ -7,9 +7,11 @@ import {
   useState,
 } from 'react';
 import { createRoot } from 'react-dom/client';
-import map from '../data/generated/map.json';
-import inset from '../data/generated/inset.json';
-import locations from '../data/generated/locations.json';
+import {
+  generatedInset as inset,
+  generatedLocations as locations,
+  generatedMap as map,
+} from './contracts/generatedData';
 import {
   deriveCalloutModel,
   deriveCalloutLayout,
@@ -33,7 +35,7 @@ import {
   type MapLayer,
 } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
-import { mapLocationForQuizId } from './quizMapBoundary';
+import { mapLocationForQuizId, type RenderLocation } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';
 import { MapBoxShell } from './MapBoxShell';
@@ -720,21 +722,17 @@ export function HighScoresPage() {
   );
 }
 
-export function DiagnosticsMap({
-  location,
-}: {
-  location: (typeof playableLocations)[number];
-}) {
+export function DiagnosticsMap({ location }: { location: RenderLocation }) {
   return <MapView active={location} layer={mapLayerForLocation(location)} />;
 }
 
 export function DiagnosticsPage() {
   const initialId = new URLSearchParams(window.location.search).get('location');
   const initialLocation =
-    playableLocations.find(({ id }) => id === initialId) ??
+    (initialId ? mapLocationForQuizId(initialId) : undefined) ??
     playableLocations[0];
   const [locationId, setLocationId] = useState(initialLocation.id);
-  const location = playableLocations.find(({ id }) => id === locationId)!;
+  const location = mapLocationForQuizId(locationId)!;
   return (
     <main className="diagnostics-page">
       <AppHeader />

@@ -1,5 +1,7 @@
-import map from '../data/generated/map.json';
-import inset from '../data/generated/inset.json';
+import {
+  generatedInset as inset,
+  generatedMap as map,
+} from './contracts/generatedData';
 import {
   hasRenderableArea,
   pathArea,

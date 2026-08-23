@@ -1,13 +1,10 @@
-import locations from '../data/generated/locations.json';
+import {
+  playableLocationForId,
+  type PlayableLocation,
+} from './contracts/playableLocation';
 
-export type RenderLocation = {
-  id: string;
-  name: string;
-  geometryRefs: string[];
-  anchor: number[];
-  bounds: number[];
-};
+export type RenderLocation = PlayableLocation;
 
 export function mapLocationForQuizId(id: string): RenderLocation | undefined {
-  return locations.find((location) => location.id === id);
+  return playableLocationForId(id);
 }
