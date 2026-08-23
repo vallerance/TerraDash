@@ -5,7 +5,11 @@ import {
   type GeneratedLocation,
 } from '../contracts/generatedData';
 import { buildMapRenderModel } from './renderModel';
-import type { MapLayer } from '../quizMapBoundary';
+import {
+  mapLayerForLocation,
+  type MapLayer,
+  type RenderLocation,
+} from '../quizMapBoundary';
 import { MapCanvas } from './MapCanvas';
 
 type Location = GeneratedLocation;
@@ -17,7 +21,7 @@ export function MapView({
   active: Location;
   layer: MapLayer;
 }) {
-  const { viewportWidth, viewportHeight } = useMapViewport();
+  const { width: viewportWidth, height: viewportHeight } = useMapViewport();
   const model = buildMapRenderModel({
     active,
     layer,
@@ -27,4 +31,8 @@ export function MapView({
     viewportHeight,
   });
   return <MapCanvas model={model} />;
+}
+
+export function DiagnosticsMap({ location }: { location: RenderLocation }) {
+  return <MapView active={location} layer={mapLayerForLocation(location)} />;
 }

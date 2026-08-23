@@ -14,21 +14,20 @@ import {
 import { QuizProvider } from './QuizContext';
 import {
   mapLayerForQuiz,
-  mapLayerForLocation,
   playableLocations,
   quizOptions,
   worldQuiz,
 } from './quizContracts';
 import { QuizPlayer } from './QuizPlayer';
-import { mapLocationForQuizId, type RenderLocation } from './quizMapBoundary';
+import { mapLocationForQuizId } from './quizMapBoundary';
 import { getAllHighScores } from './highScores';
 import { HighScoreTable } from './HighScoreTable';
 import { MapBoxShell } from './MapBoxShell';
 import './styles.css';
 
 type Location = (typeof locations)[number];
-import { MapView } from './map/MapView';
-export { MapView } from './map/MapView';
+import { DiagnosticsMap, MapView } from './map/MapView';
+export { DiagnosticsMap, MapView } from './map/MapView';
 
 export function AppFooter({ children }: { children?: ReactNode }) {
   return (
@@ -301,10 +300,6 @@ export function HighScoresPage() {
       </AppFooter>
     </main>
   );
-}
-
-export function DiagnosticsMap({ location }: { location: RenderLocation }) {
-  return <MapView active={location} layer={mapLayerForLocation(location)} />;
 }
 
 export function DiagnosticsPage() {
