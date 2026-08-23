@@ -28,7 +28,7 @@ describe('map render model', () => {
         layer.activePaths,
       );
       expect(model.renderedMapWidth).toBe(generatedMap.width + 200);
-      expect(model.projection.transform).toBeDefined();
+      expect(model.projection.yScale).toBe(1);
     },
   );
 
@@ -50,7 +50,7 @@ describe('map render model', () => {
     expect(model.insetSourcePathCopies.length).toBe(
       generatedInset.sourceFeatureIds.length,
     );
-    expect(model.insetContextPathCopies).toEqual([]);
+    expect(model.insetContextPathCopies.length).toBe(layer.baseLayers.length);
     expect(model.callout).toBeDefined();
     expect(model.positionedCallout).toBeDefined();
   });
