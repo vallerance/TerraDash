@@ -216,6 +216,7 @@ describe('QuizPlayer integration', () => {
   it('removes the installed global when no prior namespace exists', () => {
     delete window.terraDash;
     const container = renderPlayer();
+    act(() => (container.querySelector('button') as HTMLButtonElement).click());
     const namespace = (
       window as Window & { terraDash?: { completeQuiz?: unknown } }
     ).terraDash;
