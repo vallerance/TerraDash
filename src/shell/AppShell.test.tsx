@@ -99,6 +99,7 @@ describe('AppShell selection and route handoff', () => {
     const trigger = host.querySelector(
       '[data-quiz-trigger]',
     ) as HTMLButtonElement;
+    trigger.focus();
     await act(async () => trigger.click());
     expect(document.querySelector('[role="dialog"]')).toBeTruthy();
     await act(async () =>
@@ -109,6 +110,7 @@ describe('AppShell selection and route handoff', () => {
     expect(document.querySelector('[role="dialog"]')).toBeNull();
     expect(document.activeElement).toBe(trigger);
 
+    trigger.focus();
     await act(async () => trigger.click());
     await act(async () =>
       window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })),
@@ -116,6 +118,7 @@ describe('AppShell selection and route handoff', () => {
     expect(document.querySelector('[role="dialog"]')).toBeNull();
     expect(document.activeElement).toBe(trigger);
 
+    trigger.focus();
     await act(async () => trigger.click());
     const backdrop = document.querySelector(
       '.quiz-dialog-backdrop',
@@ -125,6 +128,7 @@ describe('AppShell selection and route handoff', () => {
     );
     expect(document.querySelector('[role="dialog"]')).toBeNull();
 
+    trigger.focus();
     await act(async () => trigger.click());
     await act(async () =>
       (document.querySelector('.primary-action') as HTMLButtonElement).click(),
