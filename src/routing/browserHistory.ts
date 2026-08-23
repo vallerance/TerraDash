@@ -8,6 +8,8 @@ export type HistorySurface = {
   assign: (href: string) => void;
 };
 
+export type NavigationOptions = { replace?: boolean };
+
 export function currentRoute(
   surface: Pick<HistorySurface, 'location'>,
 ): string {
@@ -20,14 +22,14 @@ export function createBrowserHistory(surface: HistorySurface) {
     surface.addEventListener('popstate', update);
     return () => surface.removeEventListener('popstate', update);
   };
-  const navigate = (href: string) => {
+  const navigate = (href: string, options: NavigationOptions = {}) => {
     const next = new URL(href, surface.location.href);
     if (next.origin !== surface.location.origin) {
       surface.assign(next.href);
       return;
     }
     const nextRoute = `${next.pathname}${next.search}${next.hash}`;
-    if (nextRoute === currentRoute(surface)) {
+    if (options.replace || nextRoute === currentRoute(surface)) {
       surface.history.replaceState({}, '', nextRoute);
     } else {
       surface.history.pushState({}, '', nextRoute);

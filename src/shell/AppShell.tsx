@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import type { QuizOption } from '../quizContracts';
 import { parseRoute, type AppRoute } from '../routing/routes';
 import { useBrowserRoute } from '../routing/useBrowserRoute';
@@ -35,6 +35,7 @@ function QuizShell({
   const [pendingQuizId, setPendingQuizId] = useState<string | undefined>(
     route.select ? route.quizId : undefined,
   );
+  const autoStartConsumed = useRef(false);
   const pendingQuiz = quizOptions.find((quiz) => quiz.id === pendingQuizId);
   const commitQuiz = (quizId: string) =>
     navigation.navigate(
@@ -46,9 +47,11 @@ function QuizShell({
       {renderQuiz({
         quizId: selectedQuiz.id,
         providerKey: route.quizId,
-        autoStart: route.start,
+        autoStart: route.start && !autoStartConsumed.current,
         pendingQuiz,
-        onAutoStartHandled: () => undefined,
+        onAutoStartHandled: () => {
+          autoStartConsumed.current = true;
+        },
         onSelectQuizOption: (quiz) => setPendingQuizId(quiz.id),
         onCloseQuizDialog: () => setPendingQuizId(undefined),
         onStartSelectedQuiz: commitQuiz,

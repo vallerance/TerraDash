@@ -19,6 +19,7 @@ export function RouterApp() {
           onLocationChange={(locationId) =>
             navigate(
               `${route.pathname}?location=${encodeURIComponent(locationId)}${route.hash}`,
+              { replace: true },
             )
           }
         />

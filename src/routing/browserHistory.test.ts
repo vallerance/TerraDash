@@ -42,6 +42,14 @@ describe('browser history adapter', () => {
       '',
       '/TerraDash/?quiz=world',
     );
+    adapter.navigate('https://example.test/TerraDash/?quiz=asia', {
+      replace: true,
+    });
+    expect(history.replaceState).toHaveBeenCalledWith(
+      {},
+      '',
+      '/TerraDash/?quiz=asia',
+    );
   });
 
   it('rejects cross-origin navigation through the injected assign seam', () => {
