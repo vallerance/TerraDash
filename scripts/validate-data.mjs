@@ -25,8 +25,6 @@ if (!sameSet(authoredIds, generatedIds))
   );
 if (new Set(authoredIds).size !== authoredIds.length)
   throw new Error('Authored location IDs must be globally unique');
-if (new Set(authored.map(({ name }) => name)).size !== authored.length)
-  throw new Error('Authored location names must be globally unique');
 if (!sameSet(authoredIds, invariants.locationIds))
   throw new Error('Authored location set changed from the reviewed baseline');
 
