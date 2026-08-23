@@ -227,9 +227,12 @@ test('selects and starts the non-UN quiz', async ({ page }) => {
   const dialog = page.getByRole('dialog', { name: title });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText('89 locations')).toBeVisible();
-  await expect(dialog.locator('p')).toHaveText(
-    "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
-  );
+  await expect(
+    dialog.getByText(
+      "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
+      { exact: true },
+    ),
+  ).toBeVisible();
   await page.goto('/TerraDash/?quiz=non-un&start=1');
   await expect(page.locator('.active-player .quiz-name')).toHaveText(title);
 });
