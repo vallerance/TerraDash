@@ -1,5 +1,6 @@
 import { useRef, useState, type ReactNode } from 'react';
 import type { QuizOption } from '../quizContracts';
+import type { NavigationOptions } from '../routing/browserHistory';
 import { parseRoute, type AppRoute } from '../routing/routes';
 import { useBrowserRoute } from '../routing/useBrowserRoute';
 import { AppDisclaimer, AppFooter, AppHeader } from './AppChrome';
@@ -19,7 +20,10 @@ type PageRenderers = {
     onStartSelectedQuiz: (quizId: string) => void;
   }) => ReactNode;
   highScores: ReactNode;
-  diagnostics: (route: AppRoute, navigate: (href: string) => void) => ReactNode;
+  diagnostics: (
+    route: AppRoute,
+    navigate: (href: string, options?: NavigationOptions) => void,
+  ) => ReactNode;
 };
 
 function QuizShell({
