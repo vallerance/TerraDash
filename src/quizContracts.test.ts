@@ -14,7 +14,7 @@ import {
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
     expect(defaultCatalog).toHaveLength(195);
-    expect(playableLocations).toHaveLength(327);
+    expect(playableLocations).toHaveLength(336);
     expect(defaultQuiz.locationIds).toHaveLength(195);
     expect(new Set(defaultQuiz.locationIds).size).toBe(195);
     expect(
