@@ -12,7 +12,6 @@ export function MapCanvas({ model }: { model: RenderModel }) {
     projection,
     renderedMapStart,
     renderedMapWidth,
-    insetSelectedPaths,
     callout,
     positionedCallout,
     cutoutLayout,
@@ -24,9 +23,12 @@ export function MapCanvas({ model }: { model: RenderModel }) {
     insetDotCenter,
     leaderLines,
     activePathCopies,
-    wrappedPathCopies,
-    wrappedInsetPathCopies,
-    insetGeometryPaths,
+    contextPathCopies,
+    baseLayerPathCopies,
+    insetContextPathCopies,
+    insetSelectedPathCopies,
+    insetSourcePathCopies,
+    clipId,
   } = model;
   return (
     <svg
@@ -47,44 +49,36 @@ export function MapCanvas({ model }: { model: RenderModel }) {
       />
       <g className="map-projection" transform={projection.transform}>
         <g className="countries">
-          {layer.contextFeatureIds.map((id) => {
-            const feature = map.features[id as keyof typeof map.features];
-            const copies = wrappedPathCopies(feature.paths);
-            return (
-              <g
-                key={id}
-                data-feature-id={id}
-                aria-hidden="true"
-                className={
-                  active.geometryRefs.includes(id)
-                    ? 'country active'
-                    : 'country'
-                }
-              >
-                {copies.map(({ path, transform }, index) => (
+          {contextPathCopies.map(({ id, paths }) => (
+            <g
+              key={id}
+              data-feature-id={id}
+              aria-hidden="true"
+              className={
+                active.geometryRefs.includes(id) ? 'country active' : 'country'
+              }
+            >
+              {paths.map(({ path, transform }, index) => (
+                <path
+                  key={`${transform}:${index}`}
+                  d={path}
+                  transform={`translate(${transform} 0)`}
+                />
+              ))}
+            </g>
+          ))}
+        </g>
+        {layer.baseLayers.length > 0 && (
+          <g className="map-base-layers" aria-hidden="true">
+            {baseLayerPathCopies.map((baseLayer) => (
+              <g key={baseLayer.id} data-layer-id={baseLayer.id}>
+                {baseLayer.paths.map(({ path, transform }, index) => (
                   <path
-                    key={`${transform}:${index}`}
+                    key={`${baseLayer.id}:${transform}:${index}`}
                     d={path}
                     transform={`translate(${transform} 0)`}
                   />
                 ))}
-              </g>
-            );
-          })}
-        </g>
-        {layer.baseLayers.length > 0 && (
-          <g className="map-base-layers" aria-hidden="true">
-            {layer.baseLayers.map((baseLayer) => (
-              <g key={baseLayer.id} data-layer-id={baseLayer.id}>
-                {wrappedPathCopies(baseLayer.paths).map(
-                  ({ path, transform }, index) => (
-                    <path
-                      key={`${baseLayer.id}:${transform}:${index}`}
-                      d={path}
-                      transform={`translate(${transform} 0)`}
-                    />
-                  ),
-                )}
               </g>
             ))}
           </g>
@@ -116,8 +110,6 @@ export function MapCanvas({ model }: { model: RenderModel }) {
         </g>
       </g>
       <MapCallout
-        active={active}
-        layer={layer}
         inset={inset}
         callout={callout}
         positionedCallout={positionedCallout}
@@ -129,10 +121,12 @@ export function MapCanvas({ model }: { model: RenderModel }) {
         insetDot={insetDot}
         insetDotCenter={insetDotCenter}
         leaderLines={leaderLines}
-        insetSelectedPaths={insetSelectedPaths}
-        wrappedInsetPathCopies={wrappedInsetPathCopies}
+        insetContextPathCopies={insetContextPathCopies}
+        insetSelectedPathCopies={insetSelectedPathCopies}
+        insetSourcePathCopies={insetSourcePathCopies}
+        projection={projection}
+        clipId={clipId}
       />
     </svg>
- 
   );
 }

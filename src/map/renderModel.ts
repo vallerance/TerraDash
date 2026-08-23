@@ -140,7 +140,10 @@ export function buildMapRenderModel({
   const insetRenderedScale = cutoutLayout
     ? (cutoutRadius * scale) / cutoutLayout.sourceRadius
     : 0;
-  const insetDot = tinyInsetDot(projectedInsetSelectedPaths, insetRenderedScale);
+  const insetDot = tinyInsetDot(
+    projectedInsetSelectedPaths,
+    insetRenderedScale,
+  );
   const insetDotCenter = insetDot
     ? wrappedPointPositions(
         insetDot.center,
@@ -176,6 +179,16 @@ export function buildMapRenderModel({
   const activePathCopies = layer.wrapActive
     ? wrappedPathCopies(highlightedPaths)
     : highlightedPaths.map((path) => ({ path, transform: 0 }));
+  const contextPathCopies = layer.contextFeatureIds.map((id) => ({
+    id,
+    paths: wrappedPathCopies(
+      map.features[id as keyof typeof map.features].paths,
+    ),
+  }));
+  const baseLayerPathCopies = layer.baseLayers.map((baseLayer) => ({
+    id: baseLayer.id,
+    paths: wrappedPathCopies(baseLayer.paths),
+  }));
   const wrappedInsetPathCopies = (paths: string[]) =>
     paths.flatMap((path) =>
       wrappedPathOffsets(
@@ -186,6 +199,27 @@ export function buildMapRenderModel({
         viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
       ).map((transform) => ({ path, transform })),
     );
+  const insetContextPathCopies = layer.baseLayers.map((baseLayer) => ({
+    id: baseLayer.id,
+    paths: wrappedInsetPathCopies(insetGeometryPaths(baseLayer.id)),
+  }));
+  const insetSourcePathCopies = inset.sourceFeatureIds.map((id) => ({
+    id,
+    paths: wrappedInsetPathCopies(
+      inset.features[id as keyof typeof inset.features].paths,
+    ),
+  }));
+  const insetSelectedPathCopies = insetSelectedPaths.flatMap(
+    ({ path, kind }, pathIndex) =>
+      wrappedInsetPathCopies([path]).map(
+        ({ path: wrappedPath, transform }, index) => ({
+          path: wrappedPath,
+          transform,
+          kind,
+          key: `${pathIndex}:${kind}:${transform}:${index}`,
+        }),
+      ),
+  );
   return {
     active,
     layer,
@@ -210,8 +244,14 @@ export function buildMapRenderModel({
     insetDotCenter,
     leaderLines,
     activePathCopies,
+    contextPathCopies,
+    baseLayerPathCopies,
+    clipId: `map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')}`,
     wrappedPathCopies,
     wrappedInsetPathCopies,
     insetGeometryPaths,
+    insetContextPathCopies,
+    insetSelectedPathCopies,
+    insetSourcePathCopies,
   };
 }
