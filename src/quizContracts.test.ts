@@ -170,30 +170,36 @@ describe('regional quiz partition', () => {
     expect(regionalIds.every((id) => worldIds.has(id))).toBe(true);
   });
 
-  it('defines 82 candidates with nonempty supplemental exact geometry refs', () => {
-    expect(candidateData).toHaveLength(82);
+  it('defines 91 candidates and preserves the overlap exclusions', () => {
+    expect(candidateData).toHaveLength(91);
     expect(
       candidateData.every(
         ({ geometryRefs }) =>
           geometryRefs.length > 0 &&
-          geometryRefs.every((ref) =>
-            /^(ne:admin1|ne:map-unit|ne:map-subunit|gb:aze-adm1):/.test(ref),
+          geometryRefs.every(
+            (ref) =>
+              /^(ne:admin1|ne:map-unit|ne:map-subunit|gb:aze-adm1|ne:disputed):/.test(
+                ref,
+              ) || ref.startsWith('ne:'),
           ),
       ),
     ).toBe(true);
     expect(playableLocations.some(({ id }) => id === 'non-un:trentino')).toBe(
-      false,
+      true,
     );
     expect(
       playableLocations.some(({ id }) => id === 'non-un:bolzano-south-tyrol'),
-    ).toBe(false);
+    ).toBe(true);
     const nonUnQuiz = quizOptions.find(({ id }) => id === 'non-un');
     expect(nonUnQuiz?.name).toBe(
       'Non-UN Countries, Independent Territories, and Autonomous Regions',
     );
     expect(nonUnQuiz?.description).toBe(
-      'Countries and regions listed in ISO 3166-1, UN M49, the List of Economies published by the World Bank Group, or under select categories in ISO 3166-2.',
+      "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
     );
+    expect(nonUnQuiz?.locationIds).toHaveLength(89);
+    expect(nonUnQuiz?.locationIds).not.toContain('non-un:trentino');
+    expect(nonUnQuiz?.locationIds).not.toContain('non-un:bolzano-south-tyrol');
     expect(
       [
         'non-un:andalusia',

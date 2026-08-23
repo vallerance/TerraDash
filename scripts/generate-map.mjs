@@ -22,6 +22,12 @@ const SUPPLEMENTAL_SOURCES = [
     sha256: '22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5',
   },
   {
+    id: 'disputed',
+    path: 'data/source/ne_10m_admin_0_disputed_areas.geojson',
+    url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_disputed_areas.geojson',
+    sha256: '9cafef8b7dfb6b164dc58f218f981f4ace9f716f6c03795d4c62d1ac9f3d50f5',
+  },
+  {
     id: 'map-unit',
     path: 'data/source/ne_10m_admin_0_map_units.geojson',
     url: 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_map_units.geojson',
@@ -444,6 +450,8 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
         p.shapeISO,
         p.shapeGroup,
         p.shapeType,
+        p.BRK_A3,
+        p.BRK_NAME,
       ].filter(Boolean),
       labels: [
         p.iso_3166_2,
@@ -454,6 +462,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
         p.NAME_LONG,
         p.SUBUNIT,
         p.shapeName,
+        p.BRK_NAME,
       ]
         .filter(Boolean)
         .flatMap((value) => String(value).split(/[|;]/)),
@@ -564,6 +573,14 @@ const NON_UN_COMPONENTS = {
 };
 const NON_UN_EXACT_REFS = {
   Kosovo: ['ne:map-unit:1159321007', 'ne:map-subunit:1159321007'],
+  Abkhazia: ['ne:disputed:1159320785'],
+  'South Ossetia': ['ne:disputed:1159320787'],
+  Transnistria: ['ne:disputed:1159321047'],
+  "Luhansk People's Republic": ['ne:disputed:1763286547'],
+  "Donetsk People's Republic": ['ne:disputed:1763286545'],
+  'North Borneo': ['ne:disputed:1763510959'],
+  Somaliland: ['ne:1159321259'],
+  'Northern Cyprus': ['ne:1159320531'],
 };
 const NON_UN_LABEL_ALIASES = {
   'Valle d’Aosta': ['Aosta Valley', 'Val d’Aoste', 'Aoste'],
@@ -578,7 +595,7 @@ for (const feature of supplementalFeatures)
 function candidateMatches(candidate) {
   const exactRefs = NON_UN_EXACT_REFS[candidate.entity];
   if (exactRefs)
-    return supplementalFeatures.filter((feature) =>
+    return [...features, ...supplementalFeatures].filter((feature) =>
       exactRefs.includes(feature.id),
     );
   const componentKeys = NON_UN_COMPONENTS[candidate.entity];
@@ -674,7 +691,9 @@ if (
           !ref.startsWith('ne:admin1:') &&
           !ref.startsWith('ne:map-unit:') &&
           !ref.startsWith('ne:map-subunit:') &&
-          !ref.startsWith('gb:aze-adm1:'),
+          !ref.startsWith('gb:aze-adm1:') &&
+          !ref.startsWith('ne:disputed:') &&
+          !features.some((feature) => feature.id === ref),
       ),
   )
 )
@@ -701,10 +720,10 @@ const mainFeatureIds = new Set(
   ),
 );
 if (
-  playableLocations.length !== 277 ||
+  playableLocations.length !== 286 ||
   new Set(playableLocationIds).size !== playableLocations.length
 )
-  throw new Error('Playable catalog must contain exactly 277 unique locations');
+  throw new Error('Playable catalog must contain exactly 286 unique locations');
 const playableLocationFeatureIds = Object.fromEntries(
   playableLocations.map((location) => [location.id, location.geometryRefs]),
 );

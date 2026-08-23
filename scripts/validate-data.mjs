@@ -136,10 +136,10 @@ for (const item of catalog) {
   if (!item.bounds || item.bounds.some((value) => !Number.isFinite(value)))
     throw new Error(`Missing projected bounds for ${item.id}`);
 }
-if (candidates.length !== 82)
-  throw new Error('Expected exactly 82 non-UN candidates');
-if (playable.length !== 277 || playableIds.size !== 277)
-  throw new Error('Expected exactly 277 unique playable locations');
+if (candidates.length !== 91)
+  throw new Error('Expected exactly 91 generated non-UN candidates');
+if (playable.length !== 286 || playableIds.size !== 286)
+  throw new Error('Expected exactly 286 unique playable locations');
 if ([...removedCandidateIds].some((id) => playableIds.has(id)))
   throw new Error('Removed Spanish candidates remain playable');
 for (const candidate of candidates) {
@@ -148,8 +148,8 @@ for (const candidate of candidates) {
     candidate.geometryRefs.some(
       (id) =>
         !map.features[id] ||
-        !map.supplementalFeatureIds.includes(id) ||
-        !/^(ne:admin1|ne:map-unit|ne:map-subunit|gb:aze-adm1):/.test(id),
+        (!map.supplementalFeatureIds.includes(id) &&
+          !map.sourceFeatureIds.includes(id)),
     )
   )
     throw new Error(
@@ -269,3 +269,11 @@ for (const fixture of ['iso:FRA', 'iso:USA', 'iso:FJI', 'iso:PSE', 'iso:VAT']) {
 console.log(
   `Data validation passed: ${catalog.length} quiz locations, ${source.features.length} base features, ${insetRingCount} inset rings (source-invalid: ${sourceInvalidRingCount}, generator-induced: ${generatorInducedDegenerateCount}).`,
 );
+const nonUnQuiz = quizzes.find(({ id }) => id === 'non-un');
+if (nonUnQuiz?.locationIds.length !== 89)
+  throw new Error(
+    'Expected 89 final Non-UN quiz members after preserved overrides',
+  );
+for (const excluded of ['non-un:trentino', 'non-un:bolzano-south-tyrol'])
+  if (nonUnQuiz.locationIds.includes(excluded))
+    throw new Error(`Preserved overlap override was removed: ${excluded}`);

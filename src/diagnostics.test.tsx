@@ -38,6 +38,6 @@ describe('DiagnosticsMap consumer contract', () => {
   it('keeps diagnostics coverage aligned with every playable location', () => {
     expect(playableLocations).toHaveLength(327);
     expect(new Set(playableLocations.map(({ id }) => id)).size).toBe(327);
-    expect(candidates).toHaveLength(82);
+    expect(candidates).toHaveLength(91);
   });
 });
