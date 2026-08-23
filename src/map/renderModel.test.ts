@@ -51,7 +51,6 @@ describe('map render model', () => {
       generatedInset.sourceFeatureIds.length,
     );
     expect(model.insetContextPathCopies.length).toBe(layer.baseLayers.length);
-    expect(model.callout).toBeDefined();
-    expect(model.positionedCallout).toBeDefined();
+    expect(model.projectedInsetSelectedPaths.length).toBeGreaterThan(0);
   });
 });
