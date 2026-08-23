@@ -22,13 +22,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: issue-84-generated-data-${{ github.sha }}
-          path: data/generated/
-      - name: Upload issue-86 generated data provenance
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue-86-generated-data-${{ github.sha }}
+          name: terradash-generated-data-${{ github.sha }}
           path: data/generated/
 
   build:
@@ -60,11 +54,11 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm run browser:test
-      - name: Upload browser visual evidence
+      - name: Upload TerraDash browser evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: issue-84-browser-evidence
+          name: terradash-browser-evidence-${{ github.sha }}
           path: |
             test-results/
             playwright-report/
