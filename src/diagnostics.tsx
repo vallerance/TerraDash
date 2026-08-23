@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { DiagnosticsMap, RouterApp } from './main';
+import { RouterApp } from './main';
+import { DiagnosticsMap } from './map/MapView';
 import './styles.css';
 
 export { DiagnosticsMap };
