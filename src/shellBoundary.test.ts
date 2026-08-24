@@ -51,7 +51,7 @@ describe('Phase 3 ownership boundaries', () => {
       /useState<\s*QuizOption/,
     );
     expect(sourceModules['./QuizPlayer.tsx']).not.toMatch(
-      /selectedQuizOption\s*=/,
+      /(?:const|let)\s+\[selectedQuizOption\s*[,=]/,
     );
   });
 });

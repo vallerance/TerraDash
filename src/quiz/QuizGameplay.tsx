@@ -513,3 +513,26 @@ export function QuizGameplay({
     </section>
   );
 }
+
+export function QuizGameplayConsole() {
+  useEffect(() => {
+    const previousObject = window.terraDash;
+    const consoleObject = previousObject ?? {};
+    const previousCommand = consoleObject.completeQuiz;
+    const inertCommand = () => 'ignored' as const;
+    consoleObject.completeQuiz = inertCommand;
+    window.terraDash = consoleObject;
+    return () => {
+      if (window.terraDash !== consoleObject) return;
+      if (consoleObject.completeQuiz !== inertCommand) return;
+      if (previousCommand === undefined) delete consoleObject.completeQuiz;
+      else consoleObject.completeQuiz = previousCommand;
+      if (
+        previousObject === undefined &&
+        Object.keys(consoleObject).length === 0
+      )
+        delete window.terraDash;
+    };
+  }, []);
+  return null;
+}

@@ -2,7 +2,7 @@ import { useEffect, type ReactNode } from 'react';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
 import type { QuizOption } from './quizContracts';
-import { QuizGameplay } from './quiz/QuizGameplay';
+import { QuizGameplay, QuizGameplayConsole } from './quiz/QuizGameplay';
 import { QuizHome } from './quiz/QuizHome';
 import { QuizResults } from './quiz/QuizResults';
 
@@ -66,7 +66,12 @@ export function QuizPlayer({
   }
 
   if (state.phase === 'completed') {
-    return <QuizResults quizId={quizId} quizName={quizName} />;
+    return (
+      <>
+        <QuizGameplayConsole />
+        <QuizResults quizId={quizId} quizName={quizName} />
+      </>
+    );
   }
 
   return (

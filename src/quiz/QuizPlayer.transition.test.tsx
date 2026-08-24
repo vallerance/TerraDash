@@ -61,7 +61,7 @@ describe('QuizPlayer phase transitions', () => {
     await act(async () => window.terraDash?.completeQuiz?.());
     expect(host.querySelector('.quiz-results')).toBeTruthy();
     expect(host.querySelector('.high-score-panel')).toBeTruthy();
-    expect(window.terraDash).toBeUndefined();
+    expect(window.terraDash?.completeQuiz?.()).toBe('ignored');
 
     await act(async () =>
       (
