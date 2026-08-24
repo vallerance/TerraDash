@@ -844,7 +844,7 @@ describe('QuizPlayer integration', () => {
 
   it('keeps invalid text attempt-free and completes a two-target wrong-then-correct run', async () => {
     window.localStorage.removeItem(HIGH_SCORES_STORAGE_KEY);
-    recordHighScore('single', 5000, 1000, 1, 0.5);
+    recordHighScore('fixture', 5000, 1000, 1, 0.5);
     const oneLocationQuiz = {
       id: 'single',
       locationIds: catalog.map(({ id }) => id),
