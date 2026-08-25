@@ -56,7 +56,12 @@ main.standalone-page {
   overflow: visible;
 }
 main.app-shell:has(.active-player) {
+  /* Keep active gameplay sized to the largest viewport. Mobile keyboards
+     resize the visual/dynamic viewport; the map composition must not jump. */
   height: 100dvh;
+  height: 100lvh;
+  min-height: 100dvh;
+  min-height: 100lvh;
   overflow: hidden;
 }
 .app-header {
