@@ -714,9 +714,9 @@
         "CA-QC",
         "CA-SK"
       ],
-      "viewBox": "145 35 410 180",
+      "viewBox": "145 20 410 180",
       "preserveAspectRatio": "xMidYMid meet",
-      "standardParallel": 60,
+      "standardParallel": 0,
       "wrapWidth": 1440,
       "seamLongitude": 0,
       "wrapActive": true,

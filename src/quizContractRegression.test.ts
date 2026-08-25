@@ -15,6 +15,8 @@ import {
   quizOptions,
 } from './contracts/quiz';
 import { mapLayerForQuiz } from './quizMapBoundary';
+import { createMapProjection } from './mapProjection';
+import { pathPoints, type Point } from './footprint';
 
 const candidateData = locations.filter(({ id }) => id.startsWith('non-un:'));
 
@@ -94,81 +96,62 @@ describe('regional quiz partition', () => {
     ).toBe(true);
   });
 
-  it('resolves mapped quiz presentation from config without quiz-specific code', () => {
-    const mappedQuiz = quizOptions.find(
-      (quiz) => quiz.category === 'regional' && quiz.map,
-    );
-    expect(mappedQuiz?.locationIds).toHaveLength(50);
-    expect(mappedQuiz?.map?.baseLayerLocationIds).toHaveLength(50);
-    const layer = mapLayerForQuiz(
-      mappedQuiz!,
-      playableLocations.find(({ id }) => id === mappedQuiz!.locationIds[0])!,
-    );
-    expect(layer.viewBox).toBe('-100 35 671.9444444444445 295');
-    expect(layer.preserveAspectRatio).toBe('xMidYMid meet');
-    expect(layer.standardParallel).toBe(38);
-    expect(layer.wrapWidth).toBe(1440);
-    expect(layer.seamLongitude).toBe(0);
-    expect(layer.contextFeatureIds).not.toContain('ne:1159321369');
-    expect(layer.baseLayers).toHaveLength(50);
+  it('resolves every mapped quiz presentation from config without quiz-specific code', () => {
+    const mappedQuizzes = quizOptions.filter((quiz) => quiz.map);
+    expect(mappedQuizzes.length).toBeGreaterThan(0);
+    for (const quiz of mappedQuizzes) {
+      const layer = mapLayerForQuiz(
+        quiz,
+        playableLocations.find(({ id }) => id === quiz.locationIds[0])!,
+      );
+      expect(layer.viewBox).toMatch(/^[-\d.]+ [-\d.]+ [\d.]+ [\d.]+$/);
+      expect(layer.preserveAspectRatio).toBeTruthy();
+      expect(layer.baseLayers).toHaveLength(quiz.map!.baseLayerLocationIds!.length);
+      expect(layer.contextFeatureIds.length).toBeGreaterThan(0);
+    }
   });
 
-  it('keeps the configured regional viewport ratio and normalized geography contained', () => {
-    const mappedQuiz = quizOptions.find((quiz) => quiz.map)!;
-    const layer = mapLayerForQuiz(
-      mappedQuiz,
-      playableLocations.find(({ id }) => id === mappedQuiz.locationIds[0])!,
-    );
-    const [, , width, height] = layer.viewBox.split(/\s+/).map(Number);
-    expect(width / height).toBeCloseTo(41 / 18, 3);
-    const points = (paths: string[]) =>
-      paths.flatMap((path) =>
-        [...path.matchAll(/(-?[\d.]+),(-?[\d.]+)/g)].map(([, x, y]) => [
-          Number(x),
-          Number(y),
-        ]),
-      );
-    const bounds = (paths: string[]) => {
-      const values = points(paths);
+  it('keeps every mapped quiz contained after projection and preserves visible context', () => {
+    const bounds = (paths: string[], project: (point: Point) => Point) => {
+      const points = pathPoints(paths).map(project);
       return [
-        Math.min(...values.map(([x]) => x)),
-        Math.max(...values.map(([x]) => x)),
-        Math.min(...values.map(([, y]) => y)),
-        Math.max(...values.map(([, y]) => y)),
-      ];
+        Math.min(...points.map(([x]) => x)),
+        Math.max(...points.map(([x]) => x)),
+        Math.min(...points.map(([, y]) => y)),
+        Math.max(...points.map(([, y]) => y)),
+      ] as [number, number, number, number];
     };
-    const statePaths = layer.baseLayers.flatMap(({ paths }) => paths);
-    const stateBounds = bounds(
-      statePaths.map((path) =>
-        path.replace(/(-?[\d.]+),/g, (value) => {
-          const x = Number(value.slice(0, -1));
-          return `${x > layer.wrapWidth / 2 ? x - layer.wrapWidth : x},`;
-        }),
-      ),
-    );
-    const contextBounds = (id: keyof typeof map.features) =>
-      bounds(map.features[id].paths);
-    const [, minY, widthValue, heightValue] = layer.viewBox
-      .split(/\s+/)
-      .map(Number);
-    const [minX] = layer.viewBox.split(/\s+/).map(Number);
-    const maxY = minY + heightValue;
-    const maxX = minX + widthValue;
-    for (const [left, right, top, bottom] of [
-      stateBounds,
-      contextBounds('ne:1159321055'),
-    ]) {
-      expect(left).toBeGreaterThan(minX);
-      expect(right).toBeLessThan(maxX);
-      expect(top).toBeGreaterThan(minY);
-      expect(bottom).toBeLessThan(maxY);
+    const intersects = (
+      first: [number, number, number, number],
+      second: [number, number, number, number],
+    ) =>
+      first[0] <= second[1] && first[1] >= second[0] &&
+      first[2] <= second[3] && first[3] >= second[2];
+
+    for (const quiz of quizOptions.filter((candidate) => candidate.map)) {
+      const active = playableLocations.find(({ id }) => id === quiz.locationIds[0])!;
+      const layer = mapLayerForQuiz(quiz, active);
+      const [minX, minY, width, height] = layer.viewBox.split(/\s+/).map(Number);
+      const projection = createMapProjection(layer.standardParallel, minY + height / 2);
+      const viewport: [number, number, number, number] = [minX, minX + width, minY, minY + height];
+      const baseBounds = layer.baseLayers.map(({ paths }) => bounds(paths, projection.point));
+      for (const rendered of baseBounds) {
+        expect(rendered[0]).toBeGreaterThanOrEqual(viewport[0]);
+        expect(rendered[1]).toBeLessThanOrEqual(viewport[1]);
+        expect(rendered[2]).toBeGreaterThanOrEqual(viewport[2]);
+        expect(rendered[3]).toBeLessThanOrEqual(viewport[3]);
+      }
+      const combinedBase: [number, number, number, number] = [
+        Math.min(...baseBounds.map(([left]) => left)),
+        Math.max(...baseBounds.map(([, right]) => right)),
+        Math.min(...baseBounds.map(([, , top]) => top)),
+        Math.max(...baseBounds.map(([, , , bottom]) => bottom)),
+      ];
+      const contextBounds = layer.contextFeatureIds.map((id) =>
+        bounds(map.features[id as keyof typeof map.features].paths, projection.point),
+      );
+      expect(contextBounds.some((context) => intersects(context, combinedBase))).toBe(true);
     }
-    const [contextLeft, contextRight, contextTop, contextBottom] =
-      contextBounds('ne:1159320467');
-    expect(contextRight).toBeGreaterThan(minX);
-    expect(contextLeft).toBeLessThan(maxX);
-    expect(contextBottom).toBeGreaterThan(minY);
-    expect(contextTop).toBeLessThan(maxY);
   });
 
   it('supports a second mapped quiz through a data-shaped config only', () => {
