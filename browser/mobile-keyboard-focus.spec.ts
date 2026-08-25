@@ -7,7 +7,10 @@ for (const fixture of [
   test(`active quiz focus and layout remain stable at ${fixture.name}`, async ({
     page,
   }, testInfo) => {
-    await page.setViewportSize({ width: fixture.width, height: fixture.height });
+    await page.setViewportSize({
+      width: fixture.width,
+      height: fixture.height,
+    });
     await page.goto('/TerraDash/?quiz=world&start=1');
 
     const input = page.getByRole('combobox', { name: 'Location name' });
