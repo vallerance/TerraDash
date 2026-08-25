@@ -672,6 +672,502 @@
     "bounds": [280, 120, 314.54, 164.03]
   },
   {
+    "id": "CN-AH",
+    "name": "Anhui",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-AH"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310971"],
+    "anchor": [1179.55, 221.44],
+    "bounds": [1179.5, 221.44, 1198.52, 242.37]
+  },
+  {
+    "id": "CN-BJ",
+    "name": "Beijing",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-BJ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310969"],
+    "anchor": [1181.7, 195.81],
+    "bounds": [1181.7, 195.81, 1189.94, 202.23]
+  },
+  {
+    "id": "CN-CQ",
+    "name": "Chongqing",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-CQ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310931"],
+    "anchor": [1141.17, 231.26],
+    "bounds": [1141.16, 231.21, 1160.7, 247.23]
+  },
+  {
+    "id": "CN-FJ",
+    "name": "Fujian",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-FJ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159315795"],
+    "anchor": [1183.42, 246.7],
+    "bounds": [1183.37, 246.7, 1201.72, 265.7]
+  },
+  {
+    "id": "CN-GD",
+    "name": "Guangdong",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-GD"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310335"],
+    "anchor": [1158.64, 257.98],
+    "bounds": [1158.64, 257.94, 1188.7, 279.04]
+  },
+  {
+    "id": "CN-GS",
+    "name": "Gansu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-GS"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310923"],
+    "anchor": [1091.06, 188.85],
+    "bounds": [1091.06, 188.85, 1154.8, 229.62]
+  },
+  {
+    "id": "CN-GX",
+    "name": "Guangxi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-GX"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310341"],
+    "anchor": [1138.15, 254.44],
+    "bounds": [1137.93, 254.44, 1168.2, 275.92]
+  },
+  {
+    "id": "CN-GZ",
+    "name": "Guizhou",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-GZ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310929"],
+    "anchor": [1134.41, 243.02],
+    "bounds": [1134.41, 243.02, 1158.06, 261.47]
+  },
+  {
+    "id": "CN-HA",
+    "name": "Henan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HA"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312749"],
+    "anchor": [1161.32, 214.54],
+    "bounds": [1161.32, 214.54, 1186.56, 234.39]
+  },
+  {
+    "id": "CN-HB",
+    "name": "Hubei",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HB"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312741"],
+    "anchor": [1153.7, 226.93],
+    "bounds": [1153.54, 226.93, 1184.59, 243.73]
+  },
+  {
+    "id": "CN-HE",
+    "name": "Hebei",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HE"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312747"],
+    "anchor": [1173.75, 189.56],
+    "bounds": [1173.75, 189.51, 1199.4, 215.77]
+  },
+  {
+    "id": "CN-HI",
+    "name": "Hainan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HI"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159311749"],
+    "anchor": [1154.53, 279.35],
+    "bounds": [1154.46, 279.35, 1164.14, 287.32]
+  },
+  {
+    "id": "CN-HL",
+    "name": "Heilongjiang",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HL"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312759"],
+    "anchor": [1204.67, 145.72],
+    "bounds": [1204.67, 145.72, 1259.09, 186.27]
+  },
+  {
+    "id": "CN-HN",
+    "name": "Hunan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-HN"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312745"],
+    "anchor": [1155.15, 239.82],
+    "bounds": [1155.15, 239.62, 1176.94, 261.43]
+  },
+  {
+    "id": "CN-JL",
+    "name": "Jilin",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-JL"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312755"],
+    "anchor": [1206.6, 174.83],
+    "bounds": [1206.6, 174.83, 1245.13, 196.56]
+  },
+  {
+    "id": "CN-JS",
+    "name": "Jiangsu",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-JS"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159311859"],
+    "anchor": [1185.51, 219.69],
+    "bounds": [1185.51, 219.56, 1207.69, 236.95]
+  },
+  {
+    "id": "CN-JX",
+    "name": "Jiangxi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-JX"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312753"],
+    "anchor": [1174.23, 239.77],
+    "bounds": [1174.23, 239.77, 1193.89, 261.98]
+  },
+  {
+    "id": "CN-LN",
+    "name": "Liaoning",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-LN"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312117"],
+    "anchor": [1195.39, 186.11],
+    "bounds": [1195.39, 186.11, 1223.07, 205.12]
+  },
+  {
+    "id": "CN-NM",
+    "name": "Inner Mongolia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-NM"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312757"],
+    "anchor": [1108.76, 146.91],
+    "bounds": [1108.76, 146.7, 1224.23, 210.42]
+  },
+  {
+    "id": "CN-NX",
+    "name": "Ningxia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-NX"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312659"],
+    "anchor": [1137.43, 202.51],
+    "bounds": [1137.43, 202.51, 1150.65, 218.98]
+  },
+  {
+    "id": "CN-QH",
+    "name": "Qinghai",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-QH"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159310927"],
+    "anchor": [1077.75, 202.7],
+    "bounds": [1077.75, 202.7, 1132.16, 233.86]
+  },
+  {
+    "id": "CN-SC",
+    "name": "Sichuan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-SC"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312663"],
+    "anchor": [1109.44, 222.8],
+    "bounds": [1109.44, 222.8, 1154.07, 255.86]
+  },
+  {
+    "id": "CN-SD",
+    "name": "Shandong",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-SD"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312031"],
+    "anchor": [1179.34, 206.46],
+    "bounds": [1179.34, 206.46, 1210.75, 222.4]
+  },
+  {
+    "id": "CN-SH",
+    "name": "Shanghai",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-SH"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159311855"],
+    "anchor": [1203.46, 232.86],
+    "bounds": [1203.46, 232.68, 1207.92, 237.24]
+  },
+  {
+    "id": "CN-SN",
+    "name": "Shaanxi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-SN"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312661"],
+    "anchor": [1141.99, 201.68],
+    "bounds": [1141.99, 201.68, 1164.91, 233.18]
+  },
+  {
+    "id": "CN-SX",
+    "name": "Shanxi",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-SX"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312739"],
+    "anchor": [1161.08, 197.03],
+    "bounds": [1160.95, 197.03, 1178.16, 221.64]
+  },
+  {
+    "id": "CN-TJ",
+    "name": "Tianjin",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-TJ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312751"],
+    "anchor": [1186.75, 198.97],
+    "bounds": [1186.75, 198.97, 1192.04, 205.75]
+  },
+  {
+    "id": "CN-XJ",
+    "name": "Xinjiang",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-XJ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312657"],
+    "anchor": [1014.53, 163.34],
+    "bounds": [1014.43, 163.34, 1105.47, 222.64]
+  },
+  {
+    "id": "CN-XZ",
+    "name": "Tibet / Xizang",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-XZ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312655"],
+    "anchor": [1033.54, 214.51],
+    "bounds": [1033.54, 214.18, 1116.44, 250.75]
+  },
+  {
+    "id": "CN-YN",
+    "name": "Yunnan",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-YN"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159312665"],
+    "anchor": [1110.07, 243.19],
+    "bounds": [1110.05, 243.1, 1144.8, 275.43]
+  },
+  {
+    "id": "CN-ZJ",
+    "name": "Zhejiang",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CN-ZJ"
+        }
+      ]
+    },
+    "geometryRefs": ["ne:admin1:1159311795"],
+    "anchor": [1192.21, 235.36],
+    "bounds": [1192.04, 235.34, 1210.12, 251.27]
+  },
+  {
     "id": "iso:AFG",
     "name": "Afghanistan",
     "resolution": {
@@ -5364,7 +5860,7 @@
     },
     "geometryRefs": ["ne:admin1:1159310341"],
     "anchor": [1138.15, 254.44],
-    "bounds": [1138.15, 254.44, 1168.2, 275.92],
+    "bounds": [1137.93, 254.44, 1168.2, 275.92],
     "evidence": {
       "type": "non-un-candidate",
       "entity": "Guangxi",
@@ -5480,7 +5976,7 @@
     },
     "geometryRefs": ["ne:admin1:1159312757"],
     "anchor": [1108.76, 146.91],
-    "bounds": [1108.76, 146.91, 1224.23, 210.42],
+    "bounds": [1108.76, 146.7, 1224.23, 210.42],
     "evidence": {
       "type": "non-un-candidate",
       "entity": "Inner Mongolia",
@@ -6498,7 +6994,7 @@
     },
     "geometryRefs": ["ne:admin1:1159312655"],
     "anchor": [1033.54, 214.51],
-    "bounds": [1033.54, 214.51, 1116.44, 250.75],
+    "bounds": [1033.54, 214.18, 1116.44, 250.75],
     "evidence": {
       "type": "non-un-candidate",
       "entity": "Tibet / Xizang",
@@ -6882,7 +7378,7 @@
     },
     "geometryRefs": ["ne:admin1:1159312657"],
     "anchor": [1014.53, 163.34],
-    "bounds": [1014.53, 163.34, 1105.32, 222.64],
+    "bounds": [1014.43, 163.34, 1105.47, 222.64],
     "evidence": {
       "type": "non-un-candidate",
       "entity": "Xinjiang",
