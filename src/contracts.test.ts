@@ -110,6 +110,12 @@ describe('typed runtime data boundary', () => {
     );
     expect(contextVariant?.featureIds).toEqual([
       'ne:1159321369',
+      'ne:1159321201',
+      'ne:1159321101',
+      'ne:1159320637',
+      'ne:1159320647',
+      'ne:1159320551',
+      'ne:1159320467',
       'ne:1159320707',
       'ne:1159321091',
       'ne:1159321055',
