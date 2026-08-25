@@ -113,7 +113,9 @@ describe('typed runtime data boundary', () => {
       contextVariant?.featureIds.length,
     );
     for (const featureId of contextVariant?.featureIds ?? [])
-      expect(generatedMap.features[featureId]).toBeDefined();
+      expect(
+        generatedMap.features[featureId as keyof typeof generatedMap.features],
+      ).toBeDefined();
     expect(contextVariant?.features['ne:1159321055']).toBeDefined();
     expect(generatedManifest).toBeDefined();
   });
