@@ -18,15 +18,15 @@ for (const viewport of [
       const map = page.locator('.world-map');
       await expect(map).toHaveAttribute('viewBox', '155 0 355 260');
       await expect(map).toHaveAttribute('preserveAspectRatio', 'xMidYMid meet');
-      const active = map.locator(
-        `.active-fill path[data-location-id="${id}"]`,
-      );
+      const active = map.locator(`.active-fill path[data-location-id="${id}"]`);
       await expect(active.first()).toHaveAttribute('aria-label', label);
       await expect(active.first()).toBeVisible();
       await active.first().click();
       await expect(map.locator('.callout-inset')).toBeVisible();
       await page.screenshot({
-        path: testInfo.outputPath(`canada-${id.toLowerCase()}-${viewport.name}.png`),
+        path: testInfo.outputPath(
+          `canada-${id.toLowerCase()}-${viewport.name}.png`,
+        ),
         fullPage: true,
       });
     });
