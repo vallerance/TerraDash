@@ -21,9 +21,11 @@ describe('Phase 5 ownership boundaries', () => {
 
   it('keeps the diagnostics route navigation adapter in RouterApp only', () => {
     const owners = runtimeSources
-      .filter(([, source]) => /location=|replace:\s*true/.test(source))
+      .filter(([, source]) =>
+        /encodeURIComponent\(locationId\)[\s\S]*replace:\s*true/.test(source),
+      )
       .map(([path]) => path)
-      .filter((path) => path.includes('RouterApp'));
+      .filter((path) => path !== './routing/browserHistory.ts');
     expect(owners).toEqual(['./routing/RouterApp.tsx']);
     expect(sourceModules['./diagnostics/DiagnosticsControl.tsx']).not.toMatch(
       /pushState|replaceState|navigate\s*\(/,
