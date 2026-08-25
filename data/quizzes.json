@@ -828,7 +828,7 @@
     "name": "China Provinces",
     "description": "China's 31 provincial-level divisions represented by stable CN-* source identities; Hong Kong, Macau, and Taiwan remain non-playable context.",
     "menuLabel": "China Provinces",
-    "thumbnailViewBox": "970 142 345 151.46341463414635",
+    "thumbnailViewBox": "920 125 432.72727272727275 190.1",
     "category": "regional",
     "locationIds": [
       "CN-AH",
@@ -898,7 +898,7 @@
         "CN-YN",
         "CN-ZJ"
       ],
-      "viewBox": "970 142 345 151.46341463414635",
+      "viewBox": "920 125 432.72727272727275 190.1",
       "preserveAspectRatio": "xMidYMid meet",
       "standardParallel": 35,
       "wrapWidth": 1440,
