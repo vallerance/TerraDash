@@ -1,6 +1,6 @@
-import { formatAccuracy } from './accuracy';
-import { formatElapsed } from './formatElapsed';
-import type { HighScoreEntry } from './highScores';
+import { formatAccuracy } from '../accuracy';
+import { formatElapsed } from '../formatElapsed';
+import type { HighScoreEntry } from '../highScores';
 
 type HighScoreTableProps = {
   scores: readonly HighScoreEntry[];

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { formatAccuracy } from '../accuracy';
 import { useQuiz } from '../QuizContext';
-import { HighScoreTable } from '../HighScoreTable';
+import { HighScoreTable } from '../high-scores/HighScoreTable';
 import { formatElapsed } from '../formatElapsed';
 import { resultMoodForScore } from '../resultMood';
 import {
@@ -11,7 +11,7 @@ import {
   updateHighScoreName,
   type HighScoreEntry,
 } from '../highScores';
-import { FeedbackIcon, type FeedbackTone } from './FeedbackIcon';
+import { FeedbackIcon, type FeedbackTone } from '../quiz/FeedbackIcon';
 
 export function QuizResults({
   quizId,

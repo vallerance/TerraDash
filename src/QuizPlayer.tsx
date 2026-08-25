@@ -4,7 +4,7 @@ import type { CatalogLocation } from './quizEngine';
 import type { QuizOption } from './quizContracts';
 import { QuizGameplay, QuizGameplayConsole } from './quiz/QuizGameplay';
 import { QuizHome } from './quiz/QuizHome';
-import { QuizResults } from './quiz/QuizResults';
+import { QuizResults } from './results/QuizResults';
 
 type QuizPlayerProps = {
   catalog: readonly CatalogLocation[];

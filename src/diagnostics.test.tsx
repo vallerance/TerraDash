@@ -5,7 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import locations from '../data/generated/locations.json';
 import reviewed from '../data/reviewed-invariants.json';
 import { playableLocations } from './quizContracts';
-import { DiagnosticsMap } from './diagnostics';
+import { DiagnosticsMap } from './map/MapView';
 
 const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
 const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));

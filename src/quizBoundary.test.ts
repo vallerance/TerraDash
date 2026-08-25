@@ -26,13 +26,13 @@ describe('Phase 4 quiz ownership boundaries', () => {
   });
 
   it('confines high-score storage and browser console ownership to their leaves', () => {
-    const extractedLeaves = runtimeSources.filter(([path]) =>
-      path.startsWith('./quiz/'),
+    const extractedLeaves = runtimeSources.filter(
+      ([path]) => path.startsWith('./quiz/') || path.startsWith('./results/'),
     );
     const scoreOwners = extractedLeaves
       .filter(([, source]) => /from ['"][^'\"]*\/highScores['"]/.test(source))
       .map(([path]) => path);
-    expect(scoreOwners).toEqual(['./quiz/QuizResults.tsx']);
+    expect(scoreOwners).toEqual(['./results/QuizResults.tsx']);
 
     const consoleOwners = extractedLeaves
       .filter(([, source]) => /window\.terraDash/.test(source))

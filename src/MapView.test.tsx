@@ -9,7 +9,7 @@ import {
   insetGeometryPaths,
   selectedInsetGeometryPaths,
 } from './mapGeometry';
-import { MapView } from './main';
+import { MapView } from './map/MapView';
 import {
   mapLayerForLocation,
   mapLayerForQuiz,
