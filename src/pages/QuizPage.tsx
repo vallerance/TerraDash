@@ -1,13 +1,8 @@
 import { QuizProvider } from '../QuizContext';
 import { QuizPlayer } from '../QuizPlayer';
 import { generatedLocations as locations } from '../contracts/generatedData';
-import {
-  mapLayerForQuiz,
-  playableLocations,
-  quizOptions,
-  worldQuiz,
-} from '../contracts/quiz';
-import { mapLocationForQuizId } from '../quizMapBoundary';
+import { playableLocations, quizOptions, worldQuiz } from '../contracts/quiz';
+import { mapLayerForQuiz, mapLocationForQuizId } from '../quizMapBoundary';
 import { MapView } from '../map/MapView';
 import { QuizThumbnail } from '../shell/QuizThumbnail';
 import type { QuizOption } from '../contracts/quiz';

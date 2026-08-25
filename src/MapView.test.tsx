@@ -10,11 +10,8 @@ import {
   selectedInsetGeometryPaths,
 } from './mapGeometry';
 import { MapView } from './map/MapView';
-import {
-  mapLayerForLocation,
-  mapLayerForQuiz,
-  quizOptions,
-} from './contracts/quiz';
+import { quizOptions } from './contracts/quiz';
+import { mapLayerForLocation, mapLayerForQuiz } from './quizMapBoundary';
 
 const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
 const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));

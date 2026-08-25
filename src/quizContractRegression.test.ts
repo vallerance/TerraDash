@@ -175,6 +175,9 @@ describe('regional quiz partition', () => {
     const synthetic = {
       id: 'synthetic-mapped',
       name: 'Synthetic mapped quiz',
+      description: 'Synthetic mapped quiz',
+      menuLabel: 'Synthetic mapped quiz',
+      thumbnailViewBox: '1 2 3 4',
       locationIds: ['iso:AFG'],
       map: {
         contextFeatureExclusions: [],
@@ -187,7 +190,7 @@ describe('regional quiz partition', () => {
         wrapActive: false,
         selectable: true,
       },
-    } as (typeof quizOptions)[number];
+    } satisfies (typeof quizOptions)[number];
     const layer = mapLayerForQuiz(synthetic, playableLocations[0]);
     expect(layer.viewBox).toBe('1 2 3 4');
     expect(layer.preserveAspectRatio).toBe('xMinYMin meet');
