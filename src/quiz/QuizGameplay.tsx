@@ -105,7 +105,9 @@ export function QuizGameplay({
     const shell = document.querySelector<HTMLElement>('main.app-shell');
     if (!shell) return;
     shell.style.setProperty('--active-quiz-height', `${window.innerHeight}px`);
-    return () => shell.style.removeProperty('--active-quiz-height');
+    return () => {
+      shell.style.removeProperty('--active-quiz-height');
+    };
   }, []);
 
   useEffect(() => {
