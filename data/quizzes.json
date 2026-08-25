@@ -717,6 +717,9 @@
       "viewBox": "145 35 410 180",
       "preserveAspectRatio": "xMidYMid meet",
       "standardParallel": 60,
+      "wrapWidth": 1440,
+      "seamLongitude": 0,
+      "wrapActive": true,
       "selectable": true
     }
   }
