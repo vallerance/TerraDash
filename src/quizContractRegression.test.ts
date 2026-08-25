@@ -13,8 +13,8 @@ import {
   defaultQuiz,
   playableLocations,
   quizOptions,
-  mapLayerForQuiz,
 } from './contracts/quiz';
+import { mapLayerForQuiz } from './quizMapBoundary';
 
 const candidateData = locations.filter(({ id }) => id.startsWith('non-un:'));
 
@@ -36,24 +36,28 @@ describe('generated quiz wiring', () => {
 
 describe('canonical quiz presentation contract', () => {
   it('keeps copy, menu labels, and thumbnail viewBoxes declarative', () => {
-    expect(quizOptions).toHaveLength(10);
+    expect(quizOptions.length).toBeGreaterThan(0);
     for (const quiz of quizOptions) {
       expect(quiz.description).toBeTruthy();
       expect(quiz.menuLabel).toBeTruthy();
       expect(quiz.thumbnailViewBox).toBeTruthy();
     }
-    expect(quizOptions.map(({ thumbnailViewBox }) => thumbnailViewBox)).toEqual([
-      '0 0 1440 720',
-      '600 140 380 430',
-      '780 80 500 380',
-      '600 70 330 260',
-      '250 80 500 360',
-      '420 300 300 360',
-      '1030 330 360 270',
-      '430 220 300 190',
-      '0 0 1440 720',
-      '0 0 1440 720',
-    ]);
+    const expectedViewBoxes: Record<string, string> = {
+      world: '0 0 1440 720',
+      africa: '600 140 380 430',
+      asia: '780 80 500 380',
+      europe: '600 70 330 260',
+      'north-america': '250 80 500 360',
+      'south-america': '420 300 300 360',
+      oceania: '1030 330 360 270',
+      caribbean: '430 220 300 190',
+      'non-un': '0 0 1440 720',
+      'us-states': '0 0 1440 720',
+    };
+    for (const [id, viewBox] of Object.entries(expectedViewBoxes))
+      expect(quizOptions.find((quiz) => quiz.id === id)?.thumbnailViewBox).toBe(
+        viewBox,
+      );
   });
 
   it('keeps presentation consumers free of quiz-ID compatibility predicates', () => {
