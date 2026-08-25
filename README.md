@@ -15,6 +15,11 @@ npm test
 npm run build
 ```
 
+For the operational procedure for adding a mapped states/provinces quiz,
+including source resolution, reviewed data, projection/viewBox derivation,
+context layering, generated provenance, regression coverage, and visual CI
+evidence, see [Developing states and provinces quizzes](GUIDES/DEVELOPING_REGIONAL_QUIZZES.md).
+
 Vite is configured for the GitHub Pages base path `/TerraDash/`. The demo selector highlights ordinary, multipart/remote, island, observer, and microstate fixtures. It is intentionally not quiz gameplay.
 
 ## Browser console endgame command
