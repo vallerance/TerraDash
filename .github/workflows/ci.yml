@@ -18,6 +18,36 @@ jobs:
       - run: npm run generate
       - run: git diff --exit-code -- data/generated
       - run: npm run validate:data
+      - name: Compare generator artifacts across clean base and head copies
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          root="$(mktemp -d)"
+          git fetch --no-tags origin "$BASE_SHA" "$HEAD_SHA"
+          for copy in base head head-repeat; do
+            mkdir -p "$root/$copy"
+          done
+          git archive "$BASE_SHA" | tar -x -C "$root/base"
+          git archive "$HEAD_SHA" | tar -x -C "$root/head"
+          git archive "$HEAD_SHA" | tar -x -C "$root/head-repeat"
+          for copy in base head head-repeat; do
+            (cd "$root/$copy" && npm ci)
+            (cd "$root/$copy" && TZ=UTC LC_ALL=C npm run generate)
+            (cd "$root/$copy" && sha256sum data/generated/inset.json data/generated/locations.json data/generated/manifest.json data/generated/map.json > generator-hashes.txt)
+          done
+          echo 'Generator hashes (base):'
+          cat "$root/base/generator-hashes.txt"
+          echo 'Generator hashes (head):'
+          cat "$root/head/generator-hashes.txt"
+          echo 'Generator hashes (head-repeat):'
+          cat "$root/head-repeat/generator-hashes.txt"
+          for artifact in inset.json locations.json manifest.json map.json; do
+            cmp "$root/base/data/generated/$artifact" "$root/head/data/generated/$artifact"
+            cmp "$root/head/data/generated/$artifact" "$root/head-repeat/data/generated/$artifact"
+          done
       - name: Upload generated data for provenance
         if: always()
         uses: actions/upload-artifact@v4
