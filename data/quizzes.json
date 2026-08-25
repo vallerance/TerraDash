@@ -701,7 +701,7 @@
       "CA-SK"
     ],
     "map": {
-      "contextFeatureExclusions": ["ne:1159320467"],
+      "contextFeatureExclusions": [],
       "baseLayerLocationIds": [
         "CA-AB",
         "CA-BC",
@@ -714,9 +714,12 @@
         "CA-QC",
         "CA-SK"
       ],
-      "viewBox": "145 35 410 180",
+      "viewBox": "-75 -75 820 360",
       "preserveAspectRatio": "xMidYMid meet",
       "standardParallel": 60,
+      "wrapWidth": 1440,
+      "seamLongitude": 0,
+      "wrapActive": true,
       "selectable": true
     }
   }
