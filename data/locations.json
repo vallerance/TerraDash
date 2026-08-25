@@ -1,5 +1,85 @@
 [
   {
+    "id": "CA-AB",
+    "name": "Alberta",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308775"]
+    }
+  },
+  {
+    "id": "CA-BC",
+    "name": "British Columbia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159307717"]
+    }
+  },
+  {
+    "id": "CA-MB",
+    "name": "Manitoba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308777"]
+    }
+  },
+  {
+    "id": "CA-NB",
+    "name": "New Brunswick",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308785"]
+    }
+  },
+  {
+    "id": "CA-NL",
+    "name": "Newfoundland and Labrador",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308713"]
+    }
+  },
+  {
+    "id": "CA-NS",
+    "name": "Nova Scotia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309585"]
+    }
+  },
+  {
+    "id": "CA-ON",
+    "name": "Ontario",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309687"]
+    }
+  },
+  {
+    "id": "CA-PE",
+    "name": "Prince Edward Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310911"]
+    }
+  },
+  {
+    "id": "CA-QC",
+    "name": "Québec",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308703"]
+    }
+  },
+  {
+    "id": "CA-SK",
+    "name": "Saskatchewan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308773"]
+    }
+  },
+  {
     "id": "iso:AFG",
     "name": "Afghanistan",
     "resolution": {
