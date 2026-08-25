@@ -124,7 +124,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
                   if (event.key === 'ArrowRight') setRegionalOpen(true);
                 }}
               >
-                States and Provinces{' '}
+                Regional quizzes{' '}
                 <span className="quiz-submenu-arrow" aria-hidden="true" />
               </button>
               {regionalOpen && (
