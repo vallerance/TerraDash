@@ -66,8 +66,11 @@ quiz normally declares:
 Use the actual appropriate parallel and seam for the source geography; the
 values above are illustrative defaults, not a Canada- or US-specific recipe.
 `baseLayerLocationIds` must be a subset of quiz membership. Keep the parent or
-other unreplaced land in `contextFeatureIds` unless there is a reviewed reason
-to exclude it. Context renders beneath base layers and is non-selectable.
+other unreplaced land out of `contextFeatureExclusions` unless there is a
+reviewed reason to exclude it. `mapLayerForQuiz` derives the runtime
+`contextFeatureIds` from generated source features after subtracting those
+authored exclusions. The retained context renders beneath base layers and is
+non-selectable.
 
 Update the matching `data/reviewed-invariants.json` sets. The authored
 location IDs and every quiz membership must have a reviewed baseline. Do not
@@ -86,15 +89,21 @@ the configured viewBox midpoint; therefore a raw source extent is not a
 viewport extent.
 
 Choose the parallel from the geography and source characteristics first. Do
-not change it merely to make clipping disappear. Then:
+not change it merely to make clipping disappear. Because production projects
+around the viewBox midpoint, derive the box with a convergent loop:
 
 1. resolve all base-layer paths and the complete retained context paths;
-2. compute their bounds after `createMapProjection(standardParallel,
-viewBoxCenterY)`;
-3. include a small deliberate padding for strokes and responsive callouts;
-4. choose a viewBox containing those projected bounds at the intended regional
-   aspect ratio (the existing regional layout is approximately 41:18);
-5. verify the same geometry at wide, tablet, and mobile sizes.
+2. choose a candidate center and box at the intended regional aspect ratio
+   (the existing regional layout is approximately 41:18);
+3. project the composition with
+   `createMapProjection(standardParallel, candidateBoxCenterY)`;
+4. fit a padded box around those projected bounds, preserving the target
+   aspect ratio;
+5. use the fitted box’s midpoint as the next candidate center and repeat until
+   the fitted box midpoint is the one used for projection and the bounds remain
+   contained; and
+6. validate the final authored values through that same
+   `createMapProjection` path, then verify wide, tablet, and mobile sizes.
 
 The viewport must contain every selectable layer and the complete intended
 parent/context composition. A box that contains only the provinces can still
@@ -196,7 +205,8 @@ generic browser artifact that lacks the task-shaped screenshots.
 Before handoff, compare the complete diff against its canonical base, check the
 worktree is clean, and record the generated-artifact accounting, evidence
 artifact, CI URL, PR URL, exact SHA, failed-check disposition, and residual
-risks. Do not merge unless explicitly directed.
+risks. Do not merge merely because CI is green; merge only after required
+review/visual acceptance and under the active repository authority and process.
 
 ## Troubleshooting lessons
 
