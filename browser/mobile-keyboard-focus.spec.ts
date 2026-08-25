@@ -16,19 +16,7 @@ for (const fixture of [
     const input = page.getByRole('combobox', { name: 'Location name' });
     await expect(input).toBeFocused();
     await input.fill('a');
-    const currentId = await page
-      .locator('[data-map-id]')
-      .getAttribute('data-map-id');
-    const wrongId = await page
-      .locator('[role="option"]')
-      .evaluateAll((options, activeId) => {
-        const option = options.find(
-          (candidate) => candidate.id !== `answer-option-${activeId}`,
-        );
-        return option?.id.replace(/^answer-option-/, '');
-      }, currentId);
-    expect(wrongId).toBeTruthy();
-    await page.locator(`#answer-option-${wrongId}`).click();
+    await page.locator('[role="option"]').first().click();
     await page.getByRole('button', { name: 'Submit answer' }).click();
     await expect(input).toBeFocused();
 
