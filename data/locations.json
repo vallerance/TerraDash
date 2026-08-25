@@ -338,157 +338,250 @@
   {
     "id": "CN-AH",
     "name": "Anhui",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-AH" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-AH" }]
+    }
   },
   {
     "id": "CN-BJ",
     "name": "Beijing",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-BJ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-BJ" }]
+    }
   },
   {
     "id": "CN-CQ",
     "name": "Chongqing",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-CQ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-CQ" }]
+    }
   },
   {
     "id": "CN-FJ",
     "name": "Fujian",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-FJ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-FJ" }]
+    }
   },
   {
     "id": "CN-GD",
     "name": "Guangdong",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-GD" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-GD" }]
+    }
   },
   {
     "id": "CN-GS",
     "name": "Gansu",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-GS" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-GS" }]
+    }
   },
   {
     "id": "CN-GX",
     "name": "Guangxi",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-GX" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-GX" }]
+    }
   },
   {
     "id": "CN-GZ",
     "name": "Guizhou",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-GZ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-GZ" }]
+    }
   },
   {
     "id": "CN-HA",
     "name": "Henan",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HA" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HA" }]
+    }
   },
   {
     "id": "CN-HB",
     "name": "Hubei",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HB" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HB" }]
+    }
   },
   {
     "id": "CN-HE",
     "name": "Hebei",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HE" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HE" }]
+    }
   },
   {
     "id": "CN-HI",
     "name": "Hainan",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HI" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HI" }]
+    }
   },
   {
     "id": "CN-HL",
     "name": "Heilongjiang",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HL" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HL" }]
+    }
   },
   {
     "id": "CN-HN",
     "name": "Hunan",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-HN" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-HN" }]
+    }
   },
   {
     "id": "CN-JL",
     "name": "Jilin",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-JL" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-JL" }]
+    }
   },
   {
     "id": "CN-JS",
     "name": "Jiangsu",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-JS" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-JS" }]
+    }
   },
   {
     "id": "CN-JX",
     "name": "Jiangxi",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-JX" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-JX" }]
+    }
   },
   {
     "id": "CN-LN",
     "name": "Liaoning",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-LN" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-LN" }]
+    }
   },
   {
     "id": "CN-NM",
     "name": "Inner Mongolia",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-NM" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-NM" }]
+    }
   },
   {
     "id": "CN-NX",
     "name": "Ningxia",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-NX" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-NX" }]
+    }
   },
   {
     "id": "CN-QH",
     "name": "Qinghai",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-QH" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-QH" }]
+    }
   },
   {
     "id": "CN-SC",
     "name": "Sichuan",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-SC" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-SC" }]
+    }
   },
   {
     "id": "CN-SD",
     "name": "Shandong",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-SD" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-SD" }]
+    }
   },
   {
     "id": "CN-SH",
     "name": "Shanghai",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-SH" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-SH" }]
+    }
   },
   {
     "id": "CN-SN",
     "name": "Shaanxi",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-SN" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-SN" }]
+    }
   },
   {
     "id": "CN-SX",
     "name": "Shanxi",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-SX" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-SX" }]
+    }
   },
   {
     "id": "CN-TJ",
     "name": "Tianjin",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-TJ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-TJ" }]
+    }
   },
   {
     "id": "CN-XJ",
     "name": "Xinjiang",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-XJ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-XJ" }]
+    }
   },
   {
     "id": "CN-XZ",
     "name": "Tibet / Xizang",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-XZ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-XZ" }]
+    }
   },
   {
     "id": "CN-YN",
     "name": "Yunnan",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-YN" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-YN" }]
+    }
   },
   {
     "id": "CN-ZJ",
     "name": "Zhejiang",
-    "resolution": { "kind": "source-keys", "keys": [{ "source": "admin1", "key": "CN-ZJ" }] }
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CN-ZJ" }]
+    }
   },
   {
     "id": "iso:AFG",
