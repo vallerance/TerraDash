@@ -203,14 +203,22 @@ export function QuizGameplay({
   );
 
   useEffect(() => {
-    if (state.phase === 'active') {
-      manualPlacement.current = false;
-      setText('');
-      setSelectedId(undefined);
-      setActiveSuggestion(0);
-      answerRef.current?.focus();
-    }
+    if (state.phase !== 'active') return;
+    manualPlacement.current = false;
+    setText('');
+    setSelectedId(undefined);
+    setActiveSuggestion(0);
+    answerRef.current?.focus();
   }, [state.currentIndex, state.phase]);
+
+  useEffect(() => {
+    if (
+      state.phase === 'active' &&
+      (state.lastEvent.type === 'started' ||
+        state.lastEvent.type === 'accepted')
+    )
+      answerRef.current?.focus();
+  }, [state.lastEvent, state.phase]);
 
   function submit() {
     if (submitting.current || state.phase !== 'active') return;

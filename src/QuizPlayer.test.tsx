@@ -682,6 +682,30 @@ describe('QuizPlayer integration', () => {
     expect(container.querySelector('[data-map-id]')).toBeTruthy();
   });
 
+  it('keeps the answer field focused after a wrong active-phase submission', async () => {
+    const container = renderPlayer();
+    await act(async () =>
+      (container.querySelector('button') as HTMLButtonElement).click(),
+    );
+    const input = container.querySelector(
+      '[role="combobox"]',
+    ) as HTMLInputElement;
+    const currentId = container
+      .querySelector('[data-map-id]')
+      ?.getAttribute('data-map-id');
+    const wrong = catalog.find(({ id }) => id !== currentId)!.name;
+    await act(async () => {
+      input.value = wrong;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    await act(async () =>
+      (container.querySelector('form button') as HTMLButtonElement).click(),
+    );
+    expect(container.querySelector('.active-player')).toBeTruthy();
+    expect(document.activeElement).toBe(input);
+    expect(container.textContent).toContain('Incorrect. Try again');
+  });
+
   it('preserves the production stage-to-map-box and overlay contract', () => {
     const container = renderPlayer();
     act(() => (container.querySelector('button') as HTMLButtonElement).click());
