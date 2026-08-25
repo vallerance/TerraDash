@@ -3,7 +3,7 @@ import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it } from 'vitest';
 import { QuizProvider, useQuiz } from './QuizContext';
-import { defaultCatalog, defaultQuiz } from './quizContracts';
+import { defaultCatalog, defaultQuiz } from './contracts/quiz';
 import type { QuizState } from './quizEngine';
 
 let root: ReturnType<typeof createRoot> | undefined;

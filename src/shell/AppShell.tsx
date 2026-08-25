@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import type { QuizOption } from '../quizContracts';
+import type { QuizOption } from '../contracts/quiz';
 import type { NavigationOptions } from '../routing/browserHistory';
 import { parseRoute, type AppRoute } from '../routing/routes';
 import { useBrowserRoute } from '../routing/useBrowserRoute';

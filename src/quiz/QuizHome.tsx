@@ -1,13 +1,6 @@
 import type { ReactNode } from 'react';
 import { QuizDetailsDialog } from '../quizSelection/QuizDetailsDialog';
-import type { QuizOption } from '../quizContracts';
-
-function quizDescription(quiz: QuizOption): ReactNode {
-  if (quiz.id === 'world') return 'All UN Member and UN Observer states';
-  if (quiz.description) return quiz.description;
-  const region = quiz.name.replace(/ UN Countries$/, '');
-  return `UN Member and UN Observer states in ${region}`;
-}
+import type { QuizOption } from '../contracts/quiz';
 
 function quizSections(quizOptions: readonly QuizOption[]) {
   const grouped = new Map<string, QuizOption[]>();
@@ -84,7 +77,7 @@ export function QuizHome({
                     <strong>{option.name}</strong>
                     <span>{option.locationIds.length} locations</span>
                     <span className="quiz-option-description">
-                      {quizDescription(option)}
+                      {option.description}
                     </span>
                   </button>
                 ))}

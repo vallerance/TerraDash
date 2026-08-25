@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import map from '../data/generated/map.json';
-import { defaultQuiz } from './quizContracts';
+import { defaultQuiz } from './contracts/quiz';
 import { mapLocationForQuizId } from './quizMapBoundary';
 
 describe('quiz-to-map boundary', () => {

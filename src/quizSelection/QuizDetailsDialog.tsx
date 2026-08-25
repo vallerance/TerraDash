@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useEffect, useRef } from 'react';
-import type { QuizOption } from '../quizContracts';
+import type { QuizOption } from '../contracts/quiz';
 
 export function QuizDetailsDialog({
   quiz,
@@ -27,11 +27,6 @@ export function QuizDetailsDialog({
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   });
-  const description =
-    quiz.id === 'world'
-      ? 'All UN Member and UN Observer states'
-      : quiz.description ||
-        `UN Member and UN Observer states in ${quiz.name.replace(/ UN Countries$/, '')}`;
   return createPortal(
     <div
       className="quiz-dialog-backdrop"
@@ -57,7 +52,7 @@ export function QuizDetailsDialog({
         <p className="eyebrow">TERRADASH · QUIZ</p>
         <h2 id="quiz-dialog-title">{quiz.name}</h2>
         <p>{quiz.locationIds.length} locations</p>
-        <p>{description}</p>
+        <p>{quiz.description}</p>
         <button
           className="primary-action"
           type="button"

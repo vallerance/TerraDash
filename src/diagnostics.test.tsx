@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import locations from '../data/generated/locations.json';
 import reviewed from '../data/reviewed-invariants.json';
-import { playableLocations } from './quizContracts';
+import { playableLocations } from './contracts/quiz';
 import { DiagnosticsMap } from './map/MapView';
 
 const catalog = locations.filter(({ id }) => id.startsWith('iso:'));

@@ -1,5 +1,5 @@
 import { AppDisclaimer, AppFooter, AppHeader } from '../shell/AppChrome';
-import { quizOptions } from '../quizContracts';
+import { quizOptions } from '../contracts/quiz';
 import { getAllHighScores } from '../highScores';
 import { HighScoresContent } from '../high-scores/HighScoresContent';
 

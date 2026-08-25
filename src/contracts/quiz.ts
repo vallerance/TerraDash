@@ -24,7 +24,9 @@ export type QuizDefinition = { id: string; locationIds: string[] };
 
 export type QuizOption = QuizDefinition & {
   name: string;
-  description?: string;
+  description: string;
+  menuLabel: string;
+  thumbnailViewBox: string;
   category?: 'regional';
   map?: QuizMapInput;
 };
@@ -32,7 +34,9 @@ export type QuizOption = QuizDefinition & {
 type QuizInput = {
   id: string;
   name: string;
-  description?: string;
+  description: string;
+  menuLabel: string;
+  thumbnailViewBox: string;
   category?: 'regional';
   locationIds: string[];
   map?: QuizMapInput;
@@ -44,6 +48,8 @@ export const quizOptions: QuizOption[] = configuredQuizOptions.map((quiz) => ({
   id: quiz.id,
   name: quiz.name,
   description: quiz.description,
+  menuLabel: quiz.menuLabel,
+  thumbnailViewBox: quiz.thumbnailViewBox,
   category: quiz.category,
   map: quiz.map,
   locationIds: [...quiz.locationIds],

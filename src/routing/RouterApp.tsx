@@ -1,6 +1,6 @@
 import { AppShell } from '../shell/AppShell';
 import { QuizPage } from '../pages/QuizPage';
-import { playableLocations, quizOptions, worldQuiz } from '../quizContracts';
+import { playableLocations, quizOptions, worldQuiz } from '../contracts/quiz';
 import { DiagnosticsPage } from '../pages/DiagnosticsPage';
 import { HighScoresPage } from '../pages/HighScoresPage';
 import type { AppRoute } from './routes';

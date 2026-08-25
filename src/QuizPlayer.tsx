@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from 'react';
 import { useQuiz } from './QuizContext';
 import type { CatalogLocation } from './quizEngine';
-import type { QuizOption } from './quizContracts';
+import type { QuizOption } from './contracts/quiz';
 import { QuizGameplay, QuizGameplayConsole } from './quiz/QuizGameplay';
 import { QuizHome } from './quiz/QuizHome';
 import { QuizResults } from './results/QuizResults';

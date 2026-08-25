@@ -1,5 +1,5 @@
 import type { HighScoreEntry } from '../highScores';
-import type { QuizOption } from '../quizContracts';
+import type { QuizOption } from '../contracts/quiz';
 import { HighScoreTable } from './HighScoreTable';
 
 export function HighScoresContent({

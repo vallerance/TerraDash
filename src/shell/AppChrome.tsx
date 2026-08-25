@@ -5,7 +5,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
-import { quizOptions } from '../quizContracts';
+import { quizOptions } from '../contracts/quiz';
 import { useBrowserRoute } from '../routing/useBrowserRoute';
 
 export function AppFooter({ children }: { children?: ReactNode }) {
@@ -81,9 +81,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
         navigate(event.currentTarget.href);
       }}
     >
-      {quiz.id === 'non-un'
-        ? 'Non-UN Countries, Independent Territories, and Autonomous Regions'
-        : quiz.name.replace(' UN Countries', '')}
+      {quiz.menuLabel}
     </a>
   );
   return (

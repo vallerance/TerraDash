@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizPlayer } from './QuizPlayer';
 import { QuizProvider } from './QuizContext';
-import type { QuizOption } from './quizContracts';
+import type { QuizOption } from './contracts/quiz';
 import { HIGH_SCORES_STORAGE_KEY, recordHighScore } from './highScores';
 
 const catalog = [

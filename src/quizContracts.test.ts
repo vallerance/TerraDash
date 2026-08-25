@@ -3,6 +3,10 @@ import locations from '../data/generated/locations.json';
 import reviewed from '../data/reviewed-invariants.json';
 import mainSource from './main.tsx?raw';
 import boundarySource from './quizMapBoundary.ts?raw';
+import quizHomeSource from './quiz/QuizHome.tsx?raw';
+import quizDetailsSource from './quizSelection/QuizDetailsDialog.tsx?raw';
+import appChromeSource from './shell/AppChrome.tsx?raw';
+import thumbnailSource from './shell/QuizThumbnail.tsx?raw';
 import map from '../data/generated/map.json';
 import {
   defaultCatalog,
@@ -10,7 +14,7 @@ import {
   playableLocations,
   quizOptions,
   mapLayerForQuiz,
-} from './quizContracts';
+} from './contracts/quiz';
 
 const candidateData = locations.filter(({ id }) => id.startsWith('non-un:'));
 
@@ -27,6 +31,42 @@ describe('generated quiz wiring', () => {
         defaultCatalog.some((item) => item.id === id),
       ),
     ).toBe(true);
+  });
+});
+
+describe('canonical quiz presentation contract', () => {
+  it('keeps copy, menu labels, and thumbnail viewBoxes declarative', () => {
+    expect(quizOptions).toHaveLength(10);
+    for (const quiz of quizOptions) {
+      expect(quiz.description).toBeTruthy();
+      expect(quiz.menuLabel).toBeTruthy();
+      expect(quiz.thumbnailViewBox).toBeTruthy();
+    }
+    expect(quizOptions.map(({ thumbnailViewBox }) => thumbnailViewBox)).toEqual([
+      '0 0 1440 720',
+      '600 140 380 430',
+      '780 80 500 380',
+      '600 70 330 260',
+      '250 80 500 360',
+      '420 300 300 360',
+      '1030 330 360 270',
+      '430 220 300 190',
+      '0 0 1440 720',
+      '0 0 1440 720',
+    ]);
+  });
+
+  it('keeps presentation consumers free of quiz-ID compatibility predicates', () => {
+    for (const source of [
+      quizHomeSource,
+      quizDetailsSource,
+      appChromeSource,
+      thumbnailSource,
+    ]) {
+      expect(source).not.toMatch(/quiz\.id\s*===/);
+      expect(source).not.toMatch(/thumbnailViewBoxes/);
+      expect(source).not.toMatch(/UN Countries\)?\s*\)/);
+    }
   });
 });
 

@@ -5,8 +5,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { QuizProvider } from '../QuizContext';
 import { QuizPage } from '../pages/QuizPage';
 import { QuizDetailsDialog } from '../quizSelection/QuizDetailsDialog';
-import { playableLocations, quizOptions, worldQuiz } from '../quizContracts';
-import type { QuizOption } from '../quizContracts';
+import { playableLocations, quizOptions, worldQuiz } from '../contracts/quiz';
+import type { QuizOption } from '../contracts/quiz';
 import { AppShell } from './AppShell';
 
 const options: QuizOption[] = [

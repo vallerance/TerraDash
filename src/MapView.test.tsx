@@ -14,7 +14,7 @@ import {
   mapLayerForLocation,
   mapLayerForQuiz,
   quizOptions,
-} from './quizContracts';
+} from './contracts/quiz';
 
 const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
 const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));

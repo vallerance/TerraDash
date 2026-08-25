@@ -6,11 +6,11 @@ import {
   playableLocations,
   quizOptions,
   worldQuiz,
-} from '../quizContracts';
+} from '../contracts/quiz';
 import { mapLocationForQuizId } from '../quizMapBoundary';
 import { MapView } from '../map/MapView';
 import { QuizThumbnail } from '../shell/QuizThumbnail';
-import type { QuizOption } from '../quizContracts';
+import type { QuizOption } from '../contracts/quiz';
 
 export function QuizPage({
   quizId,
