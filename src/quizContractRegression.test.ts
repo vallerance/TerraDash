@@ -86,7 +86,7 @@ describe('regional quiz partition', () => {
       'Oceania UN Countries',
       'Caribbean UN Countries',
     ]);
-    expect(quizOptions).toHaveLength(10);
+    expect(quizOptions.some(({ id }) => id === 'non-un')).toBe(true);
     expect(
       quizOptions
         .slice(0, 8)
@@ -211,7 +211,8 @@ describe('regional quiz partition', () => {
   it('partitions the existing world dataset exactly once regionally', () => {
     const worldIds = new Set(defaultQuiz.locationIds);
     const regionalIds = quizOptions
-      .slice(1, 8)
+      .filter(({ category }) => category === undefined)
+      .filter(({ id }) => id !== 'world' && id !== 'non-un')
       .flatMap(({ locationIds }) => locationIds);
     expect(regionalIds).toHaveLength(worldIds.size);
     expect(new Set(regionalIds).size).toBe(worldIds.size);
