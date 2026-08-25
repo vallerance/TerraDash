@@ -21,7 +21,9 @@ const modules = [
 
 describe('Phase 6 generator and entrypoint boundaries', () => {
   it('keeps generator filesystem, formatting, logging, and failure effects in the CLI', () => {
-    expect(source).toMatch(/readFileSync|writeFileSync|execFileSync|console\.log/);
+    expect(source).toMatch(
+      /readFileSync|writeFileSync|execFileSync|console\.log/,
+    );
     expect(modules.map(([, text]) => text).join('\n')).not.toMatch(
       /readFileSync|writeFileSync|execFileSync|console\.log|process\.exit/,
     );
@@ -35,9 +37,9 @@ describe('Phase 6 generator and entrypoint boundaries', () => {
     expect(modules.find(([path]) => path.endsWith('/geometry.mjs'))[1]).toMatch(
       /export function project\(/,
     );
-    expect(modules.find(([path]) => path.endsWith('/artifacts.mjs'))[1]).toMatch(
-      /export function buildMapArtifact\(/,
-    );
+    expect(
+      modules.find(([path]) => path.endsWith('/artifacts.mjs'))[1],
+    ).toMatch(/export function buildMapArtifact\(/);
   });
 
   it('removes browser compatibility exports and imports', () => {

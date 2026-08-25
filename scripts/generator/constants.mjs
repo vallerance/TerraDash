@@ -2,8 +2,7 @@ export const WIDTH = 1440;
 export const HEIGHT = 720;
 
 export const SOURCE_PATH = 'data/source/ne_50m_admin_0_countries.geojson';
-export const INSET_SOURCE_PATH =
-  'data/source/ne_10m_admin_0_countries.geojson';
+export const INSET_SOURCE_PATH = 'data/source/ne_10m_admin_0_countries.geojson';
 export const EXPECTED_SOURCE_SHA256 =
   'd7e56812e94bdb374d95021940af98f6cace2cb96827f522e3a3561242406ccc';
 export const SOURCE_URL =
