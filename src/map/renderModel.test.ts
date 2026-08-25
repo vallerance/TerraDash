@@ -230,4 +230,64 @@ describe('map render model', () => {
       );
     }
   });
+
+  it('frames all provinces and retained northern territory context at target sizes', () => {
+    const canada = quizOptions.find(({ id }) => id === 'canadian-provinces');
+    if (!canada?.map) throw new Error('Canada quiz fixture is missing');
+    const viewBox = parseViewBox(canada.map.viewBox!);
+    const viewport: [number, number, number, number] = [
+      viewBox[0],
+      viewBox[0] + viewBox[2],
+      viewBox[1],
+      viewBox[1] + viewBox[3],
+    ];
+    const contains = (bounds: readonly number[]) =>
+      bounds[0] >= viewport[0] &&
+      bounds[2] <= viewport[1] &&
+      bounds[1] >= viewport[2] &&
+      bounds[3] <= viewport[3];
+
+    for (const id of canada.locationIds) {
+      const location = generatedLocations.find(
+        (candidate) => candidate.id === id,
+      );
+      if (!location) throw new Error(`Missing Canadian province ${id}`);
+      expect(contains(location.bounds)).toBe(true);
+    }
+
+    // The parent Canada feature is retained context, carrying Yukon,
+    // Northwest Territories, Nunavut, and their multipart/island geometry.
+    const northernContextId = 'ne:1159320467';
+    const northernContext =
+      generatedMap.features[
+        northernContextId as keyof typeof generatedMap.features
+      ];
+    expect(contains(northernContext.bounds)).toBe(true);
+    expect(northernContext.paths.length).toBeGreaterThan(1);
+
+    for (const [width, height] of [
+      [1309, 573],
+      [768, 432],
+      [320, 180],
+    ] as const) {
+      const active = generatedLocations.find((location) => location.id === 'CA-BC')!;
+      const model = buildMapRenderModel({
+        active,
+        layer: mapLayerForQuiz(canada, active),
+        map: generatedMap,
+        context: generatedContext,
+        inset: generatedInset,
+        viewportWidth: width,
+        viewportHeight: height,
+      });
+      const context = model.contextPathCopies.find(
+        ({ id }) => id === northernContextId,
+      );
+      expect(context?.paths.length).toBeGreaterThan(1);
+      const renderedHeight = Math.min(width / (viewBox[2] / viewBox[3]), height);
+      const verticalGutter = (height - renderedHeight) / 2;
+      expect(verticalGutter).toBeGreaterThanOrEqual(0);
+      expect(verticalGutter).toBeLessThan(48);
+    }
+  });
 });

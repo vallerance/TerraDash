@@ -714,13 +714,20 @@
         "CA-QC",
         "CA-SK"
       ],
-      "viewBox": "-75 -75 820 360",
+      "viewBox": "145 18 390 196",
       "preserveAspectRatio": "xMidYMid meet",
       "standardParallel": 60,
       "wrapWidth": 1440,
       "seamLongitude": 0,
       "wrapActive": true,
-      "selectable": true
+      "selectable": true,
+      "regionalDetail": {
+        "mainTolerance": 0.12,
+        "context": {
+          "source": "admin0-10m",
+          "tolerance": 0.12
+        }
+      }
     }
   },
   {
