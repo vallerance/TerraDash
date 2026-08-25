@@ -56,7 +56,7 @@ Filters use `FIELD[.OP]=VALUE`; multiple filters are ANDed. Supported operators 
   --sort population --direction desc
 ```
 
-Country/region/map-unit/map-subunit filters match *all* jurisdictions associated with an island, not just the largest-overlap jurisdiction flattened into the main row. This means a multi-country island such as Borneo remains discoverable under every associated country.
+Country/region/map-unit/map-subunit filters match _all_ jurisdictions associated with an island, not just the largest-overlap jurisdiction flattened into the main row. This means a multi-country island such as Borneo remains discoverable under every associated country.
 
 Defaults: sort `name` ascending, `skip=0`, `length=100`, format `csv`, population year `2025`.
 
