@@ -10,8 +10,22 @@ import type { QuizOption } from '../contracts/quiz';
 import { AppShell } from './AppShell';
 
 const options: QuizOption[] = [
-  { id: 'world', name: 'World UN Countries', description: 'World', menuLabel: 'World', thumbnailViewBox: '0 0 1440 720', locationIds: [] },
-  { id: 'asia', name: 'Asia UN Countries', description: 'Asia', menuLabel: 'Asia', thumbnailViewBox: '0 0 1440 720', locationIds: [] },
+  {
+    id: 'world',
+    name: 'World UN Countries',
+    description: 'World',
+    menuLabel: 'World',
+    thumbnailViewBox: '0 0 1440 720',
+    locationIds: [],
+  },
+  {
+    id: 'asia',
+    name: 'Asia UN Countries',
+    description: 'Asia',
+    menuLabel: 'Asia',
+    thumbnailViewBox: '0 0 1440 720',
+    locationIds: [],
+  },
 ];
 let root: ReturnType<typeof createRoot> | undefined;
 

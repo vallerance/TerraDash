@@ -78,7 +78,14 @@ function renderPlayer(
 describe('QuizPlayer integration', () => {
   it('centers the home introduction while preserving left-aligned guidance', () => {
     const options: QuizOption[] = [
-      { id: 'world', name: 'World UN Countries', description: 'World', menuLabel: 'World', thumbnailViewBox: '0 0 1440 720', locationIds: ['iso:AAA'] },
+      {
+        id: 'world',
+        name: 'World UN Countries',
+        description: 'World',
+        menuLabel: 'World',
+        thumbnailViewBox: '0 0 1440 720',
+        locationIds: ['iso:AAA'],
+      },
     ];
     const container = renderPlayer(catalog, options);
     const home = container.querySelector('.home-page')!;
@@ -132,8 +139,22 @@ describe('QuizPlayer integration', () => {
   it('opens quiz details and reports the quiz only when its start action is used', async () => {
     let selected: string | undefined;
     const options: QuizOption[] = [
-      { id: 'world', name: 'World UN Countries', description: 'World', menuLabel: 'World', thumbnailViewBox: '0 0 1440 720', locationIds: ['iso:AAA'] },
-      { id: 'asia', name: 'Asia UN Countries', description: 'Asia', menuLabel: 'Asia', thumbnailViewBox: '0 0 1440 720', locationIds: ['iso:AAA'] },
+      {
+        id: 'world',
+        name: 'World UN Countries',
+        description: 'World',
+        menuLabel: 'World',
+        thumbnailViewBox: '0 0 1440 720',
+        locationIds: ['iso:AAA'],
+      },
+      {
+        id: 'asia',
+        name: 'Asia UN Countries',
+        description: 'Asia',
+        menuLabel: 'Asia',
+        thumbnailViewBox: '0 0 1440 720',
+        locationIds: ['iso:AAA'],
+      },
     ];
     const container = renderPlayer(catalog, options, undefined, (id) => {
       selected = id;
@@ -156,7 +177,14 @@ describe('QuizPlayer integration', () => {
 
   it('dismisses expanded quiz details with Escape', async () => {
     const options: QuizOption[] = [
-      { id: 'world', name: 'World UN Countries', description: 'World', menuLabel: 'World', thumbnailViewBox: '0 0 1440 720', locationIds: ['iso:AAA'] },
+      {
+        id: 'world',
+        name: 'World UN Countries',
+        description: 'World',
+        menuLabel: 'World',
+        thumbnailViewBox: '0 0 1440 720',
+        locationIds: ['iso:AAA'],
+      },
     ];
     const container = renderPlayer(catalog, options);
     expect(container.querySelector('.home-page > .primary-action')).toBeNull();
