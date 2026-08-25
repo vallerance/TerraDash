@@ -515,8 +515,13 @@
     "id": "CA-AB",
     "name": "Alberta",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308775"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-AB"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308775"],
     "anchor": [240, 120],
@@ -526,19 +531,29 @@
     "id": "CA-BC",
     "name": "British Columbia",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159307717"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-BC"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159307717"],
     "anchor": [163.76, 120],
-    "bounds": [163.76, 120, 263.85, 166.74]
+    "bounds": [163.76, 120, 263.85, 166.75]
   },
   {
     "id": "CA-MB",
     "name": "Manitoba",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308777"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-MB"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308777"],
     "anchor": [311.99, 120],
@@ -548,19 +563,29 @@
     "id": "CA-NB",
     "name": "New Brunswick",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308785"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-NB"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308785"],
     "anchor": [443.75, 167.7],
-    "bounds": [443.75, 167.7, 464.92, 181.52]
+    "bounds": [443.75, 167.7, 464.92, 181.58]
   },
   {
     "id": "CA-NL",
     "name": "Newfoundland and Labrador",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308713"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-NL"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308713"],
     "anchor": [448.77, 118.51],
@@ -570,19 +595,29 @@
     "id": "CA-NS",
     "name": "Nova Scotia",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159309585"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-NS"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159309585"],
     "anchor": [454.69, 171.89],
-    "bounds": [454.69, 171.89, 481.17, 186.12]
+    "bounds": [454.69, 171.89, 481.22, 186.31]
   },
   {
     "id": "CA-ON",
     "name": "Ontario",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159309687"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-ON"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159309687"],
     "anchor": [339.36, 132.55],
@@ -592,19 +627,29 @@
     "id": "CA-PE",
     "name": "Prince Edward Island",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159310911"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-PE"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159310911"],
     "anchor": [462.33, 171.73],
-    "bounds": [462.33, 171.73, 471.98, 176.2]
+    "bounds": [462.33, 171.73, 472.09, 176.2]
   },
   {
     "id": "CA-QC",
     "name": "Québec",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308703"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-QC"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308703"],
     "anchor": [400.94, 109.62],
@@ -614,8 +659,13 @@
     "id": "CA-SK",
     "name": "Saskatchewan",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308773"]
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "admin1",
+          "key": "CA-SK"
+        }
+      ]
     },
     "geometryRefs": ["ne:admin1:1159308773"],
     "anchor": [280, 120],
