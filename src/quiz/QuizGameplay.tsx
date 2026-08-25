@@ -102,6 +102,13 @@ export function QuizGameplay({
   const attemptStateClass = `attempts-remaining-${attemptsRemaining}`;
 
   useEffect(() => {
+    const shell = document.querySelector<HTMLElement>('main.app-shell');
+    if (!shell) return;
+    shell.style.setProperty('--active-quiz-height', `${window.innerHeight}px`);
+    return () => shell.style.removeProperty('--active-quiz-height');
+  }, []);
+
+  useEffect(() => {
     const previousObject = window.terraDash;
     const consoleObject = previousObject ?? {};
     const previousCommand = consoleObject.completeQuiz;
