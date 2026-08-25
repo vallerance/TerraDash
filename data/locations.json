@@ -259,80 +259,80 @@
     "id": "CA-AB",
     "name": "Alberta",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308775"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-AB" }]
     }
   },
   {
     "id": "CA-BC",
     "name": "British Columbia",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159307717"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-BC" }]
     }
   },
   {
     "id": "CA-MB",
     "name": "Manitoba",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308777"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-MB" }]
     }
   },
   {
     "id": "CA-NB",
     "name": "New Brunswick",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308785"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-NB" }]
     }
   },
   {
     "id": "CA-NL",
     "name": "Newfoundland and Labrador",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308713"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-NL" }]
     }
   },
   {
     "id": "CA-NS",
     "name": "Nova Scotia",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159309585"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-NS" }]
     }
   },
   {
     "id": "CA-ON",
     "name": "Ontario",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159309687"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-ON" }]
     }
   },
   {
     "id": "CA-PE",
     "name": "Prince Edward Island",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159310911"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-PE" }]
     }
   },
   {
     "id": "CA-QC",
     "name": "Québec",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308703"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-QC" }]
     }
   },
   {
     "id": "CA-SK",
     "name": "Saskatchewan",
     "resolution": {
-      "kind": "exact-refs",
-      "refs": ["ne:admin1:1159308773"]
+      "kind": "source-keys",
+      "keys": [{ "source": "admin1", "key": "CA-SK" }]
     }
   },
   {

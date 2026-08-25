@@ -270,7 +270,9 @@ describe('map render model', () => {
       [768, 432],
       [320, 180],
     ] as const) {
-      const active = generatedLocations.find((location) => location.id === 'CA-BC')!;
+      const active = generatedLocations.find(
+        (location) => location.id === 'CA-BC',
+      )!;
       const model = buildMapRenderModel({
         active,
         layer: mapLayerForQuiz(canada, active),
@@ -284,7 +286,10 @@ describe('map render model', () => {
         ({ id }) => id === northernContextId,
       );
       expect(context?.paths.length).toBeGreaterThan(1);
-      const renderedHeight = Math.min(width / (viewBox[2] / viewBox[3]), height);
+      const renderedHeight = Math.min(
+        width / (viewBox[2] / viewBox[3]),
+        height,
+      );
       const verticalGutter = (height - renderedHeight) / 2;
       expect(verticalGutter).toBeGreaterThanOrEqual(0);
       expect(verticalGutter).toBeLessThan(48);
