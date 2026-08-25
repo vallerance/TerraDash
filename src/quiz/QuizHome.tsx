@@ -14,7 +14,9 @@ function quizSections(quizOptions: readonly QuizOption[]) {
   }
   return [...grouped].map(([key, options]) => ({
     key,
-    label: categoryLabels[key] ?? `${key} quizzes`,
+    label:
+      categoryLabels[key] ??
+      `${key.charAt(0).toUpperCase()}${key.slice(1)} quizzes`,
     options,
   }));
 }
