@@ -10,6 +10,10 @@ function quizDescription(quiz: QuizOption): ReactNode {
 }
 
 function quizSections(quizOptions: readonly QuizOption[]) {
+  const categoryLabels: Record<string, string> = {
+    global: 'Countries',
+    regional: 'States and Provinces',
+  };
   const grouped = new Map<string, QuizOption[]>();
   for (const quiz of quizOptions) {
     const key = quiz.category ?? 'global';
@@ -17,10 +21,7 @@ function quizSections(quizOptions: readonly QuizOption[]) {
   }
   return [...grouped].map(([key, options]) => ({
     key,
-    label:
-      key === 'global'
-        ? 'Global quizzes'
-        : `${key.charAt(0).toUpperCase()}${key.slice(1)} quizzes`,
+    label: categoryLabels[key] ?? `${key} quizzes`,
     options,
   }));
 }

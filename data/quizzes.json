@@ -1,5 +1,42 @@
 [
   {
+    "id": "canadian-provinces",
+    "name": "Canadian Provinces",
+    "description": "Canada's 10 provinces, excluding all territories.",
+    "category": "regional",
+    "locationIds": [
+      "CA-AB",
+      "CA-BC",
+      "CA-MB",
+      "CA-NB",
+      "CA-NL",
+      "CA-NS",
+      "CA-ON",
+      "CA-PE",
+      "CA-QC",
+      "CA-SK"
+    ],
+    "map": {
+      "contextFeatureExclusions": ["ne:1159320467"],
+      "baseLayerLocationIds": [
+        "CA-AB",
+        "CA-BC",
+        "CA-MB",
+        "CA-NB",
+        "CA-NL",
+        "CA-NS",
+        "CA-ON",
+        "CA-PE",
+        "CA-QC",
+        "CA-SK"
+      ],
+      "viewBox": "145 35 390 180",
+      "preserveAspectRatio": "xMidYMid meet",
+      "standardParallel": 60,
+      "selectable": true
+    }
+  },
+  {
     "id": "world",
     "name": "World UN Countries",
     "description": "All UN Member and UN Observer states",
