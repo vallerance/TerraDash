@@ -99,9 +99,9 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   const regionalQuizCount = quizDefinitions.filter(
     (quiz: { category?: string }) => quiz.category === 'regional',
   ).length;
-  const globalSection = page.getByRole('region', { name: 'Global quizzes' });
+  const globalSection = page.getByRole('region', { name: 'Countries' });
   const regionalSection = page.getByRole('region', {
-    name: 'Regional quizzes',
+    name: 'States and Provinces',
   });
   await expect(globalSection.locator('.quiz-option')).toHaveCount(
     globalQuizCount,
