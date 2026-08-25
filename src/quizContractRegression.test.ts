@@ -106,7 +106,9 @@ describe('regional quiz partition', () => {
       );
       expect(layer.viewBox).toMatch(/^[-\d.]+ [-\d.]+ [\d.]+ [\d.]+$/);
       expect(layer.preserveAspectRatio).toBeTruthy();
-      expect(layer.baseLayers).toHaveLength(quiz.map!.baseLayerLocationIds!.length);
+      expect(layer.baseLayers).toHaveLength(
+        quiz.map!.baseLayerLocationIds!.length,
+      );
       expect(layer.contextFeatureIds.length).toBeGreaterThan(0);
     }
   });
@@ -125,20 +127,36 @@ describe('regional quiz partition', () => {
       first: [number, number, number, number],
       second: [number, number, number, number],
     ) =>
-      first[0] <= second[1] && first[1] >= second[0] &&
-      first[2] <= second[3] && first[3] >= second[2];
+      first[0] <= second[1] &&
+      first[1] >= second[0] &&
+      first[2] <= second[3] &&
+      first[3] >= second[2];
 
     for (const quiz of quizOptions.filter((candidate) => candidate.map)) {
-      const active = playableLocations.find(({ id }) => id === quiz.locationIds[0])!;
+      const active = playableLocations.find(
+        ({ id }) => id === quiz.locationIds[0],
+      )!;
       const layer = mapLayerForQuiz(quiz, active);
-      const [minX, minY, width, height] = layer.viewBox.split(/\s+/).map(Number);
-      const projection = createMapProjection(layer.standardParallel, minY + height / 2);
+      const [minX, minY, width, height] = layer.viewBox
+        .split(/\s+/)
+        .map(Number);
+      const projection = createMapProjection(
+        layer.standardParallel,
+        minY + height / 2,
+      );
       const projectRendered = ([x, y]: Point): Point => [
         x > layer.wrapWidth / 2 ? x - layer.wrapWidth : x,
         projection.y(y),
       ];
-      const viewport: [number, number, number, number] = [minX, minX + width, minY, minY + height];
-      const baseBounds = layer.baseLayers.map(({ paths }) => bounds(paths, projectRendered));
+      const viewport: [number, number, number, number] = [
+        minX,
+        minX + width,
+        minY,
+        minY + height,
+      ];
+      const baseBounds = layer.baseLayers.map(({ paths }) =>
+        bounds(paths, projectRendered),
+      );
       for (const rendered of baseBounds) {
         expect(rendered[0]).toBeGreaterThanOrEqual(viewport[0]);
         expect(rendered[1]).toBeLessThanOrEqual(viewport[1]);
@@ -152,9 +170,14 @@ describe('regional quiz partition', () => {
         Math.max(...baseBounds.map(([, , , bottom]) => bottom)),
       ];
       const contextBounds = layer.contextFeatureIds.map((id) =>
-        bounds(map.features[id as keyof typeof map.features].paths, projectRendered),
+        bounds(
+          map.features[id as keyof typeof map.features].paths,
+          projectRendered,
+        ),
       );
-      expect(contextBounds.some((context) => intersects(context, combinedBase))).toBe(true);
+      expect(
+        contextBounds.some((context) => intersects(context, combinedBase)),
+      ).toBe(true);
     }
   });
 
