@@ -14,7 +14,10 @@ describe('map render model', () => {
   ])(
     'preserves ordinary path ordering at %s viewport',
     (_name, width, height) => {
-      const active = generatedLocations[0];
+      const active = generatedLocations.find((location) =>
+        location.id.startsWith('iso:'),
+      );
+      if (!active) throw new Error('An ordinary world location is missing');
       const layer = mapLayerForLocation(active);
       const model = buildMapRenderModel({
         active,

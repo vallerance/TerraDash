@@ -7,6 +7,11 @@ const generatedMap = JSON.parse(
 const usQuiz = JSON.parse(
   readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
 ).find((quiz: { id: string }) => quiz.id === 'us-states');
+const regionalMenuLabels = JSON.parse(
+  readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
+)
+  .filter((quiz: { category?: string }) => quiz.category === 'regional')
+  .map((quiz: { menuLabel: string }) => quiz.menuLabel);
 const expectedContextFeatureCount =
   generatedMap.sourceFeatureIds.length -
   (usQuiz.map.contextFeatureExclusions?.length ?? 0);
@@ -483,9 +488,9 @@ test('regional submenu is keyboard accessible and viewport-contained', async ({
   await regional.focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('menu').last()).toBeVisible();
-  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
-    'US States',
-  ]);
+  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText(
+    regionalMenuLabels,
+  );
 });
 
 for (const viewport of [
