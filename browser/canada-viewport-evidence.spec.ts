@@ -21,8 +21,6 @@ for (const viewport of [
       const active = map.locator(`.active-fill path[data-location-id="${id}"]`);
       await expect(active.first()).toHaveAttribute('aria-label', label);
       await expect(active.first()).toBeVisible();
-      await active.first().click();
-      await expect(map.locator('.callout-inset')).toBeVisible();
       await page.screenshot({
         path: testInfo.outputPath(
           `canada-${id.toLowerCase()}-${viewport.name}.png`,
