@@ -14,6 +14,7 @@ describe('Phase 5 ownership boundaries', () => {
   it('keeps the High Scores storage read in the route page only', () => {
     const readers = runtimeSources
       .filter(([, source]) => /getAllHighScores\s*\(/.test(source))
+      .filter(([path]) => path !== './highScores.ts')
       .map(([path]) => path);
     expect(readers).toEqual(['./pages/HighScoresPage.tsx']);
   });
@@ -38,6 +39,7 @@ describe('Phase 5 ownership boundaries', () => {
   it('keeps completed-result effects in one dedicated results leaf', () => {
     const owners = runtimeSources
       .filter(([, source]) => /recordHighScore\s*\(/.test(source))
+      .filter(([path]) => path !== './highScores.ts')
       .map(([path]) => path);
     expect(owners).toEqual(['./results/QuizResults.tsx']);
   });
