@@ -133,8 +133,12 @@ describe('regional quiz partition', () => {
       const layer = mapLayerForQuiz(quiz, active);
       const [minX, minY, width, height] = layer.viewBox.split(/\s+/).map(Number);
       const projection = createMapProjection(layer.standardParallel, minY + height / 2);
+      const projectRendered = ([x, y]: Point): Point => [
+        x > layer.wrapWidth / 2 ? x - layer.wrapWidth : x,
+        projection.y(y),
+      ];
       const viewport: [number, number, number, number] = [minX, minX + width, minY, minY + height];
-      const baseBounds = layer.baseLayers.map(({ paths }) => bounds(paths, projection.point));
+      const baseBounds = layer.baseLayers.map(({ paths }) => bounds(paths, projectRendered));
       for (const rendered of baseBounds) {
         expect(rendered[0]).toBeGreaterThanOrEqual(viewport[0]);
         expect(rendered[1]).toBeLessThanOrEqual(viewport[1]);
@@ -148,7 +152,7 @@ describe('regional quiz partition', () => {
         Math.max(...baseBounds.map(([, , , bottom]) => bottom)),
       ];
       const contextBounds = layer.contextFeatureIds.map((id) =>
-        bounds(map.features[id as keyof typeof map.features].paths, projection.point),
+        bounds(map.features[id as keyof typeof map.features].paths, projectRendered),
       );
       expect(contextBounds.some((context) => intersects(context, combinedBase))).toBe(true);
     }
