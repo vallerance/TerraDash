@@ -1,5 +1,115 @@
 [
   {
+    "id": "CA-AB",
+    "name": "Alberta",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308775"]
+    },
+    "geometryRefs": ["ne:admin1:1159308775"],
+    "anchor": [240, 120],
+    "bounds": [240, 120, 280, 164.03]
+  },
+  {
+    "id": "CA-BC",
+    "name": "British Columbia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159307717"]
+    },
+    "geometryRefs": ["ne:admin1:1159307717"],
+    "anchor": [163.76, 120],
+    "bounds": [163.76, 120, 263.85, 166.74]
+  },
+  {
+    "id": "CA-MB",
+    "name": "Manitoba",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308777"]
+    },
+    "geometryRefs": ["ne:admin1:1159308777"],
+    "anchor": [311.99, 120],
+    "bounds": [311.99, 120, 364.21, 164.03]
+  },
+  {
+    "id": "CA-NB",
+    "name": "New Brunswick",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308785"]
+    },
+    "geometryRefs": ["ne:admin1:1159308785"],
+    "anchor": [443.75, 167.7],
+    "bounds": [443.75, 167.7, 464.92, 181.52]
+  },
+  {
+    "id": "CA-NL",
+    "name": "Newfoundland and Labrador",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308713"]
+    },
+    "geometryRefs": ["ne:admin1:1159308713"],
+    "anchor": [448.77, 118.51],
+    "bounds": [448.77, 118.51, 509.48, 173.53]
+  },
+  {
+    "id": "CA-NS",
+    "name": "Nova Scotia",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309585"]
+    },
+    "geometryRefs": ["ne:admin1:1159309585"],
+    "anchor": [454.69, 171.89],
+    "bounds": [454.69, 171.89, 481.17, 186.12]
+  },
+  {
+    "id": "CA-ON",
+    "name": "Ontario",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159309687"]
+    },
+    "geometryRefs": ["ne:admin1:1159309687"],
+    "anchor": [339.36, 132.55],
+    "bounds": [339.36, 132.55, 422.62, 193.32]
+  },
+  {
+    "id": "CA-PE",
+    "name": "Prince Edward Island",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159310911"]
+    },
+    "geometryRefs": ["ne:admin1:1159310911"],
+    "anchor": [462.33, 171.73],
+    "bounds": [462.33, 171.73, 471.98, 176.2]
+  },
+  {
+    "id": "CA-QC",
+    "name": "Québec",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308703"]
+    },
+    "geometryRefs": ["ne:admin1:1159308703"],
+    "anchor": [400.94, 109.62],
+    "bounds": [400.94, 109.62, 491.6, 180]
+  },
+  {
+    "id": "CA-SK",
+    "name": "Saskatchewan",
+    "resolution": {
+      "kind": "exact-refs",
+      "refs": ["ne:admin1:1159308773"]
+    },
+    "geometryRefs": ["ne:admin1:1159308773"],
+    "anchor": [280, 120],
+    "bounds": [280, 120, 314.54, 164.03]
+  },
+  {
     "id": "iso:AFG",
     "name": "Afghanistan",
     "resolution": {
