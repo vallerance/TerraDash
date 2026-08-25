@@ -1,5 +1,15 @@
 {
   "locationIds": [
+    "CA-AB",
+    "CA-BC",
+    "CA-MB",
+    "CA-NB",
+    "CA-NL",
+    "CA-NS",
+    "CA-ON",
+    "CA-PE",
+    "CA-QC",
+    "CA-SK",
     "US-AK",
     "US-AL",
     "US-AR",
@@ -886,6 +896,18 @@
       "US-WI",
       "US-WV",
       "US-WY"
+    ],
+    "canadian-provinces": [
+      "CA-AB",
+      "CA-BC",
+      "CA-MB",
+      "CA-NB",
+      "CA-NL",
+      "CA-NS",
+      "CA-ON",
+      "CA-PE",
+      "CA-QC",
+      "CA-SK"
     ]
   },
   "relationships": {
