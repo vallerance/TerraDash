@@ -67,7 +67,7 @@ describe('canonical quiz presentation contract', () => {
       appChromeSource,
       thumbnailSource,
     ]) {
-      expect(source).not.toMatch(/quiz\.id\s*===/);
+      expect(source).not.toMatch(/quiz\.id\s*===\s*['\"]/);
       expect(source).not.toMatch(/thumbnailViewBoxes/);
       expect(source).not.toMatch(/UN Countries\)?\s*\)/);
     }

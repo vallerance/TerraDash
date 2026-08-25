@@ -564,6 +564,7 @@
     "name": "US States",
     "description": "The 50 U.S. states, excluding the District of Columbia and all territories.",
     "menuLabel": "US States",
+    "thumbnailViewBox": "0 0 1440 720",
     "category": "regional",
     "locationIds": [
       "US-AL",
