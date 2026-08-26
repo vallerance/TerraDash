@@ -72,9 +72,9 @@ for (const quiz of quizzes) {
   )
     throw new Error(`Quiz ${quiz.id} has duplicate or unresolved locationIds`);
   for (const id of quiz.map?.baseLayerLocationIds ?? [])
-    if (!quiz.locationIds.includes(id))
+    if (!locationById.has(id))
       throw new Error(
-        `Quiz ${quiz.id} base layer location is not a member: ${id}`,
+        `Quiz ${quiz.id} base layer location is unresolved: ${id}`,
       );
   for (const id of quiz.map?.contextFeatureExclusions ?? [])
     if (!map.features[id])

@@ -139,7 +139,10 @@ for (const quiz of authoredQuizzes) {
   if (tolerance == null) continue;
   if (!Number.isFinite(tolerance) || tolerance <= 0)
     throw new Error(`Invalid regional detail tolerance for ${quiz.id}`);
-  for (const locationId of quiz.locationIds) {
+  for (const locationId of new Set([
+    ...quiz.locationIds,
+    ...(quiz.map?.baseLayerLocationIds ?? []),
+  ])) {
     const location = authoredLocations.find(({ id }) => id === locationId);
     if (!location)
       throw new Error(

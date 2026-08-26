@@ -65,8 +65,13 @@ quiz normally declares:
 
 Use the actual appropriate parallel and seam for the source geography; the
 values above are illustrative defaults, not a Canada- or US-specific recipe.
-`baseLayerLocationIds` must be a subset of quiz membership. Keep the parent or
-other unreplaced land out of `contextFeatureExclusions` unless there is a
+`baseLayerLocationIds` may include reviewed authored locations outside quiz
+membership when a regional composition needs non-playable source-resolved
+geography at the same detail (for example, municipalities or autonomous
+regions surrounding playable provinces). Those IDs remain absent from
+`locationIds`, answer ordering, hit targets, and scoring. The generator applies
+the regional precision contract to the union of playable and base-layer IDs.
+Keep the parent or other unreplaced land out of `contextFeatureExclusions` unless there is a
 reviewed reason to exclude it. `mapLayerForQuiz` derives the runtime
 `contextFeatureIds` from generated source features after subtracting those
 authored exclusions. The retained context renders beneath base layers and is
