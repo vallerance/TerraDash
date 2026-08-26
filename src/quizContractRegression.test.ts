@@ -14,6 +14,7 @@ import {
   playableLocations,
   quizOptions,
 } from './contracts/quiz';
+import { playableLocationsById } from './contracts/playableLocation';
 import { mapLayerForQuiz } from './quizMapBoundary';
 import { createMapProjection } from './mapProjection';
 import { pathPoints, type Point } from './footprint';
@@ -33,6 +34,30 @@ describe('generated quiz wiring', () => {
         defaultCatalog.some((item) => item.id === id),
       ),
     ).toBe(true);
+  });
+
+  it('keeps China answer membership separate from its high-detail base layer', () => {
+    const china = quizOptions.find(({ id }) => id === 'china-provinces')!;
+    const excluded = [
+      'CN-BJ',
+      'CN-CQ',
+      'CN-GX',
+      'CN-NM',
+      'CN-NX',
+      'CN-SH',
+      'CN-TJ',
+      'CN-XJ',
+      'CN-XZ',
+    ];
+    const layer = mapLayerForQuiz(china, playableLocationsById.get('CN-AH')!);
+
+    expect(china.locationIds).toHaveLength(22);
+    expect(new Set(china.locationIds).size).toBe(22);
+    expect(china.locationIds).not.toEqual(expect.arrayContaining(excluded));
+    expect(layer.baseLayers.map(({ id }) => id)).toEqual(
+      expect.arrayContaining(excluded),
+    );
+    expect(layer.baseLayers).toHaveLength(31);
   });
 });
 

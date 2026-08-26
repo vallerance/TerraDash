@@ -17,6 +17,15 @@ for (const viewport of [
     await expect(map.locator('.countries [data-feature-id]')).not.toHaveCount(
       0,
     );
+    await expect(map.locator('.map-base-layers [data-layer-id]')).toHaveCount(
+      31,
+    );
+    await expect(
+      map.locator('.map-base-layers [data-layer-id="CN-BJ"]'),
+    ).toBeVisible();
+    await expect(
+      map.locator('.map-base-layers [data-layer-id="CN-XZ"]'),
+    ).toBeVisible();
     const active = map.locator('.active-fill path[data-location-id="CN-HI"]');
     await expect(active).toHaveAttribute('aria-label', 'Hainan');
     await expect(active.first()).toBeVisible();
