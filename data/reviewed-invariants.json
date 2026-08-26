@@ -447,6 +447,8 @@
     ],
     "china-provinces": [
       "CN-AH",
+      "CN-BJ",
+      "CN-CQ",
       "CN-FJ",
       "CN-GD",
       "CN-GS",
@@ -464,8 +466,10 @@
       "CN-QH",
       "CN-SC",
       "CN-SD",
+      "CN-SH",
       "CN-SN",
       "CN-SX",
+      "CN-TJ",
       "CN-YN",
       "CN-ZJ"
     ],
