@@ -828,12 +828,14 @@
   {
     "id": "china-provinces",
     "name": "China Provinces",
-    "description": "China's 22 mainland provinces represented by stable CN-* source identities; municipalities, autonomous regions, Hong Kong, Macau, Taiwan, and Paracel remain non-playable geography.",
+    "description": "China's 22 mainland provinces and 4 direct-administered municipalities represented by stable CN-* source identities; autonomous regions, Hong Kong, Macau, Taiwan, and Paracel remain non-playable geography.",
     "menuLabel": "China Provinces",
     "thumbnailViewBox": "920 125 432.72727272727275 190.1",
     "category": "regional",
     "locationIds": [
       "CN-AH",
+      "CN-BJ",
+      "CN-CQ",
       "CN-FJ",
       "CN-GD",
       "CN-GS",
@@ -851,8 +853,10 @@
       "CN-QH",
       "CN-SC",
       "CN-SD",
+      "CN-SH",
       "CN-SN",
       "CN-SX",
+      "CN-TJ",
       "CN-YN",
       "CN-ZJ"
     ],
