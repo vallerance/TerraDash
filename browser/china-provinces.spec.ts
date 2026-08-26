@@ -21,7 +21,7 @@ for (const viewport of [
       31,
     );
     await expect(
-      map.locator('.map-base-layers [data-layer-id="CN-BJ"]'),
+      map.locator('.map-base-layers [data-layer-id="CN-GX"]'),
     ).toBeVisible();
     await expect(
       map.locator('.map-base-layers [data-layer-id="CN-XZ"]'),
@@ -43,3 +43,17 @@ for (const viewport of [
     });
   });
 }
+
+test('keeps Beijing playable while excluded Guangxi remains non-targetable', async ({
+  page,
+}) => {
+  await page.goto('/TerraDash/?quiz=china-provinces&start=1');
+  const answer = page.getByRole('combobox', { name: 'Location name' });
+  await answer.fill('Bei');
+  await expect(page.getByRole('option', { name: 'Beijing' })).toBeVisible();
+  await expect(page.getByRole('option', { name: 'Guangxi' })).toHaveCount(0);
+  await page.getByRole('option', { name: 'Beijing' }).click();
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(page.locator('.status-correct strong')).toHaveText('1/1');
+  await expect(page.locator('.status-remaining strong')).toHaveText('25');
+});
