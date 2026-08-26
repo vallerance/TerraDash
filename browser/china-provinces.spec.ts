@@ -53,8 +53,12 @@ test('keeps Beijing playable while excluded Guangxi remains non-targetable', asy
   await expect(target.first()).toHaveAttribute('role', 'button');
 
   await page.goto('/TerraDash/');
+  const quizzes = page.getByRole('navigation', { name: 'Quizzes' });
+  await quizzes.getByRole('button', { name: /Quizzes/ }).click();
+  await page.getByRole('menuitem', { name: 'Regional quizzes' }).click();
   await page
-    .getByRole('button', { name: 'China Provinces', exact: true })
+    .locator('.quiz-submenu-popover')
+    .getByRole('menuitem', { name: 'China Provinces', exact: true })
     .click();
   const dialog = page.getByRole('dialog', { name: 'China Provinces' });
   await expect(dialog).toBeVisible();
