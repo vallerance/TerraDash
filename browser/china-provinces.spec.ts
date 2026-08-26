@@ -47,7 +47,14 @@ for (const viewport of [
 test('keeps Beijing playable while excluded Guangxi remains non-targetable', async ({
   page,
 }) => {
+  await page.goto('/TerraDash/diagnostics.html?location=CN-BJ');
+  const target = page.locator('.active-fill path[data-location-id="CN-BJ"]');
+  await expect(target.first()).toHaveAttribute('aria-label', 'Beijing');
+  await expect(target.first()).toHaveAttribute('role', 'button');
+
   await page.goto('/TerraDash/?quiz=china-provinces&start=1');
+  await expect(page.locator('.quiz-name')).toHaveText('China Provinces');
+  await expect(page.locator('.quiz-prompt-group')).toBeVisible();
   const answer = page.getByRole('combobox', { name: 'Location name' });
   await answer.fill('Bei');
   await expect(page.getByRole('option', { name: 'Beijing' })).toBeVisible();
