@@ -46,7 +46,7 @@ for (const viewport of [
 
 test('keeps Beijing playable while excluded Guangxi remains non-targetable', async ({
   page,
-}) => {
+}, testInfo) => {
   await page.goto('/TerraDash/diagnostics.html?location=CN-BJ');
   const target = page.locator('.active-fill path[data-location-id="CN-BJ"]');
   await expect(target.first()).toHaveAttribute('aria-label', 'Beijing');
@@ -77,6 +77,10 @@ test('keeps Beijing playable while excluded Guangxi remains non-targetable', asy
   await expect(
     page.locator('.active-fill path[data-location-id="CN-BJ"]'),
   ).toHaveAttribute('aria-label', 'Beijing');
+  await page.screenshot({
+    path: testInfo.outputPath('china-beijing-active.png'),
+    fullPage: true,
+  });
   const answer = page.getByRole('combobox', { name: 'Location name' });
   await answer.fill('Bei');
   await expect(page.getByRole('option', { name: 'Beijing' })).toBeVisible();
@@ -85,4 +89,8 @@ test('keeps Beijing playable while excluded Guangxi remains non-targetable', asy
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.locator('.status-correct strong')).toHaveText('1/1');
   await expect(page.locator('.status-remaining strong')).toHaveText('25');
+  await page.screenshot({
+    path: testInfo.outputPath('china-beijing-scored.png'),
+    fullPage: true,
+  });
 });
