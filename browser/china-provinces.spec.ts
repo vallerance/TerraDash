@@ -52,7 +52,7 @@ test('keeps Beijing playable while excluded Guangxi remains non-targetable', asy
   await expect(target.first()).toHaveAttribute('aria-label', 'Beijing');
   await expect(target.first()).toHaveAttribute('role', 'button');
 
-  await page.goto('/TerraDash/?quiz=china-provinces');
+  await page.goto('/TerraDash/');
   await page
     .getByRole('button', { name: 'China Provinces', exact: true })
     .click();
