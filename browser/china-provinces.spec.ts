@@ -52,9 +52,27 @@ test('keeps Beijing playable while excluded Guangxi remains non-targetable', asy
   await expect(target.first()).toHaveAttribute('aria-label', 'Beijing');
   await expect(target.first()).toHaveAttribute('role', 'button');
 
-  await page.goto('/TerraDash/?quiz=china-provinces&start=1');
+  await page.goto('/TerraDash/?quiz=china-provinces');
+  await page
+    .getByRole('button', { name: 'China Provinces', exact: true })
+    .click();
+  const dialog = page.getByRole('dialog', { name: 'China Provinces' });
+  await expect(dialog).toBeVisible();
+  await page.evaluate(() => {
+    let calls = 0;
+    Math.random = () => {
+      calls += 1;
+      return calls === 25 ? 0 : 1 - Number.EPSILON;
+    };
+  });
+  await dialog
+    .getByRole('button', { name: 'Start China Provinces Quiz' })
+    .click();
   await expect(page.locator('.quiz-name')).toHaveText('China Provinces');
   await expect(page.locator('.quiz-prompt-group')).toBeVisible();
+  await expect(
+    page.locator('.active-fill path[data-location-id="CN-BJ"]'),
+  ).toHaveAttribute('aria-label', 'Beijing');
   const answer = page.getByRole('combobox', { name: 'Location name' });
   await answer.fill('Bei');
   await expect(page.getByRole('option', { name: 'Beijing' })).toBeVisible();
