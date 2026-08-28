@@ -625,13 +625,13 @@ h2 {
   justify-content: space-between;
   gap: 1rem;
   min-height: 4.25rem;
-  padding-inline: 0.65rem;
+  padding-inline: var(--content-gutter);
 }
 .active-player .quiz-header {
   align-items: flex-start;
 }
 .quiz-header h1 {
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
   margin: 0;
 }
 .quiz-header .eyebrow {
@@ -661,6 +661,7 @@ h2 {
   pointer-events: auto;
 }
 .map-header-overlay:has(.diagnostics-controls) {
+  align-items: center;
   justify-content: center;
 }
 .quiz-prompt-group {
@@ -1145,6 +1146,13 @@ input {
   color: #9fb0c5;
   font-size: 0.62rem;
 }
+.diagnostics-controls > label {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+  color: #9fb0c5;
+  font-size: 0.62rem;
+}
 .diagnostics-control select {
   width: 100%;
   min-width: 0;
@@ -1161,9 +1169,9 @@ input {
   gap: 0.45rem;
   width: max-content;
   max-width: 100%;
+  margin-right: clamp(1.5rem, 5vw, 3rem);
 }
-.diagnostics-controls select,
-.diagnostics-controls button {
+.diagnostics-controls select {
   min-width: 0;
   max-width: 14rem;
   padding: 0.35rem 0.5rem;
@@ -1173,12 +1181,24 @@ input {
   border-radius: 0.4rem;
 }
 .diagnostics-controls button {
+  max-width: 14rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #7dd3fc;
+  border-radius: 0.4rem;
+  color: #071a2b;
+  font-weight: 800;
+  background: #7dd3fc;
   cursor: pointer;
+}
+.diagnostics-controls button:hover {
+  border-color: #bae6fd;
+  background: #bae6fd;
 }
 @media (max-width: 620px) {
   .diagnostics-controls {
     width: 100%;
     flex-wrap: wrap;
+    margin-right: 0;
   }
   .diagnostics-controls label {
     flex: 1 1 8rem;

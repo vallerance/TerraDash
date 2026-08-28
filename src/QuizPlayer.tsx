@@ -63,6 +63,10 @@ export function QuizPlayer({
   }, [autoStart, dispatch, now, onAutoStartHandled, state.phase]);
 
   if (state.phase === 'idle') {
+    // Auto-started players remount with an idle provider for one render. Keep
+    // the quiz home out of that transition; it is not a valid diagnostics
+    // surface while switching between explicitly selected quizzes.
+    if (autoStart) return null;
     return (
       <QuizHome
         quizOptions={quizOptions}
