@@ -305,7 +305,7 @@ export function buildMapRenderModel({
   viewportWidth: number;
   viewportHeight: number;
 }) {
-  const staticModel = buildStaticMapRenderModel(inputs);
+  const staticModel = buildStaticMapRenderModel({ layer, ...inputs });
   return {
     ...staticModel,
     ...buildDynamicMapRenderModel({
