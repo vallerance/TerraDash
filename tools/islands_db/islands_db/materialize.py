@@ -80,12 +80,31 @@ def ensure_admin(c,cache:Path):
     apply_eez_fallback(c,cache,ne_src)
     mark(c,"natural_earth_admin",usgs_ver+"; "+ne_ver+"; Marine Regions EEZ v12")
 
+def ensure_eez_analysis(c,cache:Path):
+    key="marine_regions_eez_analysis"
+    derived=cache/"derived"/"eez_analysis.gpkg"
+    if done(c,key) and derived.exists(): return derived
+    import pyogrio, subprocess, sys
+    src,ver=get_eez(cache)
+    info=pyogrio.read_info(src); count=int(info.get("features") or 0)
+    derived.parent.mkdir(parents=True,exist_ok=True)
+    if derived.exists(): derived.unlink()
+    batch=10; first=True
+    for skip in range(0,count,batch):
+        cmd=[sys.executable,"-m","islands_db.eez_worker","--source",str(src),"--output",str(derived),"--skip",str(skip),"--count",str(min(batch,count-skip)),"--mode","w" if first else "a"]
+        subprocess.run(cmd,check=True,cwd=Path(__file__).resolve().parents[1])
+        first=False
+        print(f"EEZ analysis: {min(skip+batch,count)}/{count}",flush=True)
+    mark(c,key,ver+"; simplified 0.01 degree analysis geometry")
+    return derived
+
+
 def apply_eez_fallback(c,cache:Path,ne_src:Path):
     missing=c.execute("SELECT COUNT(*) FROM islands WHERE country IS NULL AND latitude IS NOT NULL").fetchone()[0]
     if not missing: return
     import geopandas as gpd
     from shapely.geometry import Point
-    eez_src,_=get_eez(cache); eez=gpd.read_file(eez_src).to_crs(4326)
+    eez_src=ensure_eez_analysis(c,cache); eez=gpd.read_file(eez_src,layer="eez").to_crs(4326)
     ne=gpd.read_file(ne_src).to_crs(4326)
     name_map={}
     for _,r in ne.iterrows():
@@ -99,15 +118,26 @@ def apply_eez_fallback(c,cache:Path,ne_src:Path):
         pts=gpd.GeoDataFrame({"island_id":[r[0] for r in rows]},geometry=[Point(r[1],r[2]) for r in rows],crs=4326)
         hits=gpd.sjoin(pts,eez,how="left",predicate="within")
         for _,r in hits.iterrows():
-            country=r.get("territory1") or r.get("sovereign1")
-            if not country: continue
-            iid=int(r.island_id); sov=r.get("sovereign1"); nr=name_map.get(country) or name_map.get(sov)
-            if nr is not None:
-                region=nr.get("REGION_UN"); subregion=nr.get("SUBREGION"); map_unit=nr.get("GEOUNIT") or country; map_subunit=nr.get("SUBUNIT") or country
-            else:
-                region=subregion=None; map_unit=map_subunit=country
+            iid=int(r.island_id)
+            jurisdictions=[]
+            for n in (1,2,3):
+                country=r.get(f"territory{n}") or r.get(f"sovereign{n}")
+                if not country: continue
+                sov=r.get(f"sovereign{n}") or country
+                if any(x[0]==country and x[1]==sov for x in jurisdictions): continue
+                nr=name_map.get(country)
+                if nr is None: nr=name_map.get(sov)
+                if nr is not None:
+                    region=nr.get("REGION_UN"); subregion=nr.get("SUBREGION"); map_unit=nr.get("GEOUNIT") or country; map_subunit=nr.get("SUBUNIT") or country
+                else:
+                    region=subregion=None; map_unit=map_subunit=country
+                jurisdictions.append((country,sov,map_unit,map_subunit,region,subregion))
+            if not jurisdictions: continue
+            # Primary flattened jurisdiction is Marine Regions' territory1/sovereign1.
+            country,sov,map_unit,map_subunit,region,subregion=jurisdictions[0]
             c.execute("UPDATE islands SET sovereign_state=?,country=?,map_unit=?,map_subunit=?,region=?,subregion=? WHERE id=? AND country IS NULL",(sov,country,map_unit,map_subunit,region,subregion,iid))
-            c.execute("INSERT INTO jurisdictions(island_id,sovereign_state,country,map_unit,map_subunit,region,subregion,area_fraction,ne_feature_id,ne_name) VALUES(?,?,?,?,?,?,?,?,?,?)",(iid,sov,country,map_unit,map_subunit,region,subregion,1.0,None,None))
+            for country,sov,map_unit,map_subunit,region,subregion in jurisdictions:
+                c.execute("INSERT INTO jurisdictions(island_id,sovereign_state,country,map_unit,map_subunit,region,subregion,area_fraction,ne_feature_id,ne_name) VALUES(?,?,?,?,?,?,?,?,?,?)",(iid,sov,country,map_unit,map_subunit,region,subregion,1.0,None,None))
         c.commit(); print(f"EEZ fallback through island id {last}",flush=True)
 
 def ensure_population(c,cache:Path,year:int):

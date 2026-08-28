@@ -7,7 +7,7 @@ import requests
 UA={"User-Agent":"TerraDash-islands-db/0.1"}
 USGS_ARCGIS_ITEM="885a860af66d4833887dcce735a521a7"
 NE_SUBUNITS="https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_0_map_subunits.zip"
-MARINE_EEZ="https://geo.vliz.be/geoserver/MarineRegions/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=MarineRegions%3Aeez&outputFormat=application%2Fjson"
+MARINE_EEZ="https://geo.vliz.be/geoserver/MarineRegions/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=MarineRegions%3Aeez&outputFormat=SHAPE-ZIP"
 WORLDPOP_INDEX="https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/{year}/0_Mosaicked/v1/1km/constrained/"
 
 def download(url: str, dest: Path):
@@ -72,5 +72,6 @@ def get_worldpop(cache:Path,year:int):
 
 
 def get_eez(cache: Path):
-    p=download(MARINE_EEZ,cache/"sources"/"marine-regions"/"eez_v12.geojson")
-    return p,"Marine Regions EEZ v12 (CC BY 4.0)"
+    z=download(MARINE_EEZ,cache/"sources"/"marine-regions"/"eez_v12.zip")
+    root=unzip(z,z.with_suffix(""))
+    return find_vector(root),"Marine Regions EEZ v12 (CC BY 4.0)"

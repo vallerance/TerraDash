@@ -25,7 +25,13 @@ def main():
     # Analysis geometry only: population is 1 km and admin matching does not need 30 m coastline detail.
     # Avoid topology-preserving simplification: it is dramatically more expensive on very complex islands.
     tol=0.002 if 'BigIslands' in a.layer else (0.001 if 'SmallIslands' in a.layer else 0.0005)
-    g.geometry=g.geometry.simplify(tol,preserve_topology=False)
+    original_geometry=g.geometry.copy()
+    simplified=original_geometry.simplify(tol,preserve_topology=False)
+    # Tiny polygons can collapse at analysis resolution. Preserve their original footprint;
+    # it is small/simple, while representative points must always come from source geometry.
+    collapsed=simplified.is_empty | simplified.isna()
+    if collapsed.any(): simplified.loc[collapsed]=original_geometry.loc[collapsed]
+    g.geometry=simplified
     g['island_id']=[a.layer_index*1_000_000+int(fid) for fid in g.index]
     ne=gpd.read_file(a.natural_earth).to_crs(4326)
     c=sqlite3.connect(a.db); c.execute('PRAGMA journal_mode=WAL')
@@ -35,10 +41,11 @@ def main():
     c.execute(f'DELETE FROM island_geometry WHERE island_id IN ({q})',ids)
     c.execute(f'DELETE FROM island_geometry_rtree WHERE island_id IN ({q})',ids)
     geom_rows=[]
-    for _,r in g.iterrows():
+    for pos,(_,r) in enumerate(g.iterrows()):
         geom=r.geometry
-        if geom is None or geom.is_empty: continue
-        p=geom.representative_point(); minx,miny,maxx,maxy=geom.bounds; iid=int(r.island_id)
+        source_geom=original_geometry.iloc[pos]
+        if source_geom is None or source_geom.is_empty: continue
+        p=source_geom.representative_point(); minx,miny,maxx,maxy=geom.bounds; iid=int(r.island_id)
         geom_rows.append((iid,sqlite3.Binary(geom.wkb),minx,miny,maxx,maxy))
         c.execute('UPDATE islands SET latitude=?,longitude=? WHERE id=?',(p.y,p.x,iid))
     c.executemany('INSERT OR REPLACE INTO island_geometry(island_id,wkb,minx,miny,maxx,maxy) VALUES(?,?,?,?,?,?)',geom_rows)
