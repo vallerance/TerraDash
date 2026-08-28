@@ -1,10 +1,14 @@
 import type { GeneratedInset } from '../contracts/generatedData';
-import type { buildMapRenderModel } from './renderModel';
+import type {
+  buildDynamicMapRenderModel,
+  buildStaticMapRenderModel,
+} from './renderModel';
 
-type RenderModel = ReturnType<typeof buildMapRenderModel>;
+type DynamicModel = ReturnType<typeof buildDynamicMapRenderModel>;
+type StaticModel = ReturnType<typeof buildStaticMapRenderModel>;
 
 type MapCalloutProps = Pick<
-  RenderModel,
+  DynamicModel,
   | 'callout'
   | 'positionedCallout'
   | 'cutoutLayout'
@@ -15,13 +19,13 @@ type MapCalloutProps = Pick<
   | 'insetDot'
   | 'insetDotCenter'
   | 'leaderLines'
-  | 'insetContextPathCopies'
   | 'insetSelectedPathCopies'
-  | 'insetSourcePathCopies'
-  | 'projection'
   | 'clipId'
 > & {
   inset: GeneratedInset;
+  insetContextPathCopies: StaticModel['insetContextPathCopies'];
+  insetSourcePathCopies: StaticModel['insetSourcePathCopies'];
+  projection: StaticModel['projection'];
 };
 
 export function MapCallout({

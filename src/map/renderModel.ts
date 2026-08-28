@@ -25,44 +25,134 @@ import type {
 } from '../contracts/generatedData';
 import type { MapLayer } from '../quizMapBoundary';
 
-export function buildMapRenderModel({
-  active,
-  layer,
-  map,
-  context,
-  inset,
-  viewportWidth,
-  viewportHeight,
-}: {
-  active: GeneratedLocation;
+type MapInputs = {
   layer: MapLayer;
   map: GeneratedMap;
   context?: GeneratedContext;
   inset: GeneratedInset;
-  viewportWidth: number;
-  viewportHeight: number;
-}) {
-  const highlightedPaths = layer.activePaths;
-  const insetSelectedPaths = selectedInsetGeometryPaths(
-    active.id,
-    active.geometryRefs,
-  );
-  const parsedViewBox = layer.viewBox.trim().split(/\s+/).map(Number);
-  const viewportBounds: ViewportBounds | undefined =
-    parsedViewBox.length === 4 && parsedViewBox.every(Number.isFinite)
-      ? [
-          parsedViewBox[0],
-          parsedViewBox[0] + parsedViewBox[2],
-          parsedViewBox[1],
-          parsedViewBox[1] + parsedViewBox[3],
-        ]
-      : undefined;
+};
+
+function parseViewportBounds(viewBox: string): ViewportBounds | undefined {
+  const values = viewBox.trim().split(/\s+/).map(Number);
+  return values.length === 4 && values.every(Number.isFinite)
+    ? [values[0]!, values[0]! + values[2]!, values[1]!, values[1]! + values[3]!]
+    : undefined;
+}
+
+/** Geometry and coordinate data owned by the stable map-layer boundary. */
+export function buildStaticMapRenderModel({
+  layer,
+  map,
+  context,
+  inset,
+}: MapInputs) {
+  const viewportBounds = parseViewportBounds(layer.viewBox);
   const projectionCenterY = viewportBounds
     ? (viewportBounds[2] + viewportBounds[3]) / 2
     : map.height / 2;
   const projection = createMapProjection(
     layer.standardParallel,
     projectionCenterY,
+  );
+  const seamX = mapXForLongitude(layer.seamLongitude, layer.wrapWidth);
+  const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
+  const [renderedMapStart] = viewportBounds
+    ? viewportBounds
+    : wrappedViewportBounds(layer.wrapWidth, seamX);
+  const wrappedPathCopies = (paths: string[], width = layer.wrapWidth) =>
+    paths.flatMap((path) =>
+      wrappedPathOffsets(
+        [path],
+        width,
+        seamX,
+        MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
+      ).map((transform) => ({ path, transform })),
+    );
+  const contextVariant = layer.contextDetail
+    ? context?.variants.find(
+        (variant) =>
+          variant.source === layer.contextDetail?.source &&
+          variant.tolerance === layer.contextDetail?.tolerance,
+      )
+    : undefined;
+  const contextPathCopies = layer.contextFeatureIds.map((id) => ({
+    id,
+    paths: wrappedPathCopies(
+      contextVariant?.features[id as keyof typeof contextVariant.features]
+        ?.paths ?? map.features[id as keyof typeof map.features].paths,
+    ),
+  }));
+  const baseLayerPathCopies = layer.baseLayers.map((baseLayer) => ({
+    id: baseLayer.id,
+    paths: wrappedPathCopies(baseLayer.paths),
+  }));
+  const wrappedInsetPathCopies = (paths: string[]) =>
+    paths.flatMap((path) =>
+      wrappedPathOffsets(
+        [path],
+        inset.width,
+        seamX,
+        MAP_OVERLAP_REFERENCE_UNITS,
+        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
+      ).map((transform) => ({ path, transform })),
+    );
+  const insetContextPathCopies = layer.baseLayers.map((baseLayer) => ({
+    id: baseLayer.id,
+    paths: wrappedInsetPathCopies(insetGeometryPaths(baseLayer.id)),
+  }));
+  const insetSourcePathCopies = inset.sourceFeatureIds.map((id) => ({
+    id,
+    paths: wrappedInsetPathCopies(
+      inset.features[id as keyof typeof inset.features].paths,
+    ),
+  }));
+  return {
+    layer,
+    map,
+    inset,
+    projection,
+    viewportBounds,
+    seamX,
+    renderedMapStart,
+    renderedMapWidth,
+    contextPathCopies,
+    baseLayerPathCopies,
+    insetContextPathCopies,
+    insetSourcePathCopies,
+    wrappedPathCopies,
+    wrappedInsetPathCopies,
+  };
+}
+
+type StaticMapRenderModel = ReturnType<typeof buildStaticMapRenderModel>;
+
+/** Active highlight and callout data owned by the dynamic overlay boundary. */
+export function buildDynamicMapRenderModel({
+  active,
+  layer,
+  staticModel,
+  viewportWidth,
+  viewportHeight,
+}: {
+  active: GeneratedLocation;
+  layer: MapLayer;
+  staticModel: StaticMapRenderModel;
+  viewportWidth: number;
+  viewportHeight: number;
+}) {
+  const {
+    inset,
+    projection,
+    viewportBounds,
+    seamX,
+    wrappedPathCopies,
+    wrappedInsetPathCopies,
+  } = staticModel;
+  const highlightedPaths = layer.activePaths;
+  const insetSelectedPaths = selectedInsetGeometryPaths(
+    active.id,
+    active.geometryRefs,
   );
   const projectedHighlightedPaths = highlightedPaths.map(projection.path);
   const projectedInsetSelectedPaths = insetSelectedPaths.map((region) => ({
@@ -71,12 +161,9 @@ export function buildMapRenderModel({
     center: projection.point(region.center as [number, number]),
     span: projection.span(region.span as [number, number]),
   }));
-  const seamX = mapXForLongitude(layer.seamLongitude, layer.wrapWidth);
-  const renderedMapWidth = map.width + MAP_OVERLAP_REFERENCE_UNITS * 2;
-  const [renderedMapStart, renderedMapEnd] = viewportBounds
-    ? viewportBounds
-    : wrappedViewportBounds(layer.wrapWidth, seamX);
-  const coordinateViewportWidth = renderedMapEnd - renderedMapStart;
+  const coordinateViewportWidth = viewportBounds
+    ? viewportBounds[1] - viewportBounds[0]
+    : staticModel.renderedMapWidth;
   const scale = viewportWidth / coordinateViewportWidth;
   const callout = deriveCalloutModel(
     projectedHighlightedPaths,
@@ -104,7 +191,7 @@ export function buildMapRenderModel({
             Math.abs(callout.sourceCenter[0] + best - layer.wrapWidth / 2)
               ? offset
               : best,
-          sourceOffsets[0],
+          sourceOffsets[0]!,
         )
       : 0;
   const displayedCallout = callout
@@ -169,57 +256,9 @@ export function buildMapRenderModel({
         cutoutRadius,
       )
     : [];
-  const wrappedPathCopies = (paths: string[], width = layer.wrapWidth) =>
-    paths.flatMap((path) =>
-      wrappedPathOffsets(
-        [path],
-        width,
-        seamX,
-        MAP_OVERLAP_REFERENCE_UNITS,
-        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
-      ).map((transform) => ({ path, transform })),
-    );
   const activePathCopies = layer.wrapActive
     ? wrappedPathCopies(highlightedPaths)
     : highlightedPaths.map((path) => ({ path, transform: 0 }));
-  const contextVariant = layer.contextDetail
-    ? context?.variants.find(
-        (variant) =>
-          variant.source === layer.contextDetail?.source &&
-          variant.tolerance === layer.contextDetail?.tolerance,
-      )
-    : undefined;
-  const contextPathCopies = layer.contextFeatureIds.map((id) => ({
-    id,
-    paths: wrappedPathCopies(
-      contextVariant?.features[id as keyof typeof contextVariant.features]
-        ?.paths ?? map.features[id as keyof typeof map.features].paths,
-    ),
-  }));
-  const baseLayerPathCopies = layer.baseLayers.map((baseLayer) => ({
-    id: baseLayer.id,
-    paths: wrappedPathCopies(baseLayer.paths),
-  }));
-  const wrappedInsetPathCopies = (paths: string[]) =>
-    paths.flatMap((path) =>
-      wrappedPathOffsets(
-        [path],
-        inset.width,
-        seamX,
-        MAP_OVERLAP_REFERENCE_UNITS,
-        viewportBounds ? [viewportBounds[0], viewportBounds[1]] : undefined,
-      ).map((transform) => ({ path, transform })),
-    );
-  const insetContextPathCopies = layer.baseLayers.map((baseLayer) => ({
-    id: baseLayer.id,
-    paths: wrappedInsetPathCopies(insetGeometryPaths(baseLayer.id)),
-  }));
-  const insetSourcePathCopies = inset.sourceFeatureIds.map((id) => ({
-    id,
-    paths: wrappedInsetPathCopies(
-      inset.features[id as keyof typeof inset.features].paths,
-    ),
-  }));
   const insetSelectedPathCopies = insetSelectedPaths.flatMap(
     ({ path, kind }, pathIndex) =>
       wrappedInsetPathCopies([path]).map(
@@ -234,12 +273,6 @@ export function buildMapRenderModel({
   return {
     active,
     layer,
-    map,
-    inset,
-    projection,
-    viewportBounds,
-    renderedMapStart,
-    renderedMapWidth,
     highlightedPaths,
     insetSelectedPaths,
     projectedInsetSelectedPaths,
@@ -255,14 +288,32 @@ export function buildMapRenderModel({
     insetDotCenter,
     leaderLines,
     activePathCopies,
-    contextPathCopies,
-    baseLayerPathCopies,
-    clipId: `map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')}`,
-    wrappedPathCopies,
-    wrappedInsetPathCopies,
-    insetGeometryPaths,
-    insetContextPathCopies,
     insetSelectedPathCopies,
-    insetSourcePathCopies,
+    clipId: `map-callout-clip-${active.id.replace(/[^a-z0-9]/gi, '-')}`,
+  };
+}
+
+/** Compatibility aggregate for pure-model consumers and existing tests. */
+export function buildMapRenderModel({
+  active,
+  layer,
+  viewportWidth,
+  viewportHeight,
+  ...inputs
+}: MapInputs & {
+  active: GeneratedLocation;
+  viewportWidth: number;
+  viewportHeight: number;
+}) {
+  const staticModel = buildStaticMapRenderModel(inputs);
+  return {
+    ...staticModel,
+    ...buildDynamicMapRenderModel({
+      active,
+      layer,
+      staticModel,
+      viewportWidth,
+      viewportHeight,
+    }),
   };
 }

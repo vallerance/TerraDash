@@ -47,12 +47,14 @@ describe('map extraction boundaries', () => {
     const frame = document.createElement('div');
     frame.className = 'map-frame';
     let measured = { width: 0, height: 0 };
+    let renders = 0;
     frame.getBoundingClientRect = () =>
       ({ width: measured.width, height: measured.height }) as DOMRect;
     document.body.append(frame);
     const host = document.createElement('div');
     document.body.append(host);
     function Probe() {
+      renders += 1;
       const viewport = useMapViewport();
       return createElement(
         'output',
@@ -63,10 +65,14 @@ describe('map extraction boundaries', () => {
     const root = createRoot(host);
     act(() => root.render(createElement(Probe)));
     expect(host.textContent).toBe('1440x720');
+    expect(renders).toBe(1);
     expect(resizeObservers[0].target).toBe(frame);
+    act(() => resizeObservers[0].trigger());
+    expect(renders).toBe(1);
     measured = { width: 320, height: 180 };
     act(() => resizeObservers[0].trigger());
     expect(host.textContent).toBe('320x180');
+    expect(renders).toBe(2);
     measured = { width: 640, height: 360 };
     act(() => mutationObservers[0].trigger());
     expect(host.textContent).toBe('640x360');

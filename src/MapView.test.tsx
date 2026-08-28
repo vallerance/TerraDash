@@ -71,6 +71,30 @@ function expectActiveStatePaths(frame: HTMLElement, id: string) {
 }
 
 describe('mapped quiz layer contract', () => {
+  it('keeps static geometry identity across active changes and equivalent layers', () => {
+    const first = quizLocations.find((entry) => entry.id === 'US-RI')!;
+    const second = quizLocations.find((entry) => entry.id === 'US-MA')!;
+    const quiz = quizOptions.find((entry) => entry.id === 'us-states')!;
+    const firstLayer = mapLayerForQuiz(quiz, first);
+    const frame = document.createElement('section');
+    frame.className = 'map-frame';
+    document.body.append(frame);
+    root = createRoot(frame);
+    act(() => root!.render(<MapView active={first} layer={firstLayer} />));
+    const staticPath = frame.querySelector('.countries path')!;
+    const basePath = frame.querySelector('.map-base-layers path')!;
+    const equivalentLayer = mapLayerForQuiz(quiz, second);
+    expect(equivalentLayer).not.toBe(firstLayer);
+    act(() =>
+      root!.render(<MapView active={second} layer={equivalentLayer} />),
+    );
+    expect(frame.querySelector('.countries path')).toBe(staticPath);
+    expect(frame.querySelector('.map-base-layers path')).toBe(basePath);
+    expect(frame.querySelector('.active-fill path')?.getAttribute('d')).toBe(
+      highlightedGeometryPaths(second.geometryRefs)[0],
+    );
+  });
+
   it('renders configured context, selectable state target, and shared tiny callout', () => {
     const frame = renderState('US-RI');
     expect(frame.querySelector('.world-map')?.getAttribute('viewBox')).toBe(
