@@ -24,7 +24,9 @@ def main(argv=None):
     try:
         if a.cmd=="status":
             rows=c.execute("SELECT name,source_version,generated_at FROM materializations ORDER BY name").fetchall()
-            for r in rows: print("\t".join(str(x or "") for x in r)); return 0
+            for r in rows:
+                print("\t".join(str(x or "") for x in r))
+            return 0
         ensure_base(c,cache); ensure_admin(c,cache)
         if a.cmd=="build":
             if a.population: ensure_population(c,cache,a.population_year)
