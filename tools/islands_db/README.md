@@ -78,7 +78,7 @@ Inspect cached materializations:
 ./islands status
 ```
 
-Delete the cache directory to force a complete rebuild. Materializations record their source/version so future source-version-aware invalidation can be added without changing the query interface.
+Delete the cache directory to force a complete rebuild. Long geometry and population materializations use progress checkpoints so interrupted runs resume without repeating completed chunks. Materializations record their source/version so future source-version-aware invalidation can be added without changing the query interface.
 
 ### Low-memory/resumable GIS processing
 
