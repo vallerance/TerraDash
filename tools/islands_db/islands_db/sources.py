@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import requests
 
 UA={"User-Agent":"TerraDash-islands-db/0.1"}
-SCIENCEBASE="https://www.sciencebase.gov/catalog/item/63bdf25dd34e92aad3cda273?format=json"
+USGS_ARCGIS_ITEM="885a860af66d4833887dcce735a521a7"
 NE_SUBUNITS="https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_0_map_subunits.zip"
 MARINE_EEZ="https://geo.vliz.be/geoserver/MarineRegions/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=MarineRegions%3Aeez&outputFormat=application%2Fjson"
 WORLDPOP_INDEX="https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/{year}/0_Mosaicked/v1/1km/constrained/"
@@ -42,15 +42,16 @@ def find_vector(root: Path):
     raise FileNotFoundError(f"no vector dataset found under {root}")
 
 def get_usgs(cache: Path):
-    meta=requests.get(SCIENCEBASE,headers=UA,timeout=60).json()
-    files=meta.get("files",[])
-    candidates=[f for f in files if f.get("url") and re.search(r"\.(zip|gpkg)$",f.get("name",""),re.I)]
-    if not candidates: raise RuntimeError("USGS ScienceBase item has no downloadable vector archive")
-    # Prefer files whose names describe islands/global data, then largest archive.
-    candidates.sort(key=lambda f:(("island" in f.get("name","").lower())+("global" in f.get("name","").lower()),f.get("size",0)),reverse=True)
-    f=candidates[0]; path=download(f["url"],cache/"sources"/"usgs"/f["name"])
-    if path.suffix.lower()==".zip": return find_vector(unzip(path,path.with_suffix(""))), f.get("name","")
-    return path,f.get("name","")
+    meta_url=f"https://www.arcgis.com/sharing/rest/content/items/{USGS_ARCGIS_ITEM}"
+    meta=requests.get(meta_url,params={"f":"json"},headers=UA,timeout=60).json()
+    if meta.get("type") != "File Geodatabase":
+        raise RuntimeError(f"unexpected USGS ArcGIS item type: {meta.get('type')}")
+    name="GlbIslands.gdb.zip"
+    url=f"https://www.arcgis.com/sharing/rest/content/items/{USGS_ARCGIS_ITEM}/data"
+    path=download(url,cache/"sources"/"usgs"/name)
+    root=unzip(path,path.with_suffix(""))
+    src=find_vector(root)
+    return src,f"USGS Global Islands ArcGIS item {USGS_ARCGIS_ITEM} modified {meta.get('modified')}"
 
 def get_ne(cache: Path):
     z=download(NE_SUBUNITS,cache/"sources"/"natural-earth"/"ne_10m_admin_0_map_subunits.zip")

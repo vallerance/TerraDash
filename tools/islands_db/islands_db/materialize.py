@@ -21,71 +21,94 @@ def pick(row, fields, default=None):
 def ensure_base(c,cache:Path):
     if done(c,"usgs_base"): return
     src,ver=get_usgs(cache)
-    if src.suffix.lower()==".gdb":
-        import pyogrio, pandas as pd
-        layers=[x[0] for x in pyogrio.list_layers(src) if any(k in x[0] for k in ("BigIslands","SmallIslands","VerySmallIslands")) and "Contin" not in x[0]]
-        if not layers: raise RuntimeError(f"no USGS island layers found in {src}")
-        g=gpd.GeoDataFrame(pd.concat([gpd.read_file(src,layer=l) for l in layers],ignore_index=True))
-    else:
-        g=gpd.read_file(src)
-    if g.crs is None: g=g.set_crs(4326)
-    wgs=g.to_crs(4326); equal=g.to_crs(6933)
-    rows=[]
-    for pos,((idx,r),geom_eq) in enumerate(zip(wgs.iterrows(),equal.geometry),1):
-        geom=r.geometry
-        p=geom.representative_point() if geom is not None and not geom.is_empty else None
-        uid=str(pick(r,ID_FIELDS,idx)); name=pick(r,NAME_FIELDS,None)
-        rows.append((pos,uid,name,json.dumps([]),float(geom_eq.area/1e6) if geom_eq is not None else None,None,None,None,None,p.y if p else None,p.x if p else None,None,None,None,None,None,None,None,None))
-    c.executemany("INSERT OR REPLACE INTO islands VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",rows); c.commit()
-    # Cache geometry separately; SQLite remains lightweight/query-oriented.
-    geomdir=cache/"derived"; geomdir.mkdir(parents=True,exist_ok=True)
-    wgs[[wgs.geometry.name]].assign(island_id=range(1,len(wgs)+1)).to_file(geomdir/"islands.gpkg",layer="islands",driver="GPKG")
+    import pyogrio
+    layer_names=[x[0] for x in pyogrio.list_layers(src)]
+    layers=[x for x in layer_names if any(k in x for k in ("BigIslands","SmallIslands","VerySmallIslands")) and "Contin" not in x]
+    if not layers: raise RuntimeError(f"no USGS island layers found in {src}: {layer_names}")
+    c.execute("DELETE FROM islands"); c.execute("DELETE FROM jurisdictions"); c.commit()
+    columns=["USGS_ISID","Name_USGSO","NAME_wcmcI","NAME_LOCAL","Area_Geode"]
+    total=0
+    for layer_index,layer in enumerate(layers,1):
+        info=pyogrio.read_info(src,layer=layer); count=int(info.get("features") or 0)
+        chunk=10000
+        for offset in range(0,count,chunk):
+            g=pyogrio.read_dataframe(src,layer=layer,columns=columns,read_geometry=False,fid_as_index=True,skip_features=offset,max_features=chunk)
+            rows=[]
+            for _,r in g.iterrows():
+                usgs=r.get("USGS_ISID")
+                if usgs is None or (isinstance(usgs,float) and math.isnan(usgs)): continue
+                oid=int(r.name)
+                iid=layer_index*1_000_000+oid
+                raw=[]
+                for f in ("Name_USGSO","NAME_wcmcI","NAME_LOCAL"):
+                    v=r.get(f)
+                    if v is not None and str(v).strip():
+                        v=str(v).strip()
+                        if v not in raw: raw.append(v)
+                area=r.get("Area_Geode")
+                rows.append((iid,str(int(usgs)),raw[0] if raw else None,json.dumps(raw[1:]),float(area) if area is not None else None,None,None,None,None,None,None,None,None,None,None,None,None,None,None))
+            c.executemany("INSERT OR REPLACE INTO islands VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",rows); c.commit(); total+=len(rows)
+            print(f"USGS {layer}: {min(offset+len(g),count)}/{count}",flush=True)
+    c.execute("CREATE INDEX IF NOT EXISTS idx_islands_usgs ON islands(usgs_id)"); c.execute("CREATE INDEX IF NOT EXISTS idx_islands_name ON islands(name)"); c.commit()
+    actual=c.execute("SELECT COUNT(*) FROM islands").fetchone()[0]
+    if actual != total: raise RuntimeError(f"internal island ID collision: loaded {total} rows but only {actual} unique IDs")
     mark(c,"usgs_base",ver)
 
 def ensure_admin(c,cache:Path):
     ensure_base(c,cache)
     if done(c,"natural_earth_admin"): return
-    src,ver=get_ne(cache); ne=gpd.read_file(src).to_crs(4326)
-    islands=gpd.read_file(cache/"derived"/"islands.gpkg",layer="islands").to_crs(4326)
-    # Spatial candidates first, then calculate actual overlap in equal-area projection.
-    cand=gpd.sjoin(islands,ne,how="left",predicate="intersects")
-    i_eq=islands.to_crs(6933).set_index("island_id"); ne_eq=ne.to_crs(6933)
-    def attr(r,*names):
-        for n in names:
-            if n in r and r[n] is not None: return r[n]
-        return None
-    out=[]
-    for iid,grp in cand.groupby("island_id",sort=False):
-        ia=i_eq.loc[iid].geometry; denom=max(ia.area,1e-9); vals=[]
-        for _,r in grp.iterrows():
-            j=r.get("index_right")
-            if j is None or (isinstance(j,float) and math.isnan(j)): continue
-            nr=ne.loc[j]; frac=float(ia.intersection(ne_eq.loc[j].geometry).area/denom)
-            vals.append((frac,nr))
-        vals.sort(key=lambda x:x[0],reverse=True)
-        for frac,nr in vals:
-            out.append((int(iid),attr(nr,"SOVEREIGNT","SOV_A3"),attr(nr,"ADMIN"),attr(nr,"GEOUNIT"),attr(nr,"SUBUNIT"),attr(nr,"REGION_UN"),attr(nr,"SUBREGION"),frac,str(attr(nr,"NE_ID","ADM0_A3","SU_A3") or ""),attr(nr,"NAME","NAME_LONG")))
-        if vals:
-            frac,nr=vals[0]
-            c.execute("UPDATE islands SET ne_feature_id=?,ne_name=?,sovereign_state=?,country=?,map_unit=?,map_subunit=?,region=?,subregion=? WHERE id=?",(str(attr(nr,"NE_ID","ADM0_A3","SU_A3") or ""),attr(nr,"NAME","NAME_LONG"),attr(nr,"SOVEREIGNT"),attr(nr,"ADMIN"),attr(nr,"GEOUNIT"),attr(nr,"SUBUNIT"),attr(nr,"REGION_UN"),attr(nr,"SUBREGION"),int(iid)))
-    c.execute("DELETE FROM jurisdictions"); c.executemany("INSERT INTO jurisdictions VALUES(?,?,?,?,?,?,?,?,?,?)",out); c.commit()
-    # Tiny islands absent from Natural Earth's generalized land polygons fall back to the
-    # permissively licensed Marine Regions EEZ layer, then inherit Natural Earth region
-    # metadata from another row with the same country/territory where possible.
-    missing=[r[0] for r in c.execute("SELECT id FROM islands WHERE country IS NULL")]
-    if missing:
-        eez_src,eez_ver=get_eez(cache); eez=gpd.read_file(eez_src).to_crs(4326)
-        pts=islands[islands.island_id.isin(missing)].copy(); pts.geometry=pts.geometry.representative_point()
+    import pyogrio, subprocess, sys
+    src,usgs_ver=get_usgs(cache); ne_src,ne_ver=get_ne(cache)
+    layers=[x[0] for x in pyogrio.list_layers(src) if any(k in x[0] for k in ("BigIslands","SmallIslands","VerySmallIslands")) and "Contin" not in x[0]]
+    progress=cache/"progress"/"natural-earth"; progress.mkdir(parents=True,exist_ok=True)
+    if not done(c,"natural_earth_geometry_started"):
+        c.execute("DELETE FROM jurisdictions"); c.execute("DELETE FROM island_geometry"); c.execute("DELETE FROM island_geometry_rtree")
+        c.execute("UPDATE islands SET latitude=NULL,longitude=NULL,ne_feature_id=NULL,ne_name=NULL,sovereign_state=NULL,country=NULL,map_unit=NULL,map_subunit=NULL,region=NULL,subregion=NULL")
+        c.commit(); mark(c,"natural_earth_geometry_started",usgs_ver+"; "+ne_ver)
+    for layer_index,layer in enumerate(layers,1):
+        count=int(pyogrio.read_info(src,layer=layer).get("features") or 0)
+        batch=100 if "BigIslands" in layer else 10000
+        for skip in range(0,count,batch):
+            marker=progress/f"{layer_index}-{skip}-{min(batch,count-skip)}.done"
+            if marker.exists(): continue
+            cmd=[sys.executable,"-m","islands_db.geom_worker","--db",str(cache/"islands.sqlite"),"--source",str(src),"--layer",layer,"--layer-index",str(layer_index),"--skip",str(skip),"--count",str(min(batch,count-skip)),"--natural-earth",str(ne_src)]
+            subprocess.run(cmd,check=True,cwd=Path(__file__).resolve().parents[1])
+            marker.touch()
+            print(f"Natural Earth {layer}: {min(skip+batch,count)}/{count}",flush=True)
+    mark(c,"natural_earth_geometry",usgs_ver+"; "+ne_ver)
+    # EEZ fallback is applied after the Natural Earth geometry pass.
+    apply_eez_fallback(c,cache,ne_src)
+    mark(c,"natural_earth_admin",usgs_ver+"; "+ne_ver+"; Marine Regions EEZ v12")
+
+def apply_eez_fallback(c,cache:Path,ne_src:Path):
+    missing=c.execute("SELECT COUNT(*) FROM islands WHERE country IS NULL AND latitude IS NOT NULL").fetchone()[0]
+    if not missing: return
+    import geopandas as gpd
+    from shapely.geometry import Point
+    eez_src,_=get_eez(cache); eez=gpd.read_file(eez_src).to_crs(4326)
+    ne=gpd.read_file(ne_src).to_crs(4326)
+    name_map={}
+    for _,r in ne.iterrows():
+        for key in (r.get("ADMIN"),r.get("GEOUNIT"),r.get("SUBUNIT"),r.get("SOVEREIGNT")):
+            if key and key not in name_map: name_map[key]=r
+    batch=20000; last=-1
+    while True:
+        rows=c.execute("SELECT id,longitude,latitude FROM islands WHERE country IS NULL AND latitude IS NOT NULL AND id>? ORDER BY id LIMIT ?",(last,batch)).fetchall()
+        if not rows: break
+        last=rows[-1][0]
+        pts=gpd.GeoDataFrame({"island_id":[r[0] for r in rows]},geometry=[Point(r[1],r[2]) for r in rows],crs=4326)
         hits=gpd.sjoin(pts,eez,how="left",predicate="within")
         for _,r in hits.iterrows():
-            iid=int(r.island_id); country=r.get("territory1") or r.get("sovereign1")
+            country=r.get("territory1") or r.get("sovereign1")
             if not country: continue
-            sov=r.get("sovereign1"); ne_row=c.execute("SELECT region,subregion,map_unit,map_subunit FROM islands WHERE country=? AND region IS NOT NULL LIMIT 1",(country,)).fetchone()
-            region,subregion,map_unit,map_subunit=(tuple(ne_row) if ne_row else (None,None,country,country))
+            iid=int(r.island_id); sov=r.get("sovereign1"); nr=name_map.get(country) or name_map.get(sov)
+            if nr is not None:
+                region=nr.get("REGION_UN"); subregion=nr.get("SUBREGION"); map_unit=nr.get("GEOUNIT") or country; map_subunit=nr.get("SUBUNIT") or country
+            else:
+                region=subregion=None; map_unit=map_subunit=country
             c.execute("UPDATE islands SET sovereign_state=?,country=?,map_unit=?,map_subunit=?,region=?,subregion=? WHERE id=? AND country IS NULL",(sov,country,map_unit,map_subunit,region,subregion,iid))
             c.execute("INSERT INTO jurisdictions(island_id,sovereign_state,country,map_unit,map_subunit,region,subregion,area_fraction,ne_feature_id,ne_name) VALUES(?,?,?,?,?,?,?,?,?,?)",(iid,sov,country,map_unit,map_subunit,region,subregion,1.0,None,None))
-        c.commit(); ver += "; "+eez_ver
-    mark(c,"natural_earth_admin",ver)
+        c.commit(); print(f"EEZ fallback through island id {last}",flush=True)
 
 def ensure_population(c,cache:Path,year:int):
     ensure_base(c,cache); key=f"population_{year}_1km"
