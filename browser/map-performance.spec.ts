@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { writeFile } from 'node:fs/promises';
 
 type Capture = {
   longTasks: number[];
@@ -71,8 +72,13 @@ test.describe('production map performance capture', () => {
           maxInputTaskMs: Math.max(0, ...capture.inputTasks),
           longTaskCount: capture.longTasks.length,
         };
+        const artifactPath = testInfo.outputPath(
+          fixture.id + '-performance.json',
+        );
+        await writeFile(artifactPath, JSON.stringify(result, null, 2));
+        console.log(fixture.id + ' performance: ' + JSON.stringify(result));
         await testInfo.attach(fixture.id + '-performance.json', {
-          body: JSON.stringify(result, null, 2),
+          path: artifactPath,
           contentType: 'application/json',
         });
         expect(result.maxInputTaskMs).toBeLessThan(100);
