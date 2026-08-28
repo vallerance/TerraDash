@@ -13,22 +13,18 @@ Raw downloads, derived geometry, SQLite rows, indexes, and materialization metad
 
 ## Install
 
-Requires Python 3.9+. On platforms where PyPI provides GeoPandas/Rasterio wheels:
+Recommended lightweight setup uses `uv`, which can install a current standalone Python plus prebuilt ARM64/x86_64 GIS wheels without Conda or a system GDAL build:
 
 ```bash
 cd tools/islands_db
-python3 -m venv .venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv python install 3.12
+uv venv --python 3.12 .venv
 . .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
-For platforms without compatible GDAL/Rasterio wheels (including some ARM64/Python combinations), use the included conda-forge environment instead; it remains entirely independent of the rest of TerraDash:
-
-```bash
-micromamba create -f environment.yml -p .env
-micromamba run -p .env ./islands query --length 20
-```
+A normal Python 3.12+ virtualenv with `pip install -r requirements.txt` also works where compatible wheels are available.
 
 ## Query
 
