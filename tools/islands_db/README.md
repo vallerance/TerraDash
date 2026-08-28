@@ -64,7 +64,7 @@ Every query first ensures only the materializations it needs:
 2. Analysis-resolution island geometry + Natural Earth jurisdiction/association overlay, processed in resumable subprocess chunks
 3. WorldPop population only when population is filtered or sorted
 
-Population is aggregated tile-by-tile: each raster block spatially selects overlapping islands, rasterizes island IDs for that block, and sums population with a vectorized bincount. It does not independently scan the global raster once per island.
+Population is aggregated tile-by-tile: each WorldPop raster block queries overlapping cached island analysis geometries through SQLite R-tree bounds, rasterizes island IDs for that block, and accumulates population into a resumable on-disk NumPy array. It does not independently scan the global raster once per island and does not load all island geometry into memory.
 
 Prebuild everything explicitly:
 

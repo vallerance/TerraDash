@@ -144,18 +144,53 @@ def ensure_population(c,cache:Path,year:int):
     ensure_base(c,cache); key=f"population_{year}_1km"
     if done(c,key): return
     raster,ver=get_worldpop(cache,year)
-    islands=gpd.read_file(cache/"derived"/"islands.gpkg",layer="islands")
-    totals=np.zeros(len(islands)+1,dtype="float64")
+    import os
+    from shapely import from_wkb
+    progress_dir=cache/"progress"/"population"; progress_dir.mkdir(parents=True,exist_ok=True)
+    max_id=int(c.execute("SELECT COALESCE(MAX(id),0) FROM islands").fetchone()[0])
+    totals_path=progress_dir/f"{year}-totals.npy"
+    state_path=progress_dir/f"{year}-state.txt"
+    if totals_path.exists():
+        totals=np.load(totals_path,mmap_mode="r+")
+        if len(totals) != max_id+1:
+            raise RuntimeError("population checkpoint does not match current island database")
+    else:
+        totals=np.lib.format.open_memmap(totals_path,mode="w+",dtype="float64",shape=(max_id+1,))
+        totals[:] = 0; totals.flush()
+    completed=int(state_path.read_text().strip()) if state_path.exists() else 0
     with rasterio.open(raster) as ds:
-        work=islands.to_crs(ds.crs); sindex=work.sindex
-        for _,window in ds.block_windows(1):
+        if ds.crs is None or ds.crs.to_epsg()!=4326:
+            raise RuntimeError(f"expected EPSG:4326 WorldPop raster, got {ds.crs}")
+        windows=list(ds.block_windows(1))
+        for pos,(_,window) in enumerate(windows):
+            if pos < completed: continue
             arr=ds.read(1,window=window,masked=True)
-            if arr.mask is np.True_ or arr.count()==0: continue
-            bounds=rasterio.windows.bounds(window,ds.transform); ids=list(sindex.query(box(*bounds),predicate="intersects"))
-            if not ids: continue
-            shapes=[(work.geometry.iloc[i],int(work.island_id.iloc[i])) for i in ids]
-            labels=rasterize(shapes,out_shape=arr.shape,transform=ds.window_transform(window),fill=0,dtype="int32")
-            values=np.asarray(arr.filled(0),dtype="float64"); valid=labels>0
-            if valid.any(): totals += np.bincount(labels[valid].ravel(),weights=values[valid].ravel(),minlength=len(totals))
-    c.executemany("UPDATE islands SET population=?,population_year=?,population_source=?,population_method=? WHERE id=?",[(float(totals[i]),year,ver,"1km-raster",i) for i in range(1,len(totals))])
+            if arr.count():
+                left,bottom,right,top=rasterio.windows.bounds(window,ds.transform)
+                rows=c.execute("""SELECT g.island_id,g.wkb FROM island_geometry_rtree r
+                                  JOIN island_geometry g ON g.island_id=r.island_id
+                                  WHERE r.maxx>=? AND r.minx<=? AND r.maxy>=? AND r.miny<=?""",
+                               (left,right,bottom,top)).fetchall()
+                if rows:
+                    shapes=[]
+                    for row in rows:
+                        geom=from_wkb(bytes(row[1]))
+                        if geom is not None and not geom.is_empty:
+                            shapes.append((geom,int(row[0])))
+                    if shapes:
+                        labels=rasterize(shapes,out_shape=arr.shape,transform=ds.window_transform(window),fill=0,dtype="int32")
+                        values=np.asarray(arr.filled(0),dtype="float64")
+                        valid=(labels>0) & np.isfinite(values) & (values>0)
+                        if valid.any():
+                            ids=labels[valid].ravel(); vals=values[valid].ravel()
+                            np.add.at(totals,ids,vals)
+            totals.flush()
+            tmp=state_path.with_suffix('.tmp'); tmp.write_text(str(pos+1)); os.replace(tmp,state_path)
+            if (pos+1)%100==0 or pos+1==len(windows):
+                print(f"WorldPop {year}: {pos+1}/{len(windows)} raster blocks",flush=True)
+    existing_ids=[r[0] for r in c.execute("SELECT id FROM islands ORDER BY id")]
+    for offset in range(0,len(existing_ids),10000):
+        ids=existing_ids[offset:offset+10000]
+        rows=[(float(totals[i]),year,ver,"1km-raster",i) for i in ids]
+        c.executemany("UPDATE islands SET population=?,population_year=?,population_source=?,population_method=? WHERE id=?",rows); c.commit()
     c.execute("CREATE INDEX IF NOT EXISTS idx_islands_population ON islands(population)"); c.commit(); mark(c,key,ver)

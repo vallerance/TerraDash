@@ -35,3 +35,19 @@ def main(argv=None):
     except (ValueError,RuntimeError,FileNotFoundError) as e:
         print(f"error: {e}",file=sys.stderr); return 2
     finally: c.close()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
