@@ -1,46 +1,29 @@
+import { memo } from 'react';
 import { MapCallout } from './MapCallout';
-import type { buildMapRenderModel } from './renderModel';
+import type {
+  buildDynamicMapRenderModel,
+  buildStaticMapRenderModel,
+} from './renderModel';
 
-type RenderModel = ReturnType<typeof buildMapRenderModel>;
+type StaticModel = ReturnType<typeof buildStaticMapRenderModel>;
+type DynamicModel = ReturnType<typeof buildDynamicMapRenderModel>;
 
-export function MapCanvas({ model }: { model: RenderModel }) {
+export const StaticMapGeometry = memo(function StaticMapGeometry({
+  model,
+}: {
+  model: StaticModel;
+}) {
   const {
-    active,
     layer,
     map,
-    inset,
     projection,
     renderedMapStart,
     renderedMapWidth,
-    callout,
-    positionedCallout,
-    cutoutLayout,
-    cutoutRadius,
-    cutoutCenter,
-    insetViewBox,
-    insetRenderedScale,
-    insetDot,
-    insetDotCenter,
-    leaderLines,
-    activePathCopies,
     contextPathCopies,
     baseLayerPathCopies,
-    insetContextPathCopies,
-    insetSelectedPathCopies,
-    insetSourcePathCopies,
-    clipId,
   } = model;
   return (
-    <svg
-      className="world-map"
-      viewBox={
-        layer.viewBox ||
-        `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
-      }
-      preserveAspectRatio={layer.preserveAspectRatio}
-      role="img"
-      aria-label="Flat world map with the selected location highlighted"
-    >
+    <>
       <rect
         x={renderedMapStart}
         width={renderedMapWidth}
@@ -54,9 +37,7 @@ export function MapCanvas({ model }: { model: RenderModel }) {
               key={id}
               data-feature-id={id}
               aria-hidden="true"
-              className={
-                active.geometryRefs.includes(id) ? 'country active' : 'country'
-              }
+              className="country"
             >
               {paths.map(({ path, transform }, index) => (
                 <path
@@ -83,6 +64,24 @@ export function MapCanvas({ model }: { model: RenderModel }) {
             ))}
           </g>
         )}
+      </g>
+    </>
+  );
+});
+
+export function MapOverlays({
+  staticModel,
+  model,
+}: {
+  staticModel: StaticModel;
+  model: DynamicModel;
+}) {
+  const { projection, inset, insetContextPathCopies, insetSourcePathCopies } =
+    staticModel;
+  const { active, activePathCopies, layer } = model;
+  return (
+    <>
+      <g className="map-projection-overlay" transform={projection.transform}>
         <g
           className="active-fill"
           aria-hidden={layer.selectable ? undefined : true}
@@ -111,22 +110,36 @@ export function MapCanvas({ model }: { model: RenderModel }) {
       </g>
       <MapCallout
         inset={inset}
-        callout={callout}
-        positionedCallout={positionedCallout}
-        cutoutLayout={cutoutLayout}
-        cutoutRadius={cutoutRadius}
-        cutoutCenter={cutoutCenter}
-        insetViewBox={insetViewBox}
-        insetRenderedScale={insetRenderedScale}
-        insetDot={insetDot}
-        insetDotCenter={insetDotCenter}
-        leaderLines={leaderLines}
+        {...model}
         insetContextPathCopies={insetContextPathCopies}
-        insetSelectedPathCopies={insetSelectedPathCopies}
         insetSourcePathCopies={insetSourcePathCopies}
         projection={projection}
-        clipId={clipId}
       />
+    </>
+  );
+}
+
+export function MapCanvas({
+  staticModel,
+  dynamicModel,
+}: {
+  staticModel: StaticModel;
+  dynamicModel: DynamicModel;
+}) {
+  const { layer, map, renderedMapStart, renderedMapWidth } = staticModel;
+  return (
+    <svg
+      className="world-map"
+      viewBox={
+        layer.viewBox ||
+        `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
+      }
+      preserveAspectRatio={layer.preserveAspectRatio}
+      role="img"
+      aria-label="Flat world map with the selected location highlighted"
+    >
+      <StaticMapGeometry model={staticModel} />
+      <MapOverlays staticModel={staticModel} model={dynamicModel} />
     </svg>
   );
 }

@@ -25,6 +25,20 @@ export type MapLayer = {
   };
 };
 
+/** Stable semantic identity for geometry that is allowed to rebuild the canvas. */
+export function mapLayerIdentity(layer: MapLayer): string {
+  return JSON.stringify({
+    contextFeatureIds: layer.contextFeatureIds,
+    baseLayers: layer.baseLayers,
+    viewBox: layer.viewBox,
+    preserveAspectRatio: layer.preserveAspectRatio,
+    standardParallel: layer.standardParallel,
+    wrapWidth: layer.wrapWidth,
+    seamLongitude: layer.seamLongitude,
+    contextDetail: layer.contextDetail,
+  });
+}
+
 export type RenderLocation = PlayableLocation;
 
 export function mapLocationForQuizId(id: string): RenderLocation | undefined {

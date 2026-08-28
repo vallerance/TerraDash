@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useMapViewport } from './useMapViewport';
 import {
   generatedInset as inset,
@@ -5,9 +6,13 @@ import {
   generatedContext as context,
   type GeneratedLocation,
 } from '../contracts/generatedData';
-import { buildMapRenderModel } from './renderModel';
+import {
+  buildDynamicMapRenderModel,
+  buildStaticMapRenderModel,
+} from './renderModel';
 import {
   mapLayerForLocation,
+  mapLayerIdentity,
   type MapLayer,
   type RenderLocation,
 } from '../quizMapBoundary';
@@ -23,16 +28,23 @@ export function MapView({
   layer: MapLayer;
 }) {
   const { width: viewportWidth, height: viewportHeight } = useMapViewport();
-  const model = buildMapRenderModel({
-    active,
-    layer,
-    map,
-    context,
-    inset,
-    viewportWidth,
-    viewportHeight,
-  });
-  return <MapCanvas model={model} />;
+  const layerIdentity = mapLayerIdentity(layer);
+  const staticModel = useMemo(
+    () => buildStaticMapRenderModel({ layer, map, context, inset }),
+    [layerIdentity],
+  );
+  const dynamicModel = useMemo(
+    () =>
+      buildDynamicMapRenderModel({
+        active,
+        layer,
+        staticModel,
+        viewportWidth,
+        viewportHeight,
+      }),
+    [active, staticModel, viewportWidth, viewportHeight],
+  );
+  return <MapCanvas staticModel={staticModel} dynamicModel={dynamicModel} />;
 }
 
 export function DiagnosticsMap({ location }: { location: RenderLocation }) {

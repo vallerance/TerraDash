@@ -18,10 +18,15 @@ export function useMapViewport(): MapViewport {
     if (!frame) return;
     const update = () => {
       const bounds = frame.getBoundingClientRect();
-      setViewport({
+      const next = {
         width: bounds.width || generatedMap.width,
         height: bounds.height || generatedMap.height,
-      });
+      };
+      setViewport((previous) =>
+        previous.width === next.width && previous.height === next.height
+          ? previous
+          : next,
+      );
     };
     update();
     const observer =
