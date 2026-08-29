@@ -32,6 +32,12 @@ test('captures contained diagnostics spacing evidence', async ({
   ]) {
     await page.setViewportSize(viewport);
     await page.goto(state);
+    await page.waitForTimeout(100);
+    await page.evaluate(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
 
     if (viewport.width === 561) {
       const values = await page.evaluate(() => {
