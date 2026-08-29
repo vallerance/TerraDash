@@ -39,17 +39,21 @@ test.describe('production map performance capture', () => {
     await page.addInitScript(() => {
       const longTasks: number[] = [];
       const inputTasks: number[] = [];
-      const observe = (type: string, target: number[]) => {
+      const observe = (
+        type: string,
+        target: number[],
+        options: PerformanceObserverInit = {},
+      ) => {
         try {
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) target.push(entry.duration);
-          }).observe({ type, buffered: true } as PerformanceObserverInit);
+          }).observe({ type, buffered: true, ...options });
         } catch {
           // The capture remains valid on browsers without this optional entry type.
         }
       };
       observe('longtask', longTasks);
-      observe('event', inputTasks);
+      observe('event', inputTasks, { durationThreshold: 16 });
       Object.assign(window, {
         __resetTerraDashCapture: () => {
           longTasks.length = 0;
@@ -141,6 +145,7 @@ test.describe('production map performance capture', () => {
           contentType: 'application/json',
         });
         expect(result.maxInputTaskMs).toBeLessThan(100);
+        expect(result.longTaskCount).toBe(0);
         if (fixture.id === 'china-provinces') {
           expect(result.rendererTaskOccupancyMs).toBeLessThan(29_730 * 0.2);
         }
