@@ -1249,15 +1249,12 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    position: static;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    align-self: center;
-    justify-self: center;
-    width: 100%;
-    min-height: 0;
+    top: 5rem;
+    right: 0;
+    bottom: 5rem;
+    left: 0;
+    width: auto;
     padding: 0;
-    pointer-events: none;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
     width: 35%;
