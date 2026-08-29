@@ -26,8 +26,8 @@ test('captures contained diagnostics spacing evidence', async ({
 
     if (viewport.width === 561) {
       const values = await page.evaluate(() => {
-        const header = document.querySelector<HTMLElement>('.quiz-header')!;
-        const heading = document.querySelector<HTMLElement>('.quiz-header h1')!;
+        const header = document.querySelector<HTMLElement>('.active-player .quiz-header')!;
+        const heading = document.querySelector<HTMLElement>('.active-player .quiz-header h1')!;
         return {
           paddingInline: getComputedStyle(header).paddingInline,
           headingFontSize: getComputedStyle(heading).fontSize,
@@ -44,7 +44,7 @@ test('captures contained diagnostics spacing evidence', async ({
       const bounds = await page.evaluate(() => {
         const rect = (selector: string) =>
           document
-            .querySelector<HTMLElement>(selector)!
+            .querySelector<HTMLElement>(`.active-player ${selector}`)!
             .getBoundingClientRect();
         const prompt = rect('.quiz-prompt-group');
         const status = rect('.quiz-status-bar');
