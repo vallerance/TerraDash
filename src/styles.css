@@ -1234,7 +1234,7 @@ input {
     grid-template-columns: minmax(0, 4fr) minmax(0, 1fr) minmax(0, 4fr);
     grid-template-rows: auto minmax(0, 1fr);
     align-items: start;
-    min-height: 12rem;
+    min-height: 14rem;
     padding-block: 0.65rem;
     padding-bottom: 0;
   }
@@ -1249,9 +1249,9 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: 4.75rem;
+    top: 5.75rem;
     right: 0;
-    bottom: 4.75rem;
+    bottom: 5.75rem;
     left: 0;
     width: auto;
     padding: 0;
