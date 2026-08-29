@@ -1232,7 +1232,9 @@ input {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr);
-    align-items: center;
+    align-items: start;
+    min-height: 10rem;
+    padding-block: 0.65rem;
     padding-bottom: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
