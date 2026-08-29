@@ -73,12 +73,13 @@ for (const viewport of viewports) {
 
     if (viewport.name === '769x280') {
       expect(metrics.scrollY).toBe(0);
-      expect(metrics.prompt.y + metrics.prompt.height).toBeLessThanOrEqual(
-        metrics.controls.y,
-      );
-      expect(metrics.controls.y + metrics.controls.height).toBeLessThanOrEqual(
-        metrics.status.y,
-      );
+      const intersects = (a: typeof metrics.prompt, b: typeof metrics.prompt) =>
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y;
+      expect(intersects(metrics.prompt, metrics.controls)).toBe(false);
+      expect(intersects(metrics.status, metrics.controls)).toBe(false);
       expect(
         Math.abs(metrics.controlsCenter - metrics.headerCenter),
       ).toBeLessThan(1);
