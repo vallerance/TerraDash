@@ -23,18 +23,46 @@ for (const viewport of viewports) {
     });
 
     const metrics = await page.evaluate(() => {
-      const header = document.querySelector('.quiz-header')!.getBoundingClientRect();
-      const prompt = document.querySelector('.quiz-prompt-group')!.getBoundingClientRect();
-      const status = document.querySelector('.quiz-status-bar')!.getBoundingClientRect();
-      const controls = document.querySelector('.diagnostics-controls')!.getBoundingClientRect();
+      const header = document
+        .querySelector('.quiz-header')!
+        .getBoundingClientRect();
+      const prompt = document
+        .querySelector('.quiz-prompt-group')!
+        .getBoundingClientRect();
+      const status = document
+        .querySelector('.quiz-status-bar')!
+        .getBoundingClientRect();
+      const controls = document
+        .querySelector('.diagnostics-controls')!
+        .getBoundingClientRect();
       const heading = document.querySelector('.quiz-header h1')!;
       const style = getComputedStyle(heading);
       return {
         scrollY: window.scrollY,
-        header: { x: header.x, y: header.y, width: header.width, height: header.height },
-        prompt: { x: prompt.x, y: prompt.y, width: prompt.width, height: prompt.height },
-        status: { x: status.x, y: status.y, width: status.width, height: status.height },
-        controls: { x: controls.x, y: controls.y, width: controls.width, height: controls.height },
+        header: {
+          x: header.x,
+          y: header.y,
+          width: header.width,
+          height: header.height,
+        },
+        prompt: {
+          x: prompt.x,
+          y: prompt.y,
+          width: prompt.width,
+          height: prompt.height,
+        },
+        status: {
+          x: status.x,
+          y: status.y,
+          width: status.width,
+          height: status.height,
+        },
+        controls: {
+          x: controls.x,
+          y: controls.y,
+          width: controls.width,
+          height: controls.height,
+        },
         headerCenter: header.y + header.height / 2,
         controlsCenter: controls.y + controls.height / 2,
         paddingInline: style.paddingInline,
@@ -51,7 +79,9 @@ for (const viewport of viewports) {
       expect(metrics.controls.y + metrics.controls.height).toBeLessThanOrEqual(
         metrics.status.y,
       );
-      expect(Math.abs(metrics.controlsCenter - metrics.headerCenter)).toBeLessThan(1);
+      expect(
+        Math.abs(metrics.controlsCenter - metrics.headerCenter),
+      ).toBeLessThan(1);
     }
 
     await page.screenshot({
