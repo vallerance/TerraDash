@@ -1233,7 +1233,7 @@ input {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr);
     align-items: start;
-    min-height: 10rem;
+    min-height: 14rem;
     padding-block: 0.65rem;
     padding-bottom: 0;
   }
