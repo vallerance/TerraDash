@@ -99,7 +99,6 @@ The flattened Natural Earth fields represent the jurisdiction with the greatest 
 python -m pytest
 ```
 
-
 ### Name enrichment
 
 USGS Global Islands remains authoritative for island enumeration and geometry, but its name fields are incomplete. The tool treats blank/`UNNAMED` values as missing and enriches names deterministically in this priority order:
