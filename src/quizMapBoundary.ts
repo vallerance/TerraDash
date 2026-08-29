@@ -9,6 +9,8 @@ import { generatedMap } from './contracts/generatedData';
 import { highlightedGeometryPaths } from './mapGeometry';
 
 export type MapLayer = {
+  /** Explicit versioned contract ID; never derived from geometry payloads at render time. */
+  geometryContractId: string;
   contextFeatureIds: readonly string[];
   baseLayers: readonly { id: string; paths: string[] }[];
   activePaths: string[];
@@ -27,16 +29,7 @@ export type MapLayer = {
 
 /** Stable semantic identity for geometry that is allowed to rebuild the canvas. */
 export function mapLayerIdentity(layer: MapLayer): string {
-  return JSON.stringify({
-    contextFeatureIds: layer.contextFeatureIds,
-    baseLayers: layer.baseLayers,
-    viewBox: layer.viewBox,
-    preserveAspectRatio: layer.preserveAspectRatio,
-    standardParallel: layer.standardParallel,
-    wrapWidth: layer.wrapWidth,
-    seamLongitude: layer.seamLongitude,
-    contextDetail: layer.contextDetail,
-  });
+  return layer.geometryContractId;
 }
 
 export type RenderLocation = PlayableLocation;
@@ -46,6 +39,7 @@ export function mapLocationForQuizId(id: string): RenderLocation | undefined {
 }
 
 const defaultMap: MapLayer = {
+  geometryContractId: 'map-geometry-v1:world',
   contextFeatureIds: generatedMap.sourceFeatureIds,
   baseLayers: [],
   activePaths: [],
@@ -62,8 +56,22 @@ export function mapLayerForQuiz(
   active: { geometryRefs: string[] },
 ): MapLayer {
   const config = quiz.map;
+  const geometryContractId = [
+    'map-geometry-v1',
+    quiz.id,
+    config?.contextFeatureExclusions?.join(',') ?? '',
+    config?.baseLayerLocationIds?.join(',') ?? '',
+    config?.viewBox ?? '',
+    config?.preserveAspectRatio ?? '',
+    config?.standardParallel ?? '',
+    config?.wrapWidth ?? defaultMap.wrapWidth,
+    config?.seamLongitude ?? defaultMap.seamLongitude,
+    config?.contextDetail?.source ?? '',
+    config?.contextDetail?.tolerance ?? '',
+  ].join(':');
   const exclusions = new Set(config?.contextFeatureExclusions ?? []);
   return {
+    geometryContractId,
     contextFeatureIds: generatedMap.sourceFeatureIds.filter(
       (id) => !exclusions.has(id),
     ),

@@ -1,10 +1,36 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type BrowserContext } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 
 type Capture = {
   longTasks: number[];
   inputTasks: number[];
 };
+
+type TraceEvent = {
+  name?: string;
+  ph?: string;
+  dur?: number;
+  tid?: number;
+  args?: { name?: string };
+};
+
+async function stopTrace(
+  client: Awaited<ReturnType<BrowserContext['newCDPSession']>>,
+): Promise<TraceEvent[]> {
+  const complete = new Promise<{ stream: string }>((resolve) => {
+    client.once('Tracing.tracingComplete', resolve);
+  });
+  await client.send('Tracing.end');
+  const { stream } = await complete;
+  let data = '';
+  for (;;) {
+    const chunk = await client.send('IO.read', { handle: stream });
+    data += chunk.data;
+    if (chunk.eof) break;
+  }
+  await client.send('IO.close', { handle: stream });
+  return (JSON.parse(data) as { traceEvents?: TraceEvent[] }).traceEvents ?? [];
+}
 
 test.describe('production map performance capture', () => {
   test.setTimeout(90_000);
@@ -40,10 +66,16 @@ test.describe('production map performance capture', () => {
   ]) {
     test(
       'captures ' + fixture.id + ' idle and typing workload',
-      async ({ page }, testInfo) => {
+      async ({ page, context }, testInfo) => {
         await page.goto('/TerraDash/?quiz=' + fixture.id + '&start=1');
         await expect(page.locator('.active-player')).toBeVisible();
         await expect(page.locator('.world-map')).toBeVisible();
+        const client = await context.newCDPSession(page);
+        await client.send('Tracing.start', {
+          categories:
+            'devtools.timeline,disabled-by-default-devtools.timeline,v8.execute',
+          transferMode: 'ReturnAsStream',
+        });
         await page.evaluate(() => {
           (
             window as Window & { __resetTerraDashCapture: () => void }
@@ -54,6 +86,7 @@ test.describe('production map performance capture', () => {
         for (const value of ['a', 'ca', 'car', 'cari', 'carib']) {
           await answer.fill(value);
         }
+        const traceEvents = await stopTrace(client);
         const capture = await page.evaluate(() =>
           (
             window as Window & {
@@ -65,10 +98,36 @@ test.describe('production map performance capture', () => {
           (total, duration) => total + duration,
           0,
         );
+        const rendererThreadIds = new Set(
+          traceEvents
+            .filter(
+              (event) =>
+                event.name === 'thread_name' &&
+                /RendererMain|MainThread/.test(event.args?.name ?? ''),
+            )
+            .map((event) => event.tid)
+            .filter((tid): tid is number => tid !== undefined),
+        );
+        const rendererTaskOccupancyMs = traceEvents
+          .filter(
+            (event) =>
+              event.ph === 'X' &&
+              event.name === 'RunTask' &&
+              (rendererThreadIds.size === 0 ||
+                rendererThreadIds.has(event.tid)),
+          )
+          .reduce((total, event) => total + (event.dur ?? 0) / 1000, 0);
         const result = {
           fixture: fixture.id,
           captureDurationMs: fixture.durationMs,
           busyTimeMs,
+          rendererTaskOccupancyMs,
+          baselineTaskOccupancyMs:
+            fixture.id === 'china-provinces' ? 29_730 : null,
+          reductionPercent:
+            fixture.id === 'china-provinces'
+              ? (1 - rendererTaskOccupancyMs / 29_730) * 100
+              : null,
           maxInputTaskMs: Math.max(0, ...capture.inputTasks),
           longTaskCount: capture.longTasks.length,
         };
@@ -83,7 +142,7 @@ test.describe('production map performance capture', () => {
         });
         expect(result.maxInputTaskMs).toBeLessThan(100);
         if (fixture.id === 'china-provinces') {
-          expect(result.busyTimeMs).toBeLessThan(29_730 * 0.2);
+          expect(result.rendererTaskOccupancyMs).toBeLessThan(29_730 * 0.2);
         }
       },
     );

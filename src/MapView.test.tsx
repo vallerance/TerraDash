@@ -93,6 +93,15 @@ describe('mapped quiz layer contract', () => {
     expect(frame.querySelector('.active-fill path')?.getAttribute('d')).toBe(
       highlightedGeometryPaths(second.geometryRefs)[0],
     );
+    const changedContract = {
+      ...equivalentLayer,
+      geometryContractId: equivalentLayer.geometryContractId + ':changed',
+    };
+    act(() =>
+      root!.render(<MapView active={second} layer={changedContract} />),
+    );
+    expect(frame.querySelector('.countries path')).not.toBe(staticPath);
+    expect(frame.querySelector('.map-base-layers path')).not.toBe(basePath);
   });
 
   it('renders configured context, selectable state target, and shared tiny callout', () => {
