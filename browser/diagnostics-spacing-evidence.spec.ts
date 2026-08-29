@@ -22,8 +22,8 @@ test('captures contained diagnostics spacing evidence', async ({
   ]) {
     await page.setViewportSize(viewport);
     await page.goto(state);
-    await page.evaluate(() => window.scrollTo(0, 0));
     await capture(page, testInfo, `diagnostics-after-${viewport.name}`);
+    await page.evaluate(() => window.scrollTo(0, 0));
 
     if (viewport.width === 561) {
       const values = await page.evaluate(() => {
