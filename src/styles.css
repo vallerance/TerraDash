@@ -1239,7 +1239,7 @@ input {
     padding-bottom: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
-    grid-column: 1;
+    grid-column: 1 / 3;
     grid-row: 1;
     width: auto;
   }
