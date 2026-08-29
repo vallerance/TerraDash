@@ -3,7 +3,7 @@ import csv, json, sqlite3, sys
 from pathlib import Path
 
 FIELDS = [
-    "id","usgs_id","name","alternate_names","area_km2","population","population_year","population_source","population_method",
+    "id","usgs_id","name","alternate_names","name_source","name_source_id","name_match_method","area_km2","population","population_year","population_source","population_method",
     "latitude","longitude","ne_feature_id","ne_name","sovereign_state","country","map_unit","map_subunit","region","subregion"
 ]
 SORTABLE = set(FIELDS)
@@ -40,6 +40,19 @@ def connect(path: Path) -> sqlite3.Connection:
     CREATE INDEX IF NOT EXISTS idx_j_country ON jurisdictions(country);
     CREATE INDEX IF NOT EXISTS idx_j_region ON jurisdictions(region);
     ''')
+    cols={r[1] for r in c.execute("PRAGMA table_info(islands)")}
+    for name,typ in (("name_source","TEXT"),("name_source_id","TEXT"),("name_match_method","TEXT")):
+        if name not in cols: c.execute(f"ALTER TABLE islands ADD COLUMN {name} {typ}")
+    c.executescript("""
+    CREATE TABLE IF NOT EXISTS island_names(
+      island_id INTEGER NOT NULL, name TEXT NOT NULL, source TEXT NOT NULL, source_id TEXT,
+      name_type TEXT, match_method TEXT NOT NULL, priority INTEGER NOT NULL,
+      UNIQUE(island_id,name,source,source_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_island_names_island ON island_names(island_id);
+    CREATE INDEX IF NOT EXISTS idx_island_names_name ON island_names(name COLLATE NOCASE);
+    """)
+    c.commit()
     return c
 
 def parse_filter(expr: str):

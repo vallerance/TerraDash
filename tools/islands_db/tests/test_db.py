@@ -1,6 +1,7 @@
 import io
 from pathlib import Path
 from islands_db.db import connect, emit, query
+from islands_db.materialize import insert_base_rows
 
 def seed(tmp_path):
     c=connect(tmp_path/"x.sqlite")
@@ -22,3 +23,10 @@ def test_csv_default_shape(tmp_path):
 
 def test_json_format(tmp_path):
     c=seed(tmp_path); rows=query(c,[],"name","asc",0,1); s=io.StringIO(); emit(rows,"json",s); assert '"name": "Alpha"' in s.getvalue()
+
+
+def test_base_insert_survives_extended_schema(tmp_path):
+    c=connect(tmp_path/"fresh.sqlite")
+    insert_base_rows(c,[(1,"u","Island","[]",1.0,None,None,None,None,None,None,None,None,None,None,None,None,None,None)])
+    row=c.execute("SELECT id,name,name_source,name_source_id,name_match_method FROM islands").fetchone()
+    assert tuple(row)==(1,"Island",None,None,None)

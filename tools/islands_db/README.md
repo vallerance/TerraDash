@@ -8,6 +8,9 @@ A self-contained command-line tool that materializes a queryable global-islands 
 - **Natural Earth 1:10m admin-0 map subunits** (public domain): sovereign state, country, map unit, map subunit, UN-style region/subregion, and Natural Earth association.
 - **Marine Regions World EEZ v12** (CC BY 4.0): fallback jurisdiction for tiny islands omitted by Natural Earth generalized land polygons.
 - **WorldPop Global2 R2025A 1 km population** (CC BY 4.0): population estimate, downloaded and aggregated only when a query requires population (or `build --population` is requested).
+- **USGS GNIS** (public domain): official U.S. and dependent-area island names.
+- **NGA GNS Hypsographic** (freely available U.S. Government geographic names data): approved foreign island/islet names.
+- **GeoNames** (CC BY 4.0): secondary global island-name enrichment and aliases.
 
 Raw downloads, derived geometry, SQLite rows, indexes, and materialization metadata live under `cache/` by default. Repeated queries reuse them. Set `ISLANDS_CACHE_DIR` or `--cache-dir` to put the cache elsewhere.
 
@@ -86,7 +89,7 @@ The source USGS coastline geometry is much higher resolution than the 1 km popul
 
 ## Output columns
 
-`id`, `usgs_id`, `name`, `alternate_names`, `area_km2`, `population`, `population_year`, `population_source`, `population_method`, `latitude`, `longitude`, `ne_feature_id`, `ne_name`, `sovereign_state`, `country`, `map_unit`, `map_subunit`, `region`, `subregion`.
+`id`, `usgs_id`, `name`, `alternate_names`, `name_source`, `name_source_id`, `name_match_method`, `area_km2`, `population`, `population_year`, `population_source`, `population_method`, `latitude`, `longitude`, `ne_feature_id`, `ne_name`, `sovereign_state`, `country`, `map_unit`, `map_subunit`, `region`, `subregion`.
 
 The flattened Natural Earth fields represent the jurisdiction with the greatest island-area overlap. All overlaps are retained in the internal `jurisdictions` table with `area_fraction` so filters remain correct for divided islands.
 
@@ -95,3 +98,16 @@ The flattened Natural Earth fields represent the jurisdiction with the greatest 
 ```bash
 python -m pytest
 ```
+
+
+### Name enrichment
+
+USGS Global Islands remains authoritative for island enumeration and geometry, but its name fields are incomplete. The tool treats blank/`UNNAMED` values as missing and enriches names deterministically in this priority order:
+
+1. usable USGS primary name
+2. usable USGS alternate/local name
+3. GNIS official `Island` name for U.S. coverage
+4. NGA GNS approved individual-island/islet name (`ISL`, `ISLT`, `ISLX`) for foreign coverage
+5. GeoNames individual-island feature name
+
+Gazetteer names are accepted only when their feature coordinate is covered by the USGS island polygon; nearest-neighbor guessing is not used. All matched names and provenance are retained in the internal `island_names` table. Primary query output exposes `name_source`, `name_source_id`, and `name_match_method`. Group/archipelago designations such as GNS/GeoNames `ISLS` are not promoted to the name of a single island polygon.

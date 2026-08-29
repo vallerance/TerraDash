@@ -75,3 +75,19 @@ def get_eez(cache: Path):
     z=download(MARINE_EEZ,cache/"sources"/"marine-regions"/"eez_v12.zip")
     root=unzip(z,z.with_suffix(""))
     return find_vector(root),"Marine Regions EEZ v12 (CC BY 4.0)"
+
+GNIS_NATIONAL="https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/DomesticNames/DomesticNames_National_Text.zip"
+GNS_HYPSOGRAPHIC="https://geonames.nga.mil/geonames/GNSData/fc_files/Hypsographic.zip"
+GEONAMES_ALL="https://download.geonames.org/export/dump/allCountries.zip"
+
+def get_gnis(cache: Path):
+    p=download(GNIS_NATIONAL,cache/"sources"/"gnis"/"DomesticNames_National_Text.zip")
+    return p,"GNIS National Text 2026"
+
+def get_gns_islands(cache: Path):
+    p=download(GNS_HYPSOGRAPHIC,cache/"sources"/"gns"/"Hypsographic.zip")
+    return p,"NGA GNS Hypsographic 2026"
+
+def get_geonames(cache: Path):
+    p=download(GEONAMES_ALL,cache/"sources"/"geonames"/"allCountries.zip")
+    return p,"GeoNames allCountries CC BY 4.0 2026"

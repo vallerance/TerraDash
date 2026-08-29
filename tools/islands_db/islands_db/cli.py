@@ -3,6 +3,7 @@ import argparse, os, sys
 from pathlib import Path
 from .db import connect,emit,query,parse_filter
 from .materialize import ensure_base,ensure_admin,ensure_population
+from .names import ensure_names
 
 def required(filters,sort):
     fields={sort}
@@ -27,7 +28,7 @@ def main(argv=None):
             for r in rows:
                 print("\t".join(str(x or "") for x in r))
             return 0
-        ensure_base(c,cache); ensure_admin(c,cache)
+        ensure_base(c,cache); ensure_admin(c,cache); ensure_names(c,cache)
         if a.cmd=="build":
             if a.population: ensure_population(c,cache,a.population_year)
             return 0

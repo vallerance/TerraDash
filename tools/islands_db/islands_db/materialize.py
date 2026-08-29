@@ -18,6 +18,17 @@ def pick(row, fields, default=None):
         if f in row and row[f] is not None and str(row[f]).strip(): return row[f]
     return default
 
+BASE_COLUMNS=(
+    "id","usgs_id","name","alternate_names","area_km2","population","population_year",
+    "population_source","population_method","latitude","longitude","ne_feature_id","ne_name",
+    "sovereign_state","country","map_unit","map_subunit","region","subregion",
+)
+
+def insert_base_rows(c,rows):
+    placeholders=",".join("?" for _ in BASE_COLUMNS)
+    columns=",".join(BASE_COLUMNS)
+    c.executemany(f"INSERT OR REPLACE INTO islands({columns}) VALUES({placeholders})",rows)
+
 def ensure_base(c,cache:Path):
     if done(c,"usgs_base"): return
     src,ver=get_usgs(cache)
@@ -47,7 +58,7 @@ def ensure_base(c,cache:Path):
                         if v not in raw: raw.append(v)
                 area=r.get("Area_Geode")
                 rows.append((iid,str(int(usgs)),raw[0] if raw else None,json.dumps(raw[1:]),float(area) if area is not None else None,None,None,None,None,None,None,None,None,None,None,None,None,None,None))
-            c.executemany("INSERT OR REPLACE INTO islands VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",rows); c.commit(); total+=len(rows)
+            insert_base_rows(c,rows); c.commit(); total+=len(rows)
             print(f"USGS {layer}: {min(offset+len(g),count)}/{count}",flush=True)
     c.execute("CREATE INDEX IF NOT EXISTS idx_islands_usgs ON islands(usgs_id)"); c.execute("CREATE INDEX IF NOT EXISTS idx_islands_name ON islands(name)"); c.commit()
     actual=c.execute("SELECT COUNT(*) FROM islands").fetchone()[0]
