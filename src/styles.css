@@ -1231,7 +1231,7 @@ input {
 @media (min-width: 621px) and (max-width: 900px) {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr);
     grid-template-rows: auto minmax(0, 1fr);
     align-items: start;
     min-height: 9rem;
