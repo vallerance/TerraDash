@@ -66,8 +66,8 @@ export function mapLayerForQuiz(
     config?.standardParallel ?? '',
     config?.wrapWidth ?? defaultMap.wrapWidth,
     config?.seamLongitude ?? defaultMap.seamLongitude,
-    config?.contextDetail?.source ?? '',
-    config?.contextDetail?.tolerance ?? '',
+    config?.regionalDetail?.context?.source ?? '',
+    config?.regionalDetail?.context?.tolerance ?? '',
   ].join(':');
   const exclusions = new Set(config?.contextFeatureExclusions ?? []);
   return {
