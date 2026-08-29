@@ -110,3 +110,7 @@ USGS Global Islands remains authoritative for island enumeration and geometry, b
 5. GeoNames individual-island feature name
 
 Gazetteer names are accepted only when their feature coordinate is covered by the USGS island polygon; nearest-neighbor guessing is not used. All matched names and provenance are retained in the internal `island_names` table. Primary query output exposes `name_source`, `name_source_id`, and `name_match_method`. Group/archipelago designations such as GNS/GeoNames `ISLS` are not promoted to the name of a single island polygon.
+
+#### Curated local-name fallback
+
+Global gazetteers do not consistently classify inhabited delta and river landmasses as islands. After the automated USGS/GNIS/GNS/GeoNames stages, `data/local_name_overrides.csv` supplies researched local, historical, government, char, kyun, and regional landmass names for high-population polygons that remain unnamed. Each row records its source and match method. These overrides only fill unusable names; they never replace an already usable higher-priority name. The file is applied idempotently on every run so an existing cache can pick up newly researched names without rebuilding the global source materializations.

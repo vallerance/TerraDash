@@ -125,6 +125,27 @@ def enrich_geonames(c,cache):
         if matched%5000==0: c.commit()
     c.commit(); f.close(); z.close(); return ver,seen,matched,changed
 
+
+def apply_local_name_overrides(c):
+    path=Path(__file__).with_name("data")/"local_name_overrides.csv"
+    if not path.exists(): return 0
+    changed=0
+    with path.open(encoding="utf-8",newline="") as f:
+        for r in csv.DictReader(f):
+            try: iid=int(r["island_id"])
+            except Exception: continue
+            name=(r.get("name") or "").strip()
+            if not usable(name): continue
+            source=(r.get("source") or "Local research").strip()
+            source_id=(r.get("source_id") or "").strip() or None
+            method=(r.get("match_method") or "local-source").strip()
+            c.execute("INSERT OR IGNORE INTO island_names VALUES(?,?,?,?,?,?,?)",(iid,name,source,source_id,"local",method,5))
+            row=c.execute("SELECT name FROM islands WHERE id=?",(iid,)).fetchone()
+            if row and not usable(row[0]):
+                c.execute("UPDATE islands SET name=?,name_source=?,name_source_id=?,name_match_method=? WHERE id=?",(name,source,source_id,method,iid))
+                changed+=1
+    c.commit(); return changed
+
 def _done(c,key):
     return c.execute("SELECT 1 FROM materializations WHERE name=?",(key,)).fetchone() is not None
 
@@ -133,6 +154,10 @@ def _mark(c,key,version):
 
 def ensure_names(c,cache):
     ensure_name_schema(c)
+    # Curated local-name research is intentionally idempotent and is applied on every run.
+    # This lets an existing materialized cache pick up newly researched names without
+    # forcing a rebuild of the much larger gazetteer stages.
+    apply_local_name_overrides(c)
     if _done(c,"names_enriched"): return
     summaries=[]
     if not _done(c,"names_usgs"):
@@ -141,6 +166,7 @@ def ensure_names(c,cache):
         promoted=promote_usgs_alternates(c)
         _mark(c,"names_usgs",f"USGS Global Islands; promoted_alternates={promoted}")
     summaries.append("USGS")
+    summaries.append("LocalOverrides")
     if not _done(c,"names_gnis"):
         gv,gs,gm,gc=enrich_gnis(c,cache)
         _mark(c,"names_gnis",f"{gv}; candidates={gs}; matched={gm}; promoted={gc}")
@@ -154,4 +180,4 @@ def ensure_names(c,cache):
         _mark(c,"names_geonames",f"{zv}; candidates={zs}; matched={zm}; promoted={zc}")
     summaries.append("GeoNames")
     unusable=c.execute("SELECT COUNT(*) FROM islands WHERE name IS NULL OR trim(name)='' OR upper(trim(name))='UNNAMED'").fetchone()[0]
-    _mark(c,"names_enriched",f"priority: USGS > GNIS > GNS > GeoNames; remaining_unusable={unusable}")
+    _mark(c,"names_enriched",f"priority: USGS > LocalOverrides > GNIS > GNS > GeoNames; remaining_unusable={unusable}")

@@ -30,3 +30,23 @@ def test_base_insert_survives_extended_schema(tmp_path):
     insert_base_rows(c,[(1,"u","Island","[]",1.0,None,None,None,None,None,None,None,None,None,None,None,None,None,None)])
     row=c.execute("SELECT id,name,name_source,name_source_id,name_match_method FROM islands").fetchone()
     assert tuple(row)==(1,"Island",None,None,None)
+
+
+def test_local_name_override_fills_unusable_name(tmp_path):
+    from islands_db.names import apply_local_name_overrides
+
+    c = connect(tmp_path / "local-name.sqlite")
+    insert_base_rows(c, [(
+        1002595, "338023", "UNNAMED", "[]", 44.0, 101736.0, 2025,
+        "test", "test", 53.49945, 10.01516, None, None, "Germany",
+        "Germany", None, None, "Europe", "Western Europe",
+    )])
+    assert apply_local_name_overrides(c) >= 1
+    row = c.execute(
+        "SELECT name,name_source,name_match_method FROM islands WHERE id=1002595"
+    ).fetchone()
+    assert tuple(row) == (
+        "Wilhelmsburg",
+        "Hamburg municipal government",
+        "local-authority-landmass",
+    )
