@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useMapViewport } from './useMapViewport';
 import {
   generatedInset as inset,
@@ -23,16 +23,21 @@ type Location = GeneratedLocation;
 export function MapView({
   active,
   layer,
+  onStaticModelBuild,
 }: {
   active: Location;
   layer: MapLayer;
+  /** Test/evidence seam; called only when the semantic static contract rebuilds. */
+  onStaticModelBuild?: (contractId: string) => void;
 }) {
   const { width: viewportWidth, height: viewportHeight } = useMapViewport();
   const layerIdentity = mapLayerIdentity(layer);
-  const staticModel = useMemo(
-    () => buildStaticMapRenderModel({ layer, map, context, inset }),
-    [layerIdentity],
-  );
+  const staticModelBuildObserver = useRef(onStaticModelBuild);
+  staticModelBuildObserver.current = onStaticModelBuild;
+  const staticModel = useMemo(() => {
+    staticModelBuildObserver.current?.(layerIdentity);
+    return buildStaticMapRenderModel({ layer, map, context, inset });
+  }, [layerIdentity]);
   const dynamicModel = useMemo(
     () =>
       buildDynamicMapRenderModel({

@@ -135,6 +135,7 @@ export function MapCanvas({
         `${renderedMapStart} 0 ${renderedMapWidth} ${map.height}`
       }
       preserveAspectRatio={layer.preserveAspectRatio}
+      data-map-contract-id={layer.geometryContractId}
       role="img"
       aria-label="Flat world map with the selected location highlighted"
     >
