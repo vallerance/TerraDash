@@ -57,6 +57,7 @@ test('diagnostics spacing before and after evidence', async ({
           headingFontSize: getComputedStyle(heading).fontSize,
         };
       });
+      console.log(`561px computed values: ${JSON.stringify(values)}`);
       expect(values).toEqual({
         paddingInline: '12.8px',
         headingFontSize: '14.4px',
@@ -76,6 +77,7 @@ test('diagnostics spacing before and after evidence', async ({
           headerCenter: (header.top + header.bottom) / 2,
         };
       });
+      console.log(`769px measured centers: ${JSON.stringify(centers)}`);
       expect(
         Math.abs(centers.controlsCenter - centers.headerCenter),
       ).toBeLessThanOrEqual(1);
