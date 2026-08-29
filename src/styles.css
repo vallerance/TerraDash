@@ -1232,9 +1232,9 @@ input {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 3fr);
-    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
     align-items: start;
-    min-height: 20rem;
+    min-height: 9rem;
     padding-block: 0.65rem;
     padding-bottom: 0;
   }
@@ -1249,9 +1249,9 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: 5rem;
+    top: 3.5rem;
     right: 0;
-    bottom: 5rem;
+    bottom: 3.5rem;
     left: 0;
     width: auto;
     padding: 0;
