@@ -58,7 +58,7 @@ test('diagnostics spacing before and after evidence', async ({
         };
       });
       expect(values).toEqual({
-        paddingInline: '11.22px',
+        paddingInline: '12.8px',
         headingFontSize: '14.4px',
       });
     }
