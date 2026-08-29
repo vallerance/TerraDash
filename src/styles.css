@@ -6,7 +6,7 @@
   --map-stage-header-height: 4.25rem;
   --map-stage-header-gap: 0.5rem;
   --page-gutter: clamp(1rem, 2vw, 2rem);
-  --content-gutter: clamp(0.65rem, 1.2vw, 1rem);
+  --content-gutter: clamp(0.8rem, 2vw, 1rem);
   --home-content-gap: clamp(0.8rem, 1.8vw, 1.35rem);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   color: #e8eef7;
@@ -631,7 +631,7 @@ h2 {
   align-items: flex-start;
 }
 .quiz-header h1 {
-  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.35vw, 1.15rem);
   margin: 0;
 }
 .quiz-header .eyebrow {
@@ -1205,6 +1205,7 @@ input {
     left: var(--content-gutter);
     width: auto;
     max-width: none;
+    min-height: 5.25rem;
     padding: 0;
   }
   .diagnostics-controls {
@@ -1238,6 +1239,7 @@ input {
     left: var(--content-gutter);
     width: auto;
     max-width: none;
+    min-height: 3.25rem;
     padding: 0;
   }
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls {
