@@ -1249,9 +1249,9 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: 5rem;
+    top: 7rem;
     right: 0;
-    bottom: 5rem;
+    bottom: 3rem;
     left: 0;
     width: auto;
     padding: 0;
