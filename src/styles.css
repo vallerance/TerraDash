@@ -1250,7 +1250,7 @@ input {
     padding: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
-    width: 40%;
+    width: 35%;
     max-width: none;
   }
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls {
