@@ -1230,7 +1230,7 @@ input {
 }
 @media (min-width: 621px) and (max-width: 900px) {
   .quiz-header:has(.diagnostics-controls) {
-    padding-bottom: 3.25rem;
+    padding-bottom: 7.1rem;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
     top: auto;
