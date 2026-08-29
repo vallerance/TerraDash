@@ -1,13 +1,19 @@
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
-const state = '/TerraDash/diagnostics.html?quiz=non-un&location=non-un:abkhazia';
+const state =
+  '/TerraDash/diagnostics.html?quiz=non-un&location=non-un:abkhazia';
 
 async function capture(page: Page, testInfo: TestInfo, name: string) {
   await expect(page.locator('.diagnostics-controls')).toBeVisible();
-  await page.screenshot({ path: testInfo.outputPath(`${name}.png`), fullPage: true });
+  await page.screenshot({
+    path: testInfo.outputPath(`${name}.png`),
+    fullPage: true,
+  });
 }
 
-test('diagnostics spacing before and after evidence', async ({ page }, testInfo) => {
+test('diagnostics spacing before and after evidence', async ({
+  page,
+}, testInfo) => {
   const viewports = [
     { name: '561x285', width: 561, height: 285 },
     { name: '769x280', width: 769, height: 280 },
@@ -32,7 +38,11 @@ test('diagnostics spacing before and after evidence', async ({ page }, testInfo)
         }
       `,
     });
-    await capture(page, testInfo, `diagnostics-before-baseline-${viewport.name}`);
+    await capture(
+      page,
+      testInfo,
+      `diagnostics-before-baseline-${viewport.name}`,
+    );
     await page.reload();
     await expect(page.locator('.diagnostics-controls')).toBeVisible();
     await capture(page, testInfo, `diagnostics-after-${viewport.name}`);
@@ -47,12 +57,18 @@ test('diagnostics spacing before and after evidence', async ({ page }, testInfo)
           headingFontSize: getComputedStyle(heading).fontSize,
         };
       });
-      expect(values).toEqual({ paddingInline: '11.22px', headingFontSize: '14.4px' });
+      expect(values).toEqual({
+        paddingInline: '11.22px',
+        headingFontSize: '14.4px',
+      });
     }
 
     if (viewport.width === 769) {
       const centers = await page.evaluate(() => {
-        const rect = (selector: string) => document.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+        const rect = (selector: string) =>
+          document
+            .querySelector<HTMLElement>(selector)!
+            .getBoundingClientRect();
         const controls = rect('.diagnostics-controls');
         const header = rect('.quiz-header');
         return {
@@ -60,7 +76,9 @@ test('diagnostics spacing before and after evidence', async ({ page }, testInfo)
           headerCenter: (header.top + header.bottom) / 2,
         };
       });
-      expect(Math.abs(centers.controlsCenter - centers.headerCenter)).toBeLessThanOrEqual(1);
+      expect(
+        Math.abs(centers.controlsCenter - centers.headerCenter),
+      ).toBeLessThanOrEqual(1);
     }
   }
 });
