@@ -129,10 +129,9 @@ describe('mapped quiz layer contract', () => {
     expect(staticBuilds).toBe(2);
     expect(frame.querySelector('.countries path')).toBe(staticPath);
     expect(frame.querySelector('.map-base-layers path')).toBe(basePath);
-    expect(frame.querySelector('.world-map')).toHaveAttribute(
-      'data-map-contract-id',
-      changedContract.geometryContractId,
-    );
+    expect(
+      frame.querySelector('.world-map')?.getAttribute('data-map-contract-id'),
+    ).toBe(changedContract.geometryContractId);
   });
 
   it('renders configured context, selectable state target, and shared tiny callout', () => {
