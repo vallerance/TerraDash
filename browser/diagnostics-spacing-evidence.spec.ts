@@ -14,6 +14,11 @@ async function capture(page: Page, testInfo: TestInfo, name: string) {
     path: testInfo.outputPath(`${name}.png`),
     fullPage: true,
   });
+  await page.evaluate(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
 }
 
 test('captures contained diagnostics spacing evidence', async ({
