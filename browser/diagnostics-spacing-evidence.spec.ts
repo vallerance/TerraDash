@@ -32,7 +32,6 @@ test('captures contained diagnostics spacing evidence', async ({
   ]) {
     await page.setViewportSize(viewport);
     await page.goto(state);
-    await capture(page, testInfo, `diagnostics-after-${viewport.name}`);
 
     if (viewport.width === 561) {
       const values = await page.evaluate(() => {
@@ -80,5 +79,7 @@ test('captures contained diagnostics spacing evidence', async ({
       expect(bounds.promptControlsOverlap).toBe(false);
       expect(bounds.statusControlsOverlap).toBe(false);
     }
+
+    await capture(page, testInfo, `diagnostics-after-${viewport.name}`);
   }
 });
