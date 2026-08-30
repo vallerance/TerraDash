@@ -918,6 +918,12 @@
     "menuLabel": "Continents and Oceans",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "world",
+    "map": {
+      "selectable": true,
+      "wrapWidth": 1440,
+      "seamLongitude": 152,
+      "wrapActive": true
+    },
     "locationIds": [
       "world:africa",
       "world:antarctica",

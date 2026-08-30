@@ -1327,6 +1327,9 @@ input {
   pointer-events: auto;
   cursor: pointer;
 }
+.active-fill path.water-location[data-location-id]:hover {
+  filter: brightness(1.2);
+}
 .map-base-layers path {
   fill: #294866;
   stroke: #7fa6c4;
