@@ -184,6 +184,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
       .getByRole('button', { name: 'Close quiz details' })
       .click();
   }
+  await trigger.click();
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
