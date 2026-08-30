@@ -88,6 +88,7 @@ test('diagnostics quiz switching never renders the quiz home transition', async 
 });
 
 for (const viewport of [
+  { name: 'reported-exact', width: 1705, height: 591 },
   { name: 'reported-narrow', width: 769, height: 280 },
   { name: 'reported-wide', width: 1677, height: 486 },
   { name: 'containment-tablet', width: 649, height: 463 },
@@ -127,6 +128,12 @@ for (const viewport of [
           location: center(location.getBoundingClientRect()),
           endQuiz: center(endQuiz.getBoundingClientRect()),
         },
+        elementEdges: [quiz, location, endQuiz].map((element) => {
+          const rect = element.getBoundingClientRect();
+          return { top: rect.top, bottom: rect.bottom, height: rect.height };
+        }),
+        headerCenter: center(h),
+        controlsCenter: center(c),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -142,6 +149,11 @@ for (const viewport of [
     });
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
+    if (viewport.width >= 901) {
+      expect(
+        Math.abs(bounds.controlsCenter - bounds.headerCenter),
+      ).toBeLessThanOrEqual(0.5);
+    }
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
@@ -149,6 +161,14 @@ for (const viewport of [
     expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
       0.5,
     );
+    expect(
+      Math.max(...bounds.elementEdges.map(({ top }) => top)) -
+        Math.min(...bounds.elementEdges.map(({ top }) => top)),
+    ).toBeLessThanOrEqual(0.5);
+    expect(
+      Math.max(...bounds.elementEdges.map(({ bottom }) => bottom)) -
+        Math.min(...bounds.elementEdges.map(({ bottom }) => bottom)),
+    ).toBeLessThanOrEqual(0.5);
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,

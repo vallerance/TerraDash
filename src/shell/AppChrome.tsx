@@ -38,6 +38,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
   const { navigate } = useBrowserRoute();
   const [open, setOpen] = useState(false);
   const [regionalOpen, setRegionalOpen] = useState(false);
+  const [islandsOpen, setIslandsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = 'quiz-menu';
   useEffect(() => {
@@ -46,6 +47,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       if (!menuRef.current?.contains(event.target as Node)) {
         setOpen(false);
         setRegionalOpen(false);
+        setIslandsOpen(false);
       }
     };
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -53,6 +55,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
         setOpen(false);
         menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
         setRegionalOpen(false);
+        setIslandsOpen(false);
       }
     };
     document.addEventListener('pointerdown', closeOnOutside);
@@ -63,10 +66,13 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
     };
   }, [open]);
   const globalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category !== 'regional',
+    (quiz) => quiz.category !== 'regional' && quiz.category !== 'islands',
   );
   const regionalQuizzes = quizOptions.filter(
     (quiz) => quiz.category === 'regional',
+  );
+  const islandQuizzes = quizOptions.filter(
+    (quiz) => quiz.category === 'islands',
   );
   const renderQuizLink = (quiz: (typeof quizOptions)[number]) => (
     <a
@@ -78,6 +84,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
         event.preventDefault();
         setOpen(false);
         setRegionalOpen(false);
+        setIslandsOpen(false);
         navigate(event.currentTarget.href);
       }}
     >
@@ -128,6 +135,28 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
               {regionalOpen && (
                 <div className="quiz-submenu-popover" role="menu">
                   {regionalQuizzes.map(renderQuizLink)}
+                </div>
+              )}
+            </div>
+          )}
+          {islandQuizzes.length > 0 && (
+            <div className="quiz-submenu">
+              <button
+                type="button"
+                role="menuitem"
+                aria-haspopup="menu"
+                aria-expanded={islandsOpen}
+                onClick={() => setIslandsOpen((value) => !value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowRight') setIslandsOpen(true);
+                }}
+              >
+                Islands quizzes{' '}
+                <span className="quiz-submenu-arrow" aria-hidden="true" />
+              </button>
+              {islandsOpen && (
+                <div className="quiz-submenu-popover" role="menu">
+                  {islandQuizzes.map(renderQuizLink)}
                 </div>
               )}
             </div>
