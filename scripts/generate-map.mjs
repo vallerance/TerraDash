@@ -233,6 +233,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
         p.adm0_a3,
       ].filter(Boolean),
       keys: [
+        p.id,
         p.iso_3166_2,
         p.ISO_A2,
         p.ISO_A2_EH,
