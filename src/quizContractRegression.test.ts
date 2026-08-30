@@ -8,6 +8,10 @@ import quizDetailsSource from './quizSelection/QuizDetailsDialog.tsx?raw';
 import appChromeSource from './shell/AppChrome.tsx?raw';
 import thumbnailSource from './shell/QuizThumbnail.tsx?raw';
 import map from '../data/generated/map.json';
+import top100Landmass from '../data/adhoc/top-100-islands-by-landmass.json';
+import top100Population from '../data/adhoc/top-100-islands-by-population.json';
+import top500Landmass from '../data/adhoc/top-500-islands-by-landmass.json';
+import top500Population from '../data/adhoc/top-500-islands-by-population.json';
 import {
   defaultCatalog,
   defaultQuiz,
@@ -87,6 +91,49 @@ describe('canonical quiz presentation contract', () => {
       expect(quizOptions.find((quiz) => quiz.id === id)?.thumbnailViewBox).toBe(
         viewBox,
       );
+  });
+
+  it('exposes exactly the four island quizzes under the Islands category', () => {
+    const islands = quizOptions.filter(
+      ({ category }) => category === 'islands',
+    );
+    expect(islands.map(({ id }) => id)).toEqual([
+      'islands-top-100-landmass',
+      'islands-top-100-population',
+      'islands-top-500-landmass',
+      'islands-top-500-population',
+    ]);
+    expect(islands.map(({ locationIds }) => locationIds.length)).toEqual([
+      17, 15, 27, 36,
+    ]);
+    expect(new Set(quizOptions.map(({ id }) => id)).size).toBe(
+      quizOptions.length,
+    );
+    expect(
+      islands.every(
+        ({ menuLabel, thumbnailViewBox }) => menuLabel && thumbnailViewBox,
+      ),
+    ).toBe(true);
+  });
+
+  it('keeps island memberships sourced from the four adhoc lists', () => {
+    const locationIdsByName = new Map(
+      locations.map(({ id, name }) => [name.toLowerCase(), id]),
+    );
+    const sources = [
+      ['islands-top-100-landmass', top100Landmass],
+      ['islands-top-100-population', top100Population],
+      ['islands-top-500-landmass', top500Landmass],
+      ['islands-top-500-population', top500Population],
+    ] as const;
+    for (const [quizId, rows] of sources) {
+      const expected = rows
+        .map(({ name }) => locationIdsByName.get(name.toLowerCase()))
+        .filter((id): id is string => id !== undefined);
+      expect(quizOptions.find(({ id }) => id === quizId)?.locationIds).toEqual(
+        expected,
+      );
+    }
   });
 
   it('keeps presentation consumers free of quiz-ID compatibility predicates', () => {
