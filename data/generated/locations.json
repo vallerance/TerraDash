@@ -7427,5 +7427,197 @@
       "iso_3166_2_codes": "",
       "iso_3166_2_categories": ""
     }
+  },
+  {
+    "id": "world:africa",
+    "name": "Africa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:africa"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:africa"],
+    "anchor": [618.56, 210.62],
+    "bounds": [618.56, 210.62, 925.59, 547.56]
+  },
+  {
+    "id": "world:antarctica",
+    "name": "Antarctica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:antarctica"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:antarctica"],
+    "anchor": [0, 602.18],
+    "bounds": [0, 602.18, 1440, 720]
+  },
+  {
+    "id": "world:asia",
+    "name": "Asia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:asia"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:asia"],
+    "anchor": [822.65, 138.26],
+    "bounds": [822.65, 138.26, 1335.89, 408.8]
+  },
+  {
+    "id": "world:europe",
+    "name": "Europe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:europe"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:europe"],
+    "anchor": [0, 32.73],
+    "bounds": [0, 32.73, 1440, 577.56]
+  },
+  {
+    "id": "world:north-america",
+    "name": "North America",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:north-america"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:north-america"],
+    "anchor": [3.43, 25.59],
+    "bounds": [3.43, 25.59, 1439.12, 361.5]
+  },
+  {
+    "id": "world:south-america",
+    "name": "South America",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:south-america"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:south-america"],
+    "anchor": [282.19, 297.22],
+    "bounds": [282.19, 297.22, 604.47, 583.36]
+  },
+  {
+    "id": "world:australia",
+    "name": "Australia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:australia"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:australia"],
+    "anchor": [0, 277.93],
+    "bounds": [0, 277.93, 1440, 579]
+  },
+  {
+    "id": "world:arctic-ocean",
+    "name": "Arctic Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:arctic-ocean"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:arctic-ocean"],
+    "anchor": [0, 0],
+    "bounds": [0, 0, 1440, 75.17]
+  },
+  {
+    "id": "world:atlantic-ocean",
+    "name": "Atlantic Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:atlantic-ocean"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:atlantic-ocean"],
+    "anchor": [394.23, 86.25],
+    "bounds": [394.23, 86.25, 798.54, 602.13]
+  },
+  {
+    "id": "world:indian-ocean",
+    "name": "Indian Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:indian-ocean"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:indian-ocean"],
+    "anchor": [798.46, 318.36],
+    "bounds": [798.46, 318.36, 1384.27, 602.13]
+  },
+  {
+    "id": "world:pacific-ocean",
+    "name": "Pacific Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:pacific-ocean"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:pacific-ocean"],
+    "anchor": [0, 127.05],
+    "bounds": [0, 127.05, 1440, 602.13]
+  },
+  {
+    "id": "world:southern-ocean",
+    "name": "Southern Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [
+        {
+          "source": "world-regions",
+          "key": "world:southern-ocean"
+        }
+      ]
+    },
+    "geometryRefs": ["world:world-regions:world:southern-ocean"],
+    "anchor": [0, 602.13],
+    "bounds": [0, 602.13, 1440, 648.89]
   }
 ]
