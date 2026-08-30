@@ -42,7 +42,12 @@ describe('typed runtime data boundary', () => {
   });
 
   it('resolves every configured member and geometry reference through the adapter', () => {
-    const reviewedIds = new Set(reviewed.locationIds);
+    const reviewedIds = new Set([
+      ...reviewed.locationIds,
+      ...generatedLocations
+        .map(({ id }) => id)
+        .filter((id) => id.startsWith('world:')),
+    ]);
     const mainLocationIds = Object.keys(generatedMap.locationFeatureIds);
     const insetLocationIds = Object.keys(generatedInset.locationFeatureIds);
     expect(new Set(mainLocationIds)).toEqual(reviewedIds);
