@@ -1279,6 +1279,9 @@ input {
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls select {
     width: 100%;
   }
+  .diagnostics-player .map-stage {
+    min-height: 18rem;
+  }
 }
 @media (min-width: 901px) {
   .quiz-header:has(.diagnostics-controls) {
