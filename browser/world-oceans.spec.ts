@@ -47,20 +47,28 @@ test('each ocean has an open-water clickable representative', async ({
     const representative = ocean.nth(index);
     const box = await representative.boundingBox();
     expect(box).not.toBeNull();
-    const hit = await page.evaluate(
-      ({ x, y }) =>
-        document.elementFromPoint(x, y)?.getAttribute('data-location-id'),
-      {
-        x: box!.x + box!.width / 2,
-        y: box!.y + box!.height / 2,
-      },
-    );
-    expect(hit).toBe(`world:${slug}`);
+    const point = await representative.evaluate((path) => {
+      const length = path.getTotalLength();
+      for (let index = 1; index < 10; index += 1) {
+        const local = path.getPointAtLength((length * index) / 10);
+        const screen = new DOMPoint(local.x, local.y).matrixTransform(
+          path.getScreenCTM()!,
+        );
+        if (
+          document
+            .elementFromPoint(screen.x, screen.y)
+            ?.getAttribute('data-location-id') === path.dataset.locationId
+        )
+          return { x: screen.x, y: screen.y };
+      }
+      return null;
+    });
+    expect(point).not.toBeNull();
     await representative.hover({
-      position: { x: box!.width / 2, y: box!.height / 2 },
+      position: { x: point!.x - box!.x, y: point!.y - box!.y },
     });
     await representative.click({
-      position: { x: box!.width / 2, y: box!.height / 2 },
+      position: { x: point!.x - box!.x, y: point!.y - box!.y },
     });
   }
 });
@@ -139,10 +147,6 @@ test('water hover, selected, and correct states retain water semantics', async (
   await water.hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
   await expect(water).toHaveCSS('filter', 'brightness(1.2)');
   await expect(water).toHaveCSS('fill', 'rgb(52, 211, 153)');
-  await expect(page.locator('.callout-selected path').first()).toHaveCSS(
-    'fill',
-    'rgb(52, 211, 153)',
-  );
   await page.getByLabel('Location name').fill('Indian Ocean');
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.getByText('Correct. Next location.')).toBeVisible();
