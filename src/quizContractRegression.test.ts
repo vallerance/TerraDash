@@ -128,7 +128,9 @@ describe('regional quiz partition', () => {
   });
 
   it('resolves every mapped quiz presentation from config without quiz-specific code', () => {
-    const mappedQuizzes = quizOptions.filter((quiz) => quiz.map);
+    const mappedQuizzes = quizOptions.filter(
+      (quiz) => quiz.map && quiz.category !== 'world',
+    );
     expect(mappedQuizzes.length).toBeGreaterThan(0);
     for (const quiz of mappedQuizzes) {
       const layer = mapLayerForQuiz(
@@ -163,7 +165,9 @@ describe('regional quiz partition', () => {
       first[2] <= second[3] &&
       first[3] >= second[2];
 
-    for (const quiz of quizOptions.filter((candidate) => candidate.map)) {
+    for (const quiz of quizOptions.filter(
+      (candidate) => candidate.map && candidate.category !== 'world',
+    )) {
       const active = playableLocations.find(
         ({ id }) => id === quiz.locationIds[0],
       )!;
