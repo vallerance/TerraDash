@@ -5640,7 +5640,7 @@
     "name": "Africa",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "africa" }]
+      "keys": [{ "source": "world-regions", "key": "world:africa" }]
     }
   },
   {
@@ -5648,7 +5648,7 @@
     "name": "Antarctica",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "antarctica" }]
+      "keys": [{ "source": "world-regions", "key": "world:antarctica" }]
     }
   },
   {
@@ -5656,7 +5656,7 @@
     "name": "Asia",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "asia" }]
+      "keys": [{ "source": "world-regions", "key": "world:asia" }]
     }
   },
   {
@@ -5664,7 +5664,7 @@
     "name": "Europe",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "europe" }]
+      "keys": [{ "source": "world-regions", "key": "world:europe" }]
     }
   },
   {
@@ -5672,7 +5672,7 @@
     "name": "North America",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "north-america" }]
+      "keys": [{ "source": "world-regions", "key": "world:north-america" }]
     }
   },
   {
@@ -5680,7 +5680,7 @@
     "name": "South America",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "south-america" }]
+      "keys": [{ "source": "world-regions", "key": "world:south-america" }]
     }
   },
   {
@@ -5688,7 +5688,7 @@
     "name": "Australia",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "australia" }]
+      "keys": [{ "source": "world-regions", "key": "world:australia" }]
     }
   },
   {
@@ -5696,7 +5696,7 @@
     "name": "Arctic Ocean",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "arctic-ocean" }]
+      "keys": [{ "source": "world-regions", "key": "world:arctic-ocean" }]
     }
   },
   {
@@ -5704,7 +5704,7 @@
     "name": "Atlantic Ocean",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "atlantic-ocean" }]
+      "keys": [{ "source": "world-regions", "key": "world:atlantic-ocean" }]
     }
   },
   {
@@ -5712,7 +5712,7 @@
     "name": "Indian Ocean",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "indian-ocean" }]
+      "keys": [{ "source": "world-regions", "key": "world:indian-ocean" }]
     }
   },
   {
@@ -5720,7 +5720,7 @@
     "name": "Pacific Ocean",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "pacific-ocean" }]
+      "keys": [{ "source": "world-regions", "key": "world:pacific-ocean" }]
     }
   },
   {
@@ -5728,7 +5728,7 @@
     "name": "Southern Ocean",
     "resolution": {
       "kind": "source-keys",
-      "keys": [{ "source": "world-regions", "key": "southern-ocean" }]
+      "keys": [{ "source": "world-regions", "key": "world:southern-ocean" }]
     }
   }
 ]
