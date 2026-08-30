@@ -64,12 +64,8 @@ test('each ocean has an open-water clickable representative', async ({
       return null;
     });
     expect(point).not.toBeNull();
-    await representative.hover({
-      position: { x: point!.x - box!.x, y: point!.y - box!.y },
-    });
-    await representative.click({
-      position: { x: point!.x - box!.x, y: point!.y - box!.y },
-    });
+    await page.mouse.move(point!.x, point!.y);
+    await page.mouse.click(point!.x, point!.y);
   }
 });
 
