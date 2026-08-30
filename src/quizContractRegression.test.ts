@@ -104,17 +104,14 @@ describe('canonical quiz presentation contract', () => {
       'islands-top-500-population',
     ]);
     expect(islands.map(({ locationIds }) => locationIds.length)).toEqual([
-      17,
-      15,
-      27,
-      36,
+      17, 15, 27, 36,
     ]);
     expect(new Set(quizOptions.map(({ id }) => id)).size).toBe(
       quizOptions.length,
     );
     expect(
-      islands.every(({ menuLabel, thumbnailViewBox }) =>
-        menuLabel && thumbnailViewBox,
+      islands.every(
+        ({ menuLabel, thumbnailViewBox }) => menuLabel && thumbnailViewBox,
       ),
     ).toBe(true);
   });
