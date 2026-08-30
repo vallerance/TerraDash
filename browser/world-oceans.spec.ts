@@ -24,7 +24,28 @@ test('each ocean has an open-water clickable representative', async ({
     await expect(ocean.first()).toHaveAttribute('aria-label', name);
     await expect(ocean.first()).toHaveCSS('pointer-events', 'auto');
     await expect(ocean.first()).toHaveCSS('cursor', 'pointer');
-    const box = await ocean.first().boundingBox();
+    const svgBox = await page.locator('.world-map').boundingBox();
+    expect(svgBox).not.toBeNull();
+    const index = await ocean.evaluateAll(
+      (paths, viewport) =>
+        paths.findIndex((path) => {
+          const box = path.getBoundingClientRect();
+          const x = box.x + box.width / 2;
+          const y = box.y + box.height / 2;
+          return (
+            box.width > 0 &&
+            box.height > 0 &&
+            x >= viewport.x &&
+            x <= viewport.x + viewport.width &&
+            y >= viewport.y &&
+            y <= viewport.y + viewport.height
+          );
+        }),
+      svgBox,
+    );
+    expect(index).toBeGreaterThanOrEqual(0);
+    const representative = ocean.nth(index);
+    const box = await representative.boundingBox();
     expect(box).not.toBeNull();
     const hit = await page.evaluate(
       ({ x, y }) =>
@@ -35,12 +56,12 @@ test('each ocean has an open-water clickable representative', async ({
       },
     );
     expect(hit).toBe(`world:${slug}`);
-    await ocean
-      .first()
-      .hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
-    await ocean
-      .first()
-      .click({ position: { x: box!.width / 2, y: box!.height / 2 } });
+    await representative.hover({
+      position: { x: box!.width / 2, y: box!.height / 2 },
+    });
+    await representative.click({
+      position: { x: box!.width / 2, y: box!.height / 2 },
+    });
   }
 });
 
@@ -88,13 +109,16 @@ test('Pacific representatives resolve at both wrapped map edges', async ({
   const west = boxes.reduce((a, b) => (a.x < b.x ? a : b));
   const east = boxes.reduce((a, b) => (a.right > b.right ? a : b));
   expect(west.x).toBeLessThan(svgBox!.x + 8);
-  expect(east.right).toBeGreaterThan(svgBox!.right - 8);
+  expect(east.right).toBeGreaterThan(svgBox!.x + svgBox!.width - 8);
   for (const box of [west, east]) {
     const hit = await page.evaluate(
       ({ x, y }) =>
         document.elementFromPoint(x, y)?.getAttribute('data-location-id'),
       {
-        x: (box.x + box.right) / 2,
+        x: Math.max(
+          svgBox!.x + 2,
+          Math.min(svgBox!.x + svgBox!.width - 2, (box.x + box.right) / 2),
+        ),
         y: (box.y + box.bottom) / 2,
       },
     );
@@ -114,10 +138,10 @@ test('water hover, selected, and correct states retain water semantics', async (
   expect(box).not.toBeNull();
   await water.hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
   await expect(water).toHaveCSS('filter', 'brightness(1.2)');
-  await expect(water).toHaveCSS('fill', 'rgb(245, 158, 11)');
+  await expect(water).toHaveCSS('fill', 'rgb(52, 211, 153)');
   await expect(page.locator('.callout-selected path').first()).toHaveCSS(
     'fill',
-    'rgb(245, 158, 11)',
+    'rgb(52, 211, 153)',
   );
   await page.getByLabel('Location name').fill('Indian Ocean');
   await page.getByRole('button', { name: 'Submit answer' }).click();
