@@ -14,7 +14,6 @@ const quizNames = [
   'South America UN Countries',
   'Oceania UN Countries',
   'Caribbean UN Countries',
-  'Continents and Oceans',
 ];
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
@@ -88,7 +87,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle, 'Regional quizzes'),
+      .concat(nonUnTitle, 'Continents and Oceans', 'Regional quizzes'),
   );
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',
