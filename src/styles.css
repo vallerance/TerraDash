@@ -1252,12 +1252,12 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    position: static;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    align-self: center;
-    justify-self: center;
-    width: 100%;
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0.65rem;
+    left: 0;
+    width: auto;
     max-width: none;
     padding: 0;
   }
