@@ -127,7 +127,6 @@ for (const viewport of [
           location: center(location.getBoundingClientRect()),
           endQuiz: center(endQuiz.getBoundingClientRect()),
         },
-        intendedSubheaderCenter: center(h),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -146,8 +145,10 @@ for (const viewport of [
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
-    for (const center of Object.values(bounds.elementCenters))
-      expect(center).toBeCloseTo(bounds.intendedSubheaderCenter, 0);
+    const centers = Object.values(bounds.elementCenters);
+    expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
+      0.5,
+    );
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,

@@ -1198,19 +1198,15 @@ input {
   background: #bae6fd;
 }
 @media (max-width: 620px) {
-  .quiz-header:has(.diagnostics-controls) {
-    padding-bottom: 5.25rem;
-  }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: 50%;
+    top: auto;
     right: var(--content-gutter);
-    bottom: auto;
+    bottom: 0.65rem;
     left: var(--content-gutter);
     width: auto;
     max-width: none;
-    min-height: 0;
+    min-height: 5.25rem;
     padding: 0;
-    transform: translateY(-50%);
   }
   .map-header-overlay:has(.diagnostics-controls) > .diagnostics-controls {
     width: 100%;
@@ -1218,8 +1214,8 @@ input {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
     align-items: center;
   }
-  .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    pointer-events: none;
+  .quiz-header:has(.diagnostics-controls) {
+    padding-bottom: 5.25rem;
   }
   .diagnostics-controls {
     margin-right: 0;
