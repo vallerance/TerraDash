@@ -109,7 +109,7 @@ for (const viewport of [
         '#diagnostic-location',
       )!;
       const endQuiz = controls.querySelector<HTMLElement>('button')!;
-      const prompt = document.querySelector<HTMLElement>('.quiz-prompt-group')!;
+      const prompt = document.querySelector<HTMLElement>('.quiz-prompt')!;
       const status = document.querySelector<HTMLElement>('.quiz-status-bar')!;
       const h = header.getBoundingClientRect();
       const c = controls.getBoundingClientRect();
