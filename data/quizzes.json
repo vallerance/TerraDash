@@ -910,5 +910,27 @@
         }
       }
     }
+  },
+  {
+    "id": "continents-and-oceans",
+    "name": "Continents and Oceans",
+    "description": "The seven continents and five oceans",
+    "menuLabel": "Continents and Oceans",
+    "thumbnailViewBox": "0 0 1440 720",
+    "category": "world",
+    "locationIds": [
+      "world:africa",
+      "world:antarctica",
+      "world:asia",
+      "world:europe",
+      "world:north-america",
+      "world:south-america",
+      "world:australia",
+      "world:arctic-ocean",
+      "world:atlantic-ocean",
+      "world:indian-ocean",
+      "world:pacific-ocean",
+      "world:southern-ocean"
+    ]
   }
 ]

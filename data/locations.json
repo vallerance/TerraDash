@@ -5634,5 +5634,101 @@
       "iso_3166_2_codes": "",
       "iso_3166_2_categories": ""
     }
+  },
+  {
+    "id": "world:africa",
+    "name": "Africa",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "africa" }]
+    }
+  },
+  {
+    "id": "world:antarctica",
+    "name": "Antarctica",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "antarctica" }]
+    }
+  },
+  {
+    "id": "world:asia",
+    "name": "Asia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "asia" }]
+    }
+  },
+  {
+    "id": "world:europe",
+    "name": "Europe",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "europe" }]
+    }
+  },
+  {
+    "id": "world:north-america",
+    "name": "North America",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "north-america" }]
+    }
+  },
+  {
+    "id": "world:south-america",
+    "name": "South America",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "south-america" }]
+    }
+  },
+  {
+    "id": "world:australia",
+    "name": "Australia",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "australia" }]
+    }
+  },
+  {
+    "id": "world:arctic-ocean",
+    "name": "Arctic Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "arctic-ocean" }]
+    }
+  },
+  {
+    "id": "world:atlantic-ocean",
+    "name": "Atlantic Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "atlantic-ocean" }]
+    }
+  },
+  {
+    "id": "world:indian-ocean",
+    "name": "Indian Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "indian-ocean" }]
+    }
+  },
+  {
+    "id": "world:pacific-ocean",
+    "name": "Pacific Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "pacific-ocean" }]
+    }
+  },
+  {
+    "id": "world:southern-ocean",
+    "name": "Southern Ocean",
+    "resolution": {
+      "kind": "source-keys",
+      "keys": [{ "source": "world-regions", "key": "southern-ocean" }]
+    }
   }
 ]

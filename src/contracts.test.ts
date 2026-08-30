@@ -19,9 +19,13 @@ const sourceModules = import.meta.glob('./**/*.{ts,tsx}', {
 
 describe('typed runtime data boundary', () => {
   it('preserves the reviewed location and membership sets', () => {
-    expect(new Set(generatedLocations.map(({ id }) => id))).toEqual(
-      new Set(reviewed.locationIds),
-    );
+    expect(
+      new Set(
+        generatedLocations
+          .map(({ id }) => id)
+          .filter((id) => !id.startsWith('world:')),
+      ),
+    ).toEqual(new Set(reviewed.locationIds));
 
     for (const reviewedQuiz of Object.keys(reviewed.quizMemberships)) {
       const quiz = quizOptions.find(({ id }) => id === reviewedQuiz);

@@ -37,6 +37,9 @@ export function sourcePropertyKeys(properties = {}) {
     properties.shapeType,
     properties.BRK_A3,
     properties.BRK_NAME,
+    properties.id,
+    properties.world_id,
+    properties.world_name,
   ].filter(Boolean);
 }
 
