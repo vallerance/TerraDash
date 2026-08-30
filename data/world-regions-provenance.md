@@ -12,10 +12,10 @@ Both inputs are Natural Earth v5.1.1-era repository data at commit
 `9380cca83db5f9aef52d5e762765100745f84b27`. Natural Earth data is public domain
 and is attributed to Natural Earth.
 
-| Input             | URL                                                                                                                                                   | SHA-256                                                            | Local path                                          |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------- |
-| Admin-0 countries | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_countries.geojson      | `239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255` | `data/source/ne_10m_admin_0_countries.geojson`      |
-| Marine polygons   | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_geography_marine_polys.geojson | `53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66`  | `data/source/ne_10m_geography_marine_polys.geojson` |
+| Input             | URL                                                                                                                                                   | SHA-256                                                            | Local path                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------ |
+| Admin-0 countries | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_countries.geojson      | `239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255` | `data/source/ne_10m_admin_0_countries.geojson`   |
+| Marine polygons   | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_geography_marine_polys.geojson | `53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66c` | `.scratch/ne_10m_geography_marine_polys.geojson` |
 
 The marine layer is selected by exact `properties.name` values. The script
 rejects a missing named feature and does not automatically include other named

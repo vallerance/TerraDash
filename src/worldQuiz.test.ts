@@ -32,14 +32,14 @@ describe('Continents and Oceans world quiz', () => {
   it('has non-empty projected geometry for every target, including polar/seam oceans', () => {
     const quiz = quizOptions.find(({ id }) => id === 'continents-and-oceans')!;
     for (const [id] of expected) {
-      const refs = generatedMap.locationFeatureIds[
-        id as keyof typeof generatedMap.locationFeatureIds
-      ];
+      const refs =
+        generatedMap.locationFeatureIds[
+          id as keyof typeof generatedMap.locationFeatureIds
+        ];
       expect(refs?.length, `${id} refs`).toBeGreaterThan(0);
       for (const ref of refs) {
-        const feature = generatedMap.features[
-          ref as keyof typeof generatedMap.features
-        ];
+        const feature =
+          generatedMap.features[ref as keyof typeof generatedMap.features];
         expect(feature?.paths.length, `${id} ${ref} paths`).toBeGreaterThan(0);
         expect(
           feature?.bounds.every(Number.isFinite),

@@ -26,7 +26,7 @@ const MARINE_URL =
 const ADMIN_SHA256 =
   '239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255';
 const MARINE_SHA256 =
-  '53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66';
+  '53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66c';
 
 const continents = [
   ['africa', 'Africa', 'Africa'],
