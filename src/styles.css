@@ -1252,11 +1252,13 @@ input {
     width: auto;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: 5.75rem;
-    right: 0;
-    bottom: 5.75rem;
-    left: 0;
-    width: auto;
+    position: static;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: none;
     padding: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
@@ -1274,6 +1276,26 @@ input {
   }
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls select {
     width: 100%;
+  }
+}
+@media (min-width: 901px) {
+  .quiz-header:has(.diagnostics-controls) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+  .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
+    grid-column: 1;
+  }
+  .quiz-header:has(.diagnostics-controls) > .quiz-status-bar {
+    grid-column: 3;
+  }
+  .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
+    position: static;
+    grid-column: 2;
+    width: auto;
+    max-width: none;
+    padding: 0;
   }
 }
 .ocean {
