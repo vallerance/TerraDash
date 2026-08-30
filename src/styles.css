@@ -1175,6 +1175,7 @@ input {
   margin-right: clamp(1.5rem, 5vw, 3rem);
 }
 .diagnostics-controls select {
+  height: 2rem;
   min-width: 0;
   max-width: 14rem;
   padding: 0.35rem 0.5rem;
@@ -1184,6 +1185,7 @@ input {
   border-radius: 0.4rem;
 }
 .diagnostics-controls button {
+  height: 2rem;
   max-width: 14rem;
   padding: 0.35rem 0.65rem;
   border: 1px solid #7dd3fc;
@@ -1192,11 +1194,6 @@ input {
   font-weight: 800;
   background: #7dd3fc;
   cursor: pointer;
-}
-.diagnostics-controls > label > select,
-.diagnostics-controls > select,
-.diagnostics-controls > button {
-  align-self: center;
 }
 .diagnostics-controls button:hover {
   border-color: #bae6fd;
