@@ -1192,6 +1192,7 @@ input {
   border-radius: 0.4rem;
   color: #071a2b;
   font-weight: 800;
+  white-space: nowrap;
   background: #7dd3fc;
   cursor: pointer;
 }
@@ -1286,7 +1287,7 @@ input {
 @media (min-width: 901px) {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto max-content;
     align-items: center;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
@@ -1296,6 +1297,7 @@ input {
   .quiz-header:has(.diagnostics-controls) > .quiz-status-bar {
     grid-column: 3;
     grid-row: 1;
+    width: max-content;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
     position: static;
@@ -1304,6 +1306,9 @@ input {
     width: auto;
     max-width: none;
     padding: 0;
+  }
+  .quiz-header:has(.diagnostics-controls) .diagnostics-controls {
+    margin-right: 0;
   }
 }
 .ocean {

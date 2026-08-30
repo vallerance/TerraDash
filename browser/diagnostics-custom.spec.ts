@@ -88,7 +88,7 @@ test('diagnostics quiz switching never renders the quiz home transition', async 
 });
 
 for (const viewport of [
-  { name: 'reported-exact', width: 1705, height: 591 },
+  { name: 'reported-exact', width: 1495, height: 922 },
   { name: 'reported-narrow', width: 769, height: 280 },
   { name: 'reported-wide', width: 1677, height: 486 },
   { name: 'containment-tablet', width: 649, height: 463 },
@@ -112,6 +112,11 @@ for (const viewport of [
       const endQuiz = controls.querySelector<HTMLElement>('button')!;
       const prompt = document.querySelector<HTMLElement>('.quiz-prompt')!;
       const status = document.querySelector<HTMLElement>('.quiz-status-bar')!;
+      const statusItems = [
+        ...document.querySelectorAll<HTMLElement>(
+          '.quiz-status-bar .status-item',
+        ),
+      ];
       const h = header.getBoundingClientRect();
       const c = controls.getBoundingClientRect();
       const center = (rect: DOMRect) => (rect.top + rect.bottom) / 2;
@@ -120,6 +125,17 @@ for (const viewport of [
         a.right > b.left &&
         a.top < b.bottom &&
         a.bottom > b.top;
+      const rectanglesOverlap = (items: HTMLElement[]) =>
+        items.some((item, index) =>
+          items
+            .slice(index + 1)
+            .some((other) =>
+              intersects(
+                item.getBoundingClientRect(),
+                other.getBoundingClientRect(),
+              ),
+            ),
+        );
       return {
         controlsInsideHeader: c.left >= h.left && c.right <= h.right,
         controlsVerticallyInsideHeader: c.top >= h.top && c.bottom <= h.bottom,
@@ -145,6 +161,7 @@ for (const viewport of [
           status.getBoundingClientRect(),
           c,
         ),
+        statusItemsOverlap: rectanglesOverlap(statusItems),
         horizontalOverflow:
           document.documentElement.scrollWidth <=
           document.documentElement.clientWidth,
@@ -161,6 +178,7 @@ for (const viewport of [
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
+    expect(bounds.statusItemsOverlap).toBe(false);
     const centers = Object.values(bounds.elementCenters);
     expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
       0.5,
