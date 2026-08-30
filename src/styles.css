@@ -1288,13 +1288,16 @@ input {
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
     grid-column: 1;
+    grid-row: 1;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-status-bar {
     grid-column: 3;
+    grid-row: 1;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
     position: static;
     grid-column: 2;
+    grid-row: 1;
     width: auto;
     max-width: none;
     padding: 0;

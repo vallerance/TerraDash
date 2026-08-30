@@ -132,6 +132,8 @@ for (const viewport of [
           const rect = element.getBoundingClientRect();
           return { top: rect.top, bottom: rect.bottom, height: rect.height };
         }),
+        headerCenter: center(h),
+        controlsCenter: center(c),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -147,6 +149,9 @@ for (const viewport of [
     });
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
+    expect(
+      Math.abs(bounds.controlsCenter - bounds.headerCenter),
+    ).toBeLessThanOrEqual(0.5);
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
