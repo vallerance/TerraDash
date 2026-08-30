@@ -1281,7 +1281,27 @@ input {
 }
 @media (min-width: 901px) {
   .quiz-header:has(.diagnostics-controls) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, auto) minmax(0, 1fr);
     padding-inline: clamp(2rem, 3vw, 3.5rem);
+  }
+  .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
+    grid-column: 1;
+    width: auto;
+  }
+  .quiz-header:has(.diagnostics-controls) > .quiz-status-bar {
+    grid-column: 3;
+    width: auto;
+  }
+  .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
+    right: 35%;
+    left: 35%;
+    width: auto;
+    padding: 0;
+  }
+  .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
+    width: 100%;
+    max-width: none;
   }
   .quiz-header:has(.diagnostics-controls) h1 {
     font-size: clamp(0.9rem, 1.1vw, 1rem);
