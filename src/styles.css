@@ -1151,8 +1151,7 @@ input {
   font-size: 0.62rem;
 }
 .diagnostics-controls > label {
-  display: grid;
-  gap: 0.1rem;
+  display: contents;
   min-width: 0;
   color: #9fb0c5;
   font-size: 0.62rem;
@@ -1199,37 +1198,38 @@ input {
   background: #bae6fd;
 }
 @media (max-width: 620px) {
-  .map-header-overlay:has(.diagnostics-controls) > .diagnostics-controls {
-    width: 100%;
-  }
   .quiz-header:has(.diagnostics-controls) {
     padding-bottom: 5.25rem;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
-    top: auto;
+    top: 50%;
     right: var(--content-gutter);
-    bottom: 0.65rem;
+    bottom: auto;
     left: var(--content-gutter);
     width: auto;
     max-width: none;
-    min-height: 5.25rem;
+    min-height: 0;
     padding: 0;
+    transform: translateY(-50%);
+  }
+  .map-header-overlay:has(.diagnostics-controls) > .diagnostics-controls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
+    pointer-events: none;
   }
   .diagnostics-controls {
-    width: 100%;
-    flex-wrap: wrap;
     margin-right: 0;
-  }
-  .diagnostics-controls label {
-    flex: 1 1 8rem;
-    min-width: 0;
   }
   .diagnostics-controls select {
     width: 100%;
     max-width: none;
   }
   .diagnostics-controls button {
-    flex: 1 1 100%;
+    max-width: none;
   }
   .diagnostics-player .map-stage {
     --map-width: 100% !important;
