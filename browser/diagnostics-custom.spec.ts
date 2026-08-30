@@ -132,6 +132,9 @@ for (const viewport of [
           const rect = element.getBoundingClientRect();
           return { top: rect.top, bottom: rect.bottom, height: rect.height };
         }),
+        endQuizClipped:
+          endQuiz.scrollWidth > endQuiz.clientWidth ||
+          endQuiz.scrollHeight > endQuiz.clientHeight,
         headerCenter: center(h),
         controlsCenter: center(c),
         promptControlIntersection: intersects(
@@ -149,6 +152,7 @@ for (const viewport of [
     });
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
+    expect(bounds.endQuizClipped).toBe(false);
     if (viewport.width >= 901) {
       expect(
         Math.abs(bounds.controlsCenter - bounds.headerCenter),

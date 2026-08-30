@@ -1264,8 +1264,8 @@ input {
     padding: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
-    width: 35%;
-    max-width: none;
+    width: calc(100% - 2 * var(--content-gutter));
+    max-width: 42rem;
   }
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls {
     width: 100%;
