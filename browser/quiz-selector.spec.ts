@@ -17,6 +17,12 @@ const quizNames = [
 ];
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
+const islandDestinations = [
+  { label: 'Top 100 by Landmass', count: 17 },
+  { label: 'Top 100 by Population', count: 15 },
+  { label: 'Top 500 by Landmass', count: 27 },
+  { label: 'Top 500 by Population', count: 36 },
+];
 
 for (const fixture of [
   { name: 'wide', width: 1440, height: 900 },
@@ -87,7 +93,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle, 'Regional quizzes'),
+      .concat(nonUnTitle, 'Regional quizzes', 'Islands quizzes'),
   );
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',
@@ -133,7 +139,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     ).toHaveText(description);
   }
   const regionalDescriptions = quizDefinitions
-    .filter((quiz: { category?: string }) => quiz.category)
+    .filter((quiz: { category?: string }) => quiz.category === 'regional')
     .map(
       (quiz: { id: string; name: string; description?: string }) =>
         quiz.description ??
@@ -162,6 +168,22 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     'Earn a score based on your time and accuracy',
     'Improve your next run',
   ]);
+  for (const [index, destination] of islandDestinations.entries()) {
+    if (index > 0) await trigger.click();
+    const islandMenu = page.getByRole('menu');
+    await islandMenu.getByRole('menuitem', { name: 'Islands quizzes' }).click();
+    await islandMenu.getByRole('menuitem', { name: destination.label }).click();
+    const islandDialog = page.getByRole('dialog', {
+      name: new RegExp(destination.label.replace(' by ', ' Islands by ')),
+    });
+    await expect(islandDialog).toBeVisible();
+    await expect(
+      islandDialog.getByText(`${destination.count} locations`),
+    ).toBeVisible();
+    await islandDialog
+      .getByRole('button', { name: 'Close quiz details' })
+      .click();
+  }
   await links.filter({ hasText: /^Asia$/ }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
