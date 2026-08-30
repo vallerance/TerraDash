@@ -31,10 +31,13 @@ for (const viewport of cases) {
       page.evaluate(() => {
         const header = document.querySelector<HTMLElement>('.quiz-header')!;
         const prompt = header.querySelector<HTMLElement>('.quiz-prompt')!;
-        const controls = header.querySelector<HTMLElement>('.diagnostics-controls')!;
+        const controls = header.querySelector<HTMLElement>(
+          '.diagnostics-controls',
+        )!;
         const heading = header.querySelector<HTMLElement>('h1')!;
         const status = header.querySelector<HTMLElement>('.quiz-status-bar')!;
-        const rect = (element: HTMLElement) => element.getBoundingClientRect().toJSON();
+        const rect = (element: HTMLElement) =>
+          element.getBoundingClientRect().toJSON();
         return {
           padding: getComputedStyle(header).paddingLeft,
           fontSize: getComputedStyle(heading).fontSize,
@@ -47,10 +50,22 @@ for (const viewport of cases) {
 
     await page.addStyleTag({ content: beforeCss });
     const before = await measure();
-    await page.screenshot({ path: testInfo.outputPath(`diagnostics-before-${viewport.name}.png`), fullPage: true });
-    await page.locator('style').last().evaluate((style) => style.remove());
+    await page.screenshot({
+      path: testInfo.outputPath(`diagnostics-before-${viewport.name}.png`),
+      fullPage: true,
+    });
+    await page
+      .locator('style')
+      .last()
+      .evaluate((style) => style.remove());
     const after = await measure();
-    await page.screenshot({ path: testInfo.outputPath(`diagnostics-after-${viewport.name}.png`), fullPage: true });
-    writeFileSync(testInfo.outputPath(`diagnostics-spacing-${viewport.name}.json`), JSON.stringify({ viewport, before, after }, null, 2));
+    await page.screenshot({
+      path: testInfo.outputPath(`diagnostics-after-${viewport.name}.png`),
+      fullPage: true,
+    });
+    writeFileSync(
+      testInfo.outputPath(`diagnostics-spacing-${viewport.name}.json`),
+      JSON.stringify({ viewport, before, after }, null, 2),
+    );
   });
 }
