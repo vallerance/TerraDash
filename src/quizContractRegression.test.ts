@@ -23,9 +23,13 @@ const candidateData = locations.filter(({ id }) => id.startsWith('non-un:'));
 
 describe('generated quiz wiring', () => {
   it('exposes the complete generated location contract', () => {
-    expect(new Set(playableLocations.map(({ id }) => id))).toEqual(
-      new Set(reviewed.locationIds),
-    );
+    expect(
+      new Set(
+        playableLocations
+          .map(({ id }) => id)
+          .filter((id) => !id.startsWith('world:')),
+      ),
+    ).toEqual(new Set(reviewed.locationIds));
     expect(new Set(defaultQuiz.locationIds)).toEqual(
       new Set(reviewed.quizMemberships.world),
     );

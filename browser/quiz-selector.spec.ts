@@ -14,6 +14,7 @@ const quizNames = [
   'South America UN Countries',
   'Oceania UN Countries',
   'Caribbean UN Countries',
+  'Continents and Oceans',
 ];
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
@@ -103,6 +104,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   const regionalSection = page.getByRole('region', {
     name: 'States and Provinces',
   });
+  const worldSection = page.getByRole('region', { name: 'World' });
   await expect(globalSection.locator('.quiz-option')).toHaveCount(
     globalQuizCount,
   );
@@ -115,6 +117,8 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(regionalSection.locator('.quiz-option-thumbnail')).toHaveCount(
     regionalQuizCount,
   );
+  await expect(worldSection.locator('.quiz-option')).toHaveCount(1);
+  await expect(worldSection.getByText('Continents and Oceans')).toBeVisible();
   await expect(globalSection.getByText('US States')).toHaveCount(0);
   await expect(regionalSection.getByText('US States')).toBeVisible();
   const globalDefinitions = quizDefinitions.filter(
@@ -133,7 +137,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     ).toHaveText(description);
   }
   const regionalDescriptions = quizDefinitions
-    .filter((quiz: { category?: string }) => quiz.category)
+    .filter((quiz: { category?: string }) => quiz.category === 'regional')
     .map(
       (quiz: { id: string; name: string; description?: string }) =>
         quiz.description ??

@@ -37,7 +37,6 @@ export function AppDisclaimer() {
 function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
   const { navigate } = useBrowserRoute();
   const [open, setOpen] = useState(false);
-  const [worldOpen, setWorldOpen] = useState(false);
   const [regionalOpen, setRegionalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuId = 'quiz-menu';
@@ -46,14 +45,12 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
     const closeOnOutside = (event: PointerEvent) => {
       if (!menuRef.current?.contains(event.target as Node)) {
         setOpen(false);
-        setWorldOpen(false);
         setRegionalOpen(false);
       }
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
-        setWorldOpen(false);
         menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
         setRegionalOpen(false);
       }
@@ -66,9 +63,8 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
     };
   }, [open]);
   const globalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category === undefined,
+    (quiz) => quiz.category !== 'regional',
   );
-  const worldQuizzes = quizOptions.filter((quiz) => quiz.category === 'world');
   const regionalQuizzes = quizOptions.filter(
     (quiz) => quiz.category === 'regional',
   );
@@ -81,7 +77,6 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       onClick={(event) => {
         event.preventDefault();
         setOpen(false);
-        setWorldOpen(false);
         setRegionalOpen(false);
         navigate(event.currentTarget.href);
       }}
@@ -115,25 +110,6 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       {open && (
         <div className="quiz-menu-popover" id={menuId} role="menu">
           {globalQuizzes.map(renderQuizLink)}
-          {worldQuizzes.length > 0 && (
-            <div className="quiz-submenu">
-              <button
-                type="button"
-                role="menuitem"
-                aria-haspopup="menu"
-                aria-expanded={worldOpen}
-                onClick={() => setWorldOpen((value) => !value)}
-              >
-                World quizzes{' '}
-                <span className="quiz-submenu-arrow" aria-hidden="true" />
-              </button>
-              {worldOpen && (
-                <div className="quiz-submenu-popover" role="menu">
-                  {worldQuizzes.map(renderQuizLink)}
-                </div>
-              )}
-            </div>
-          )}
           {regionalQuizzes.length > 0 && (
             <div className="quiz-submenu">
               <button
