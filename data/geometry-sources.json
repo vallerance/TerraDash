@@ -48,6 +48,14 @@
       "emit": false,
       "license": "Public domain",
       "attribution": "geoBoundaries v6.0.0 (source: United States Census Bureau)"
+    },
+    "world-regions": {
+      "path": "data/source/world-regions.geojson",
+      "url": "scripts/derive-world-regions.mjs",
+      "sha256": "derived-from-pinned-inputs",
+      "prefix": "world",
+      "license": "Public domain",
+      "attribution": "Derived from pinned Natural Earth v5.1.1-era Admin-0 countries and geography marine polygons; see data/world-regions-provenance.md"
     }
   },
   "replacements": [

@@ -52,7 +52,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: terradash-generated-data-${{ github.sha }}
-          path: data/generated/
+          path: |
+            data/generated/
+            data/source/world-regions.geojson
 
   build:
     runs-on: ubuntu-latest

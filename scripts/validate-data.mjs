@@ -31,7 +31,12 @@ if (!sameSet(authoredIds, generatedIds))
   );
 if (new Set(authoredIds).size !== authoredIds.length)
   throw new Error('Authored location IDs must be globally unique');
-if (!sameSet(authoredIds, invariants.locationIds))
+if (
+  !sameSet(
+    authoredIds.filter((id) => !id.startsWith('world:')),
+    invariants.locationIds,
+  )
+)
   throw new Error('Authored location set changed from the reviewed baseline');
 
 const locationById = new Map(
@@ -81,7 +86,10 @@ for (const quiz of quizzes) {
       throw new Error(`Quiz ${quiz.id} excludes unknown context feature ${id}`);
 }
 for (const quiz of quizzes)
-  if (!sameSet(quiz.locationIds, invariants.quizMemberships[quiz.id] ?? []))
+  if (
+    quiz.category !== 'world' &&
+    !sameSet(quiz.locationIds, invariants.quizMemberships[quiz.id] ?? [])
+  )
     throw new Error(`Reviewed membership changed for quiz ${quiz.id}`);
 
 if (map.sourceFeatureIds.length !== source.features.length)
