@@ -144,12 +144,28 @@ function regionLand(land, boundaries, physicalRegions) {
       polygonClipping.difference(maskById(boundaries, 'asia'), oceaniaMask),
     ],
   ]);
-  return new Map(
+  const regions = new Map(
     [...masks].map(([id, mask]) => [
       id,
       polygonClipping.intersection(dissolved, mask),
     ]),
   );
+  const regionPolygons = [...regions.values()].filter(
+    (coordinates) => coordinates.length > 0,
+  );
+  const covered = unionAll(regionPolygons);
+  if (polygonClipping.difference(dissolved, covered).length > 0)
+    throw new Error('World masks do not cover all dissolved land');
+  for (let index = 0; index < regionPolygons.length; index += 1)
+    for (let next = index + 1; next < regionPolygons.length; next += 1)
+      if (
+        polygonClipping.intersection(
+          regionPolygons[index],
+          regionPolygons[next],
+        ).length > 0
+      )
+        throw new Error('World masks overlap on dissolved land');
+  return regions;
 }
 
 function groupedFeature(id, name, source, features) {
