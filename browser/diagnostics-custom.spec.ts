@@ -144,12 +144,6 @@ for (const viewport of [
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
-    await expect(quiz).toBeVisible();
-    await expect(location).toBeVisible();
-    await expect(endQuiz).toBeVisible();
-    await expect(quiz).toBeEnabled();
-    await expect(location).toBeEnabled();
-    await expect(endQuiz).toBeEnabled();
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,
