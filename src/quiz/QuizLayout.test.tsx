@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QuizLayout } from './QuizLayout';
 
 let root: ReturnType<typeof createRoot> | undefined;
@@ -64,5 +64,43 @@ describe('QuizLayout shared production boundary', () => {
     expect(host.querySelector('.map-header-overlay button')?.textContent).toBe(
       'Inspect',
     );
+  });
+
+  it('invalidates the preserved shell height when the viewport resizes', () => {
+    const shell = document.createElement('main');
+    shell.className = 'app-shell';
+    document.body.append(shell);
+    root = createRoot(shell);
+
+    act(() =>
+      root!.render(
+        <QuizLayout
+          prompt={<h1>Prompt</h1>}
+          status={<span>Status</span>}
+          content={<svg aria-label="map" />}
+          preserveViewportHeight
+        />,
+      ),
+    );
+
+    const originalInnerHeight = window.innerHeight;
+    expect(shell.style.getPropertyValue('--active-quiz-height')).toBe(
+      `${window.innerHeight}px`,
+    );
+    const resize = vi.fn();
+    window.addEventListener('resize', resize);
+    Object.defineProperty(window, 'innerHeight', {
+      configurable: true,
+      value: 667,
+    });
+    act(() => window.dispatchEvent(new Event('resize')));
+
+    expect(resize).toHaveBeenCalledTimes(1);
+    expect(shell.style.getPropertyValue('--active-quiz-height')).toBe('667px');
+    window.removeEventListener('resize', resize);
+    Object.defineProperty(window, 'innerHeight', {
+      configurable: true,
+      value: originalInnerHeight,
+    });
   });
 });
