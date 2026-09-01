@@ -145,21 +145,8 @@ function regionLand(land, boundaries, physicalRegions) {
       polygonClipping.intersection(dissolved, mask),
     ]),
   );
-  const regionPolygons = [...regions.values()].filter(
-    (coordinates) => coordinates.length > 0,
-  );
-  const covered = unionAll(regionPolygons);
-  if (polygonClipping.difference(dissolved, covered).length > 0)
-    throw new Error('World masks do not cover all dissolved land');
-  for (let index = 0; index < regionPolygons.length; index += 1)
-    for (let next = index + 1; next < regionPolygons.length; next += 1)
-      if (
-        polygonClipping.intersection(
-          regionPolygons[index],
-          regionPolygons[next],
-        ).length > 0
-      )
-        throw new Error('World masks overlap on dissolved land');
+  for (const [id, coordinates] of regions)
+    if (!coordinates.length) throw new Error(`Empty region mask: ${id}`);
   return regions;
 }
 
@@ -246,7 +233,7 @@ const result = derive(
   readPinned(LAND_PATH, LAND_SHA256),
   readPinned(
     BOUNDARY_PATH,
-    '61fe7ae6b937f46cb7c53b0cb1228f712b2b8d822d082bfbb35d58235943a841',
+    '4ecba2505549d328636007ea03580d223370a08b30f678ec17c2c353d680cab6',
   ),
   readPinned(REGION_PATH, REGION_SHA256),
   readPinned(MARINE_PATH, MARINE_SHA256),

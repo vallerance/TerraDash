@@ -60,7 +60,7 @@
     "world-region-boundaries": {
       "path": "data/source/world-region-boundaries.geojson",
       "url": "data/source/world-region-boundaries.geojson",
-      "sha256": "61fe7ae6b937f46cb7c53b0cb1228f712b2b8d822d082bfbb35d58235943a841",
+      "sha256": "4ecba2505549d328636007ea03580d223370a08b30f678ec17c2c353d680cab6",
       "prefix": "world",
       "emit": false,
       "license": "Public domain boundary convention authored for TerraDash",

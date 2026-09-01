@@ -5,7 +5,7 @@
     {"type":"Feature","properties":{"id":"south-america","convention":"mainland south of 9N; Panama land bridge convention"},"geometry":{"type":"Polygon","coordinates":[[[-90,-60],[-90,9],[-30,9],[-30,-60],[-90,-60]]]}},
     {"type":"Feature","properties":{"id":"africa","convention":"land between 20W/60E and south of 37N"},"geometry":{"type":"Polygon","coordinates":[[[-30,-60],[-30,37],[60,37],[60,-60],[-30,-60]]]}},
     {"type":"Feature","properties":{"id":"europe","convention":"Mediterranean-to-Ural conventional region north of 37N and west of 60E"},"geometry":{"type":"Polygon","coordinates":[[[-30,37],[-30,90],[60,90],[60,37],[-30,37]]]}},
-    {"type":"Feature","properties":{"id":"asia","convention":"east of 60E, with Oceania components removed by source-region exception"},"geometry":{"type":"Polygon","coordinates":[[[60,-60],[60,90],[180,90],[180,-60],[60,-60]]]}},
+    {"type":"Feature","properties":{"id":"asia","convention":"60E to 141E south of 30N, and 60E to 180E north of 30N"},"geometry":{"type":"MultiPolygon","coordinates":[[[[60,-60],[60,30],[141,30],[141,-60],[60,-60]]],[[[60,30],[60,90],[180,90],[180,30],[60,30]]]]}},
     {"type":"Feature","properties":{"id":"oceania","convention":"Australia/Papua-Pacific physical island components plus east of 141E south of 30N"},"geometry":{"type":"Polygon","coordinates":[[[141,-60],[141,30],[180,30],[180,-60],[141,-60]]]}},
     {"type":"Feature","properties":{"id":"antarctica","convention":"land south of 60S"},"geometry":{"type":"Polygon","coordinates":[[[-180,-90],[-180,-60],[180,-60],[180,-90],[-180,-90]]]}}
   ]
