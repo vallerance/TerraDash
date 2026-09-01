@@ -73,24 +73,26 @@ test('land clicks are not intercepted by the ocean background', async ({
   page,
 }) => {
   await page.goto(diagnosticsUrl('africa'));
-  const land = page
-    .locator('.active-fill path[data-location-id="world:africa"]')
-    .filter({ visible: true })
-    .first();
-  const box = await land.boundingBox();
-  expect(box).not.toBeNull();
-  const point = await land.evaluate((path) => {
-    const bounds = path.getBBox();
-    for (let column = 1; column < 10; column += 1) {
-      for (let row = 1; row < 10; row += 1) {
-        const local = new DOMPoint(
-          bounds.x + (bounds.width * column) / 10,
-          bounds.y + (bounds.height * row) / 10,
-        );
-        if (!path.isPointInFill(local)) continue;
-        const screen = local.matrixTransform(path.getScreenCTM()!);
-        if (document.elementFromPoint(screen.x, screen.y) === path)
-          return { x: screen.x, y: screen.y };
+  const land = page.locator(
+    '.active-fill path[data-location-id="world:africa"]',
+  );
+  await expect(land).not.toHaveCount(0);
+  const point = await page.evaluate(() => {
+    for (const path of document.querySelectorAll<SVGPathElement>(
+      '.active-fill path[data-location-id="world:africa"]',
+    )) {
+      const bounds = path.getBoundingClientRect();
+      for (let column = 1; column < 10; column += 1) {
+        for (let row = 1; row < 10; row += 1) {
+          const x = bounds.left + (bounds.width * column) / 10;
+          const y = bounds.top + (bounds.height * row) / 10;
+          if (
+            document
+              .elementFromPoint(x, y)
+              ?.getAttribute('data-location-id') === 'world:africa'
+          )
+            return { x, y };
+        }
       }
     }
     return null;
