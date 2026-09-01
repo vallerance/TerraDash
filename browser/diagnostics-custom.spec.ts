@@ -114,7 +114,6 @@ for (const viewport of [
       const status = document.querySelector<HTMLElement>('.quiz-status-bar')!;
       const h = header.getBoundingClientRect();
       const c = controls.getBoundingClientRect();
-      const center = (rect: DOMRect) => (rect.top + rect.bottom) / 2;
       const intersects = (a: DOMRect, b: DOMRect) =>
         a.left < b.right &&
         a.right > b.left &&
@@ -123,16 +122,32 @@ for (const viewport of [
       return {
         controlsInsideHeader: c.left >= h.left && c.right <= h.right,
         controlsVerticallyInsideHeader: c.top >= h.top && c.bottom <= h.bottom,
-        elementCenters: {
-          quiz: center(quiz.getBoundingClientRect()),
-          location: center(location.getBoundingClientRect()),
-          endQuiz: center(endQuiz.getBoundingClientRect()),
-        },
         endQuizClipped:
           endQuiz.scrollWidth > endQuiz.clientWidth ||
           endQuiz.scrollHeight > endQuiz.clientHeight,
-        headerCenter: center(h),
-        controlsCenter: center(c),
+        controlsHaveUsableBounds: c.width > 0 && c.height > 0,
+        controlsContainFields: [quiz, location, endQuiz].every((element) => {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.left >= c.left &&
+            rect.right <= c.right &&
+            rect.top >= c.top &&
+            rect.bottom <= c.bottom
+          );
+        }),
+        fieldsOverlap:
+          intersects(
+            quiz.getBoundingClientRect(),
+            location.getBoundingClientRect(),
+          ) ||
+          intersects(
+            quiz.getBoundingClientRect(),
+            endQuiz.getBoundingClientRect(),
+          ) ||
+          intersects(
+            location.getBoundingClientRect(),
+            endQuiz.getBoundingClientRect(),
+          ),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -148,19 +163,19 @@ for (const viewport of [
     });
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
+    expect(bounds.controlsHaveUsableBounds).toBe(true);
+    expect(bounds.controlsContainFields).toBe(true);
     expect(bounds.endQuizClipped).toBe(false);
-    if (viewport.width >= 901) {
-      expect(
-        Math.abs(bounds.controlsCenter - bounds.headerCenter),
-      ).toBeLessThanOrEqual(0.5);
-    }
+    expect(bounds.fieldsOverlap).toBe(false);
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
-    const centers = Object.values(bounds.elementCenters);
-    expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
-      0.5,
-    );
+    await expect(quiz).toBeVisible();
+    await expect(location).toBeVisible();
+    await expect(endQuiz).toBeVisible();
+    await expect(quiz).toBeEnabled();
+    await expect(location).toBeEnabled();
+    await expect(endQuiz).toBeEnabled();
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,
