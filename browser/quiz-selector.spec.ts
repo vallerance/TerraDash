@@ -157,11 +157,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(regionalSection.locator('.quiz-option-description')).toHaveText(
     regionalDescriptions,
   );
-  await page
-    .getByRole('menu')
-    .first()
-    .getByRole('menuitem', { name: 'World' })
-    .click();
+  await page.locator('#quiz-menu > .quiz-submenu > button').nth(1).click();
   await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
     'Continents and Oceans',
   ]);
@@ -442,7 +438,7 @@ test('home composition captures wide and mobile surfaces', async ({
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
   await page.getByRole('button', { name: /Quizzes/ }).click();
-  const mobileMenu = page.getByRole('menu');
+  const mobileMenu = page.getByRole('menu').first();
   await expect(mobileMenu).toBeVisible();
   await mobileMenu.getByRole('menuitem', { name: 'Countries' }).click();
   const countriesMenu = page.getByRole('menu').last();
