@@ -777,6 +777,7 @@ h2 {
   width: calc(100% - 2px);
   max-width: none;
   margin: 0 auto 0.5rem;
+  padding-block: calc(0.5 * var(--content-gutter));
   padding-inline: var(--content-gutter);
   border: 1px solid #263650;
   border-radius: 0.75rem;
@@ -1167,7 +1168,7 @@ input {
 }
 .diagnostics-controls {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   gap: 0.45rem;
   width: max-content;
@@ -1185,9 +1186,6 @@ input {
   border-radius: 0.4rem;
 }
 .diagnostics-controls button {
-  height: 2rem;
-  max-width: 14rem;
-  padding: 0.35rem 0.65rem;
   border: 1px solid #7dd3fc;
   border-radius: 0.4rem;
   color: #071a2b;
@@ -1233,7 +1231,7 @@ input {
     --map-width: 100% !important;
   }
 }
-@media (min-width: 621px) and (max-width: 900px) {
+@media (min-width: 621px) and (max-width: 1080px) {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
     grid-template-columns: minmax(0, 4fr) minmax(0, 1fr) minmax(0, 4fr);
@@ -1283,10 +1281,10 @@ input {
     min-height: 18rem;
   }
 }
-@media (min-width: 901px) {
+@media (min-width: 1081px) {
   .quiz-header:has(.diagnostics-controls) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto minmax(min-content, 1fr);
     align-items: center;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
