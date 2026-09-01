@@ -29,7 +29,10 @@ export function QuizLayout({
     const shell = document.querySelector<HTMLElement>('main.app-shell');
     if (!shell) return;
     const updateHeight = () => {
-      shell.style.setProperty('--active-quiz-height', `${window.innerHeight}px`);
+      shell.style.setProperty(
+        '--active-quiz-height',
+        `${window.innerHeight}px`,
+      );
     };
     updateHeight();
     window.addEventListener('resize', updateHeight);

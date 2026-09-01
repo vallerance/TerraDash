@@ -43,7 +43,10 @@ async function waitForGeometryChange(page: Page, previous: Geometry) {
         document.documentElement.scrollWidth <= window.innerWidth
       );
     },
-    { previousWidth: previous.stage.width, previousHeight: previous.stage.height },
+    {
+      previousWidth: previous.stage.width,
+      previousHeight: previous.stage.height,
+    },
   );
 }
 
