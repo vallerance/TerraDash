@@ -116,14 +116,14 @@ test('World map evidence is captured at wide and mobile sizes', async ({
   await page.goto(diagnosticsUrl('africa'));
   await expect(page.locator('.world-map')).toBeVisible();
   await page.screenshot({
-    path: 'test-results/world-map-wide.png',
+    path: 'evidence/world-map-wide.png',
     fullPage: true,
   });
 
   await page.setViewportSize({ width: 375, height: 667 });
   await expect(page.locator('.world-map')).toBeVisible();
   await page.screenshot({
-    path: 'test-results/world-map-mobile.png',
+    path: 'evidence/world-map-mobile.png',
     fullPage: true,
   });
 });
