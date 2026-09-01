@@ -56,15 +56,6 @@
       "prefix": "world",
       "license": "Public domain",
       "attribution": "Derived from pinned Natural Earth land and geography marine polygons using data/source/world-region-boundaries.geojson; see data/world-regions-provenance.md"
-    },
-    "world-region-boundaries": {
-      "path": "data/source/world-region-boundaries.geojson",
-      "url": "data/source/world-region-boundaries.geojson",
-      "sha256": "4ecba2505549d328636007ea03580d223370a08b30f678ec17c2c353d680cab6",
-      "prefix": "world",
-      "emit": false,
-      "license": "Public domain boundary convention authored for TerraDash",
-      "attribution": "Documented conventional seven-region partition; see data/world-regions-provenance.md"
     }
   },
   "replacements": [
