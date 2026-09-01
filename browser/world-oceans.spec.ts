@@ -79,14 +79,18 @@ test('land clicks are not intercepted by the ocean background', async ({
   const box = await land.boundingBox();
   expect(box).not.toBeNull();
   const point = await land.evaluate((path) => {
-    const length = path.getTotalLength();
-    for (let index = 1; index < 10; index += 1) {
-      const local = path.getPointAtLength((length * index) / 10);
-      const screen = new DOMPoint(local.x, local.y).matrixTransform(
-        path.getScreenCTM()!,
-      );
-      if (document.elementFromPoint(screen.x, screen.y) === path)
-        return { x: screen.x, y: screen.y };
+    const bounds = path.getBBox();
+    for (let column = 1; column < 10; column += 1) {
+      for (let row = 1; row < 10; row += 1) {
+        const local = new DOMPoint(
+          bounds.x + (bounds.width * column) / 10,
+          bounds.y + (bounds.height * row) / 10,
+        );
+        if (!path.isPointInFill(local)) continue;
+        const screen = local.matrixTransform(path.getScreenCTM()!);
+        if (document.elementFromPoint(screen.x, screen.y) === path)
+          return { x: screen.x, y: screen.y };
+      }
     }
     return null;
   });
