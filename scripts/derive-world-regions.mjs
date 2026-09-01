@@ -125,24 +125,19 @@ function unionAll(polygons) {
 
 function regionLand(land, boundaries, physicalRegions) {
   const dissolved = unionAll(land.features.map(asMultiPolygon));
-  const oceaniaIslands = physicalRegions.features
-    .filter(({ properties }) => properties?.REGION === 'Oceania')
-    .map(asMultiPolygon);
-  const oceaniaMask = unionAll([
-    maskById(boundaries, 'oceania'),
-    ...oceaniaIslands,
-  ]);
+  const oceaniaRegionCount = physicalRegions.features.filter(
+    ({ properties }) => properties?.REGION === 'Oceania',
+  ).length;
+  if (oceaniaRegionCount === 0)
+    throw new Error('Pinned physical-region source has no Oceania features');
   const masks = new Map([
     ['north-america', maskById(boundaries, 'north-america')],
     ['south-america', maskById(boundaries, 'south-america')],
     ['africa', maskById(boundaries, 'africa')],
     ['europe', maskById(boundaries, 'europe')],
     ['antarctica', maskById(boundaries, 'antarctica')],
-    ['oceania', oceaniaMask],
-    [
-      'asia',
-      polygonClipping.difference(maskById(boundaries, 'asia'), oceaniaMask),
-    ],
+    ['oceania', maskById(boundaries, 'oceania')],
+    ['asia', maskById(boundaries, 'asia')],
   ]);
   const regions = new Map(
     [...masks].map(([id, mask]) => [

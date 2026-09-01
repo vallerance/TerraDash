@@ -26,15 +26,18 @@ deterministic polygon-clipping unary union to remove all country seams, then
 intersects the dissolved land with the seven masks. The masks use explicit
 world coordinates: the Americas split at 9°N (the Panama land-bridge
 convention), Africa occupies the 20°W–60°E band south of 37°N, Europe is west
-of 60°E north of 37°N, Asia is east of 60°E, and Antarctica is south of 60°S.
-Oceania is the east-of-141°E south-of-30°N physical island region plus every
-Natural Earth geography-region polygon tagged `REGION == "Oceania"`; Asia is
-the Asia mask minus that Oceania mask. Thus Australia, New Zealand, Papua New
-Guinea and Oceania-tagged Pacific islands are Oceania, while Indonesia,
-Malaysia, the Philippines and Timor-Leste remain Asia via their Asia-tagged
-physical-region features. This is a documented conventional seven-region
-partition, not a claim that Natural Earth publishes an exhaustive geological
-continent layer; Europe/Asia is necessarily conventional.
+of 60°E north of 37°N, Asia occupies 60°E–180°E except south of 30°N east of
+141°E, and Antarctica is south of 60°S. Oceania occupies that east-of-141°E,
+south-of-30°N mask. These authored masks are disjoint at their boundaries, so
+the generator does not subtract the detailed physical-region polygons (that
+operation is unnecessarily unstable on this source's very dense rings). The
+pinned geography-region layer is still checked for Oceania features as
+provenance corroboration. The coordinate rule assigns Australia, New Zealand,
+Papua New Guinea and Pacific islands east of 141°E to Oceania; Indonesia,
+Malaysia, the Philippines and Timor-Leste remain in Asia. This is a documented
+conventional seven-region partition, not a claim that Natural Earth publishes
+an exhaustive geological continent layer; Europe/Asia is necessarily
+conventional.
 
 Tests assert exactly seven land outputs, valid non-empty geometry, and
 exhaustive/non-overlapping assignment of the dissolved land to the masks.
