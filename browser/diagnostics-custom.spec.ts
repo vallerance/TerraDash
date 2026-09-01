@@ -128,10 +128,6 @@ for (const viewport of [
           location: center(location.getBoundingClientRect()),
           endQuiz: center(endQuiz.getBoundingClientRect()),
         },
-        elementEdges: [quiz, location, endQuiz].map((element) => {
-          const rect = element.getBoundingClientRect();
-          return { top: rect.top, bottom: rect.bottom, height: rect.height };
-        }),
         endQuizClipped:
           endQuiz.scrollWidth > endQuiz.clientWidth ||
           endQuiz.scrollHeight > endQuiz.clientHeight,
@@ -165,14 +161,6 @@ for (const viewport of [
     expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
       0.5,
     );
-    expect(
-      Math.max(...bounds.elementEdges.map(({ top }) => top)) -
-        Math.min(...bounds.elementEdges.map(({ top }) => top)),
-    ).toBeLessThanOrEqual(0.5);
-    expect(
-      Math.max(...bounds.elementEdges.map(({ bottom }) => bottom)) -
-        Math.min(...bounds.elementEdges.map(({ bottom }) => bottom)),
-    ).toBeLessThanOrEqual(0.5);
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,

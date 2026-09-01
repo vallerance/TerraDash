@@ -84,7 +84,10 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run build
-      - run: npm run browser:test
+      - name: Run browser suite excluding isolated performance capture
+        run: npm run browser:test -- --grep-invert='captures (caribbean|china-provinces) idle and typing workload'
+      - name: Run performance capture in an isolated worker
+        run: npm run browser:test -- --workers=1 --grep='captures (caribbean|china-provinces) idle and typing workload'
       - name: Upload TerraDash browser evidence
         if: always()
         uses: actions/upload-artifact@v4
