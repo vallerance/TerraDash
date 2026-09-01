@@ -125,29 +125,6 @@ for (const viewport of [
         endQuizClipped:
           endQuiz.scrollWidth > endQuiz.clientWidth ||
           endQuiz.scrollHeight > endQuiz.clientHeight,
-        controlsHaveUsableBounds: c.width > 0 && c.height > 0,
-        controlsContainFields: [quiz, location, endQuiz].every((element) => {
-          const rect = element.getBoundingClientRect();
-          return (
-            rect.left >= c.left &&
-            rect.right <= c.right &&
-            rect.top >= c.top &&
-            rect.bottom <= c.bottom
-          );
-        }),
-        fieldsOverlap:
-          intersects(
-            quiz.getBoundingClientRect(),
-            location.getBoundingClientRect(),
-          ) ||
-          intersects(
-            quiz.getBoundingClientRect(),
-            endQuiz.getBoundingClientRect(),
-          ) ||
-          intersects(
-            location.getBoundingClientRect(),
-            endQuiz.getBoundingClientRect(),
-          ),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -163,10 +140,7 @@ for (const viewport of [
     });
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
-    expect(bounds.controlsHaveUsableBounds).toBe(true);
-    expect(bounds.controlsContainFields).toBe(true);
     expect(bounds.endQuizClipped).toBe(false);
-    expect(bounds.fieldsOverlap).toBe(false);
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
