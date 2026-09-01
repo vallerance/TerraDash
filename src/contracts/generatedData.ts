@@ -7,10 +7,9 @@ import quizzesData from '../../data/quizzes.json';
 import type { LocationKind } from '../map/locationSemantics';
 
 export const generatedInset = insetData;
-export const generatedLocations =
-  locationsData as readonly ((typeof locationsData)[number] & {
-    kind: LocationKind;
-  })[];
+export const generatedLocations = locationsData as unknown as Array<
+  (typeof locationsData)[number] & { kind: LocationKind }
+>;
 export const generatedManifest = manifestData;
 export const generatedMap = mapData;
 export const generatedContext = contextData as GeneratedContext;
