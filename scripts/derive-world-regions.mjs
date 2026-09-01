@@ -249,7 +249,10 @@ await ensureInput(REGION_PATH, REGION_URL);
 await ensureInput(MARINE_PATH, MARINE_URL);
 const result = derive(
   readPinned(LAND_PATH, LAND_SHA256),
-  readPinned(BOUNDARY_PATH, 'authored-boundary-input'),
+  readPinned(
+    BOUNDARY_PATH,
+    '61fe7ae6b937f46cb7c53b0cb1228f712b2b8d822d082bfbb35d58235943a841',
+  ),
   readPinned(REGION_PATH, REGION_SHA256),
   readPinned(MARINE_PATH, MARINE_SHA256),
 );
