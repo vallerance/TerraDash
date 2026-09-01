@@ -264,7 +264,12 @@ for (const destination of [
   }) => {
     await page.goto(destination);
     await page.getByRole('button', { name: /Quizzes/ }).click();
-    await page.getByRole('menuitem', { name: 'Asia' }).click();
+    await page.getByRole('menuitem', { name: 'Countries' }).click();
+    await page
+      .getByRole('menu')
+      .last()
+      .getByRole('menuitem', { name: 'Asia' })
+      .click();
     const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
     await expect(dialog).toBeVisible();
     await expect(dialog.getByText('48 locations')).toBeVisible();
@@ -363,7 +368,12 @@ test('mobile Quizzes menu reaches and clicks the final quiz', async ({
   await page.goto('/TerraDash/');
   const mobileNav = page.getByRole('navigation', { name: 'Quizzes' });
   await mobileNav.getByRole('button', { name: /Quizzes/ }).click();
-  await mobileNav.getByRole('menuitem', { name: nonUnTitle }).click();
+  await mobileNav.getByRole('menuitem', { name: 'Countries' }).click();
+  await mobileNav
+    .getByRole('menu')
+    .last()
+    .getByRole('menuitem', { name: nonUnTitle })
+    .click();
   await expect(page).toHaveURL(/\/TerraDash\/\?quiz=non-un&select=1$/);
   await expect(page.getByRole('button', { name: /Quizzes/ })).toBeVisible();
 });
@@ -434,8 +444,10 @@ test('home composition captures wide and mobile surfaces', async ({
   await page.getByRole('button', { name: /Quizzes/ }).click();
   const mobileMenu = page.getByRole('menu');
   await expect(mobileMenu).toBeVisible();
+  await mobileMenu.getByRole('menuitem', { name: 'Countries' }).click();
+  const countriesMenu = page.getByRole('menu').last();
   await expect(
-    mobileMenu.getByRole('menuitem', { name: nonUnTitle }),
+    countriesMenu.getByRole('menuitem', { name: nonUnTitle }),
   ).toHaveText(nonUnTitle);
   const menuBounds = await mobileMenu.evaluate((element) => {
     const menuBox = element.getBoundingClientRect();
