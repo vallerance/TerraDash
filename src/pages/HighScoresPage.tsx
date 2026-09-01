@@ -7,7 +7,7 @@ export function HighScoresPage() {
   const scores = getAllHighScores();
   return (
     <main className="standalone-page">
-      <AppHeader />
+      <AppHeader quizOptions={quizOptions} />
       <section className="high-score-page" aria-labelledby="high-scores-title">
         <p className="eyebrow">TERRADASH · RECORDS</p>
         <h1 id="high-scores-title">High Scores</h1>

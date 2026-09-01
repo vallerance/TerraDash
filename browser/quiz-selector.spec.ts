@@ -89,21 +89,22 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   await trigger.click();
   const menu = page.getByRole('menu');
-  const links = menu.getByRole('menuitem');
-  await expect(links).toHaveText(
+  await expect(menu.getByRole('menuitem')).toHaveText([
+    'Countries',
+    'World',
+    'States and Provinces',
+    'Islands',
+  ]);
+  await menu.getByRole('menuitem', { name: 'Countries' }).click();
+  const countryMenu = page.getByRole('menu').last();
+  await expect(countryMenu.getByRole('menuitem')).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(
-        nonUnTitle,
-        'Continents and Oceans',
-        'Regional quizzes',
-        'Islands quizzes',
-      ),
+      .concat(nonUnTitle),
   );
-  await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
+  await expect(
+    countryMenu.getByRole('menuitem', { name: 'World' }),
+  ).toHaveAttribute('aria-current', 'page');
   const globalQuizCount = quizDefinitions.filter(
     (quiz: { category?: string }) => !quiz.category,
   ).length;
@@ -156,6 +157,18 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(regionalSection.locator('.quiz-option-description')).toHaveText(
     regionalDescriptions,
   );
+  await page
+    .getByRole('menu')
+    .first()
+    .getByRole('menuitem', { name: 'World' })
+    .click();
+  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
+    'Continents and Oceans',
+  ]);
+  await menu.getByRole('menuitem', { name: 'States and Provinces' }).click();
+  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveCount(
+    regionalQuizCount,
+  );
   const nonUnIndex = globalDefinitions.findIndex(
     (quiz: { id: string }) => quiz.id === 'non-un',
   );
@@ -179,7 +192,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   for (const [index, destination] of islandDestinations.entries()) {
     if (index > 0) await trigger.click();
     const islandMenu = page.getByRole('menu');
-    await islandMenu.getByRole('menuitem', { name: 'Islands quizzes' }).click();
+    await islandMenu.getByRole('menuitem', { name: 'Islands' }).click();
     await islandMenu.getByRole('menuitem', { name: destination.label }).click();
     const islandDialog = page.getByRole('dialog', {
       name: new RegExp(destination.label.replace(' by ', ' Islands by ')),
@@ -193,17 +206,27 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
       .click();
   }
   await trigger.click();
-  await links.filter({ hasText: /^Asia$/ }).click();
+  await page.getByRole('menuitem', { name: 'Countries' }).click();
+  await page
+    .getByRole('menu')
+    .last()
+    .getByRole('menuitem', { name: 'Asia' })
+    .click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Close quiz details' }).click();
   await trigger.click();
+  await page.getByRole('menuitem', { name: 'Countries' }).click();
   await expect(page.getByRole('menu')).toBeVisible();
   await expect(
-    page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }),
+    page.getByRole('menu').last().getByRole('menuitem', { name: 'Asia' }),
   ).toHaveAttribute('aria-current', 'page');
-  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
+  await page
+    .getByRole('menu')
+    .last()
+    .getByRole('menuitem', { name: 'Asia' })
+    .click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   const asiaDialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(asiaDialog).toBeVisible();

@@ -16,6 +16,7 @@ import {
   defaultCatalog,
   defaultQuiz,
   playableLocations,
+  quizCategoriesFor,
   quizOptions,
 } from './contracts/quiz';
 import { playableLocationsById } from './contracts/playableLocation';
@@ -72,6 +73,30 @@ describe('generated quiz wiring', () => {
 });
 
 describe('canonical quiz presentation contract', () => {
+  it('groups populated categories by explicit catalog order, including future IDs', () => {
+    const synthetic: (typeof quizOptions)[number] = {
+      ...quizOptions[0],
+      id: 'synthetic-frontier',
+      category: 'frontier',
+      menuLabel: 'Frontier',
+    };
+    const categories = quizCategoriesFor([
+      synthetic,
+      ...[...quizOptions].reverse(),
+    ]);
+    expect(categories.map(({ id }) => id)).toEqual([
+      'global',
+      'world',
+      'regional',
+      'islands',
+      'frontier',
+    ]);
+    expect(categories.find(({ id }) => id === 'frontier')).toMatchObject({
+      label: 'Frontier quizzes',
+      options: [synthetic],
+    });
+  });
+
   it('keeps copy, menu labels, and thumbnail viewBoxes declarative', () => {
     expect(quizOptions.length).toBeGreaterThan(0);
     for (const quiz of quizOptions) {
