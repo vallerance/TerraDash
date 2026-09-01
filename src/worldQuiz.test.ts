@@ -9,7 +9,7 @@ const expected = [
   ['world:europe', 'Europe'],
   ['world:north-america', 'North America'],
   ['world:south-america', 'South America'],
-  ['world:australia', 'Australia'],
+  ['world:oceania', 'Oceania'],
   ['world:arctic-ocean', 'Arctic Ocean'],
   ['world:atlantic-ocean', 'Atlantic Ocean'],
   ['world:indian-ocean', 'Indian Ocean'],

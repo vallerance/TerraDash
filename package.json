@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
+    "polygon-clipping": "0.15.7",
     "react": "latest",
     "react-dom": "latest",
     "typescript": "latest",

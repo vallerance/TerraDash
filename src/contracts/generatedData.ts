@@ -4,9 +4,13 @@ import manifestData from '../../data/generated/manifest.json';
 import mapData from '../../data/generated/map.json';
 import contextData from '../../data/generated/context.json';
 import quizzesData from '../../data/quizzes.json';
+import type { LocationKind } from '../map/locationSemantics';
 
 export const generatedInset = insetData;
-export const generatedLocations = locationsData;
+export const generatedLocations =
+  locationsData as readonly ((typeof locationsData)[number] & {
+    kind: LocationKind;
+  })[];
 export const generatedManifest = manifestData;
 export const generatedMap = mapData;
 export const generatedContext = contextData as GeneratedContext;

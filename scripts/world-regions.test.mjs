@@ -12,7 +12,7 @@ const targetNames = [
   'Europe',
   'North America',
   'South America',
-  'Australia',
+  'Oceania',
   'Arctic Ocean',
   'Atlantic Ocean',
   'Indian Ocean',
@@ -53,5 +53,29 @@ describe('world-region derivation', () => {
     expect(
       value.features.every(({ geometry }) => geometry.type === 'MultiPolygon'),
     ).toBe(true);
+    const land = value.features.slice(0, 7);
+    expect(
+      land.every(({ properties }) => properties.source.startsWith('land:')),
+    ).toBe(true);
+    expect(
+      land.every(({ properties }) => !properties.source.includes('admin-0')),
+    ).toBe(true);
+    const boundaries = JSON.parse(
+      readFileSync(
+        new URL(
+          '../data/source/world-region-boundaries.geojson',
+          import.meta.url,
+        ),
+      ),
+    );
+    expect(boundaries.features.map(({ properties }) => properties.id)).toEqual([
+      'north-america',
+      'south-america',
+      'africa',
+      'europe',
+      'asia',
+      'oceania',
+      'antarctica',
+    ]);
   });
 });

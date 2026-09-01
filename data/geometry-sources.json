@@ -55,7 +55,16 @@
       "sha256": "derived-from-pinned-inputs",
       "prefix": "world",
       "license": "Public domain",
-      "attribution": "Derived from pinned Natural Earth v5.1.1-era Admin-0 countries and geography marine polygons; see data/world-regions-provenance.md"
+      "attribution": "Derived from pinned Natural Earth land and geography marine polygons using data/source/world-region-boundaries.geojson; see data/world-regions-provenance.md"
+    },
+    "world-region-boundaries": {
+      "path": "data/source/world-region-boundaries.geojson",
+      "url": "data/source/world-region-boundaries.geojson",
+      "sha256": "61fe7ae6b937f46cb7c53b0cb1228f712b2b8d822d082bfbb35d58235943a841",
+      "prefix": "world",
+      "emit": false,
+      "license": "Public domain boundary convention authored for TerraDash",
+      "attribution": "Documented conventional seven-region partition; see data/world-regions-provenance.md"
     }
   },
   "replacements": [

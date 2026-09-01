@@ -3,28 +3,39 @@
 /**
  * Derive the twelve selectable world regions without hand-authoring geometry.
  *
- * This intentionally assembles source polygons into MultiPolygons rather than
- * performing a floating-point topology operation. The source rings and their
- * winding are preserved byte-for-byte in a deterministic feature collection.
+ * Dissolve pinned physical land once, intersect it with authored WGS84 masks,
+ * and flatten exact named marine polygons into deterministic world features.
  */
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import polygonClipping from 'polygon-clipping';
 
 const ROOT = resolve(import.meta.dirname, '..');
-const ADMIN_PATH = resolve(
+const LAND_PATH = resolve(ROOT, '.scratch/ne_10m_land.geojson');
+const REGION_PATH = resolve(
   ROOT,
-  'data/source/ne_10m_admin_0_countries.geojson',
+  '.scratch/ne_10m_geography_regions_polys.geojson',
 );
 const MARINE_PATH = resolve(
   ROOT,
   '.scratch/ne_10m_geography_marine_polys.geojson',
 );
+const BOUNDARY_PATH = resolve(
+  ROOT,
+  'data/source/world-region-boundaries.geojson',
+);
+const LAND_URL =
+  'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_land.geojson';
+const REGION_URL =
+  'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_geography_regions_polys.geojson';
 const MARINE_URL =
   'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_geography_marine_polys.geojson';
-const ADMIN_SHA256 =
-  '239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255';
+const LAND_SHA256 =
+  '1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416';
+const REGION_SHA256 =
+  'b7b26e50ea917d3696aec87f932def2bf5f890f5770e441d59c162c6f4c92a77';
 const MARINE_SHA256 =
   '53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66c';
 
@@ -35,7 +46,7 @@ const continents = [
   ['europe', 'Europe', 'Europe'],
   ['north-america', 'North America', 'North America'],
   ['south-america', 'South America', 'South America'],
-  ['australia', 'Australia', 'Oceania'],
+  ['oceania', 'Oceania'],
 ];
 
 const oceans = [
@@ -72,15 +83,15 @@ function readPinned(path, expectedSha) {
   return value;
 }
 
-async function ensureMarineInput() {
-  if (!existsSync(MARINE_PATH)) {
+async function ensureInput(path, url) {
+  if (!existsSync(path)) {
     mkdirSync(resolve(ROOT, '.scratch'), { recursive: true });
-    const response = await fetch(MARINE_URL);
+    const response = await fetch(url);
     if (!response.ok)
       throw new Error(
-        `Unable to fetch pinned marine source: ${response.status}`,
+        `Unable to fetch pinned source ${url}: ${response.status}`,
       );
-    writeFileSync(MARINE_PATH, Buffer.from(await response.arrayBuffer()));
+    writeFileSync(path, Buffer.from(await response.arrayBuffer()));
   }
 }
 
@@ -90,6 +101,54 @@ function polygonParts(feature) {
   if (geometry?.type === 'MultiPolygon') return geometry.coordinates;
   throw new Error(
     `Unsupported geometry for ${feature.properties?.name ?? feature.id}`,
+  );
+}
+
+function asMultiPolygon(feature) {
+  return polygonParts(feature);
+}
+
+function maskById(boundaries, id) {
+  const feature = boundaries.features.find(
+    (candidate) => candidate.properties?.id === id,
+  );
+  if (!feature) throw new Error(`Missing boundary mask: ${id}`);
+  return asMultiPolygon(feature);
+}
+
+function unionAll(polygons) {
+  if (!polygons.length) throw new Error('Cannot union an empty polygon set');
+  return polygons.reduce((result, polygon) =>
+    polygonClipping.union(result, polygon),
+  );
+}
+
+function regionLand(land, boundaries, physicalRegions) {
+  const dissolved = unionAll(land.features.map(asMultiPolygon));
+  const oceaniaIslands = physicalRegions.features
+    .filter(({ properties }) => properties?.REGION === 'Oceania')
+    .map(asMultiPolygon);
+  const oceaniaMask = unionAll([
+    maskById(boundaries, 'oceania'),
+    ...oceaniaIslands,
+  ]);
+  const masks = new Map([
+    ['north-america', maskById(boundaries, 'north-america')],
+    ['south-america', maskById(boundaries, 'south-america')],
+    ['africa', maskById(boundaries, 'africa')],
+    ['europe', maskById(boundaries, 'europe')],
+    ['antarctica', maskById(boundaries, 'antarctica')],
+    ['oceania', oceaniaMask],
+    [
+      'asia',
+      polygonClipping.difference(maskById(boundaries, 'asia'), oceaniaMask),
+    ],
+  ]);
+  return new Map(
+    [...masks].map(([id, mask]) => [
+      id,
+      polygonClipping.intersection(dissolved, mask),
+    ]),
   );
 }
 
@@ -105,17 +164,23 @@ function groupedFeature(id, name, source, features) {
   };
 }
 
-function derive(admin, marine) {
+function derive(land, boundaries, physicalRegions, marine) {
   const features = [];
-  for (const [id, name, sourceName] of continents) {
-    const selected = admin.features.filter(
-      (feature) => feature.properties?.CONTINENT === sourceName,
-    );
-    if (selected.length === 0)
-      throw new Error(`No admin features for ${sourceName}`);
-    features.push(
-      groupedFeature(id, name, `admin-0:CONTINENT=${sourceName}`, selected),
-    );
+  const regions = regionLand(land, boundaries, physicalRegions);
+  for (const [id, name] of continents) {
+    const coordinates = regions.get(id);
+    if (!coordinates?.length)
+      throw new Error(`No geometry selected for ${name}`);
+    features.push({
+      type: 'Feature',
+      id: `world:${id}`,
+      properties: {
+        id: `world:${id}`,
+        name,
+        source: `land:ne_10m_land∩mask=${id}`,
+      },
+      geometry: { type: 'MultiPolygon', coordinates },
+    });
   }
 
   const marineByName = new Map();
@@ -163,9 +228,13 @@ function outputPath(argv) {
 const output = outputPath(process.argv.slice(2));
 if (process.argv.includes('--output') && !output)
   throw new Error('--output requires a path');
-await ensureMarineInput();
+await ensureInput(LAND_PATH, LAND_URL);
+await ensureInput(REGION_PATH, REGION_URL);
+await ensureInput(MARINE_PATH, MARINE_URL);
 const result = derive(
-  readPinned(ADMIN_PATH, ADMIN_SHA256),
+  readPinned(LAND_PATH, LAND_SHA256),
+  readPinned(BOUNDARY_PATH, 'authored-boundary-input'),
+  readPinned(REGION_PATH, REGION_SHA256),
   readPinned(MARINE_PATH, MARINE_SHA256),
 );
 const serialized = `${JSON.stringify(result, null, 2)}\n`;
