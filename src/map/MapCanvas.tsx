@@ -91,6 +91,11 @@ export function MapOverlays({
               key={`${transform}:${index}`}
               d={path}
               transform={`translate(${transform} 0)`}
+              className={
+                active.id.endsWith('-ocean')
+                  ? 'water-location'
+                  : 'land-location'
+              }
               data-location-id={layer.selectable ? active.id : undefined}
               role={layer.selectable ? 'button' : undefined}
               tabIndex={layer.selectable ? 0 : undefined}

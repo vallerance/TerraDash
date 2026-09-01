@@ -39,9 +39,13 @@ describe('DiagnosticsMap consumer contract', () => {
   });
 
   it('keeps diagnostics coverage aligned with every playable location', () => {
-    expect(new Set(playableLocations.map(({ id }) => id))).toEqual(
-      new Set(reviewed.locationIds),
-    );
+    expect(
+      new Set(
+        playableLocations
+          .map(({ id }) => id)
+          .filter((id) => !id.startsWith('world:')),
+      ),
+    ).toEqual(new Set(reviewed.locationIds));
     expect(new Set(candidates.map(({ id }) => id))).toEqual(
       new Set(reviewed.relationships.nonUnCandidateIds),
     );

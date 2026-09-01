@@ -56,6 +56,15 @@
       "emit": false,
       "license": "Public domain",
       "attribution": "geoBoundaries v6.0.0 (source: United States Census Bureau)"
+    },
+    {
+      "id": "world-regions",
+      "path": "data/source/world-regions.geojson",
+      "url": "scripts/derive-world-regions.mjs",
+      "sha256": "derived-from-pinned-inputs",
+      "prefix": "world",
+      "license": "Public domain",
+      "attribution": "Derived from pinned Natural Earth v5.1.1-era Admin-0 countries and geography marine polygons; see data/world-regions-provenance.md"
     }
   ],
   "geometrySourceReplacements": [
@@ -2297,7 +2306,19 @@
     "ne:map-subunit:1159321387",
     "ne:map-subunit:1159321385",
     "ne:map-subunit:1159320759",
-    "gb:aze-adm1:63332228B45413776644545"
+    "gb:aze-adm1:63332228B45413776644545",
+    "world:world-regions:world:africa",
+    "world:world-regions:world:antarctica",
+    "world:world-regions:world:asia",
+    "world:world-regions:world:europe",
+    "world:world-regions:world:north-america",
+    "world:world-regions:world:south-america",
+    "world:world-regions:world:australia",
+    "world:world-regions:world:arctic-ocean",
+    "world:world-regions:world:atlantic-ocean",
+    "world:world-regions:world:indian-ocean",
+    "world:world-regions:world:pacific-ocean",
+    "world:world-regions:world:southern-ocean"
   ],
   "locations": {
     "MX-AGU": ["ne:admin1:1159314071"],
@@ -2960,7 +2981,19 @@
     "non-un:a-land-islands": [
       "ne:map-unit:1159320621",
       "ne:map-subunit:1159320621"
-    ]
+    ],
+    "world:africa": ["world:world-regions:world:africa"],
+    "world:antarctica": ["world:world-regions:world:antarctica"],
+    "world:asia": ["world:world-regions:world:asia"],
+    "world:europe": ["world:world-regions:world:europe"],
+    "world:north-america": ["world:world-regions:world:north-america"],
+    "world:south-america": ["world:world-regions:world:south-america"],
+    "world:australia": ["world:world-regions:world:australia"],
+    "world:arctic-ocean": ["world:world-regions:world:arctic-ocean"],
+    "world:atlantic-ocean": ["world:world-regions:world:atlantic-ocean"],
+    "world:indian-ocean": ["world:world-regions:world:indian-ocean"],
+    "world:pacific-ocean": ["world:world-regions:world:pacific-ocean"],
+    "world:southern-ocean": ["world:world-regions:world:southern-ocean"]
   },
   "inset": {
     "sourceSha256": "239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255",

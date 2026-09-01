@@ -93,7 +93,12 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(links).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle, 'Regional quizzes', 'Islands quizzes'),
+      .concat(
+        nonUnTitle,
+        'Continents and Oceans',
+        'Regional quizzes',
+        'Islands quizzes',
+      ),
   );
   await expect(menu.getByRole('menuitem', { name: 'World' })).toHaveAttribute(
     'aria-current',
@@ -109,6 +114,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   const regionalSection = page.getByRole('region', {
     name: 'States and Provinces',
   });
+  const worldSection = page.getByRole('region', { name: 'World' });
   await expect(globalSection.locator('.quiz-option')).toHaveCount(
     globalQuizCount,
   );
@@ -121,6 +127,8 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(regionalSection.locator('.quiz-option-thumbnail')).toHaveCount(
     regionalQuizCount,
   );
+  await expect(worldSection.locator('.quiz-option')).toHaveCount(1);
+  await expect(worldSection.getByText('Continents and Oceans')).toBeVisible();
   await expect(globalSection.getByText('US States')).toHaveCount(0);
   await expect(regionalSection.getByText('US States')).toBeVisible();
   const globalDefinitions = quizDefinitions.filter(

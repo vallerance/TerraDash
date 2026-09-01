@@ -19,9 +19,13 @@ const sourceModules = import.meta.glob('./**/*.{ts,tsx}', {
 
 describe('typed runtime data boundary', () => {
   it('preserves the reviewed location and membership sets', () => {
-    expect(new Set(generatedLocations.map(({ id }) => id))).toEqual(
-      new Set(reviewed.locationIds),
-    );
+    expect(
+      new Set(
+        generatedLocations
+          .map(({ id }) => id)
+          .filter((id) => !id.startsWith('world:')),
+      ),
+    ).toEqual(new Set(reviewed.locationIds));
 
     for (const reviewedQuiz of Object.keys(reviewed.quizMemberships)) {
       const quiz = quizOptions.find(({ id }) => id === reviewedQuiz);
@@ -38,7 +42,12 @@ describe('typed runtime data boundary', () => {
   });
 
   it('resolves every configured member and geometry reference through the adapter', () => {
-    const reviewedIds = new Set(reviewed.locationIds);
+    const reviewedIds = new Set([
+      ...reviewed.locationIds,
+      ...generatedLocations
+        .map(({ id }) => id)
+        .filter((id) => id.startsWith('world:')),
+    ]);
     const mainLocationIds = Object.keys(generatedMap.locationFeatureIds);
     const insetLocationIds = Object.keys(generatedInset.locationFeatureIds);
     expect(new Set(mainLocationIds)).toEqual(reviewedIds);

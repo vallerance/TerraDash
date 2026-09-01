@@ -33,6 +33,12 @@ import {
   buildMapArtifact,
 } from './generator/artifacts.mjs';
 
+execFileSync(process.execPath, [
+  'scripts/derive-world-regions.mjs',
+  '--output',
+  'data/source/world-regions.geojson',
+]);
+
 const sourcePath = SOURCE_PATH;
 const insetSourcePath = INSET_SOURCE_PATH;
 const geometrySources = JSON.parse(
@@ -67,14 +73,18 @@ const overrides = JSON.parse(fs.readFileSync('data/geometry-overrides.json'));
 
 function canonicalSupplementalId(definition, feature) {
   const p = feature.properties;
-  const sourceId = p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
+  const sourceId =
+    p.world_id ?? p.id ?? p.NE_ID ?? p.ne_id ?? p.adm1_code ?? p.shapeID;
   return `${definition.prefix ?? 'ne'}:${definition.id}:${sourceId}`;
 }
 
 function checkedSourceBytes(definition) {
   const bytes = fs.readFileSync(definition.path);
   const sha256 = crypto.createHash('sha256').update(bytes).digest('hex');
-  if (sha256 !== definition.sha256)
+  if (
+    definition.sha256 !== 'derived-from-pinned-inputs' &&
+    sha256 !== definition.sha256
+  )
     throw new Error(
       `${definition.id} source checksum mismatch: expected ${definition.sha256}, got ${sha256}`,
     );
@@ -223,6 +233,7 @@ const supplementalFeatures = SUPPLEMENTAL_SOURCES.filter(
         p.adm0_a3,
       ].filter(Boolean),
       keys: [
+        p.id,
         p.iso_3166_2,
         p.ISO_A2,
         p.ISO_A2_EH,

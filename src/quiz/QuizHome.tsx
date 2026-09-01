@@ -5,6 +5,7 @@ import type { QuizOption } from '../contracts/quiz';
 function quizSections(quizOptions: readonly QuizOption[]) {
   const categoryLabels: Record<string, string> = {
     global: 'Countries',
+    world: 'World',
     regional: 'States and Provinces',
     islands: 'Islands',
   };
