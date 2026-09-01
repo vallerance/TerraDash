@@ -66,7 +66,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
     };
   }, [open]);
   const globalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category !== 'regional',
+    (quiz) => quiz.category !== 'regional' && quiz.category !== 'islands',
   );
   const regionalQuizzes = quizOptions.filter(
     (quiz) => quiz.category === 'regional',
