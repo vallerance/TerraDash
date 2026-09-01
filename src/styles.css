@@ -1175,6 +1175,7 @@ input {
   margin-right: clamp(1.5rem, 5vw, 3rem);
 }
 .diagnostics-controls select {
+  height: 2rem;
   min-width: 0;
   max-width: 14rem;
   padding: 0.35rem 0.5rem;
@@ -1184,6 +1185,7 @@ input {
   border-radius: 0.4rem;
 }
 .diagnostics-controls button {
+  height: 2rem;
   max-width: 14rem;
   padding: 0.35rem 0.65rem;
   border: 1px solid #7dd3fc;
@@ -1192,11 +1194,6 @@ input {
   font-weight: 800;
   background: #7dd3fc;
   cursor: pointer;
-}
-.diagnostics-controls > label > select,
-.diagnostics-controls > select,
-.diagnostics-controls > button {
-  align-self: center;
 }
 .diagnostics-controls button:hover {
   border-color: #bae6fd;
@@ -1267,8 +1264,8 @@ input {
     padding: 0;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay > * {
-    width: 35%;
-    max-width: none;
+    width: calc(100% - 2 * var(--content-gutter));
+    max-width: 42rem;
   }
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls {
     width: 100%;
@@ -1282,6 +1279,9 @@ input {
   .quiz-header:has(.diagnostics-controls) .diagnostics-controls select {
     width: 100%;
   }
+  .diagnostics-player .map-stage {
+    min-height: 18rem;
+  }
 }
 @media (min-width: 901px) {
   .quiz-header:has(.diagnostics-controls) {
@@ -1291,13 +1291,16 @@ input {
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-prompt-group {
     grid-column: 1;
+    grid-row: 1;
   }
   .quiz-header:has(.diagnostics-controls) > .quiz-status-bar {
     grid-column: 3;
+    grid-row: 1;
   }
   .quiz-header:has(.diagnostics-controls) > .map-header-overlay {
     position: static;
     grid-column: 2;
+    grid-row: 1;
     width: auto;
     max-width: none;
     padding: 0;

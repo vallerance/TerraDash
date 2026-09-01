@@ -7,6 +7,7 @@ function quizSections(quizOptions: readonly QuizOption[]) {
     global: 'Countries',
     world: 'World',
     regional: 'States and Provinces',
+    islands: 'Islands',
   };
   const grouped = new Map<string, QuizOption[]>();
   for (const quiz of quizOptions) {

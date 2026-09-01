@@ -34,7 +34,7 @@ export type QuizOption = QuizDefinition & {
   description: string;
   menuLabel: string;
   thumbnailViewBox: string;
-  category?: 'world' | 'regional';
+  category?: 'world' | 'regional' | 'islands';
   map?: QuizMapInput;
 };
 
@@ -44,7 +44,7 @@ type QuizInput = {
   description: string;
   menuLabel: string;
   thumbnailViewBox: string;
-  category?: 'world' | 'regional';
+  category?: 'world' | 'regional' | 'islands';
   locationIds: string[];
   map?: QuizMapInput;
 };
