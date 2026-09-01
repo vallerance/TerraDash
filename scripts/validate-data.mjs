@@ -43,7 +43,13 @@ const locationById = new Map(
   generated.map((location) => [location.id, location]),
 );
 for (const location of authored) {
-  if (!location.id || !location.name || !location.resolution)
+  if (
+    !location.id ||
+    !location.name ||
+    !location.resolution ||
+    (location.id.startsWith('world:') &&
+      !['land', 'water'].includes(location.kind))
+  )
     throw new Error(
       `Invalid authored location record ${location.id ?? '<missing>'}`,
     );
@@ -63,6 +69,12 @@ for (const location of authored) {
   const result = locationById.get(location.id);
   if (!result?.geometryRefs?.length)
     throw new Error(`Generated location lacks geometry for ${location.id}`);
+  if (!['land', 'water'].includes(result.kind))
+    throw new Error(
+      `Generated location lacks semantic kind for ${location.id}`,
+    );
+  if (result.kind !== (location.kind ?? 'land'))
+    throw new Error(`Generated semantic kind mismatch for ${location.id}`);
 }
 
 const quizIds = quizzes.map(({ id }) => id);

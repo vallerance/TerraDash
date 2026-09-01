@@ -1,4 +1,5 @@
 import type { GeneratedInset } from '../contracts/generatedData';
+import type { LocationKind } from './locationSemantics';
 import type {
   buildDynamicMapRenderModel,
   buildStaticMapRenderModel,
@@ -26,6 +27,7 @@ type MapCalloutProps = Pick<
   insetContextPathCopies: StaticModel['insetContextPathCopies'];
   insetSourcePathCopies: StaticModel['insetSourcePathCopies'];
   projection: StaticModel['projection'];
+  locationKind: LocationKind;
 };
 
 export function MapCallout({
@@ -45,6 +47,7 @@ export function MapCallout({
   insetSourcePathCopies,
   projection,
   clipId,
+  locationKind,
 }: MapCalloutProps) {
   return callout && positionedCallout ? (
     <g className="map-callout" aria-hidden="true">
@@ -104,7 +107,7 @@ export function MapCallout({
                 ))}
               </g>
             )}
-            <g className="callout-selected">
+            <g className={`callout-selected ${locationKind}-location`}>
               {insetSelectedPathCopies.map(
                 ({ path: wrappedPath, transform, kind, key }) => (
                   <path

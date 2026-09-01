@@ -1325,6 +1325,12 @@ input {
 .active-fill path {
   fill: var(--attempt-color, #f59e0b);
 }
+.active-fill path.land-location {
+  fill: var(--attempt-color, #34d399);
+}
+.active-fill path.water-location {
+  fill: var(--attempt-color, #3b82f6);
+}
 .active-fill path[data-location-id] {
   pointer-events: auto;
   cursor: pointer;
@@ -1352,10 +1358,13 @@ input {
   stroke: var(--attempt-outline, #fff);
 }
 .callout-selected path {
-  fill: var(--attempt-color, #f59e0b);
+  fill: var(--attempt-color, #34d399);
   stroke: var(--attempt-outline, #fff);
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
+}
+.callout-selected.water-location path {
+  fill: var(--attempt-color, #3b82f6);
 }
 .callout-inset {
   pointer-events: none;

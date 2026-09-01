@@ -2,8 +2,8 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import locations from '../data/generated/locations.json';
 import reviewed from '../data/reviewed-invariants.json';
+import { generatedLocations as locations } from './contracts/generatedData';
 import { playableLocations } from './contracts/quiz';
 import { DiagnosticsMap } from './map/MapView';
 

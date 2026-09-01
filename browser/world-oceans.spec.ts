@@ -73,23 +73,59 @@ test('land clicks are not intercepted by the ocean background', async ({
   page,
 }) => {
   await page.goto(diagnosticsUrl('africa'));
-  const land = page
-    .locator('.active-fill path[data-location-id="world:africa"]')
-    .first();
-  const box = await land.boundingBox();
-  expect(box).not.toBeNull();
-  const hit = await page.evaluate(
-    ({ x, y }) => {
-      const element = document.elementFromPoint(x, y);
-      return {
-        id: element?.getAttribute('data-location-id'),
-        className: element?.getAttribute('class'),
-      };
-    },
-    { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 },
+  const land = page.locator(
+    '.active-fill path[data-location-id="world:africa"]',
   );
+  await expect(land).not.toHaveCount(0);
+  const point = await page.evaluate(() => {
+    for (const path of document.querySelectorAll<SVGPathElement>(
+      '.active-fill path[data-location-id="world:africa"]',
+    )) {
+      const bounds = path.getBoundingClientRect();
+      for (let column = 1; column < 10; column += 1) {
+        for (let row = 1; row < 10; row += 1) {
+          const x = bounds.left + (bounds.width * column) / 10;
+          const y = bounds.top + (bounds.height * row) / 10;
+          if (
+            document
+              .elementFromPoint(x, y)
+              ?.getAttribute('data-location-id') === 'world:africa'
+          )
+            return { x, y };
+        }
+      }
+    }
+    return null;
+  });
+  expect(point).not.toBeNull();
+  const hit = await page.evaluate(({ x, y }) => {
+    const element = document.elementFromPoint(x, y);
+    return {
+      id: element?.getAttribute('data-location-id'),
+      className: element?.getAttribute('class'),
+    };
+  }, point!);
   expect(hit).toEqual({ id: 'world:africa', className: 'land-location' });
-  await land.click({ position: { x: box!.width / 2, y: box!.height / 2 } });
+  await page.mouse.click(point!.x, point!.y);
+});
+
+test('World map evidence is captured at wide and mobile sizes', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(diagnosticsUrl('africa'));
+  await expect(page.locator('.world-map')).toBeVisible();
+  await page.screenshot({
+    path: 'evidence/world-map-wide.png',
+    fullPage: true,
+  });
+
+  await page.setViewportSize({ width: 375, height: 667 });
+  await expect(page.locator('.world-map')).toBeVisible();
+  await page.screenshot({
+    path: 'evidence/world-map-mobile.png',
+    fullPage: true,
+  });
 });
 
 test('Pacific representatives resolve at both wrapped map edges', async ({

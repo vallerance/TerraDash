@@ -2,7 +2,6 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import locations from '../data/generated/locations.json';
 import map from '../data/generated/map.json';
 import {
   highlightedGeometryPaths,
@@ -11,7 +10,9 @@ import {
 } from './mapGeometry';
 import { MapView } from './map/MapView';
 import { quizOptions } from './contracts/quiz';
+import { generatedLocations as locations } from './contracts/generatedData';
 import { mapLayerForLocation, mapLayerForQuiz } from './quizMapBoundary';
+import './styles.css';
 
 const catalog = locations.filter(({ id }) => id.startsWith('iso:'));
 const candidates = locations.filter(({ id }) => id.startsWith('non-un:'));
@@ -31,7 +32,7 @@ afterEach(() => {
 beforeEach(() => vi.stubGlobal('ResizeObserver', TestResizeObserver));
 
 function renderLocation(id: string) {
-  const active = catalog.find((entry) => entry.id === id)!;
+  const active = locations.find((entry) => entry.id === id)!;
   const frame = document.createElement('section');
   frame.className = 'map-frame';
   document.body.append(frame);
@@ -71,6 +72,44 @@ function expectActiveStatePaths(frame: HTMLElement, id: string) {
 }
 
 describe('mapped quiz layer contract', () => {
+  it('renders semantic land and water classes in the main overlay and inset', () => {
+    const land = renderLocation('world:europe');
+    expect(land.querySelector('.active-fill .land-location')).toBeTruthy();
+
+    act(() => root?.unmount());
+    root = undefined;
+    document.body.replaceChildren();
+    const landCallout = renderState('US-RI');
+    expect(
+      landCallout.querySelector('.callout-selected.land-location'),
+    ).toBeTruthy();
+
+    act(() => root?.unmount());
+    root = undefined;
+    document.body.replaceChildren();
+
+    const water = renderLocation('world:pacific-ocean');
+    expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
+  });
+
+  it('lets attempt colors override both untouched semantic defaults', () => {
+    const frame = renderLocation('world:europe');
+    frame.classList.add('active-player', 'attempts-remaining-2');
+    expect(frame.querySelector('.active-fill .land-location')).toBeTruthy();
+    expect(frame.classList.contains('active-player')).toBe(true);
+    expect(frame.classList.contains('attempts-remaining-2')).toBe(true);
+
+    act(() => root?.unmount());
+    root = undefined;
+    document.body.replaceChildren();
+
+    const water = renderLocation('world:pacific-ocean');
+    water.classList.add('active-player', 'attempts-remaining-2');
+    expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
+    expect(water.classList.contains('active-player')).toBe(true);
+    expect(water.classList.contains('attempts-remaining-2')).toBe(true);
+  });
+
   it('keeps static geometry identity across active changes and equivalent layers', () => {
     const first = quizLocations.find((entry) => entry.id === 'US-RI')!;
     const second = quizLocations.find((entry) => entry.id === 'US-MA')!;

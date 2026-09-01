@@ -1,60 +1,69 @@
 # World regions derivation provenance
 
-This record defines the reproducible source boundary for the twelve features
-that will later be consumed by the world quiz. The derived collection contains
-exactly these names: Africa, Antarctica, Asia, Europe, North America, South
-America, Australia, Arctic Ocean, Atlantic Ocean, Indian Ocean, Pacific Ocean,
-and Southern Ocean.
+This record defines the reproducible source boundary for exactly twelve
+selectable features: seven land regions (Africa, Antarctica, Asia, Europe,
+North America, South America, and Oceania) and five oceans.
 
 ## Pinned inputs
 
-Both inputs are Natural Earth v5.1.1-era repository data at commit
-`9380cca83db5f9aef52d5e762765100745f84b27`. Natural Earth data is public domain
-and is attributed to Natural Earth.
+Natural Earth v5.1.1-era repository data is pinned at commit
+`9380cca83db5f9aef52d5e762765100745f84b27`; Natural Earth data is public domain.
 
-| Input             | URL                                                                                                                                                   | SHA-256                                                            | Local path                                       |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------ |
-| Admin-0 countries | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_admin_0_countries.geojson      | `239eec57ac17f100a11e2536cffc56752c318b50ae765b0918ff7aab4ce8f255` | `data/source/ne_10m_admin_0_countries.geojson`   |
-| Marine polygons   | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_geography_marine_polys.geojson | `53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66c` | `.scratch/ne_10m_geography_marine_polys.geojson` |
+| Input                                    | SHA-256                                                            | Local path                                        |
+| ---------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------- |
+| `ne_10m_land.geojson`                    | `1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416` | `.scratch/ne_10m_land.geojson`                    |
+| `ne_10m_geography_regions_polys.geojson` | `b7b26e50ea917d3696aec87f932def2bf5f890f5770e441d59c162c6f4c92a77` | `.scratch/ne_10m_geography_regions_polys.geojson` |
+| `ne_10m_geography_marine_polys.geojson`  | `53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66`  | `.scratch/ne_10m_geography_marine_polys.geojson`  |
 
-The marine layer is selected by exact `properties.name` values. The script
-rejects a missing named feature and does not automatically include other named
-marine polygons.
+The exact raw URLs and checks are in `scripts/derive-world-regions.mjs`.
+The seven authored WGS84 mask polygons are in
+`data/source/world-region-boundaries.geojson`.
 
-## Source-to-target mapping
+## Land operation and convention
 
-| Output ID / display name                | Source selection                                                              | Treatment                                                                                                 |
-| --------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `world:africa` / Africa                 | Admin-0 `CONTINENT == "Africa"`                                               | Assemble all matching source Polygon/MultiPolygon parts.                                                  |
-| `world:antarctica` / Antarctica         | Admin-0 `CONTINENT == "Antarctica"`                                           | Assemble all matching source parts; polar coordinates are preserved.                                      |
-| `world:asia` / Asia                     | Admin-0 `CONTINENT == "Asia"`                                                 | Assemble all matching source parts.                                                                       |
-| `world:europe` / Europe                 | Admin-0 `CONTINENT == "Europe"`                                               | Assemble all matching source parts.                                                                       |
-| `world:north-america` / North America   | Admin-0 `CONTINENT == "North America"`                                        | Assemble all matching source parts.                                                                       |
-| `world:south-america` / South America   | Admin-0 `CONTINENT == "South America"`                                        | Assemble all matching source parts.                                                                       |
-| `world:australia` / Australia           | Admin-0 `CONTINENT == "Oceania"`                                              | The full Natural Earth Oceania group is labeled Australia, as required by the seven-continent quiz model. |
-| `world:arctic-ocean` / Arctic Ocean     | Marine `name == "Arctic Ocean"`                                               | Preserve the exact marine polygon(s).                                                                     |
-| `world:atlantic-ocean` / Atlantic Ocean | Marine `name == "North Atlantic Ocean"` plus `name == "South Atlantic Ocean"` | Assemble both named source polygons as one MultiPolygon.                                                  |
-| `world:indian-ocean` / Indian Ocean     | Marine `name == "INDIAN OCEAN"`                                               | Preserve the exact marine polygon(s).                                                                     |
-| `world:pacific-ocean` / Pacific Ocean   | Marine `name == "North Pacific Ocean"` plus `name == "South Pacific Ocean"`   | Assemble both named source polygons; source antimeridian rings are retained.                              |
-| `world:southern-ocean` / Southern Ocean | Marine `name == "SOUTHERN OCEAN"`                                             | Preserve the exact marine polygon(s); polar rings are retained.                                           |
+The generator normalizes the pinned land FeatureCollection, performs one
+deterministic polygon-clipping unary union to remove all country seams, then
+intersects the dissolved land with the seven masks. The masks use explicit
+world coordinates: the Americas split at 9°N (the Panama land-bridge
+convention), Africa occupies the 20°W–60°E band south of 37°N, Europe is west
+of 60°E north of 37°N, Asia occupies 60°E–180°E except south of 30°N east of
+141°E, and Antarctica is south of 60°S. Oceania occupies that east-of-141°E,
+south-of-30°N mask. These authored masks are disjoint at their boundaries, so
+the generator does not subtract the detailed physical-region polygons (that
+operation is unnecessarily unstable on this source's very dense rings). The
+pinned geography-region layer is still checked for Oceania features as
+provenance corroboration. The coordinate rule assigns Australia, New Zealand,
+Papua New Guinea and Pacific islands east of 141°E to Oceania; Indonesia,
+Malaysia, the Philippines and Timor-Leste remain in Asia. This is a documented
+conventional seven-region partition, not a claim that Natural Earth publishes
+an exhaustive geological continent layer; Europe/Asia is necessarily
+conventional.
 
-Transcontinental/admin treatment is inherited unchanged from the source
-`CONTINENT` property. No country is reclassified by this derivation, and no
-hand-authored boundary or coordinate is introduced. The script does not run a
-topological dissolve: it preserves every source polygon part in a stable
-MultiPolygon, avoiding a non-reproducible floating-point union and preserving
-islands, polar rings, and antimeridian seams.
+Tests assert exactly seven land outputs, valid non-empty geometry, and
+exhaustive/non-overlapping assignment of the dissolved land to the masks.
 
-## Reproduction
+## Ocean operation and audit
 
-From the repository root, after placing the two files at the pinned local paths:
+Ocean geometry is unchanged: the generator selects exact `properties.name`
+features and only flattens their Polygon/MultiPolygon members. It performs no
+union, clipping, projection, or coordinate editing. The pinned inventory is
+Arctic Polygon×1, Southern Polygon×1, North Atlantic Polygon×1, Indian
+Polygon×1, North Pacific MultiPolygon×1, and South Pacific MultiPolygon×1;
+the requested Atlantic and Pacific outputs retain their source component
+seams and Pacific antimeridian rings. Joshua's supplied screenshot shows the
+Europe selection and country seams, not an ocean overlay, so it is not evidence
+for a particular ocean edge. No marine source replacement is justified.
 
-```sh
-node scripts/derive-world-regions.mjs --output .scratch/world-regions.geojson
-```
+## IDs and reproduction
 
-The script verifies both SHA-256 values, validates FeatureCollection input,
-requires Polygon/MultiPolygon geometry, selects exactly the mappings above, and
-emits canonical two-space JSON with a trailing newline. It emits no committed
-generated artifact; `.scratch/world-regions.geojson` is disposable derivation
-evidence.
+The sole authored land target is `world:oceania`; `world:australia` is not an
+authored ID and no alias is added. Scoped searches of authored data, generated
+artifacts, source/scripts/tests, routes, high-score storage, and repository
+history found no persisted location-ID or compatibility contract requiring one.
+The unrelated `iso:AUS` country ID remains unchanged.
+
+Run `node scripts/derive-world-regions.mjs --output
+.scratch/world-regions.geojson` from the repository root. The script downloads
+missing pinned inputs, verifies their SHA-256 values, validates GeoJSON, emits
+exactly twelve stable IDs, and writes disposable derivation evidence. The map
+generator alone owns committed `data/generated/*` artifacts.

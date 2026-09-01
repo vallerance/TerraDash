@@ -4,6 +4,7 @@ import type {
   buildDynamicMapRenderModel,
   buildStaticMapRenderModel,
 } from './renderModel';
+import { locationKindFor } from './locationSemantics';
 
 type StaticModel = ReturnType<typeof buildStaticMapRenderModel>;
 type DynamicModel = ReturnType<typeof buildDynamicMapRenderModel>;
@@ -79,6 +80,7 @@ export function MapOverlays({
   const { projection, inset, insetContextPathCopies, insetSourcePathCopies } =
     staticModel;
   const { active, activePathCopies, layer } = model;
+  const locationKind = locationKindFor(active);
   return (
     <>
       <g className="map-projection-overlay" transform={projection.transform}>
@@ -91,11 +93,7 @@ export function MapOverlays({
               key={`${transform}:${index}`}
               d={path}
               transform={`translate(${transform} 0)`}
-              className={
-                active.id.endsWith('-ocean')
-                  ? 'water-location'
-                  : 'land-location'
-              }
+              className={`${locationKind}-location`}
               data-location-id={layer.selectable ? active.id : undefined}
               role={layer.selectable ? 'button' : undefined}
               tabIndex={layer.selectable ? 0 : undefined}
@@ -119,6 +117,7 @@ export function MapOverlays({
         insetContextPathCopies={insetContextPathCopies}
         insetSourcePathCopies={insetSourcePathCopies}
         projection={projection}
+        locationKind={locationKind}
       />
     </>
   );

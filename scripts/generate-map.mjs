@@ -341,6 +341,11 @@ const locations = resolvedLocations.map(({ location, matches }) => {
   return {
     id: location.id,
     name: location.name,
+    // Existing country/state records are land by source namespace; world
+    // records must declare kind explicitly so new water cannot silently turn
+    // green.
+    kind:
+      location.kind ?? (location.id.startsWith('world:') ? undefined : 'land'),
     resolution: location.resolution,
     geometryRefs,
     anchor,
