@@ -47,7 +47,7 @@ function QuizShell({
       `${route.pathname}?quiz=${encodeURIComponent(quizId)}&start=1${route.hash}`,
     );
   return (
-    <AppPageFrame selectedQuizId={selectedQuiz.id}>
+    <AppPageFrame selectedQuizId={selectedQuiz.id} quizOptions={quizOptions}>
       {renderQuiz({
         quizId: selectedQuiz.id,
         providerKey: route.quizId,

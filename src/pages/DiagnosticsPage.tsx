@@ -32,7 +32,7 @@ export function DiagnosticsPage({
     ? locationId
     : selectedQuiz.locationIds[0];
   return (
-    <AppPageFrame selectedQuizId={selectedQuiz.id}>
+    <AppPageFrame selectedQuizId={selectedQuiz.id} quizOptions={quizOptions}>
       <QuizProvider
         key={selectedQuiz.id}
         quiz={selectedQuiz}
