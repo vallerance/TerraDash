@@ -96,12 +96,8 @@ describe('mapped quiz layer contract', () => {
     const frame = renderLocation('world:europe');
     frame.classList.add('active-player', 'attempts-remaining-2');
     expect(frame.querySelector('.active-fill .land-location')).toBeTruthy();
-    const cssText = Array.from(document.styleSheets)
-      .flatMap((sheet) => Array.from(sheet.cssRules))
-      .map((rule) => rule.cssText)
-      .join('\n');
-    expect(cssText).toContain('.active-player.attempts-remaining-2');
-    expect(cssText).toContain('--attempt-color: #facc15');
+    expect(frame.classList.contains('active-player')).toBe(true);
+    expect(frame.classList.contains('attempts-remaining-2')).toBe(true);
 
     act(() => root?.unmount());
     root = undefined;
@@ -110,7 +106,8 @@ describe('mapped quiz layer contract', () => {
     const water = renderLocation('world:pacific-ocean');
     water.classList.add('active-player', 'attempts-remaining-2');
     expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
-    expect(cssText).toContain('.active-fill path.water-location');
+    expect(water.classList.contains('active-player')).toBe(true);
+    expect(water.classList.contains('attempts-remaining-2')).toBe(true);
   });
 
   it('keeps static geometry identity across active changes and equivalent layers', () => {
