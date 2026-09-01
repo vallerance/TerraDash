@@ -32,7 +32,7 @@ afterEach(() => {
 beforeEach(() => vi.stubGlobal('ResizeObserver', TestResizeObserver));
 
 function renderLocation(id: string) {
-  const active = catalog.find((entry) => entry.id === id)!;
+  const active = locations.find((entry) => entry.id === id)!;
   const frame = document.createElement('section');
   frame.className = 'map-frame';
   document.body.append(frame);
