@@ -99,7 +99,17 @@ for (const viewport of [
   }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.goto('/TerraDash/diagnostics.html?quiz=non-un');
-    await expect(page.locator('.diagnostics-controls')).toBeVisible();
+    const controls = page.locator('.diagnostics-controls');
+    const quiz = controls.locator('#diagnostic-quiz');
+    const location = controls.locator('#diagnostic-location');
+    const endQuiz = controls.getByRole('button', { name: 'End Quiz' });
+    await expect(controls).toBeVisible();
+    await expect(quiz).toBeVisible();
+    await expect(location).toBeVisible();
+    await expect(endQuiz).toBeVisible();
+    await expect(quiz).toBeEnabled();
+    await expect(location).toBeEnabled();
+    await expect(endQuiz).toBeEnabled();
     const bounds = await page.evaluate(() => {
       const header = document.querySelector<HTMLElement>('.quiz-header')!;
       const controls = document.querySelector<HTMLElement>(
