@@ -75,6 +75,7 @@ test('land clicks are not intercepted by the ocean background', async ({
   await page.goto(diagnosticsUrl('africa'));
   const land = page
     .locator('.active-fill path[data-location-id="world:africa"]')
+    .filter({ visible: true })
     .first();
   const box = await land.boundingBox();
   expect(box).not.toBeNull();
