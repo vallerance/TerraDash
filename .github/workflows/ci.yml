@@ -16,7 +16,13 @@ jobs:
       - run: npm run format
       - run: npm run lint
       - run: npm run generate
-      - run: git diff --exit-code -- data/generated
+      - name: Verify generated artifacts match HEAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r artifact; do
+            git show "HEAD:$artifact" | cmp -s - "$artifact"
+          done < <(git ls-tree -r --name-only HEAD data/generated)
       - run: npm run validate:data
       - name: Compare generator artifacts across clean base and head copies
         if: github.event_name == 'pull_request'
