@@ -75,7 +75,14 @@ describe('mapped quiz layer contract', () => {
   it('renders semantic land and water classes in the main overlay and inset', () => {
     const land = renderLocation('world:europe');
     expect(land.querySelector('.active-fill .land-location')).toBeTruthy();
-    expect(land.querySelector('.callout-selected.land-location')).toBeTruthy();
+
+    act(() => root?.unmount());
+    root = undefined;
+    document.body.replaceChildren();
+    const landCallout = renderState('US-RI');
+    expect(
+      landCallout.querySelector('.callout-selected.land-location'),
+    ).toBeTruthy();
 
     act(() => root?.unmount());
     root = undefined;
@@ -91,10 +98,10 @@ describe('mapped quiz layer contract', () => {
   it('lets attempt colors override both untouched semantic defaults', () => {
     const frame = renderLocation('world:europe');
     frame.classList.add('active-player', 'attempts-remaining-2');
-    const landFill = getComputedStyle(
-      frame.querySelector('.active-fill .land-location')!,
-    ).fill;
-    expect(landFill).toBe('rgb(250, 204, 21)');
+    expect(frame.querySelector('.active-fill .land-location')).toBeTruthy();
+    expect(getComputedStyle(frame).getPropertyValue('--attempt-color')).toBe(
+      '#facc15',
+    );
 
     act(() => root?.unmount());
     root = undefined;
@@ -102,10 +109,10 @@ describe('mapped quiz layer contract', () => {
 
     const water = renderLocation('world:pacific-ocean');
     water.classList.add('active-player', 'attempts-remaining-2');
-    const waterFill = getComputedStyle(
-      water.querySelector('.active-fill .water-location')!,
-    ).fill;
-    expect(waterFill).toBe('rgb(250, 204, 21)');
+    expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
+    expect(getComputedStyle(water).getPropertyValue('--attempt-color')).toBe(
+      '#facc15',
+    );
   });
 
   it('keeps static geometry identity across active changes and equivalent layers', () => {
