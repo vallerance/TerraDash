@@ -65,16 +65,9 @@ function QuizMenu({
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        if (openCategoryId) {
-          setOpenCategoryId(undefined);
-          categoryRefs.current
-            .get(openCategoryId)
-            ?.querySelector<HTMLButtonElement>('[aria-haspopup="menu"]')
-            ?.focus();
-        } else {
-          setOpen(false);
-          menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
-        }
+        setOpen(false);
+        setOpenCategoryId(undefined);
+        menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
       }
     };
     document.addEventListener('pointerdown', closeOnOutside);

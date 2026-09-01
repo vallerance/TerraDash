@@ -214,7 +214,7 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await dialog.getByRole('button', { name: 'Close quiz details' }).click();
   await trigger.click();
   await page.getByRole('menuitem', { name: 'Countries' }).click();
-  await expect(page.getByRole('menu')).toBeVisible();
+  await expect(page.getByRole('menu').first()).toBeVisible();
   await expect(
     page.getByRole('menu').last().getByRole('menuitem', { name: 'Asia' }),
   ).toHaveAttribute('aria-current', 'page');
