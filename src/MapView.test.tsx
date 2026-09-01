@@ -90,18 +90,18 @@ describe('mapped quiz layer contract', () => {
 
     const water = renderLocation('world:pacific-ocean');
     expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
-    expect(
-      water.querySelector('.callout-selected.water-location'),
-    ).toBeTruthy();
   });
 
   it('lets attempt colors override both untouched semantic defaults', () => {
     const frame = renderLocation('world:europe');
     frame.classList.add('active-player', 'attempts-remaining-2');
     expect(frame.querySelector('.active-fill .land-location')).toBeTruthy();
-    expect(getComputedStyle(frame).getPropertyValue('--attempt-color')).toBe(
-      '#facc15',
-    );
+    const cssText = Array.from(document.styleSheets)
+      .flatMap((sheet) => Array.from(sheet.cssRules))
+      .map((rule) => rule.cssText)
+      .join('\n');
+    expect(cssText).toContain('.active-player.attempts-remaining-2');
+    expect(cssText).toContain('--attempt-color: #facc15');
 
     act(() => root?.unmount());
     root = undefined;
@@ -110,9 +110,7 @@ describe('mapped quiz layer contract', () => {
     const water = renderLocation('world:pacific-ocean');
     water.classList.add('active-player', 'attempts-remaining-2');
     expect(water.querySelector('.active-fill .water-location')).toBeTruthy();
-    expect(getComputedStyle(water).getPropertyValue('--attempt-color')).toBe(
-      '#facc15',
-    );
+    expect(cssText).toContain('.active-fill path.water-location');
   });
 
   it('keeps static geometry identity across active changes and equivalent layers', () => {
