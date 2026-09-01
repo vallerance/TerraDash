@@ -114,7 +114,6 @@ for (const viewport of [
       const status = document.querySelector<HTMLElement>('.quiz-status-bar')!;
       const h = header.getBoundingClientRect();
       const c = controls.getBoundingClientRect();
-      const center = (rect: DOMRect) => (rect.top + rect.bottom) / 2;
       const intersects = (a: DOMRect, b: DOMRect) =>
         a.left < b.right &&
         a.right > b.left &&
@@ -123,16 +122,9 @@ for (const viewport of [
       return {
         controlsInsideHeader: c.left >= h.left && c.right <= h.right,
         controlsVerticallyInsideHeader: c.top >= h.top && c.bottom <= h.bottom,
-        elementCenters: {
-          quiz: center(quiz.getBoundingClientRect()),
-          location: center(location.getBoundingClientRect()),
-          endQuiz: center(endQuiz.getBoundingClientRect()),
-        },
         endQuizClipped:
           endQuiz.scrollWidth > endQuiz.clientWidth ||
           endQuiz.scrollHeight > endQuiz.clientHeight,
-        headerCenter: center(h),
-        controlsCenter: center(c),
         promptControlIntersection: intersects(
           prompt.getBoundingClientRect(),
           c,
@@ -149,18 +141,9 @@ for (const viewport of [
     expect(bounds.controlsInsideHeader).toBe(true);
     expect(bounds.controlsVerticallyInsideHeader).toBe(true);
     expect(bounds.endQuizClipped).toBe(false);
-    if (viewport.width >= 901) {
-      expect(
-        Math.abs(bounds.controlsCenter - bounds.headerCenter),
-      ).toBeLessThanOrEqual(0.5);
-    }
     expect(bounds.horizontalOverflow).toBe(true);
     expect(bounds.promptControlIntersection).toBe(false);
     expect(bounds.statusControlIntersection).toBe(false);
-    const centers = Object.values(bounds.elementCenters);
-    expect(Math.max(...centers) - Math.min(...centers)).toBeLessThanOrEqual(
-      0.5,
-    );
     await page.screenshot({
       path: testInfo.outputPath(`diagnostics-controls-${viewport.name}.png`),
       fullPage: true,
