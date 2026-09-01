@@ -1189,6 +1189,7 @@ input {
   border: 1px solid #7dd3fc;
   border-radius: 0.4rem;
   color: #071a2b;
+  flex: 0 0 6em;
   font-weight: 800;
   background: #7dd3fc;
   cursor: pointer;
