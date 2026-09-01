@@ -64,7 +64,7 @@
       "sha256": "derived-from-pinned-inputs",
       "prefix": "world",
       "license": "Public domain",
-      "attribution": "Derived from pinned Natural Earth v5.1.1-era Admin-0 countries and geography marine polygons; see data/world-regions-provenance.md"
+      "attribution": "Derived from pinned Natural Earth land and geography marine polygons using data/source/world-region-boundaries.geojson; see data/world-regions-provenance.md"
     }
   ],
   "geometrySourceReplacements": [
@@ -2313,7 +2313,7 @@
     "world:world-regions:world:europe",
     "world:world-regions:world:north-america",
     "world:world-regions:world:south-america",
-    "world:world-regions:world:australia",
+    "world:world-regions:world:oceania",
     "world:world-regions:world:arctic-ocean",
     "world:world-regions:world:atlantic-ocean",
     "world:world-regions:world:indian-ocean",
@@ -2988,7 +2988,7 @@
     "world:europe": ["world:world-regions:world:europe"],
     "world:north-america": ["world:world-regions:world:north-america"],
     "world:south-america": ["world:world-regions:world:south-america"],
-    "world:australia": ["world:world-regions:world:australia"],
+    "world:oceania": ["world:world-regions:world:oceania"],
     "world:arctic-ocean": ["world:world-regions:world:arctic-ocean"],
     "world:atlantic-ocean": ["world:world-regions:world:atlantic-ocean"],
     "world:indian-ocean": ["world:world-regions:world:indian-ocean"],

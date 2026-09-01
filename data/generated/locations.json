@@ -2,6 +2,7 @@
   {
     "id": "MX-AGU",
     "name": "Aguascalientes",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -18,6 +19,7 @@
   {
     "id": "MX-BCN",
     "name": "Baja California",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -34,6 +36,7 @@
   {
     "id": "MX-BCS",
     "name": "Baja California Sur",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -50,6 +53,7 @@
   {
     "id": "MX-CAM",
     "name": "Campeche",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -66,6 +70,7 @@
   {
     "id": "MX-CHH",
     "name": "Chihuahua",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -82,6 +87,7 @@
   {
     "id": "MX-CHP",
     "name": "Chiapas",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -98,6 +104,7 @@
   {
     "id": "MX-COA",
     "name": "Coahuila",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -114,6 +121,7 @@
   {
     "id": "MX-COL",
     "name": "Colima",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -130,6 +138,7 @@
   {
     "id": "MX-DUR",
     "name": "Durango",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -146,6 +155,7 @@
   {
     "id": "MX-GRO",
     "name": "Guerrero",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -162,6 +172,7 @@
   {
     "id": "MX-GUA",
     "name": "Guanajuato",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -178,6 +189,7 @@
   {
     "id": "MX-HID",
     "name": "Hidalgo",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -194,6 +206,7 @@
   {
     "id": "MX-JAL",
     "name": "Jalisco",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -210,6 +223,7 @@
   {
     "id": "MX-MEX",
     "name": "México",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -226,6 +240,7 @@
   {
     "id": "MX-MIC",
     "name": "Michoacán",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -242,6 +257,7 @@
   {
     "id": "MX-MOR",
     "name": "Morelos",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -258,6 +274,7 @@
   {
     "id": "MX-NAY",
     "name": "Nayarit",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -274,6 +291,7 @@
   {
     "id": "MX-NLE",
     "name": "Nuevo León",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -290,6 +308,7 @@
   {
     "id": "MX-OAX",
     "name": "Oaxaca",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -306,6 +325,7 @@
   {
     "id": "MX-PUE",
     "name": "Puebla",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -322,6 +342,7 @@
   {
     "id": "MX-QUE",
     "name": "Querétaro",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -338,6 +359,7 @@
   {
     "id": "MX-ROO",
     "name": "Quintana Roo",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -354,6 +376,7 @@
   {
     "id": "MX-SIN",
     "name": "Sinaloa",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -370,6 +393,7 @@
   {
     "id": "MX-SLP",
     "name": "San Luis Potosí",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -386,6 +410,7 @@
   {
     "id": "MX-SON",
     "name": "Sonora",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -402,6 +427,7 @@
   {
     "id": "MX-TAB",
     "name": "Tabasco",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -418,6 +444,7 @@
   {
     "id": "MX-TAM",
     "name": "Tamaulipas",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -434,6 +461,7 @@
   {
     "id": "MX-TLA",
     "name": "Tlaxcala",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -450,6 +478,7 @@
   {
     "id": "MX-VER",
     "name": "Veracruz",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -466,6 +495,7 @@
   {
     "id": "MX-YUC",
     "name": "Yucatán",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -482,6 +512,7 @@
   {
     "id": "MX-ZAC",
     "name": "Zacatecas",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -498,6 +529,7 @@
   {
     "id": "MX-DIF",
     "name": "Mexico City",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -514,6 +546,7 @@
   {
     "id": "CA-AB",
     "name": "Alberta",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -530,6 +563,7 @@
   {
     "id": "CA-BC",
     "name": "British Columbia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -546,6 +580,7 @@
   {
     "id": "CA-MB",
     "name": "Manitoba",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -562,6 +597,7 @@
   {
     "id": "CA-NB",
     "name": "New Brunswick",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -578,6 +614,7 @@
   {
     "id": "CA-NL",
     "name": "Newfoundland and Labrador",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -594,6 +631,7 @@
   {
     "id": "CA-NS",
     "name": "Nova Scotia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -610,6 +648,7 @@
   {
     "id": "CA-ON",
     "name": "Ontario",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -626,6 +665,7 @@
   {
     "id": "CA-PE",
     "name": "Prince Edward Island",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -642,6 +682,7 @@
   {
     "id": "CA-QC",
     "name": "Québec",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -658,6 +699,7 @@
   {
     "id": "CA-SK",
     "name": "Saskatchewan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -674,6 +716,7 @@
   {
     "id": "CN-AH",
     "name": "Anhui",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -690,6 +733,7 @@
   {
     "id": "CN-BJ",
     "name": "Beijing",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -706,6 +750,7 @@
   {
     "id": "CN-CQ",
     "name": "Chongqing",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -722,6 +767,7 @@
   {
     "id": "CN-FJ",
     "name": "Fujian",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -738,6 +784,7 @@
   {
     "id": "CN-GD",
     "name": "Guangdong",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -754,6 +801,7 @@
   {
     "id": "CN-GS",
     "name": "Gansu",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -770,6 +818,7 @@
   {
     "id": "CN-GX",
     "name": "Guangxi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -786,6 +835,7 @@
   {
     "id": "CN-GZ",
     "name": "Guizhou",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -802,6 +852,7 @@
   {
     "id": "CN-HA",
     "name": "Henan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -818,6 +869,7 @@
   {
     "id": "CN-HB",
     "name": "Hubei",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -834,6 +886,7 @@
   {
     "id": "CN-HE",
     "name": "Hebei",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -850,6 +903,7 @@
   {
     "id": "CN-HI",
     "name": "Hainan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -866,6 +920,7 @@
   {
     "id": "CN-HL",
     "name": "Heilongjiang",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -882,6 +937,7 @@
   {
     "id": "CN-HN",
     "name": "Hunan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -898,6 +954,7 @@
   {
     "id": "CN-JL",
     "name": "Jilin",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -914,6 +971,7 @@
   {
     "id": "CN-JS",
     "name": "Jiangsu",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -930,6 +988,7 @@
   {
     "id": "CN-JX",
     "name": "Jiangxi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -946,6 +1005,7 @@
   {
     "id": "CN-LN",
     "name": "Liaoning",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -962,6 +1022,7 @@
   {
     "id": "CN-NM",
     "name": "Inner Mongolia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -978,6 +1039,7 @@
   {
     "id": "CN-NX",
     "name": "Ningxia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -994,6 +1056,7 @@
   {
     "id": "CN-QH",
     "name": "Qinghai",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1010,6 +1073,7 @@
   {
     "id": "CN-SC",
     "name": "Sichuan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1026,6 +1090,7 @@
   {
     "id": "CN-SD",
     "name": "Shandong",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1042,6 +1107,7 @@
   {
     "id": "CN-SH",
     "name": "Shanghai",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1058,6 +1124,7 @@
   {
     "id": "CN-SN",
     "name": "Shaanxi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1074,6 +1141,7 @@
   {
     "id": "CN-SX",
     "name": "Shanxi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1090,6 +1158,7 @@
   {
     "id": "CN-TJ",
     "name": "Tianjin",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1106,6 +1175,7 @@
   {
     "id": "CN-XJ",
     "name": "Xinjiang",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1122,6 +1192,7 @@
   {
     "id": "CN-XZ",
     "name": "Tibet / Xizang",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1138,6 +1209,7 @@
   {
     "id": "CN-YN",
     "name": "Yunnan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1154,6 +1226,7 @@
   {
     "id": "CN-ZJ",
     "name": "Zhejiang",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1170,6 +1243,7 @@
   {
     "id": "iso:AFG",
     "name": "Afghanistan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1186,6 +1260,7 @@
   {
     "id": "iso:ALB",
     "name": "Albania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1202,6 +1277,7 @@
   {
     "id": "iso:DZA",
     "name": "Algeria",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1218,6 +1294,7 @@
   {
     "id": "iso:AND",
     "name": "Andorra",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1234,6 +1311,7 @@
   {
     "id": "iso:AGO",
     "name": "Angola",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1250,6 +1328,7 @@
   {
     "id": "iso:ATG",
     "name": "Antigua and Barbuda",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1266,6 +1345,7 @@
   {
     "id": "iso:ARG",
     "name": "Argentina",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1282,6 +1362,7 @@
   {
     "id": "iso:ARM",
     "name": "Armenia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1298,6 +1379,7 @@
   {
     "id": "iso:AUS",
     "name": "Australia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1314,6 +1396,7 @@
   {
     "id": "iso:AUT",
     "name": "Austria",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1330,6 +1413,7 @@
   {
     "id": "iso:AZE",
     "name": "Azerbaijan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1346,6 +1430,7 @@
   {
     "id": "iso:BHS",
     "name": "Bahamas",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1362,6 +1447,7 @@
   {
     "id": "iso:BHR",
     "name": "Bahrain",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1378,6 +1464,7 @@
   {
     "id": "iso:BGD",
     "name": "Bangladesh",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1394,6 +1481,7 @@
   {
     "id": "iso:BRB",
     "name": "Barbados",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1410,6 +1498,7 @@
   {
     "id": "iso:BLR",
     "name": "Belarus",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1426,6 +1515,7 @@
   {
     "id": "iso:BEL",
     "name": "Belgium",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1442,6 +1532,7 @@
   {
     "id": "iso:BLZ",
     "name": "Belize",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1458,6 +1549,7 @@
   {
     "id": "iso:BEN",
     "name": "Benin",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1474,6 +1566,7 @@
   {
     "id": "iso:BTN",
     "name": "Bhutan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1490,6 +1583,7 @@
   {
     "id": "iso:BOL",
     "name": "Bolivia (Plurinational State of)",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1506,6 +1600,7 @@
   {
     "id": "iso:BIH",
     "name": "Bosnia and Herzegovina",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1522,6 +1617,7 @@
   {
     "id": "iso:BWA",
     "name": "Botswana",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1538,6 +1634,7 @@
   {
     "id": "iso:BRA",
     "name": "Brazil",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1554,6 +1651,7 @@
   {
     "id": "iso:BRN",
     "name": "Brunei Darussalam",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1570,6 +1668,7 @@
   {
     "id": "iso:BGR",
     "name": "Bulgaria",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1586,6 +1685,7 @@
   {
     "id": "iso:BFA",
     "name": "Burkina Faso",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1602,6 +1702,7 @@
   {
     "id": "iso:BDI",
     "name": "Burundi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1618,6 +1719,7 @@
   {
     "id": "iso:CPV",
     "name": "Cabo Verde",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1634,6 +1736,7 @@
   {
     "id": "iso:KHM",
     "name": "Cambodia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1650,6 +1753,7 @@
   {
     "id": "iso:CMR",
     "name": "Cameroon",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1666,6 +1770,7 @@
   {
     "id": "iso:CAN",
     "name": "Canada",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1682,6 +1787,7 @@
   {
     "id": "iso:CAF",
     "name": "Central African Republic",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1698,6 +1804,7 @@
   {
     "id": "iso:TCD",
     "name": "Chad",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1714,6 +1821,7 @@
   {
     "id": "iso:CHL",
     "name": "Chile",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1730,6 +1838,7 @@
   {
     "id": "iso:CHN",
     "name": "China",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1746,6 +1855,7 @@
   {
     "id": "iso:COL",
     "name": "Colombia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1762,6 +1872,7 @@
   {
     "id": "iso:COM",
     "name": "Comoros",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1778,6 +1889,7 @@
   {
     "id": "iso:COG",
     "name": "Republic of the Congo",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1794,6 +1906,7 @@
   {
     "id": "iso:COD",
     "name": "Democratic Republic of the Congo",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1810,6 +1923,7 @@
   {
     "id": "iso:CRI",
     "name": "Costa Rica",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1826,6 +1940,7 @@
   {
     "id": "iso:CIV",
     "name": "Côte d'Ivoire",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1842,6 +1957,7 @@
   {
     "id": "iso:HRV",
     "name": "Croatia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1858,6 +1974,7 @@
   {
     "id": "iso:CUB",
     "name": "Cuba",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1874,6 +1991,7 @@
   {
     "id": "iso:CYP",
     "name": "Cyprus",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1890,6 +2008,7 @@
   {
     "id": "iso:CZE",
     "name": "Czechia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1906,6 +2025,7 @@
   {
     "id": "iso:DNK",
     "name": "Denmark",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1922,6 +2042,7 @@
   {
     "id": "iso:DJI",
     "name": "Djibouti",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1938,6 +2059,7 @@
   {
     "id": "iso:DMA",
     "name": "Dominica",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1954,6 +2076,7 @@
   {
     "id": "iso:DOM",
     "name": "Dominican Republic",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1970,6 +2093,7 @@
   {
     "id": "iso:ECU",
     "name": "Ecuador",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -1986,6 +2110,7 @@
   {
     "id": "iso:EGY",
     "name": "Egypt",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2002,6 +2127,7 @@
   {
     "id": "iso:SLV",
     "name": "El Salvador",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2018,6 +2144,7 @@
   {
     "id": "iso:GNQ",
     "name": "Equatorial Guinea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2034,6 +2161,7 @@
   {
     "id": "iso:ERI",
     "name": "Eritrea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2050,6 +2178,7 @@
   {
     "id": "iso:EST",
     "name": "Estonia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2066,6 +2195,7 @@
   {
     "id": "iso:SWZ",
     "name": "Eswatini",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2082,6 +2212,7 @@
   {
     "id": "iso:ETH",
     "name": "Ethiopia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2098,6 +2229,7 @@
   {
     "id": "iso:FJI",
     "name": "Fiji",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2114,6 +2246,7 @@
   {
     "id": "iso:FIN",
     "name": "Finland",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2130,6 +2263,7 @@
   {
     "id": "iso:FRA",
     "name": "France",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2146,6 +2280,7 @@
   {
     "id": "iso:GAB",
     "name": "Gabon",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2162,6 +2297,7 @@
   {
     "id": "iso:GMB",
     "name": "Gambia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2178,6 +2314,7 @@
   {
     "id": "iso:GEO",
     "name": "Georgia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2194,6 +2331,7 @@
   {
     "id": "iso:DEU",
     "name": "Germany",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2210,6 +2348,7 @@
   {
     "id": "iso:GHA",
     "name": "Ghana",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2226,6 +2365,7 @@
   {
     "id": "iso:GRC",
     "name": "Greece",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2242,6 +2382,7 @@
   {
     "id": "iso:GRD",
     "name": "Grenada",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2258,6 +2399,7 @@
   {
     "id": "iso:GTM",
     "name": "Guatemala",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2274,6 +2416,7 @@
   {
     "id": "iso:GIN",
     "name": "Guinea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2290,6 +2433,7 @@
   {
     "id": "iso:GNB",
     "name": "Guinea-Bissau",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2306,6 +2450,7 @@
   {
     "id": "iso:GUY",
     "name": "Guyana",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2322,6 +2467,7 @@
   {
     "id": "iso:HTI",
     "name": "Haiti",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2338,6 +2484,7 @@
   {
     "id": "iso:HND",
     "name": "Honduras",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2354,6 +2501,7 @@
   {
     "id": "iso:HUN",
     "name": "Hungary",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2370,6 +2518,7 @@
   {
     "id": "iso:ISL",
     "name": "Iceland",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2386,6 +2535,7 @@
   {
     "id": "iso:IND",
     "name": "India",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2402,6 +2552,7 @@
   {
     "id": "iso:IDN",
     "name": "Indonesia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2418,6 +2569,7 @@
   {
     "id": "iso:IRN",
     "name": "Iran (Islamic Republic of)",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2434,6 +2586,7 @@
   {
     "id": "iso:IRQ",
     "name": "Iraq",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2450,6 +2603,7 @@
   {
     "id": "iso:IRL",
     "name": "Ireland",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2466,6 +2620,7 @@
   {
     "id": "iso:ISR",
     "name": "Israel",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2482,6 +2637,7 @@
   {
     "id": "iso:ITA",
     "name": "Italy",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2498,6 +2654,7 @@
   {
     "id": "iso:JAM",
     "name": "Jamaica",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2514,6 +2671,7 @@
   {
     "id": "iso:JPN",
     "name": "Japan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2530,6 +2688,7 @@
   {
     "id": "iso:JOR",
     "name": "Jordan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2546,6 +2705,7 @@
   {
     "id": "iso:KAZ",
     "name": "Kazakhstan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2562,6 +2722,7 @@
   {
     "id": "iso:KEN",
     "name": "Kenya",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2578,6 +2739,7 @@
   {
     "id": "iso:KIR",
     "name": "Kiribati",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2594,6 +2756,7 @@
   {
     "id": "iso:PRK",
     "name": "Democratic People's Republic of Korea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2610,6 +2773,7 @@
   {
     "id": "iso:KOR",
     "name": "Republic of Korea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2626,6 +2790,7 @@
   {
     "id": "iso:KWT",
     "name": "Kuwait",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2642,6 +2807,7 @@
   {
     "id": "iso:KGZ",
     "name": "Kyrgyzstan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2658,6 +2824,7 @@
   {
     "id": "iso:LAO",
     "name": "Lao People's Democratic Republic",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2674,6 +2841,7 @@
   {
     "id": "iso:LVA",
     "name": "Latvia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2690,6 +2858,7 @@
   {
     "id": "iso:LBN",
     "name": "Lebanon",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2706,6 +2875,7 @@
   {
     "id": "iso:LSO",
     "name": "Lesotho",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2722,6 +2892,7 @@
   {
     "id": "iso:LBR",
     "name": "Liberia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2738,6 +2909,7 @@
   {
     "id": "iso:LBY",
     "name": "Libya",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2754,6 +2926,7 @@
   {
     "id": "iso:LIE",
     "name": "Liechtenstein",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2770,6 +2943,7 @@
   {
     "id": "iso:LTU",
     "name": "Lithuania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2786,6 +2960,7 @@
   {
     "id": "iso:LUX",
     "name": "Luxembourg",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2802,6 +2977,7 @@
   {
     "id": "iso:MDG",
     "name": "Madagascar",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2818,6 +2994,7 @@
   {
     "id": "iso:MWI",
     "name": "Malawi",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2834,6 +3011,7 @@
   {
     "id": "iso:MYS",
     "name": "Malaysia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2850,6 +3028,7 @@
   {
     "id": "iso:MDV",
     "name": "Maldives",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2866,6 +3045,7 @@
   {
     "id": "iso:MLI",
     "name": "Mali",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2882,6 +3062,7 @@
   {
     "id": "iso:MLT",
     "name": "Malta",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2898,6 +3079,7 @@
   {
     "id": "iso:MHL",
     "name": "Marshall Islands",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2914,6 +3096,7 @@
   {
     "id": "iso:MRT",
     "name": "Mauritania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2930,6 +3113,7 @@
   {
     "id": "iso:MUS",
     "name": "Mauritius",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2946,6 +3130,7 @@
   {
     "id": "iso:MEX",
     "name": "Mexico",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2962,6 +3147,7 @@
   {
     "id": "iso:FSM",
     "name": "Micronesia (Federated States of)",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2978,6 +3164,7 @@
   {
     "id": "iso:MDA",
     "name": "Republic of Moldova",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -2994,6 +3181,7 @@
   {
     "id": "iso:MCO",
     "name": "Monaco",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3010,6 +3198,7 @@
   {
     "id": "iso:MNG",
     "name": "Mongolia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3026,6 +3215,7 @@
   {
     "id": "iso:MNE",
     "name": "Montenegro",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3042,6 +3232,7 @@
   {
     "id": "iso:MAR",
     "name": "Morocco",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3058,6 +3249,7 @@
   {
     "id": "iso:MOZ",
     "name": "Mozambique",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3074,6 +3266,7 @@
   {
     "id": "iso:MMR",
     "name": "Myanmar",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3090,6 +3283,7 @@
   {
     "id": "iso:NAM",
     "name": "Namibia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3106,6 +3300,7 @@
   {
     "id": "iso:NRU",
     "name": "Nauru",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3122,6 +3317,7 @@
   {
     "id": "iso:NPL",
     "name": "Nepal",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3138,6 +3334,7 @@
   {
     "id": "iso:NLD",
     "name": "Netherlands",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3154,6 +3351,7 @@
   {
     "id": "iso:NZL",
     "name": "New Zealand",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3170,6 +3368,7 @@
   {
     "id": "iso:NIC",
     "name": "Nicaragua",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3186,6 +3385,7 @@
   {
     "id": "iso:NER",
     "name": "Niger",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3202,6 +3402,7 @@
   {
     "id": "iso:NGA",
     "name": "Nigeria",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3218,6 +3419,7 @@
   {
     "id": "iso:MKD",
     "name": "North Macedonia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3234,6 +3436,7 @@
   {
     "id": "iso:NOR",
     "name": "Norway",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3250,6 +3453,7 @@
   {
     "id": "iso:OMN",
     "name": "Oman",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3266,6 +3470,7 @@
   {
     "id": "iso:PAK",
     "name": "Pakistan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3282,6 +3487,7 @@
   {
     "id": "iso:PLW",
     "name": "Palau",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3298,6 +3504,7 @@
   {
     "id": "iso:PAN",
     "name": "Panama",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3314,6 +3521,7 @@
   {
     "id": "iso:PNG",
     "name": "Papua New Guinea",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3330,6 +3538,7 @@
   {
     "id": "iso:PRY",
     "name": "Paraguay",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3346,6 +3555,7 @@
   {
     "id": "iso:PER",
     "name": "Peru",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3362,6 +3572,7 @@
   {
     "id": "iso:PHL",
     "name": "Philippines",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3378,6 +3589,7 @@
   {
     "id": "iso:POL",
     "name": "Poland",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3394,6 +3606,7 @@
   {
     "id": "iso:PRT",
     "name": "Portugal",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3410,6 +3623,7 @@
   {
     "id": "iso:QAT",
     "name": "Qatar",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3426,6 +3640,7 @@
   {
     "id": "iso:ROU",
     "name": "Romania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3442,6 +3657,7 @@
   {
     "id": "iso:RUS",
     "name": "Russian Federation",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3458,6 +3674,7 @@
   {
     "id": "iso:RWA",
     "name": "Rwanda",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3474,6 +3691,7 @@
   {
     "id": "iso:KNA",
     "name": "Saint Kitts and Nevis",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3490,6 +3708,7 @@
   {
     "id": "iso:LCA",
     "name": "Saint Lucia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3506,6 +3725,7 @@
   {
     "id": "iso:VCT",
     "name": "Saint Vincent and the Grenadines",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3522,6 +3742,7 @@
   {
     "id": "iso:WSM",
     "name": "Samoa",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3538,6 +3759,7 @@
   {
     "id": "iso:SMR",
     "name": "San Marino",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3554,6 +3776,7 @@
   {
     "id": "iso:STP",
     "name": "Sao Tome and Principe",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3570,6 +3793,7 @@
   {
     "id": "iso:SAU",
     "name": "Saudi Arabia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3586,6 +3810,7 @@
   {
     "id": "iso:SEN",
     "name": "Senegal",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3602,6 +3827,7 @@
   {
     "id": "iso:SRB",
     "name": "Serbia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3618,6 +3844,7 @@
   {
     "id": "iso:SYC",
     "name": "Seychelles",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3634,6 +3861,7 @@
   {
     "id": "iso:SLE",
     "name": "Sierra Leone",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3650,6 +3878,7 @@
   {
     "id": "iso:SGP",
     "name": "Singapore",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3666,6 +3895,7 @@
   {
     "id": "iso:SVK",
     "name": "Slovakia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3682,6 +3912,7 @@
   {
     "id": "iso:SVN",
     "name": "Slovenia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3698,6 +3929,7 @@
   {
     "id": "iso:SLB",
     "name": "Solomon Islands",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3714,6 +3946,7 @@
   {
     "id": "iso:SOM",
     "name": "Somalia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3730,6 +3963,7 @@
   {
     "id": "iso:ZAF",
     "name": "South Africa",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3746,6 +3980,7 @@
   {
     "id": "iso:SSD",
     "name": "South Sudan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3762,6 +3997,7 @@
   {
     "id": "iso:ESP",
     "name": "Spain",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3778,6 +4014,7 @@
   {
     "id": "iso:LKA",
     "name": "Sri Lanka",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3794,6 +4031,7 @@
   {
     "id": "iso:SDN",
     "name": "Sudan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3810,6 +4048,7 @@
   {
     "id": "iso:SUR",
     "name": "Suriname",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3826,6 +4065,7 @@
   {
     "id": "iso:SWE",
     "name": "Sweden",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3842,6 +4082,7 @@
   {
     "id": "iso:CHE",
     "name": "Switzerland",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3858,6 +4099,7 @@
   {
     "id": "iso:SYR",
     "name": "Syrian Arab Republic",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3874,6 +4116,7 @@
   {
     "id": "iso:TJK",
     "name": "Tajikistan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3890,6 +4133,7 @@
   {
     "id": "iso:TZA",
     "name": "United Republic of Tanzania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3906,6 +4150,7 @@
   {
     "id": "iso:THA",
     "name": "Thailand",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3922,6 +4167,7 @@
   {
     "id": "iso:TLS",
     "name": "Timor-Leste",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3938,6 +4184,7 @@
   {
     "id": "iso:TGO",
     "name": "Togo",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3954,6 +4201,7 @@
   {
     "id": "iso:TON",
     "name": "Tonga",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3970,6 +4218,7 @@
   {
     "id": "iso:TTO",
     "name": "Trinidad and Tobago",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -3986,6 +4235,7 @@
   {
     "id": "iso:TUN",
     "name": "Tunisia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4002,6 +4252,7 @@
   {
     "id": "iso:TUR",
     "name": "Türkiye",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4018,6 +4269,7 @@
   {
     "id": "iso:TKM",
     "name": "Turkmenistan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4034,6 +4286,7 @@
   {
     "id": "iso:TUV",
     "name": "Tuvalu",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4050,6 +4303,7 @@
   {
     "id": "iso:UGA",
     "name": "Uganda",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4066,6 +4320,7 @@
   {
     "id": "iso:UKR",
     "name": "Ukraine",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4082,6 +4337,7 @@
   {
     "id": "iso:ARE",
     "name": "United Arab Emirates",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4098,6 +4354,7 @@
   {
     "id": "iso:GBR",
     "name": "United Kingdom",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4114,6 +4371,7 @@
   {
     "id": "iso:USA",
     "name": "United States",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4130,6 +4388,7 @@
   {
     "id": "iso:URY",
     "name": "Uruguay",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4146,6 +4405,7 @@
   {
     "id": "iso:UZB",
     "name": "Uzbekistan",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4162,6 +4422,7 @@
   {
     "id": "iso:VUT",
     "name": "Vanuatu",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4178,6 +4439,7 @@
   {
     "id": "iso:VEN",
     "name": "Venezuela (Bolivarian Republic of)",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4194,6 +4456,7 @@
   {
     "id": "iso:VNM",
     "name": "Viet Nam",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4210,6 +4473,7 @@
   {
     "id": "iso:YEM",
     "name": "Yemen",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4226,6 +4490,7 @@
   {
     "id": "iso:ZMB",
     "name": "Zambia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4242,6 +4507,7 @@
   {
     "id": "iso:ZWE",
     "name": "Zimbabwe",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4258,6 +4524,7 @@
   {
     "id": "iso:VAT",
     "name": "Holy See",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4274,6 +4541,7 @@
   {
     "id": "iso:PSE",
     "name": "State of Palestine",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -4290,6 +4558,7 @@
   {
     "id": "US-AL",
     "name": "Alabama",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315233"]
@@ -4301,6 +4570,7 @@
   {
     "id": "US-AK",
     "name": "Alaska",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308731"]
@@ -4312,6 +4582,7 @@
   {
     "id": "US-AZ",
     "name": "Arizona",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315341"]
@@ -4323,6 +4594,7 @@
   {
     "id": "US-AR",
     "name": "Arkansas",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315355"]
@@ -4334,6 +4606,7 @@
   {
     "id": "US-CA",
     "name": "California",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308415"]
@@ -4345,6 +4618,7 @@
   {
     "id": "US-CO",
     "name": "Colorado",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315343"]
@@ -4356,6 +4630,7 @@
   {
     "id": "US-CT",
     "name": "Connecticut",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315301"]
@@ -4367,6 +4642,7 @@
   {
     "id": "US-DE",
     "name": "Delaware",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315325"]
@@ -4378,6 +4654,7 @@
   {
     "id": "US-DC",
     "name": "District of Columbia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315327"]
@@ -4389,6 +4666,7 @@
   {
     "id": "US-FL",
     "name": "Florida",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315207"]
@@ -4400,6 +4678,7 @@
   {
     "id": "US-GA",
     "name": "Georgia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159311857"]
@@ -4411,6 +4690,7 @@
   {
     "id": "US-HI",
     "name": "Hawaii",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308409"]
@@ -4422,6 +4702,7 @@
   {
     "id": "US-ID",
     "name": "Idaho",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315339"]
@@ -4433,6 +4714,7 @@
   {
     "id": "US-IL",
     "name": "Illinois",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315309"]
@@ -4444,6 +4726,7 @@
   {
     "id": "US-IN",
     "name": "Indiana",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315311"]
@@ -4455,6 +4738,7 @@
   {
     "id": "US-IA",
     "name": "Iowa",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315357"]
@@ -4466,6 +4750,7 @@
   {
     "id": "US-KS",
     "name": "Kansas",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315359"]
@@ -4477,6 +4762,7 @@
   {
     "id": "US-KY",
     "name": "Kentucky",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315313"]
@@ -4488,6 +4774,7 @@
   {
     "id": "US-LA",
     "name": "Louisiana",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315221"]
@@ -4499,6 +4786,7 @@
   {
     "id": "US-ME",
     "name": "Maine",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308501"]
@@ -4510,6 +4798,7 @@
   {
     "id": "US-MD",
     "name": "Maryland",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315329"]
@@ -4521,6 +4810,7 @@
   {
     "id": "US-MA",
     "name": "Massachusetts",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312157"]
@@ -4532,6 +4822,7 @@
   {
     "id": "US-MI",
     "name": "Michigan",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159314665"]
@@ -4543,6 +4834,7 @@
   {
     "id": "US-MN",
     "name": "Minnesota",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315297"]
@@ -4554,6 +4846,7 @@
   {
     "id": "US-MS",
     "name": "Mississippi",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315231"]
@@ -4565,6 +4858,7 @@
   {
     "id": "US-MO",
     "name": "Missouri",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315361"]
@@ -4576,6 +4870,7 @@
   {
     "id": "US-MT",
     "name": "Montana",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315333"]
@@ -4587,6 +4882,7 @@
   {
     "id": "US-NE",
     "name": "Nebraska",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315363"]
@@ -4598,6 +4894,7 @@
   {
     "id": "US-NV",
     "name": "Nevada",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315345"]
@@ -4609,6 +4906,7 @@
   {
     "id": "US-NH",
     "name": "New Hampshire",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315303"]
@@ -4620,6 +4918,7 @@
   {
     "id": "US-NJ",
     "name": "New Jersey",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315267"]
@@ -4631,6 +4930,7 @@
   {
     "id": "US-NM",
     "name": "New Mexico",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315347"]
@@ -4642,6 +4942,7 @@
   {
     "id": "US-NY",
     "name": "New York",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312155"]
@@ -4653,6 +4954,7 @@
   {
     "id": "US-NC",
     "name": "North Carolina",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159314887"]
@@ -4664,6 +4966,7 @@
   {
     "id": "US-ND",
     "name": "North Dakota",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315337"]
@@ -4675,6 +4978,7 @@
   {
     "id": "US-OH",
     "name": "Ohio",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315315"]
@@ -4686,6 +4990,7 @@
   {
     "id": "US-OK",
     "name": "Oklahoma",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315365"]
@@ -4697,6 +5002,7 @@
   {
     "id": "US-OR",
     "name": "Oregon",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159309549"]
@@ -4708,6 +5014,7 @@
   {
     "id": "US-PA",
     "name": "Pennsylvania",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315331"]
@@ -4719,6 +5026,7 @@
   {
     "id": "US-RI",
     "name": "Rhode Island",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312213"]
@@ -4730,6 +5038,7 @@
   {
     "id": "US-SC",
     "name": "South Carolina",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315307"]
@@ -4741,6 +5050,7 @@
   {
     "id": "US-SD",
     "name": "South Dakota",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315367"]
@@ -4752,6 +5062,7 @@
   {
     "id": "US-TN",
     "name": "Tennessee",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315319"]
@@ -4763,6 +5074,7 @@
   {
     "id": "US-TX",
     "name": "Texas",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315211"]
@@ -4774,6 +5086,7 @@
   {
     "id": "US-UT",
     "name": "Utah",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315349"]
@@ -4785,6 +5098,7 @@
   {
     "id": "US-VT",
     "name": "Vermont",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315305"]
@@ -4796,6 +5110,7 @@
   {
     "id": "US-VA",
     "name": "Virginia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315259"]
@@ -4807,6 +5122,7 @@
   {
     "id": "US-WA",
     "name": "Washington",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159309547"]
@@ -4818,6 +5134,7 @@
   {
     "id": "US-WV",
     "name": "West Virginia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315323"]
@@ -4829,6 +5146,7 @@
   {
     "id": "US-WI",
     "name": "Wisconsin",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315321"]
@@ -4840,6 +5158,7 @@
   {
     "id": "US-WY",
     "name": "Wyoming",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315351"]
@@ -4851,6 +5170,7 @@
   {
     "id": "non-un:abkhazia",
     "name": "Abkhazia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1159320785"]
@@ -4875,6 +5195,7 @@
   {
     "id": "non-un:adjara",
     "name": "Adjara",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -4907,6 +5228,7 @@
   {
     "id": "non-un:american-samoa",
     "name": "American Samoa",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -4939,6 +5261,7 @@
   {
     "id": "non-un:anguilla",
     "name": "Anguilla",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320703", "ne:map-subunit:1159320703"]
@@ -4963,6 +5286,7 @@
   {
     "id": "non-un:antarctica",
     "name": "Antarctica",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -4999,6 +5323,7 @@
   {
     "id": "non-un:aruba",
     "name": "Aruba",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5031,6 +5356,7 @@
   {
     "id": "non-un:azores",
     "name": "Azores",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5063,6 +5389,7 @@
   {
     "id": "non-un:bermuda",
     "name": "Bermuda",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320705", "ne:map-subunit:1159320705"]
@@ -5087,6 +5414,7 @@
   {
     "id": "non-un:bolzano-south-tyrol",
     "name": "Bolzano / South Tyrol",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159310921"]
@@ -5111,6 +5439,7 @@
   {
     "id": "non-un:bonaire-sint-eustatius-and-saba",
     "name": "Bonaire, Sint Eustatius and Saba",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159321107", "ne:map-subunit:1159321107"]
@@ -5135,6 +5464,7 @@
   {
     "id": "non-un:bougainville",
     "name": "Bougainville",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5167,6 +5497,7 @@
   {
     "id": "non-un:bouvet-island",
     "name": "Bouvet Island",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159321111", "ne:map-subunit:1159321111"]
@@ -5191,6 +5522,7 @@
   {
     "id": "non-un:british-indian-ocean-territory",
     "name": "British Indian Ocean Territory",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5225,6 +5557,7 @@
   {
     "id": "non-un:british-virgin-islands",
     "name": "British Virgin Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5257,6 +5590,7 @@
   {
     "id": "non-un:cayman-islands",
     "name": "Cayman Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5289,6 +5623,7 @@
   {
     "id": "non-un:christmas-island",
     "name": "Christmas Island",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320369", "ne:map-subunit:1159320369"]
@@ -5313,6 +5648,7 @@
   {
     "id": "non-un:cocos-keeling-islands",
     "name": "Cocos (Keeling) Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320367", "ne:map-subunit:1159320367"]
@@ -5337,6 +5673,7 @@
   {
     "id": "non-un:cook-islands",
     "name": "Cook Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159321129", "ne:map-subunit:1159321129"]
@@ -5361,6 +5698,7 @@
   {
     "id": "non-un:costa-caribe-norte",
     "name": "Costa Caribe Norte",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159309037"]
@@ -5385,6 +5723,7 @@
   {
     "id": "non-un:costa-caribe-sur",
     "name": "Costa Caribe Sur",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308989"]
@@ -5409,6 +5748,7 @@
   {
     "id": "non-un:curac-ao",
     "name": "Curaçao",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5441,6 +5781,7 @@
   {
     "id": "non-un:donetsk-people-s-republic",
     "name": "Donetsk People's Republic",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1763286545"]
@@ -5465,6 +5806,7 @@
   {
     "id": "non-un:england",
     "name": "England",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320743", "ne:map-subunit:1159320743"]
@@ -5489,6 +5831,7 @@
   {
     "id": "non-un:falkland-islands-malvinas",
     "name": "Falkland Islands (Malvinas)",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5521,6 +5864,7 @@
   {
     "id": "non-un:faroe-islands",
     "name": "Faroe Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320549", "ne:map-subunit:1159320549"]
@@ -5545,6 +5889,7 @@
   {
     "id": "non-un:french-guiana",
     "name": "French Guiana",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5579,6 +5924,7 @@
   {
     "id": "non-un:french-polynesia",
     "name": "French Polynesia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320643", "ne:map-subunit:1159320643"]
@@ -5603,6 +5949,7 @@
   {
     "id": "non-un:french-southern-territories",
     "name": "French Southern Territories",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5653,6 +6000,7 @@
   {
     "id": "non-un:friuli-venezia-giulia",
     "name": "Friuli-Venezia Giulia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5687,6 +6035,7 @@
   {
     "id": "non-un:gagauzia",
     "name": "Gagauzia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312587"]
@@ -5711,6 +6060,7 @@
   {
     "id": "non-un:gibraltar",
     "name": "Gibraltar",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5745,6 +6095,7 @@
   {
     "id": "non-un:gorno-badakhshan",
     "name": "Gorno-Badakhshan",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159308469"]
@@ -5769,6 +6120,7 @@
   {
     "id": "non-un:greenland",
     "name": "Greenland",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5801,6 +6153,7 @@
   {
     "id": "non-un:guadeloupe",
     "name": "Guadeloupe",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5833,6 +6186,7 @@
   {
     "id": "non-un:guam",
     "name": "Guam",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5865,6 +6219,7 @@
   {
     "id": "non-un:guangxi",
     "name": "Guangxi",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159310341"]
@@ -5889,6 +6244,7 @@
   {
     "id": "non-un:guernsey",
     "name": "Guernsey",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5925,6 +6281,7 @@
   {
     "id": "non-un:heard-island-and-mcdonald-islands",
     "name": "Heard Island and McDonald Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -5957,6 +6314,7 @@
   {
     "id": "non-un:hong-kong",
     "name": "Hong Kong",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320473", "ne:map-subunit:1159320473"]
@@ -5981,6 +6339,7 @@
   {
     "id": "non-un:inner-mongolia",
     "name": "Inner Mongolia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312757"]
@@ -6005,6 +6364,7 @@
   {
     "id": "non-un:isle-of-man",
     "name": "Isle of Man",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6037,6 +6397,7 @@
   {
     "id": "non-un:jersey",
     "name": "Jersey",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6069,6 +6430,7 @@
   {
     "id": "non-un:jewish-autonomous-oblast",
     "name": "Jewish Autonomous Oblast",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159313605"]
@@ -6093,6 +6455,7 @@
   {
     "id": "non-un:kosovo",
     "name": "Kosovo",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159321007", "ne:map-subunit:1159321007"]
@@ -6117,6 +6480,7 @@
   {
     "id": "non-un:luhansk-people-s-republic",
     "name": "Luhansk People's Republic",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1763286547"]
@@ -6141,6 +6505,7 @@
   {
     "id": "non-un:macao",
     "name": "Macao",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320475", "ne:map-subunit:1159320475"]
@@ -6165,6 +6530,7 @@
   {
     "id": "non-un:madeira",
     "name": "Madeira",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6197,6 +6563,7 @@
   {
     "id": "non-un:martinique",
     "name": "Martinique",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6229,6 +6596,7 @@
   {
     "id": "non-un:mayotte",
     "name": "Mayotte",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6263,6 +6631,7 @@
   {
     "id": "non-un:montserrat",
     "name": "Montserrat",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320727", "ne:map-subunit:1159320727"]
@@ -6287,6 +6656,7 @@
   {
     "id": "non-un:nakhchivan",
     "name": "Nakhchivan",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["gb:aze-adm1:63332228B45413776644545"]
@@ -6311,6 +6681,7 @@
   {
     "id": "non-un:new-caledonia",
     "name": "New Caledonia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320641", "ne:map-subunit:1159320641"]
@@ -6335,6 +6706,7 @@
   {
     "id": "non-un:ningxia",
     "name": "Ningxia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312659"]
@@ -6359,6 +6731,7 @@
   {
     "id": "non-un:niue",
     "name": "Niue",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6391,6 +6764,7 @@
   {
     "id": "non-un:norfolk-island",
     "name": "Norfolk Island",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6423,6 +6797,7 @@
   {
     "id": "non-un:north-borneo",
     "name": "North Borneo",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1763510959"]
@@ -6447,6 +6822,7 @@
   {
     "id": "non-un:northern-cyprus",
     "name": "Northern Cyprus",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:1159320531"]
@@ -6471,6 +6847,7 @@
   {
     "id": "non-un:northern-ireland",
     "name": "Northern Ireland",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320745", "ne:map-subunit:1159320745"]
@@ -6495,6 +6872,7 @@
   {
     "id": "non-un:northern-mariana-islands",
     "name": "Northern Mariana Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6527,6 +6905,7 @@
   {
     "id": "non-un:pitcairn",
     "name": "Pitcairn",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320729", "ne:map-subunit:1159320729"]
@@ -6551,6 +6930,7 @@
   {
     "id": "non-un:pri-ncipe",
     "name": "Príncipe",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315955", "ne:map-subunit:1159321277"]
@@ -6575,6 +6955,7 @@
   {
     "id": "non-un:puerto-rico",
     "name": "Puerto Rico",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6607,6 +6988,7 @@
   {
     "id": "non-un:re-union",
     "name": "Réunion",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6639,6 +7021,7 @@
   {
     "id": "non-un:saint-barthe-lemy",
     "name": "Saint Barthélemy",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6671,6 +7054,7 @@
   {
     "id": "non-un:saint-helena-ascension-and-tristan-da-cunha",
     "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320733"]
@@ -6695,6 +7079,7 @@
   {
     "id": "non-un:saint-martin-french-part",
     "name": "Saint Martin (French part)",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320639", "ne:map-subunit:1159320639"]
@@ -6719,6 +7104,7 @@
   {
     "id": "non-un:saint-pierre-and-miquelon",
     "name": "Saint Pierre and Miquelon",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6751,6 +7137,7 @@
   {
     "id": "non-un:sardinia",
     "name": "Sardinia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-subunit:1159320921"]
@@ -6775,6 +7162,7 @@
   {
     "id": "non-un:scotland",
     "name": "Scotland",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6807,6 +7195,7 @@
   {
     "id": "non-un:sicily",
     "name": "Sicily",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-subunit:1159320929"]
@@ -6831,6 +7220,7 @@
   {
     "id": "non-un:sint-maarten-dutch-part",
     "name": "Sint Maarten (Dutch part)",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6863,6 +7253,7 @@
   {
     "id": "non-un:somaliland",
     "name": "Somaliland",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:1159321259"]
@@ -6887,6 +7278,7 @@
   {
     "id": "non-un:south-georgia-and-the-south-sandwich-islands",
     "name": "South Georgia and the South Sandwich Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159315467", "ne:map-unit:1159320731"]
@@ -6911,6 +7303,7 @@
   {
     "id": "non-un:south-ossetia",
     "name": "South Ossetia",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1159320787"]
@@ -6935,6 +7328,7 @@
   {
     "id": "non-un:svalbard-and-jan-mayen",
     "name": "Svalbard and Jan Mayen",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6967,6 +7361,7 @@
   {
     "id": "non-un:taiwan",
     "name": "Taiwan",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -6999,6 +7394,7 @@
   {
     "id": "non-un:tibet-xizang",
     "name": "Tibet / Xizang",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312655"]
@@ -7023,6 +7419,7 @@
   {
     "id": "non-un:tokelau",
     "name": "Tokelau",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -7055,6 +7452,7 @@
   {
     "id": "non-un:transnistria",
     "name": "Transnistria",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:disputed:1159321047"]
@@ -7079,6 +7477,7 @@
   {
     "id": "non-un:trentino",
     "name": "Trentino",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159316949"]
@@ -7103,6 +7502,7 @@
   {
     "id": "non-un:trentino-alto-adige-su-dtirol",
     "name": "Trentino-Alto Adige/Südtirol",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159310921", "ne:admin1:1159316949"]
@@ -7127,6 +7527,7 @@
   {
     "id": "non-un:turks-and-caicos-islands",
     "name": "Turks and Caicos Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320737", "ne:map-subunit:1159320737"]
@@ -7151,6 +7552,7 @@
   {
     "id": "non-un:united-states-minor-outlying-islands",
     "name": "United States Minor Outlying Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -7217,6 +7619,7 @@
   {
     "id": "non-un:united-states-virgin-islands",
     "name": "United States Virgin Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159321371", "ne:map-subunit:1159321371"]
@@ -7241,6 +7644,7 @@
   {
     "id": "non-un:valle-d-aosta",
     "name": "Valle d’Aosta",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159310915"]
@@ -7265,6 +7669,7 @@
   {
     "id": "non-un:vojvodina",
     "name": "Vojvodina",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -7299,6 +7704,7 @@
   {
     "id": "non-un:wales",
     "name": "Wales",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320749", "ne:map-subunit:1159320749"]
@@ -7323,6 +7729,7 @@
   {
     "id": "non-un:wallis-and-futuna",
     "name": "Wallis and Futuna",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320649", "ne:map-subunit:1159320649"]
@@ -7347,6 +7754,7 @@
   {
     "id": "non-un:western-sahara",
     "name": "Western Sahara",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": [
@@ -7383,6 +7791,7 @@
   {
     "id": "non-un:xinjiang",
     "name": "Xinjiang",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:admin1:1159312657"]
@@ -7407,6 +7816,7 @@
   {
     "id": "non-un:a-land-islands",
     "name": "Åland Islands",
+    "kind": "land",
     "resolution": {
       "kind": "exact-refs",
       "refs": ["ne:map-unit:1159320621", "ne:map-subunit:1159320621"]
@@ -7431,6 +7841,7 @@
   {
     "id": "world:africa",
     "name": "Africa",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7441,12 +7852,13 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:africa"],
-    "anchor": [618.56, 210.62],
-    "bounds": [618.56, 210.62, 925.59, 547.56]
+    "anchor": [602.29, 212],
+    "bounds": [602.29, 212, 960, 597.83]
   },
   {
     "id": "world:antarctica",
     "name": "Antarctica",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7457,12 +7869,13 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:antarctica"],
-    "anchor": [0, 602.18],
-    "bounds": [0, 602.18, 1440, 720]
+    "anchor": [0, 602.41],
+    "bounds": [0, 602.41, 1440, 720]
   },
   {
     "id": "world:asia",
     "name": "Asia",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7473,12 +7886,13 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:asia"],
-    "anchor": [822.65, 138.26],
-    "bounds": [822.65, 138.26, 1335.89, 408.8]
+    "anchor": [960, 33.31],
+    "bounds": [960, 33.31, 1440, 572.76]
   },
   {
     "id": "world:europe",
     "name": "Europe",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7489,12 +7903,13 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:europe"],
-    "anchor": [0, 32.73],
-    "bounds": [0, 32.73, 1440, 577.56]
+    "anchor": [600, 25.72],
+    "bounds": [600, 25.72, 960, 212]
   },
   {
     "id": "world:north-america",
     "name": "North America",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7505,12 +7920,13 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:north-america"],
-    "anchor": [3.43, 25.59],
-    "bounds": [3.43, 25.59, 1439.12, 361.5]
+    "anchor": [0, 25.72],
+    "bounds": [0, 25.72, 600, 324]
   },
   {
     "id": "world:south-america",
     "name": "South America",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7521,28 +7937,30 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:south-america"],
-    "anchor": [282.19, 297.22],
-    "bounds": [282.19, 297.22, 604.47, 583.36]
+    "anchor": [360.1, 324],
+    "bounds": [360.1, 324, 590.15, 586.08]
   },
   {
-    "id": "world:australia",
-    "name": "Australia",
+    "id": "world:oceania",
+    "name": "Oceania",
+    "kind": "land",
     "resolution": {
       "kind": "source-keys",
       "keys": [
         {
           "source": "world-regions",
-          "key": "world:australia"
+          "key": "world:oceania"
         }
       ]
     },
-    "geometryRefs": ["world:world-regions:world:australia"],
-    "anchor": [0, 277.93],
-    "bounds": [0, 277.93, 1440, 579]
+    "geometryRefs": ["world:world-regions:world:oceania"],
+    "anchor": [1284, 249.09],
+    "bounds": [1284, 249.09, 1440, 578.95]
   },
   {
     "id": "world:arctic-ocean",
     "name": "Arctic Ocean",
+    "kind": "water",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7559,6 +7977,7 @@
   {
     "id": "world:atlantic-ocean",
     "name": "Atlantic Ocean",
+    "kind": "water",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7575,6 +7994,7 @@
   {
     "id": "world:indian-ocean",
     "name": "Indian Ocean",
+    "kind": "water",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7591,6 +8011,7 @@
   {
     "id": "world:pacific-ocean",
     "name": "Pacific Ocean",
+    "kind": "water",
     "resolution": {
       "kind": "source-keys",
       "keys": [
@@ -7607,6 +8028,7 @@
   {
     "id": "world:southern-ocean",
     "name": "Southern Ocean",
+    "kind": "water",
     "resolution": {
       "kind": "source-keys",
       "keys": [
