@@ -2,7 +2,6 @@
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import locations from '../data/generated/locations.json';
 import map from '../data/generated/map.json';
 import {
   highlightedGeometryPaths,
@@ -11,6 +10,7 @@ import {
 } from './mapGeometry';
 import { MapView } from './map/MapView';
 import { quizOptions } from './contracts/quiz';
+import { generatedLocations as locations } from './contracts/generatedData';
 import { mapLayerForLocation, mapLayerForQuiz } from './quizMapBoundary';
 import './styles.css';
 
