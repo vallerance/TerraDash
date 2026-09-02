@@ -1,27 +1,6 @@
 import type { ReactNode } from 'react';
 import { QuizDetailsDialog } from '../quizSelection/QuizDetailsDialog';
-import type { QuizOption } from '../contracts/quiz';
-
-function quizSections(quizOptions: readonly QuizOption[]) {
-  const categoryLabels: Record<string, string> = {
-    global: 'Countries',
-    world: 'World',
-    regional: 'States and Provinces',
-    islands: 'Islands',
-  };
-  const grouped = new Map<string, QuizOption[]>();
-  for (const quiz of quizOptions) {
-    const key = quiz.category ?? 'global';
-    grouped.set(key, [...(grouped.get(key) ?? []), quiz]);
-  }
-  return [...grouped].map(([key, options]) => ({
-    key,
-    label:
-      categoryLabels[key] ??
-      `${key.charAt(0).toUpperCase()}${key.slice(1)} quizzes`,
-    options,
-  }));
-}
+import { quizCategoriesFor, type QuizOption } from '../contracts/quiz';
 
 export function QuizHome({
   quizOptions,
@@ -42,7 +21,7 @@ export function QuizHome({
   onSelectQuiz?: (quizId: string) => void;
   onStart: () => void;
 }) {
-  const sections = quizSections(quizOptions);
+  const sections = quizCategoriesFor(quizOptions);
   return (
     <section className="player-card home-page" aria-labelledby="start-title">
       <div className="home-graphic" aria-hidden="true">
@@ -66,10 +45,10 @@ export function QuizHome({
           {sections.map((section) => (
             <section
               className="quiz-option-section"
-              key={section.key}
-              aria-labelledby={`quiz-section-${section.key}`}
+              key={section.id}
+              aria-labelledby={`quiz-section-${section.id}`}
             >
-              <h2 id={`quiz-section-${section.key}`}>{section.label}</h2>
+              <h2 id={`quiz-section-${section.id}`}>{section.label}</h2>
               <div className="quiz-options">
                 {section.options.map((option) => (
                   <button

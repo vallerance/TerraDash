@@ -5,7 +5,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
-import { quizOptions } from '../contracts/quiz';
+import { quizCategoriesFor, type QuizOption } from '../contracts/quiz';
 import { useBrowserRoute } from '../routing/useBrowserRoute';
 
 export function AppFooter({ children }: { children?: ReactNode }) {
@@ -34,28 +34,40 @@ export function AppDisclaimer() {
   );
 }
 
-function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
+function QuizMenu({
+  quizOptions,
+  selectedQuizId,
+}: {
+  quizOptions: readonly QuizOption[];
+  selectedQuizId?: string;
+}) {
   const { navigate } = useBrowserRoute();
   const [open, setOpen] = useState(false);
-  const [regionalOpen, setRegionalOpen] = useState(false);
-  const [islandsOpen, setIslandsOpen] = useState(false);
+  const [openCategoryId, setOpenCategoryId] = useState<string>();
   const menuRef = useRef<HTMLDivElement>(null);
+  const categoryRefs = useRef(new Map<string, HTMLDivElement>());
   const menuId = 'quiz-menu';
+  const categories = quizCategoriesFor(quizOptions);
+  const focusCategoryFirstItem = (categoryId: string) =>
+    requestAnimationFrame(() =>
+      categoryRefs.current
+        .get(categoryId)
+        ?.querySelector<HTMLAnchorElement>('[role="menuitem"]')
+        ?.focus(),
+    );
   useEffect(() => {
     if (!open) return;
     const closeOnOutside = (event: PointerEvent) => {
       if (!menuRef.current?.contains(event.target as Node)) {
         setOpen(false);
-        setRegionalOpen(false);
-        setIslandsOpen(false);
+        setOpenCategoryId(undefined);
       }
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
+        setOpenCategoryId(undefined);
         menuRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
-        setRegionalOpen(false);
-        setIslandsOpen(false);
       }
     };
     document.addEventListener('pointerdown', closeOnOutside);
@@ -64,16 +76,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       document.removeEventListener('pointerdown', closeOnOutside);
       document.removeEventListener('keydown', closeOnEscape);
     };
-  }, [open]);
-  const globalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category !== 'regional' && quiz.category !== 'islands',
-  );
-  const regionalQuizzes = quizOptions.filter(
-    (quiz) => quiz.category === 'regional',
-  );
-  const islandQuizzes = quizOptions.filter(
-    (quiz) => quiz.category === 'islands',
-  );
+  }, [open, openCategoryId]);
   const renderQuizLink = (quiz: (typeof quizOptions)[number]) => (
     <a
       key={quiz.id}
@@ -83,8 +86,7 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       onClick={(event) => {
         event.preventDefault();
         setOpen(false);
-        setRegionalOpen(false);
-        setIslandsOpen(false);
+        setOpenCategoryId(undefined);
         navigate(event.currentTarget.href);
       }}
     >
@@ -99,14 +101,19 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
-        onClick={() => setOpen((value) => !value)}
+        onClick={() =>
+          setOpen((value) => {
+            if (value) setOpenCategoryId(undefined);
+            return !value;
+          })
+        }
         onKeyDown={(event) => {
           if (event.key === 'ArrowDown') {
             event.preventDefault();
             setOpen(true);
             requestAnimationFrame(() =>
               menuRef.current
-                ?.querySelector<HTMLAnchorElement>('[role="menuitem"]')
+                ?.querySelector<HTMLElement>('[role="menuitem"]')
                 ?.focus(),
             );
           }
@@ -116,58 +123,73 @@ function QuizMenu({ selectedQuizId }: { selectedQuizId?: string }) {
       </button>
       {open && (
         <div className="quiz-menu-popover" id={menuId} role="menu">
-          {globalQuizzes.map(renderQuizLink)}
-          {regionalQuizzes.length > 0 && (
-            <div className="quiz-submenu">
+          {categories.map((category) => (
+            <div
+              className="quiz-submenu"
+              key={category.id}
+              ref={(element) => {
+                if (element) categoryRefs.current.set(category.id, element);
+                else categoryRefs.current.delete(category.id);
+              }}
+            >
               <button
                 type="button"
                 role="menuitem"
                 aria-haspopup="menu"
-                aria-expanded={regionalOpen}
-                onClick={() => setRegionalOpen((value) => !value)}
+                aria-expanded={openCategoryId === category.id}
+                aria-controls={`quiz-submenu-${category.id}`}
+                onClick={() =>
+                  setOpenCategoryId((value) =>
+                    value === category.id ? undefined : category.id,
+                  )
+                }
                 onKeyDown={(event) => {
-                  if (event.key === 'ArrowRight') setRegionalOpen(true);
+                  if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    setOpenCategoryId(category.id);
+                    focusCategoryFirstItem(category.id);
+                  }
                 }}
               >
-                Regional quizzes
+                {category.label}
                 <span className="quiz-submenu-arrow" aria-hidden="true" />
               </button>
-              {regionalOpen && (
-                <div className="quiz-submenu-popover" role="menu">
-                  {regionalQuizzes.map(renderQuizLink)}
+              {openCategoryId === category.id && (
+                <div
+                  className="quiz-submenu-popover"
+                  id={`quiz-submenu-${category.id}`}
+                  role="menu"
+                  onKeyDown={(event) => {
+                    if (event.key === 'ArrowLeft') {
+                      event.preventDefault();
+                      setOpenCategoryId(undefined);
+                      categoryRefs.current
+                        .get(category.id)
+                        ?.querySelector<HTMLButtonElement>(
+                          '[aria-haspopup="menu"]',
+                        )
+                        ?.focus();
+                    }
+                  }}
+                >
+                  {category.options.map(renderQuizLink)}
                 </div>
               )}
             </div>
-          )}
-          {islandQuizzes.length > 0 && (
-            <div className="quiz-submenu">
-              <button
-                type="button"
-                role="menuitem"
-                aria-haspopup="menu"
-                aria-expanded={islandsOpen}
-                onClick={() => setIslandsOpen((value) => !value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'ArrowRight') setIslandsOpen(true);
-                }}
-              >
-                Islands quizzes{' '}
-                <span className="quiz-submenu-arrow" aria-hidden="true" />
-              </button>
-              {islandsOpen && (
-                <div className="quiz-submenu-popover" role="menu">
-                  {islandQuizzes.map(renderQuizLink)}
-                </div>
-              )}
-            </div>
-          )}
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-export function AppHeader({ selectedQuizId }: { selectedQuizId?: string }) {
+export function AppHeader({
+  quizOptions,
+  selectedQuizId,
+}: {
+  quizOptions: readonly QuizOption[];
+  selectedQuizId?: string;
+}) {
   const { navigate } = useBrowserRoute();
   const navigateLink = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -186,7 +208,7 @@ export function AppHeader({ selectedQuizId }: { selectedQuizId?: string }) {
         <span>MAP YOUR KNOWLEDGE</span>
       </a>
       <nav className="quiz-navigation" aria-label="Quizzes">
-        <QuizMenu selectedQuizId={selectedQuizId} />
+        <QuizMenu quizOptions={quizOptions} selectedQuizId={selectedQuizId} />
       </nav>
       <nav className="utility-navigation" aria-label="Utilities">
         <a

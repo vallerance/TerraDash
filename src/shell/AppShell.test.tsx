@@ -5,9 +5,16 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { QuizProvider } from '../QuizContext';
 import { QuizPage } from '../pages/QuizPage';
 import { QuizDetailsDialog } from '../quizSelection/QuizDetailsDialog';
-import { playableLocations, quizOptions, worldQuiz } from '../contracts/quiz';
+import {
+  playableLocations,
+  quizCategoriesFor,
+  quizOptions,
+  worldQuiz,
+} from '../contracts/quiz';
 import type { QuizOption } from '../contracts/quiz';
 import { AppShell } from './AppShell';
+import appChromeSource from './AppChrome.tsx?raw';
+import { QuizHome } from '../quiz/QuizHome';
 
 const options: QuizOption[] = [
   {
@@ -214,5 +221,66 @@ describe('AppShell selection and route handoff', () => {
     );
     expect(host.querySelector('.home-page')).toBeTruthy();
     expect(host.querySelector('.active-player')).toBeNull();
+  });
+});
+
+describe('shared quiz category contract', () => {
+  it('renders a newly added category on both surfaces without AppChrome changes', () => {
+    const syntheticOptions: QuizOption[] = [
+      ...options,
+      {
+        id: 'frontier',
+        name: 'Frontier quiz',
+        description: 'A fixture category',
+        menuLabel: 'Frontier',
+        thumbnailViewBox: '0 0 1 1',
+        category: 'frontier',
+        locationIds: [],
+      },
+    ];
+    const host = document.createElement('div');
+    document.body.append(host);
+    root = createRoot(host);
+    act(() =>
+      root!.render(
+        <AppShell
+          quizOptions={syntheticOptions}
+          locationIds={[]}
+          defaultQuizId="world"
+          renderQuiz={() => (
+            <QuizHome quizOptions={syntheticOptions} onStart={() => {}} />
+          )}
+          highScores={<div />}
+          diagnostics={() => <div />}
+        />,
+      ),
+    );
+
+    const labels = quizCategoriesFor(syntheticOptions).map(
+      (category) => category.label,
+    );
+    expect(appChromeSource).not.toContain('frontier');
+    expect(
+      [...host.querySelectorAll('.quiz-option-section h2')].map(
+        (heading) => heading.textContent,
+      ),
+    ).toEqual(labels);
+    const trigger = host.querySelector(
+      '.quiz-menu-trigger',
+    ) as HTMLButtonElement;
+    act(() => trigger.click());
+    expect(
+      [...host.querySelectorAll('.quiz-submenu > button')].map((button) =>
+        button.textContent?.replace('▸', '').trim(),
+      ),
+    ).toEqual(labels);
+    act(() =>
+      [...host.querySelectorAll('.quiz-submenu > button')]
+        .find((button) => button.textContent?.includes('Frontier'))
+        ?.dispatchEvent(new MouseEvent('click', { bubbles: true })),
+    );
+    expect(host.querySelector('.quiz-submenu-popover a')?.textContent).toBe(
+      'Frontier',
+    );
   });
 });

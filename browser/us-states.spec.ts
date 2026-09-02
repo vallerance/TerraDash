@@ -485,7 +485,7 @@ test('regional submenu is keyboard accessible and viewport-contained', async ({
   await page.goto('/TerraDash/');
   const trigger = page.getByRole('button', { name: /Quizzes/ });
   await trigger.click();
-  const regional = page.getByRole('menuitem', { name: 'Regional quizzes' });
+  const regional = page.getByRole('menuitem', { name: 'States and Provinces' });
   await regional.focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('menu').last()).toBeVisible();
