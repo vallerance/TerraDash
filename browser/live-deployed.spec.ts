@@ -28,7 +28,11 @@ async function discoverQuizLinks(page: Page): Promise<DiscoveredQuiz[]> {
     await categoryButton.click();
     const submenu = page.getByRole('menu').last();
     const quizLinks = submenu.getByRole('menuitem');
-    for (let quizIndex = 0; quizIndex < (await quizLinks.count()); quizIndex += 1) {
+    for (
+      let quizIndex = 0;
+      quizIndex < (await quizLinks.count());
+      quizIndex += 1
+    ) {
       const quizLink = quizLinks.nth(quizIndex);
       const quizLabel = (await quizLink.textContent())?.trim();
       const href = await quizLink.getAttribute('href');
@@ -66,11 +70,10 @@ test('deployed Pages dropdown opens every quiz details dialog', async ({
   for (const quiz of quizzes) {
     await page.goto(`${liveBase}/`);
     await openQuizFromCategory(page, quiz.categoryLabel, quiz.quizLabel);
-    const quizId = new URL(quiz.href).searchParams.get('quiz');
-    if (!quizId) throw new Error(`Missing quiz ID in href for ${quiz.quizLabel}`);
-    await expect(page).toHaveURL(
-      new RegExp(`[?&]quiz=${quizId}`),
-    );
+    const quizId = new URL(quiz.href, page.url()).searchParams.get('quiz');
+    if (!quizId)
+      throw new Error(`Missing quiz ID in href for ${quiz.quizLabel}`);
+    await expect(page).toHaveURL(new RegExp(`[?&]quiz=${quizId}`));
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
     await expect(
