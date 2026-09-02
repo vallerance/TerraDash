@@ -42,6 +42,7 @@ async function discoverQuizLinks(page: Page): Promise<DiscoveredQuiz[]> {
     }
     await categoryButton.click();
   }
+  await page.getByRole('button', { name: /Quizzes/ }).click();
   return discovered;
 }
 
@@ -68,7 +69,6 @@ test('deployed Pages dropdown opens every quiz details dialog', async ({
   await page.goto(`${liveBase}/`);
   const quizzes = await discoverQuizLinks(page);
   for (const quiz of quizzes) {
-    await page.goto(`${liveBase}/`);
     await openQuizFromCategory(page, quiz.categoryLabel, quiz.quizLabel);
     const quizId = new URL(quiz.href, page.url()).searchParams.get('quiz');
     if (!quizId)
@@ -79,6 +79,7 @@ test('deployed Pages dropdown opens every quiz details dialog', async ({
     await expect(
       dialog.getByRole('button', { name: /Start .* Quiz/ }),
     ).toBeVisible();
+    await dialog.getByRole('button', { name: 'Close quiz details' }).click();
   }
 });
 
