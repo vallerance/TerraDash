@@ -13,6 +13,7 @@ import {
 } from '../contracts/quiz';
 import type { QuizOption } from '../contracts/quiz';
 import { AppShell } from './AppShell';
+import appChromeSource from './AppChrome.tsx?raw';
 import { QuizHome } from '../quiz/QuizHome';
 
 const options: QuizOption[] = [
@@ -224,7 +225,7 @@ describe('AppShell selection and route handoff', () => {
 });
 
 describe('shared quiz category contract', () => {
-  it('keeps a synthetic category in the same order and on both surfaces', () => {
+  it('renders a newly added category on both surfaces without AppChrome changes', () => {
     const syntheticOptions: QuizOption[] = [
       ...options,
       {
@@ -258,6 +259,7 @@ describe('shared quiz category contract', () => {
     const labels = quizCategoriesFor(syntheticOptions).map(
       (category) => category.label,
     );
+    expect(appChromeSource).not.toContain('frontier');
     expect(
       [...host.querySelectorAll('.quiz-option-section h2')].map(
         (heading) => heading.textContent,
