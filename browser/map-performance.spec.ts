@@ -124,7 +124,7 @@ test.describe('production map performance capture', () => {
       ).__readTerraDashInteractionWindows(),
     );
     expect(
-      tasksOverlappingInteractions(outsideCapture, outsideWindows),
+      tasksOverlappingInteractions(outsideCapture.longTasks, outsideWindows),
     ).toHaveLength(0);
 
     const start = await page.evaluate(() =>
@@ -162,7 +162,10 @@ test.describe('production map performance capture', () => {
         }
       ).__readTerraDashInteractionWindows(),
     );
-    const interactionLongTasks = tasksOverlappingInteractions(capture, windows);
+    const interactionLongTasks = tasksOverlappingInteractions(
+      capture.longTasks,
+      windows,
+    );
     expect(
       Math.max(0, ...interactionLongTasks.map(({ duration }) => duration)),
     ).toBeGreaterThanOrEqual(50);
@@ -225,7 +228,7 @@ test.describe('production map performance capture', () => {
           ).__readTerraDashInteractionWindows(),
         );
         const interactionLongTasks = tasksOverlappingInteractions(
-          capture,
+          capture.longTasks,
           interactionWindows,
         );
         const busyTimeMs = capture.longTasks.reduce(
