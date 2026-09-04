@@ -22,10 +22,6 @@ const MARINE_PATH = resolve(
   ROOT,
   '.scratch/ne_10m_geography_marine_polys.geojson',
 );
-const BOUNDARY_PATH = resolve(
-  ROOT,
-  'data/source/world-region-boundaries.geojson',
-);
 const LAND_URL =
   'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/9380cca83db5f9aef52d5e762765100745f84b27/geojson/ne_10m_land.geojson';
 const REGION_URL =
@@ -108,14 +104,6 @@ function asMultiPolygon(feature) {
   return polygonParts(feature);
 }
 
-function maskById(boundaries, id) {
-  const feature = boundaries.features.find(
-    (candidate) => candidate.properties?.id === id,
-  );
-  if (!feature) throw new Error(`Missing boundary mask: ${id}`);
-  return asMultiPolygon(feature);
-}
-
 function unionAll(polygons) {
   if (!polygons.length) throw new Error('Cannot union an empty polygon set');
   return polygons.reduce((result, polygon) =>
@@ -123,30 +111,23 @@ function unionAll(polygons) {
   );
 }
 
-function regionLand(land, boundaries, physicalRegions) {
+function regionLand(land, physicalRegions) {
   const dissolved = unionAll(land.features.map(asMultiPolygon));
-  const oceaniaRegionCount = physicalRegions.features.filter(
-    ({ properties }) => properties?.REGION === 'Oceania',
-  ).length;
-  if (oceaniaRegionCount === 0)
-    throw new Error('Pinned physical-region source has no Oceania features');
-  const masks = new Map([
-    ['north-america', maskById(boundaries, 'north-america')],
-    ['south-america', maskById(boundaries, 'south-america')],
-    ['africa', maskById(boundaries, 'africa')],
-    ['europe', maskById(boundaries, 'europe')],
-    ['antarctica', maskById(boundaries, 'antarctica')],
-    ['oceania', maskById(boundaries, 'oceania')],
-    ['asia', maskById(boundaries, 'asia')],
-  ]);
-  const regions = new Map(
-    [...masks].map(([id, mask]) => [
-      id,
-      polygonClipping.intersection(dissolved, mask),
-    ]),
-  );
-  for (const [id, coordinates] of regions)
-    if (!coordinates.length) throw new Error(`Empty region mask: ${id}`);
+  const regions = new Map();
+  for (const [id, name] of continents) {
+    const feature = physicalRegions.features.find(
+      ({ properties }) =>
+        properties?.REGION === name && properties?.FEATURECLA === 'Continent',
+    );
+    if (!feature) throw new Error(`Missing Natural Earth continent: ${name}`);
+    const coordinates = polygonClipping.intersection(
+      dissolved,
+      asMultiPolygon(feature),
+    );
+    if (!coordinates.length)
+      throw new Error(`Empty continent geometry: ${name}`);
+    regions.set(id, coordinates);
+  }
   return regions;
 }
 
@@ -162,9 +143,9 @@ function groupedFeature(id, name, source, features) {
   };
 }
 
-function derive(land, boundaries, physicalRegions, marine) {
+function derive(land, physicalRegions, marine) {
   const features = [];
-  const regions = regionLand(land, boundaries, physicalRegions);
+  const regions = regionLand(land, physicalRegions);
   for (const [id, name] of continents) {
     const coordinates = regions.get(id);
     if (!coordinates?.length)
@@ -175,7 +156,7 @@ function derive(land, boundaries, physicalRegions, marine) {
       properties: {
         id: `world:${id}`,
         name,
-        source: `land:ne_10m_land∩mask=${id}`,
+        source: `land:ne_10m_land∩ne_10m_geography_regions_polys:${name}`,
       },
       geometry: { type: 'MultiPolygon', coordinates },
     });
@@ -231,10 +212,6 @@ await ensureInput(REGION_PATH, REGION_URL);
 await ensureInput(MARINE_PATH, MARINE_URL);
 const result = derive(
   readPinned(LAND_PATH, LAND_SHA256),
-  readPinned(
-    BOUNDARY_PATH,
-    '4ecba2505549d328636007ea03580d223370a08b30f678ec17c2c353d680cab6',
-  ),
   readPinned(REGION_PATH, REGION_SHA256),
   readPinned(MARINE_PATH, MARINE_SHA256),
 );

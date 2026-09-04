@@ -58,24 +58,12 @@ describe('world-region derivation', () => {
       land.every(({ properties }) => properties.source.startsWith('land:')),
     ).toBe(true);
     expect(
+      land.every(({ properties }) =>
+        properties.source.includes('geography_regions_polys'),
+      ),
+    ).toBe(true);
+    expect(
       land.every(({ properties }) => !properties.source.includes('admin-0')),
     ).toBe(true);
-    const boundaries = JSON.parse(
-      readFileSync(
-        new URL(
-          '../data/source/world-region-boundaries.geojson',
-          import.meta.url,
-        ),
-      ),
-    );
-    expect(boundaries.features.map(({ properties }) => properties.id)).toEqual([
-      'north-america',
-      'south-america',
-      'africa',
-      'europe',
-      'asia',
-      'oceania',
-      'antarctica',
-    ]);
   });
 });
