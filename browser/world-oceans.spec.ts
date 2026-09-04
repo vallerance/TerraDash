@@ -163,6 +163,7 @@ test('representative continent edge land follows geographic boundaries', async (
   await page.setViewportSize({ width: 1440, height: 900 });
   for (const [slug, name, longitude, latitude] of coastlineProbes) {
     await page.goto(diagnosticsUrl(slug));
+    await expect(page.locator('.world-map')).toBeVisible();
     const covered = await page.evaluate(
       ({
         slug: probeSlug,
