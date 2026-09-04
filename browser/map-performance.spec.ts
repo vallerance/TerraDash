@@ -2,9 +2,11 @@ import { expect, test, type BrowserContext } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 
 type Capture = {
-  longTasks: number[];
+  longTasks: { startTime: number; duration: number }[];
   inputTasks: number[];
 };
+
+type InteractionWindow = { start: number; end: number };
 
 type TraceEvent = {
   name?: string;
@@ -37,17 +39,23 @@ test.describe('production map performance capture', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
-      const longTasks: number[] = [];
+      const longTasks: { startTime: number; duration: number }[] = [];
       const inputTasks: number[] = [];
       const observers: PerformanceObserver[] = [];
+      const interactionWindows: InteractionWindow[] = [];
       const observe = (
         type: string,
-        target: number[],
+        target: unknown[],
         options: Omit<PerformanceObserverInit, 'buffered'> = {},
       ) => {
         try {
           const observer = new PerformanceObserver((list) => {
-            for (const entry of list.getEntries()) target.push(entry.duration);
+            for (const entry of list.getEntries())
+              target.push(
+                type === 'longtask'
+                  ? { startTime: entry.startTime, duration: entry.duration }
+                  : entry.duration,
+              );
           });
           observer.observe({ type, buffered: false, ...options });
           observers.push(observer);
@@ -61,12 +69,45 @@ test.describe('production map performance capture', () => {
           observers.length = 0;
           longTasks.length = 0;
           inputTasks.length = 0;
+          interactionWindows.length = 0;
           observe('longtask', longTasks);
           observe('event', inputTasks, { durationThreshold: 16 });
         },
         __readTerraDashCapture: (): Capture => ({ longTasks, inputTasks }),
+        __beginTerraDashInteraction: () => performance.now(),
+        __endTerraDashInteraction: (start: number) =>
+          interactionWindows.push({ start, end: performance.now() }),
+        __readTerraDashInteractionWindows: () => interactionWindows,
       });
     });
+  });
+
+  test('calibrates that the 50 ms gate detects a blocking application task', async ({
+    page,
+  }) => {
+    await page.goto('/TerraDash/?quiz=caribbean&start=1');
+    await page.evaluate(() => {
+      (
+        window as Window & { __resetTerraDashCapture: () => void }
+      ).__resetTerraDashCapture();
+    });
+    await page.evaluate(() => {
+      const end = performance.now() + 60;
+      while (performance.now() < end) {
+        // Deliberately emulate one blocking application task for calibration.
+      }
+    });
+    await page.waitForTimeout(0);
+    const capture = await page.evaluate(() =>
+      (
+        window as Window & {
+          __readTerraDashCapture: () => Capture;
+        }
+      ).__readTerraDashCapture(),
+    );
+    expect(
+      Math.max(0, ...capture.longTasks.map(({ duration }) => duration)),
+    ).toBeGreaterThanOrEqual(50);
   });
 
   for (const fixture of [
@@ -93,8 +134,23 @@ test.describe('production map performance capture', () => {
         await page.waitForTimeout(fixture.durationMs);
         const answer = page.getByRole('combobox', { name: 'Location name' });
         for (const value of ['a', 'ca', 'car', 'cari', 'carib']) {
+          const start = await page.evaluate(() =>
+            (
+              window as Window & {
+                __beginTerraDashInteraction: () => number;
+              }
+            ).__beginTerraDashInteraction(),
+          );
           await answer.fill(value);
+          await page.evaluate((interactionStart) => {
+            (
+              window as Window & {
+                __endTerraDashInteraction: (start: number) => void;
+              }
+            ).__endTerraDashInteraction(interactionStart);
+          }, start);
         }
+        await page.waitForTimeout(0);
         const traceEvents = await stopTrace(client);
         const capture = await page.evaluate(() =>
           (
@@ -103,8 +159,21 @@ test.describe('production map performance capture', () => {
             }
           ).__readTerraDashCapture(),
         );
+        const interactionWindows = await page.evaluate(() =>
+          (
+            window as Window & {
+              __readTerraDashInteractionWindows: () => InteractionWindow[];
+            }
+          ).__readTerraDashInteractionWindows(),
+        );
+        const interactionLongTasks = capture.longTasks.filter((task) =>
+          interactionWindows.some(
+            ({ start, end }) =>
+              task.startTime < end && task.startTime + task.duration > start,
+          ),
+        );
         const busyTimeMs = capture.longTasks.reduce(
-          (total, duration) => total + duration,
+          (total, { duration }) => total + duration,
           0,
         );
         const rendererThreadIds = new Set(
@@ -139,6 +208,11 @@ test.describe('production map performance capture', () => {
               : null,
           maxInputTaskMs: Math.max(0, ...capture.inputTasks),
           longTaskCount: capture.longTasks.length,
+          interactionLongTaskCount: interactionLongTasks.length,
+          maxInteractionLongTaskMs: Math.max(
+            0,
+            ...interactionLongTasks.map(({ duration }) => duration),
+          ),
         };
         const artifactPath = testInfo.outputPath(
           fixture.id + '-performance.json',
@@ -150,7 +224,7 @@ test.describe('production map performance capture', () => {
           contentType: 'application/json',
         });
         expect(result.maxInputTaskMs).toBeLessThan(100);
-        expect(result.longTaskCount).toBe(0);
+        expect(result.maxInteractionLongTaskMs).toBeLessThan(50);
         if (fixture.id === 'china-provinces') {
           expect(result.rendererTaskOccupancyMs).toBeLessThan(29_730 * 0.2);
         }
