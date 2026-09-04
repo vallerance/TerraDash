@@ -39,25 +39,30 @@ test.describe('production map performance capture', () => {
     await page.addInitScript(() => {
       const longTasks: number[] = [];
       const inputTasks: number[] = [];
+      const observers: PerformanceObserver[] = [];
       const observe = (
         type: string,
         target: number[],
-        options: PerformanceObserverInit = {},
+        options: Omit<PerformanceObserverInit, 'buffered'> = {},
       ) => {
         try {
-          new PerformanceObserver((list) => {
+          const observer = new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) target.push(entry.duration);
-          }).observe({ type, buffered: true, ...options });
+          });
+          observer.observe({ type, buffered: false, ...options });
+          observers.push(observer);
         } catch {
           // The capture remains valid on browsers without this optional entry type.
         }
       };
-      observe('longtask', longTasks);
-      observe('event', inputTasks, { durationThreshold: 16 });
       Object.assign(window, {
         __resetTerraDashCapture: () => {
+          for (const observer of observers) observer.disconnect();
+          observers.length = 0;
           longTasks.length = 0;
           inputTasks.length = 0;
+          observe('longtask', longTasks);
+          observe('event', inputTasks, { durationThreshold: 16 });
         },
         __readTerraDashCapture: (): Capture => ({ longTasks, inputTasks }),
       });
