@@ -3,8 +3,9 @@
 /**
  * Derive the twelve selectable world regions without hand-authoring geometry.
  *
- * Dissolve pinned physical land once, intersect it with authored WGS84 masks,
- * and flatten exact named marine polygons into deterministic world features.
+ * Dissolve pinned physical land once, intersect it with pinned continent
+ * geometries, and flatten exact named marine polygons into deterministic
+ * world features.
  */
 
 import { createHash } from 'node:crypto';
@@ -115,11 +116,15 @@ function regionLand(land, physicalRegions) {
   const dissolved = unionAll(land.features.map(asMultiPolygon));
   const regions = new Map();
   for (const [id, name] of continents) {
-    const feature = physicalRegions.features.find(
+    const matches = physicalRegions.features.filter(
       ({ properties }) =>
         properties?.REGION === name && properties?.FEATURECLA === 'Continent',
     );
-    if (!feature) throw new Error(`Missing Natural Earth continent: ${name}`);
+    if (matches.length !== 1)
+      throw new Error(
+        `Expected exactly one Natural Earth continent geometry for ${name}; found ${matches.length}`,
+      );
+    const [feature] = matches;
     const coordinates = polygonClipping.intersection(
       dissolved,
       asMultiPolygon(feature),
