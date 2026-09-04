@@ -8,6 +8,18 @@ type Capture = {
 
 type InteractionWindow = { start: number; end: number };
 
+function tasksOverlappingInteractions(
+  tasks: Capture['longTasks'],
+  windows: InteractionWindow[],
+) {
+  return tasks.filter((task) =>
+    windows.some(
+      ({ start, end }) =>
+        task.startTime < end && task.startTime + task.duration > start,
+    ),
+  );
+}
+
 type TraceEvent = {
   name?: string;
   ph?: string;
@@ -82,9 +94,7 @@ test.describe('production map performance capture', () => {
     });
   });
 
-  test('calibrates that the 50 ms gate detects a blocking application task', async ({
-    page,
-  }) => {
+  test('calibrates the interaction-scoped 50 ms gate', async ({ page }) => {
     await page.goto('/TerraDash/?quiz=caribbean&start=1');
     await page.evaluate(() => {
       (
@@ -94,9 +104,49 @@ test.describe('production map performance capture', () => {
     await page.evaluate(() => {
       const end = performance.now() + 60;
       while (performance.now() < end) {
+        // Deliberately emulate idle runner work outside a marked interaction.
+      }
+    });
+    await page.waitForTimeout(0);
+    const outsideCapture = await page.evaluate(() =>
+      (
+        window as Window & {
+          __readTerraDashCapture: () => Capture;
+          __readTerraDashInteractionWindows: () => InteractionWindow[];
+        }
+      ).__readTerraDashCapture(),
+    );
+    const outsideWindows = await page.evaluate(() =>
+      (
+        window as Window & {
+          __readTerraDashInteractionWindows: () => InteractionWindow[];
+        }
+      ).__readTerraDashInteractionWindows(),
+    );
+    expect(
+      tasksOverlappingInteractions(outsideCapture, outsideWindows),
+    ).toHaveLength(0);
+
+    const start = await page.evaluate(() =>
+      (
+        window as Window & {
+          __beginTerraDashInteraction: () => number;
+        }
+      ).__beginTerraDashInteraction(),
+    );
+    await page.evaluate(() => {
+      const end = performance.now() + 60;
+      while (performance.now() < end) {
         // Deliberately emulate one blocking application task for calibration.
       }
     });
+    await page.evaluate((interactionStart) => {
+      (
+        window as Window & {
+          __endTerraDashInteraction: (start: number) => void;
+        }
+      ).__endTerraDashInteraction(interactionStart);
+    }, start);
     await page.waitForTimeout(0);
     const capture = await page.evaluate(() =>
       (
@@ -105,8 +155,16 @@ test.describe('production map performance capture', () => {
         }
       ).__readTerraDashCapture(),
     );
+    const windows = await page.evaluate(() =>
+      (
+        window as Window & {
+          __readTerraDashInteractionWindows: () => InteractionWindow[];
+        }
+      ).__readTerraDashInteractionWindows(),
+    );
+    const interactionLongTasks = tasksOverlappingInteractions(capture, windows);
     expect(
-      Math.max(0, ...capture.longTasks.map(({ duration }) => duration)),
+      Math.max(0, ...interactionLongTasks.map(({ duration }) => duration)),
     ).toBeGreaterThanOrEqual(50);
   });
 
@@ -166,11 +224,9 @@ test.describe('production map performance capture', () => {
             }
           ).__readTerraDashInteractionWindows(),
         );
-        const interactionLongTasks = capture.longTasks.filter((task) =>
-          interactionWindows.some(
-            ({ start, end }) =>
-              task.startTime < end && task.startTime + task.duration > start,
-          ),
+        const interactionLongTasks = tasksOverlappingInteractions(
+          capture,
+          interactionWindows,
         );
         const busyTimeMs = capture.longTasks.reduce(
           (total, { duration }) => total + duration,
