@@ -5,6 +5,10 @@ import { execFileSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
 
 const root = new URL('../', import.meta.url);
+const physicalRegionsPath = new URL(
+  '../.scratch/ne_10m_geography_regions_polys.geojson',
+  import.meta.url,
+);
 const targetNames = [
   'Africa',
   'Antarctica',
@@ -65,5 +69,19 @@ describe('world-region derivation', () => {
     expect(
       land.every(({ properties }) => !properties.source.includes('admin-0')),
     ).toBe(true);
+
+    const physicalRegions = JSON.parse(
+      readFileSync(physicalRegionsPath, 'utf8'),
+    );
+    for (const name of targetNames.slice(0, 7)) {
+      const matches = physicalRegions.features.filter(
+        ({ properties }) =>
+          properties?.REGION === name && properties?.FEATURECLA === 'Continent',
+      );
+      expect(matches, `${name} Natural Earth source cardinality`).toHaveLength(
+        1,
+      );
+      expect(matches[0].geometry.type).toMatch(/Polygon|MultiPolygon/);
+    }
   });
 });

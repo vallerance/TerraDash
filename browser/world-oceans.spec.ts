@@ -17,6 +17,12 @@ const continentCases = [
   ['oceania', 'Oceania'],
 ] as const;
 
+const coastlineProbes = [
+  ['europe', 'Europe', 61, 66],
+  ['south-america', 'South America', -75, 10],
+  ['oceania', 'Oceania', 120, -25],
+] as const;
+
 function diagnosticsUrl(slug: string) {
   return `/TerraDash/diagnostics.html?quiz=continents-and-oceans&location=${encodeURIComponent(`world:${slug}`)}`;
 }
@@ -148,6 +154,38 @@ test('continent coastlines are rendered without authored mask seams', async ({
       );
     });
     expect(seamSegments, `${name} authored mask seam vertices`).toBe(0);
+  }
+});
+
+test('representative continent edge land follows geographic boundaries', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const [slug, name, longitude, latitude] of coastlineProbes) {
+    await page.goto(diagnosticsUrl(slug));
+    await expect(page.locator('.world-map')).toBeVisible();
+    const covered = await page.evaluate(
+      ({
+        slug: probeSlug,
+        longitude: probeLongitude,
+        latitude: probeLatitude,
+      }) => {
+        const svg = document.querySelector<SVGSVGElement>('.world-map')!;
+        const path = document.querySelector<SVGPathElement>(
+          `.active-fill path[data-location-id="world:${probeSlug}"]`,
+        )!;
+        const mapPoint = svg.createSVGPoint();
+        mapPoint.x = ((probeLongitude + 180) / 360) * 1440;
+        mapPoint.y = ((90 - probeLatitude) / 180) * 720;
+        const screenPoint = mapPoint.matrixTransform(svg.getScreenCTM()!);
+        const localPoint = screenPoint.matrixTransform(
+          path.getScreenCTM()!.inverse(),
+        );
+        return path.isPointInFill(localPoint);
+      },
+      { slug, longitude, latitude },
+    );
+    expect(covered, `${name} should cover ${longitude},${latitude}`).toBe(true);
   }
 });
 

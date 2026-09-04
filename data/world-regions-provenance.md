@@ -32,9 +32,13 @@ conventional seven-region definitions; Europe and Asia remain necessarily
 conventional, but their coastlines no longer inherit authored longitude and
 latitude cut lines.
 
-Tests assert exactly seven land outputs, valid non-empty geometry, and
-exhaustive/non-overlapping assignment of the dissolved land to the continent
-geometries.
+The generator asserts exactly one matching `FEATURECLA=Continent` source
+feature for each of the seven names and rejects empty intersections. The
+resulting land is intentionally the source's conventional seven-continent
+selection; it is not described as an exhaustive or non-overlapping partition
+of every Natural Earth land vertex, because that convention can leave edge
+islands outside a named continent or represent conventional boundaries that
+are not mutually exclusive at their shared edges.
 
 ## Ocean operation and audit
 
