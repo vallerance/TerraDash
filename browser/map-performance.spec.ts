@@ -102,11 +102,19 @@ test.describe('production map performance capture', () => {
       ).__resetTerraDashCapture();
     });
     await page.evaluate(() => {
-      const end = performance.now() + 60;
-      while (performance.now() < end) {
-        // Deliberately emulate idle runner work outside a marked interaction.
-      }
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.id = 'long-task-calibration';
+      button.textContent = 'Long-task calibration';
+      button.addEventListener('click', () => {
+        const end = performance.now() + 60;
+        while (performance.now() < end) {
+          // Deliberately emulate one blocking application task for calibration.
+        }
+      });
+      document.body.append(button);
     });
+    await page.locator('#long-task-calibration').click();
     await page.waitForTimeout(0);
     const outsideCapture = await page.evaluate(() =>
       (
@@ -123,6 +131,7 @@ test.describe('production map performance capture', () => {
         }
       ).__readTerraDashInteractionWindows(),
     );
+    expect(outsideCapture.longTasks.length).toBeGreaterThan(0);
     expect(
       tasksOverlappingInteractions(outsideCapture.longTasks, outsideWindows),
     ).toHaveLength(0);
@@ -134,12 +143,7 @@ test.describe('production map performance capture', () => {
         }
       ).__beginTerraDashInteraction(),
     );
-    await page.evaluate(() => {
-      const end = performance.now() + 60;
-      while (performance.now() < end) {
-        // Deliberately emulate one blocking application task for calibration.
-      }
-    });
+    await page.locator('#long-task-calibration').click();
     await page.evaluate((interactionStart) => {
       (
         window as Window & {
