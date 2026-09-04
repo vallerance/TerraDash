@@ -18,7 +18,7 @@ const continentCases = [
 ] as const;
 
 const coastlineProbes = [
-  ['europe', 'Europe', 63, 68],
+  ['europe', 'Europe', 61, 66],
   ['south-america', 'South America', -75, 10],
   ['oceania', 'Oceania', 120, -25],
 ] as const;
