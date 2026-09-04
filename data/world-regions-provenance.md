@@ -16,31 +16,25 @@ Natural Earth v5.1.1-era repository data is pinned at commit
 | `ne_10m_geography_marine_polys.geojson`  | `53f865e8ffa966cdd402145c82c5cd14ee7ce974cd0eb9a3f59f03a4cfd2d66`  | `.scratch/ne_10m_geography_marine_polys.geojson`  |
 
 The exact raw URLs and checks are in `scripts/derive-world-regions.mjs`.
-The seven authored WGS84 mask polygons are in
-`data/source/world-region-boundaries.geojson`.
+The continent geometries are selected from the pinned physical-region source
+by `REGION` and `FEATURECLA=Continent`; the existing land layer is intersected
+with those natural coastline polygons before projection. This preserves the
+source's conventional seven-continent definitions without introducing
+rectangular authored seams.
 
 ## Land operation and convention
 
 The generator normalizes the pinned land FeatureCollection, performs one
 deterministic polygon-clipping unary union to remove all country seams, then
-intersects the dissolved land with the seven masks. The masks use explicit
-world coordinates: the Americas split at 9°N (the Panama land-bridge
-convention), Africa occupies the 20°W–60°E band south of 37°N, Europe is west
-of 60°E north of 37°N, Asia occupies 60°E–180°E except south of 30°N east of
-141°E, and Antarctica is south of 60°S. Oceania occupies that east-of-141°E,
-south-of-30°N mask. These authored masks are disjoint at their boundaries, so
-the generator does not subtract the detailed physical-region polygons (that
-operation is unnecessarily unstable on this source's very dense rings). The
-pinned geography-region layer is still checked for Oceania features as
-provenance corroboration. The coordinate rule assigns Australia, New Zealand,
-Papua New Guinea and Pacific islands east of 141°E to Oceania; Indonesia,
-Malaysia, the Philippines and Timor-Leste remain in Asia. This is a documented
-conventional seven-region partition, not a claim that Natural Earth publishes
-an exhaustive geological continent layer; Europe/Asia is necessarily
-conventional.
+intersects the dissolved land with each matching `FEATURECLA=Continent`
+geometry from the pinned geography-region layer. These are Natural Earth's
+conventional seven-region definitions; Europe and Asia remain necessarily
+conventional, but their coastlines no longer inherit authored longitude and
+latitude cut lines.
 
 Tests assert exactly seven land outputs, valid non-empty geometry, and
-exhaustive/non-overlapping assignment of the dissolved land to the masks.
+exhaustive/non-overlapping assignment of the dissolved land to the continent
+geometries.
 
 ## Ocean operation and audit
 

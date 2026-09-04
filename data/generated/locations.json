@@ -7852,8 +7852,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:africa"],
-    "anchor": [602.29, 212],
-    "bounds": [602.29, 212, 960, 597.83]
+    "anchor": [650.01, 210.73],
+    "bounds": [650.01, 210.73, 925.52, 499.14]
   },
   {
     "id": "world:antarctica",
@@ -7869,8 +7869,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:antarctica"],
-    "anchor": [0, 602.41],
-    "bounds": [0, 602.41, 1440, 720]
+    "anchor": [0, 604.43],
+    "bounds": [0, 604.43, 1440, 720]
   },
   {
     "id": "world:asia",
@@ -7886,8 +7886,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:asia"],
-    "anchor": [960, 33.31],
-    "bounds": [960, 33.31, 1440, 572.76]
+    "anchor": [0, 34.92],
+    "bounds": [0, 34.92, 1439.95, 354.7]
   },
   {
     "id": "world:europe",
@@ -7903,8 +7903,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:europe"],
-    "anchor": [600, 25.72],
-    "bounds": [600, 25.72, 960, 212]
+    "anchor": [682.08, 75.63],
+    "bounds": [682.08, 75.63, 985.46, 220.26]
   },
   {
     "id": "world:north-america",
@@ -7920,8 +7920,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:north-america"],
-    "anchor": [0, 25.72],
-    "bounds": [0, 25.72, 600, 324]
+    "anchor": [7.22, 25.63],
+    "bounds": [7.22, 25.63, 1439.12, 297.35]
   },
   {
     "id": "world:south-america",
@@ -7937,8 +7937,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:south-america"],
-    "anchor": [360.1, 324],
-    "bounds": [360.1, 324, 590.15, 586.08]
+    "anchor": [394.66, 311.29],
+    "bounds": [394.66, 311.29, 580.45, 582.7]
   },
   {
     "id": "world:oceania",
@@ -7954,8 +7954,8 @@
       ]
     },
     "geometryRefs": ["world:world-regions:world:oceania"],
-    "anchor": [1284, 249.09],
-    "bounds": [1284, 249.09, 1440, 578.95]
+    "anchor": [1171.68, 400.49],
+    "bounds": [1171.68, 400.49, 1334.47, 534.45]
   },
   {
     "id": "world:arctic-ocean",

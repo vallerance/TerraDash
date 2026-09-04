@@ -64,7 +64,7 @@
       "sha256": "derived-from-pinned-inputs",
       "prefix": "world",
       "license": "Public domain",
-      "attribution": "Derived from pinned Natural Earth land and geography marine polygons using data/source/world-region-boundaries.geojson; see data/world-regions-provenance.md"
+      "attribution": "Derived from pinned Natural Earth land, continent, and geography marine polygons; see data/world-regions-provenance.md"
     }
   ],
   "geometrySourceReplacements": [

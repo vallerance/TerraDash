@@ -8,6 +8,15 @@ const oceanCases = [
   ['southern-ocean', 'Southern Ocean'],
 ] as const;
 
+const continentCases = [
+  ['africa', 'Africa'],
+  ['europe', 'Europe'],
+  ['asia', 'Asia'],
+  ['north-america', 'North America'],
+  ['south-america', 'South America'],
+  ['oceania', 'Oceania'],
+] as const;
+
 function diagnosticsUrl(slug: string) {
   return `/TerraDash/diagnostics.html?quiz=continents-and-oceans&location=${encodeURIComponent(`world:${slug}`)}`;
 }
@@ -107,6 +116,53 @@ test('land clicks are not intercepted by the ocean background', async ({
   }, point!);
   expect(hit).toEqual({ id: 'world:africa', className: 'land-location' });
   await page.mouse.click(point!.x, point!.y);
+});
+
+test('continent coastlines are rendered without authored mask seams', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const [slug, name] of continentCases) {
+    await page.goto(diagnosticsUrl(slug));
+    const continent = page.locator(
+      `.active-fill path[data-location-id="world:${slug}"]`,
+    );
+    await expect(continent.first()).toHaveAttribute('aria-label', name);
+    const seamSegments = await continent.evaluateAll((paths) => {
+      const authoredSeams = new Set([
+        '600,212',
+        '600,324',
+        '960,212',
+        '960,324',
+        '1284,324',
+      ]);
+      return paths.reduce(
+        (count, path) =>
+          count +
+          [
+            ...path
+              .getAttribute('d')!
+              .matchAll(/(?:M|L)(-?\d+(?:\.\d+)?),(-?\d+)/g),
+          ].filter(([, x, y]) => authoredSeams.has(`${x},${y}`)).length,
+        0,
+      );
+    });
+    expect(seamSegments, `${name} authored mask seam vertices`).toBe(0);
+  }
+});
+
+test('the rendered base ocean is visibly blue', async ({ page }) => {
+  await page.goto(diagnosticsUrl('africa'));
+  const ocean = page.locator('rect.ocean');
+  await expect(ocean).toBeVisible();
+  const color = await ocean.evaluate(
+    (element) => getComputedStyle(element).fill,
+  );
+  const channels = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+  expect(channels).not.toBeNull();
+  const [, red, green, blue] = channels!.map(Number);
+  expect(blue).toBeGreaterThan(red);
+  expect(blue).toBeGreaterThan(green);
 });
 
 test('World map evidence is captured at wide and mobile sizes', async ({
