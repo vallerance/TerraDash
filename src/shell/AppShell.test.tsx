@@ -265,21 +265,20 @@ describe('shared quiz category contract', () => {
         (heading) => heading.textContent,
       ),
     ).toEqual(labels);
-    const trigger = host.querySelector(
-      '.quiz-menu-trigger',
-    ) as HTMLButtonElement;
-    act(() => trigger.click());
     expect(
-      [...host.querySelectorAll('.quiz-submenu > button')].map((button) =>
-        button.textContent?.replace('▸', '').trim(),
+      [...host.querySelectorAll('.quiz-menu-trigger')].map((button) =>
+        button.textContent?.replace('▾', '').trim(),
       ),
     ).toEqual(labels);
+    const frontierTrigger = [
+      ...host.querySelectorAll('.quiz-menu-trigger'),
+    ].find((button) => button.textContent?.includes('Frontier'));
     act(() =>
-      [...host.querySelectorAll('.quiz-submenu > button')]
-        .find((button) => button.textContent?.includes('Frontier'))
-        ?.dispatchEvent(new MouseEvent('click', { bubbles: true })),
+      frontierTrigger?.dispatchEvent(
+        new MouseEvent('click', { bubbles: true }),
+      ),
     );
-    expect(host.querySelector('.quiz-submenu-popover a')?.textContent).toBe(
+    expect(host.querySelector('.quiz-menu-popover a')?.textContent).toBe(
       'Frontier',
     );
   });

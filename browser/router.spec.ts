@@ -16,13 +16,8 @@ test('navbar navigation is same-document and preserves deep-link history', async
   await expect(page.locator('.diagnostics-control select')).toBeVisible();
   expect(loadCount).toBe(initialLoadCount);
 
-  await page.getByRole('button', { name: /Quizzes/ }).click();
-  await page.getByRole('menuitem', { name: 'Countries' }).click();
-  await page
-    .getByRole('menu')
-    .last()
-    .getByRole('menuitem', { name: 'World' })
-    .click();
+  await page.getByRole('button', { name: 'Countries', exact: true }).click();
+  await page.getByRole('menu').getByRole('menuitem', { name: 'World' }).click();
   await expect(page).toHaveURL(/\/TerraDash\/\?quiz=world&select=1$/);
   await expect(
     page.getByRole('dialog', { name: 'World UN Countries' }),
@@ -55,11 +50,9 @@ test('dropdown uses readable controls and wraps the full Non-UN title', async ({
 }) => {
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
-  await page.getByRole('button', { name: /Quizzes/ }).click();
-  await page.getByRole('menuitem', { name: 'Countries' }).click();
+  await page.getByRole('button', { name: 'Countries', exact: true }).click();
   const item = page
     .getByRole('menu')
-    .last()
     .getByRole('menuitem', { name: nonUnTitle });
   await expect(item).toBeVisible();
   const metrics = await item.evaluate((element) => {

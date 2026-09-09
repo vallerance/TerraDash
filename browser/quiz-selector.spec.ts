@@ -80,23 +80,25 @@ for (const fixture of [
   });
 }
 
-test('Quizzes menu exposes all destinations and enters the selected quiz', async ({
+test('top-level category menus expose destinations and enter the selected quiz', async ({
   page,
 }) => {
   await page.goto('/TerraDash/');
   const navbar = page.getByRole('navigation', { name: 'Quizzes' });
-  const trigger = navbar.getByRole('button', { name: /Quizzes/ });
+  await expect(navbar.getByRole('button')).toHaveText([
+    /Countries/,
+    /World/,
+    /States and Provinces/,
+    /Islands/,
+  ]);
+  const trigger = navbar.getByRole('button', {
+    name: 'Countries',
+    exact: true,
+  });
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   await trigger.click();
   const menu = page.getByRole('menu');
-  await expect(menu.getByRole('menuitem')).toHaveText([
-    'Countries',
-    'World',
-    'States and Provinces',
-    'Islands',
-  ]);
-  await menu.getByRole('menuitem', { name: 'Countries' }).click();
-  const countryMenu = page.getByRole('menu').last();
+  const countryMenu = menu;
   await expect(countryMenu.getByRole('menuitem')).toHaveText(
     quizNames
       .map((name) => name.replace(' UN Countries', ''))
@@ -157,12 +159,16 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   await expect(regionalSection.locator('.quiz-option-description')).toHaveText(
     regionalDescriptions,
   );
-  await page.locator('#quiz-menu > .quiz-submenu > button').nth(1).click();
-  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText([
+  await page.keyboard.press('Escape');
+  await navbar.getByRole('button', { name: 'World', exact: true }).click();
+  await expect(page.getByRole('menu').getByRole('menuitem')).toHaveText([
     'Continents and Oceans',
   ]);
-  await menu.getByRole('menuitem', { name: 'States and Provinces' }).click();
-  await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveCount(
+  await page.keyboard.press('Escape');
+  await navbar
+    .getByRole('button', { name: 'States and Provinces', exact: true })
+    .click();
+  await expect(page.getByRole('menu').getByRole('menuitem')).toHaveCount(
     regionalQuizCount,
   );
   const nonUnIndex = globalDefinitions.findIndex(
@@ -186,9 +192,9 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
     'Improve your next run',
   ]);
   for (const [index, destination] of islandDestinations.entries()) {
-    if (index > 0) await trigger.click();
+    if (index === 0) await page.keyboard.press('Escape');
+    await navbar.getByRole('button', { name: 'Islands', exact: true }).click();
     const islandMenu = page.getByRole('menu');
-    await islandMenu.getByRole('menuitem', { name: 'Islands' }).click();
     await islandMenu.getByRole('menuitem', { name: destination.label }).click();
     const islandDialog = page.getByRole('dialog', {
       name: new RegExp(destination.label.replace(' by ', ' Islands by ')),
@@ -202,27 +208,17 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
       .click();
   }
   await trigger.click();
-  await page.getByRole('menuitem', { name: 'Countries' }).click();
-  await page
-    .getByRole('menu')
-    .last()
-    .getByRole('menuitem', { name: 'Asia' })
-    .click();
+  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Close quiz details' }).click();
   await trigger.click();
-  await page.getByRole('menuitem', { name: 'Countries' }).click();
-  await expect(page.getByRole('menu').first()).toBeVisible();
+  await expect(page.getByRole('menu')).toBeVisible();
   await expect(
-    page.getByRole('menu').last().getByRole('menuitem', { name: 'Asia' }),
+    page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }),
   ).toHaveAttribute('aria-current', 'page');
-  await page
-    .getByRole('menu')
-    .last()
-    .getByRole('menuitem', { name: 'Asia' })
-    .click();
+  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   const asiaDialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(asiaDialog).toBeVisible();
@@ -235,11 +231,11 @@ test('Quizzes menu exposes all destinations and enters the selected quiz', async
   );
 });
 
-test('Quizzes menu supports keyboard focus, Escape, and outside close', async ({
+test('category menu supports keyboard focus, Escape, and outside close', async ({
   page,
 }) => {
   await page.goto('/TerraDash/');
-  const trigger = page.getByRole('button', { name: /Quizzes/ });
+  const trigger = page.getByRole('button', { name: 'Countries', exact: true });
   await trigger.focus();
   await page.keyboard.press('ArrowDown');
   await expect(page.getByRole('menu')).toBeVisible();
@@ -259,11 +255,9 @@ for (const destination of [
     page,
   }) => {
     await page.goto(destination);
-    await page.getByRole('button', { name: /Quizzes/ }).click();
-    await page.getByRole('menuitem', { name: 'Countries' }).click();
+    await page.getByRole('button', { name: 'Countries', exact: true }).click();
     await page
       .getByRole('menu')
-      .last()
       .getByRole('menuitem', { name: 'Asia' })
       .click();
     const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
@@ -357,21 +351,23 @@ test('autocomplete only exposes locations in the active quiz', async ({
   await expect(page.getByRole('option', { name: 'Afghanistan' })).toBeVisible();
 });
 
-test('mobile Quizzes menu reaches and clicks the final quiz', async ({
+test('mobile category menu reaches and clicks the final quiz', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
   const mobileNav = page.getByRole('navigation', { name: 'Quizzes' });
-  await mobileNav.getByRole('button', { name: /Quizzes/ }).click();
-  await mobileNav.getByRole('menuitem', { name: 'Countries' }).click();
+  await mobileNav
+    .getByRole('button', { name: 'Countries', exact: true })
+    .click();
   await mobileNav
     .getByRole('menu')
-    .last()
     .getByRole('menuitem', { name: nonUnTitle })
     .click();
   await expect(page).toHaveURL(/\/TerraDash\/\?quiz=non-un&select=1$/);
-  await expect(page.getByRole('button', { name: /Quizzes/ })).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Countries', exact: true }),
+  ).toBeVisible();
 });
 
 test('home composition captures wide and mobile surfaces', async ({
@@ -422,7 +418,7 @@ test('home composition captures wide and mobile surfaces', async ({
   expect(wideBounds.guidance).toHaveLength(4);
   expect(new Set(wideBounds.guidance.map(({ left }) => left)).size).toBe(1);
   expect(wideBounds.guidance.every(({ width }) => width <= 550)).toBe(true);
-  await page.getByRole('button', { name: /Quizzes/ }).click();
+  await page.getByRole('button', { name: 'Countries', exact: true }).click();
   await expect(page.getByRole('menu')).toBeVisible();
   await page.screenshot({
     path: testInfo.outputPath('home-wide-dropdown.png'),
@@ -437,11 +433,10 @@ test('home composition captures wide and mobile surfaces', async ({
 
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/TerraDash/');
-  await page.getByRole('button', { name: /Quizzes/ }).click();
-  const mobileMenu = page.getByRole('menu').first();
+  await page.getByRole('button', { name: 'Countries', exact: true }).click();
+  const mobileMenu = page.getByRole('menu');
   await expect(mobileMenu).toBeVisible();
-  await mobileMenu.getByRole('menuitem', { name: 'Countries' }).click();
-  const countriesMenu = page.getByRole('menu').last();
+  const countriesMenu = mobileMenu;
   await expect(
     countriesMenu.getByRole('menuitem', { name: nonUnTitle }),
   ).toHaveText(nonUnTitle);
