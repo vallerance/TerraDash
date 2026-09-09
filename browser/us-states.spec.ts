@@ -479,15 +479,16 @@ for (const viewport of [
   });
 }
 
-test('regional submenu is keyboard accessible and viewport-contained', async ({
+test('regional category menu is keyboard accessible and viewport-contained', async ({
   page,
 }) => {
   await page.goto('/TerraDash/');
-  const trigger = page.getByRole('button', { name: /Quizzes/ });
-  await trigger.click();
-  const regional = page.getByRole('menuitem', { name: 'States and Provinces' });
+  const regional = page.getByRole('button', {
+    name: 'States and Provinces',
+    exact: true,
+  });
   await regional.focus();
-  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowDown');
   await expect(page.getByRole('menu').last()).toBeVisible();
   await expect(page.getByRole('menu').last().getByRole('menuitem')).toHaveText(
     regionalMenuLabels,

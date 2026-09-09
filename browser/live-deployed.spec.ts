@@ -14,20 +14,19 @@ type DiscoveredQuiz = {
 };
 
 async function discoverQuizLinks(page: Page): Promise<DiscoveredQuiz[]> {
-  await page.getByRole('button', { name: /Quizzes/ }).click();
-  const menu = page.getByRole('menu').first();
-  const categoryButtons = menu.locator('.quiz-submenu > button');
+  const navigation = page.getByRole('navigation', { name: 'Quizzes' });
+  const categoryButtons = navigation.locator('.quiz-menu-trigger');
   const discovered: DiscoveredQuiz[] = [];
   for (let index = 0; index < (await categoryButtons.count()); index += 1) {
     const categoryButton = categoryButtons.nth(index);
     const categoryLabel = (await categoryButton.textContent())
-      ?.replace('▸', '')
+      ?.replace('▾', '')
       .trim();
     if (!categoryLabel)
       throw new Error('Category button has no accessible label');
     await categoryButton.click();
-    const submenu = page.getByRole('menu').last();
-    const quizLinks = submenu.getByRole('menuitem');
+    const menu = page.getByRole('menu');
+    const quizLinks = menu.getByRole('menuitem');
     for (
       let quizIndex = 0;
       quizIndex < (await quizLinks.count());
@@ -42,7 +41,6 @@ async function discoverQuizLinks(page: Page): Promise<DiscoveredQuiz[]> {
     }
     await categoryButton.click();
   }
-  await page.getByRole('button', { name: /Quizzes/ }).click();
   return discovered;
 }
 
@@ -51,14 +49,9 @@ async function openQuizFromCategory(
   categoryLabel: string,
   quizLabel: string,
 ): Promise<void> {
-  await page.getByRole('button', { name: /Quizzes/ }).click();
-  const menu = page.getByRole('menu').first();
-  await menu
-    .getByRole('menuitem', { name: categoryLabel, exact: true })
-    .click();
+  await page.getByRole('button', { name: categoryLabel, exact: false }).click();
   await page
     .getByRole('menu')
-    .last()
     .getByRole('menuitem', { name: quizLabel, exact: true })
     .click();
 }
