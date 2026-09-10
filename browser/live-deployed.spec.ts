@@ -49,7 +49,10 @@ async function openQuizFromCategory(
   categoryLabel: string,
   quizLabel: string,
 ): Promise<void> {
-  await page.getByRole('button', { name: categoryLabel, exact: false }).click();
+  await page
+    .getByRole('navigation', { name: 'Quizzes' })
+    .getByRole('button', { name: categoryLabel, exact: true })
+    .click();
   await page
     .getByRole('menu')
     .getByRole('menuitem', { name: quizLabel, exact: true })
