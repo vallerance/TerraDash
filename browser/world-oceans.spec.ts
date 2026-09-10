@@ -165,6 +165,52 @@ test('the rendered base ocean is visibly blue', async ({ page }) => {
   expect(blue).toBeGreaterThan(green);
 });
 
+test('active fills use semantic first-attempt colors and override them on misses', async ({
+  page,
+}) => {
+  await page.goto(diagnosticsUrl('pacific-ocean'));
+  const baseOcean = page.locator('rect.ocean');
+  await expect(baseOcean).toHaveCSS('fill', 'rgb(11, 94, 168)');
+  const ocean = page
+    .locator('.active-fill path[data-location-id="world:pacific-ocean"]')
+    .first();
+  await expect(ocean).toHaveCSS('fill', 'rgb(59, 130, 246)');
+
+  await page.getByLabel('Location name').fill('Africa');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(page.locator('.active-player')).toHaveClass(
+    /attempts-remaining-2/,
+  );
+  await expect(ocean).toHaveCSS('fill', 'rgb(250, 204, 21)');
+
+  await page.getByLabel('Location name').fill('Africa');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(page.locator('.active-player')).toHaveClass(
+    /attempts-remaining-1/,
+  );
+  await expect(ocean).toHaveCSS('fill', 'rgb(248, 113, 113)');
+
+  await page.goto(diagnosticsUrl('europe'));
+  const land = page
+    .locator('.active-fill path[data-location-id="world:europe"]')
+    .first();
+  await expect(land).toHaveCSS('fill', 'rgb(52, 211, 153)');
+
+  await page.getByLabel('Location name').fill('Africa');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(page.locator('.active-player')).toHaveClass(
+    /attempts-remaining-2/,
+  );
+  await expect(land).toHaveCSS('fill', 'rgb(250, 204, 21)');
+
+  await page.getByLabel('Location name').fill('Africa');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(page.locator('.active-player')).toHaveClass(
+    /attempts-remaining-1/,
+  );
+  await expect(land).toHaveCSS('fill', 'rgb(248, 113, 113)');
+});
+
 test('World map evidence is captured at wide and mobile sizes', async ({
   page,
 }) => {
@@ -234,7 +280,7 @@ test('water hover, selected, and correct states retain water semantics', async (
   expect(box).not.toBeNull();
   await water.hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
   await expect(water).toHaveCSS('filter', 'brightness(1.2)');
-  await expect(water).toHaveCSS('fill', 'rgb(52, 211, 153)');
+  await expect(water).toHaveCSS('fill', 'rgb(59, 130, 246)');
   await page.getByLabel('Location name').fill('Indian Ocean');
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.getByText('Correct. Next location.')).toBeVisible();
