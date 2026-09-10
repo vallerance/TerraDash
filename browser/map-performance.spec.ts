@@ -91,12 +91,18 @@ test.describe('production map performance capture', () => {
         window as Window & { __resetTerraDashCapture: () => void }
       ).__resetTerraDashCapture();
     });
-    await page.evaluate(() => {
-      const end = performance.now() + 60;
-      while (performance.now() < end) {
-        // Deliberately emulate one blocking application task for calibration.
-      }
-    });
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) => {
+          setTimeout(() => {
+            const end = performance.now() + 60;
+            while (performance.now() < end) {
+              // Deliberately emulate one blocking application task for calibration.
+            }
+            resolve();
+          }, 0);
+        }),
+    );
     await page.waitForTimeout(0);
     const capture = await page.evaluate(() =>
       (
