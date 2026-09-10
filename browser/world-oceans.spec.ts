@@ -171,9 +171,9 @@ test('active fills use semantic first-attempt colors and override them on misses
   await page.goto(diagnosticsUrl('pacific-ocean'));
   const baseOcean = page.locator('rect.ocean');
   await expect(baseOcean).toHaveCSS('fill', 'rgb(11, 94, 168)');
-  const ocean = page.locator(
-    '.active-fill path[data-location-id="world:pacific-ocean"]',
-  ).first();
+  const ocean = page
+    .locator('.active-fill path[data-location-id="world:pacific-ocean"]')
+    .first();
   await expect(ocean).toHaveCSS('fill', 'rgb(59, 130, 246)');
 
   await page.getByLabel('Location name').fill('Africa');
@@ -191,9 +191,9 @@ test('active fills use semantic first-attempt colors and override them on misses
   await expect(ocean).toHaveCSS('fill', 'rgb(248, 113, 113)');
 
   await page.goto(diagnosticsUrl('europe'));
-  const land = page.locator(
-    '.active-fill path[data-location-id="world:europe"]',
-  ).first();
+  const land = page
+    .locator('.active-fill path[data-location-id="world:europe"]')
+    .first();
   await expect(land).toHaveCSS('fill', 'rgb(52, 211, 153)');
 
   await page.getByLabel('Location name').fill('Africa');
