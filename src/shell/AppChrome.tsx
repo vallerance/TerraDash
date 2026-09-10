@@ -5,7 +5,11 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
-import { quizCategoriesFor, type QuizOption } from '../contracts/quiz';
+import {
+  quizCategoriesFor,
+  type QuizCategory,
+  type QuizOption,
+} from '../contracts/quiz';
 import { useBrowserRoute } from '../routing/useBrowserRoute';
 
 export function AppFooter({ children }: { children?: ReactNode }) {
@@ -38,7 +42,7 @@ function CategoryMenu({
   category,
   selectedQuizId,
 }: {
-  category: ReturnType<typeof quizCategoriesFor>[number];
+  category: QuizCategory;
   selectedQuizId?: string;
 }) {
   const { navigate } = useBrowserRoute();
