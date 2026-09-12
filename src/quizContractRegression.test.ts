@@ -78,7 +78,6 @@ describe('canonical quiz presentation contract', () => {
       ...quizOptions[0],
       id: 'synthetic-frontier',
       category: 'frontier',
-      menuLabel: 'Frontier',
     };
     const categories = quizCategoriesFor([
       synthetic,
@@ -97,11 +96,10 @@ describe('canonical quiz presentation contract', () => {
     });
   });
 
-  it('keeps copy, menu labels, and thumbnail viewBoxes declarative', () => {
+  it('keeps canonical copy and thumbnail viewBoxes declarative', () => {
     expect(quizOptions.length).toBeGreaterThan(0);
     for (const quiz of quizOptions) {
       expect(quiz.description).toBeTruthy();
-      expect(quiz.menuLabel).toBeTruthy();
       expect(quiz.thumbnailViewBox).toBeTruthy();
     }
     const expectedViewBoxes: Record<string, string> = {
@@ -122,6 +120,34 @@ describe('canonical quiz presentation contract', () => {
       );
   });
 
+  it('derives home and navbar labels from the same canonical category objects', () => {
+    const renamed = quizOptions.map((quiz) =>
+      quiz.id === 'world' ? { ...quiz, name: 'Canonical World Name' } : quiz,
+    );
+    const homeSections = quizCategoriesFor(renamed);
+    const navbarSections = quizCategoriesFor(renamed);
+
+    expect(navbarSections.map(({ id, label }) => ({ id, label }))).toEqual(
+      homeSections.map(({ id, label }) => ({ id, label })),
+    );
+    expect(
+      navbarSections.flatMap(({ options }) =>
+        options.map(({ id, name }) => ({ id, name })),
+      ),
+    ).toEqual(
+      homeSections.flatMap(({ options }) =>
+        options.map(({ id, name }) => ({ id, name })),
+      ),
+    );
+    expect(navbarSections.flatMap(({ options }) => options)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ id: 'world', name: 'Canonical World Name' }),
+      ]),
+    );
+    expect(appChromeSource).toContain('{quiz.name}');
+    expect(appChromeSource).not.toContain('menuLabel');
+  });
+
   it('exposes exactly the four island quizzes under the Islands category', () => {
     const islands = quizOptions.filter(
       ({ category }) => category === 'islands',
@@ -140,7 +166,7 @@ describe('canonical quiz presentation contract', () => {
     );
     expect(
       islands.every(
-        ({ menuLabel, thumbnailViewBox }) => menuLabel && thumbnailViewBox,
+        ({ name, thumbnailViewBox }) => name && thumbnailViewBox,
       ),
     ).toBe(true);
   });
@@ -304,7 +330,6 @@ describe('regional quiz partition', () => {
       id: 'synthetic-mapped',
       name: 'Synthetic mapped quiz',
       description: 'Synthetic mapped quiz',
-      menuLabel: 'Synthetic mapped quiz',
       thumbnailViewBox: '1 2 3 4',
       locationIds: ['iso:AFG'],
       map: {
