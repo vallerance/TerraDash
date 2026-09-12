@@ -152,18 +152,20 @@ test('continent coastlines are rendered without authored mask seams', async ({
   }
 });
 
-test('the rendered base ocean is visibly blue', async ({ page }) => {
-  await page.goto(diagnosticsUrl('africa'));
-  const ocean = page.locator('rect.ocean');
-  await expect(ocean).toBeVisible();
-  const color = await ocean.evaluate(
-    (element) => getComputedStyle(element).fill,
-  );
-  const channels = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-  expect(channels).not.toBeNull();
-  const [, red, green, blue] = channels!.map(Number);
-  expect(blue).toBeGreaterThan(red);
-  expect(blue).toBeGreaterThan(green);
+test('the ordinary ocean background keeps its canonical default across quizzes', async ({
+  page,
+}) => {
+  for (const url of [
+    diagnosticsUrl('africa'),
+    diagnosticsUrl('US-AK', 'us-states'),
+  ]) {
+    await page.goto(url);
+    await expect(page.locator('rect.ocean')).toBeVisible();
+    await expect(page.locator('rect.ocean')).toHaveCSS(
+      'fill',
+      'rgb(16, 35, 60)',
+    );
+  }
 });
 
 test('neutral ocean and first-attempt land colors remain stable outside World', async ({
