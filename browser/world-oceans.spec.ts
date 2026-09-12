@@ -17,8 +17,9 @@ const continentCases = [
   ['oceania', 'Oceania'],
 ] as const;
 
-function diagnosticsUrl(slug: string) {
-  return `/TerraDash/diagnostics.html?quiz=continents-and-oceans&location=${encodeURIComponent(`world:${slug}`)}`;
+function diagnosticsUrl(slug: string, quiz = 'continents-and-oceans') {
+  const location = slug.includes(':') ? slug : `world:${slug}`;
+  return `/TerraDash/diagnostics.html?quiz=${quiz}&location=${encodeURIComponent(location)}`;
 }
 
 test('each ocean has an open-water clickable representative', async ({
@@ -165,6 +166,21 @@ test('the rendered base ocean is visibly blue', async ({ page }) => {
   expect(blue).toBeGreaterThan(green);
 });
 
+test('neutral ocean and first-attempt land colors remain stable outside World', async ({
+  page,
+}) => {
+  await page.goto(diagnosticsUrl('non-un:abkhazia', 'non-un'));
+  await expect(page.locator('rect.ocean')).toHaveCSS(
+    'fill',
+    'rgb(11, 94, 168)',
+  );
+  await expect(
+    page
+      .locator('.active-fill path[data-location-id="non-un:abkhazia"]')
+      .first(),
+  ).toHaveCSS('fill', 'rgb(52, 211, 153)');
+});
+
 test('active fills use semantic first-attempt colors and override them on misses', async ({
   page,
 }) => {
@@ -174,7 +190,7 @@ test('active fills use semantic first-attempt colors and override them on misses
   const ocean = page
     .locator('.active-fill path[data-location-id="world:pacific-ocean"]')
     .first();
-  await expect(ocean).toHaveCSS('fill', 'rgb(59, 130, 246)');
+  await expect(ocean).toHaveCSS('fill', 'rgb(52, 211, 153)');
 
   await page.getByLabel('Location name').fill('Africa');
   await page.getByRole('button', { name: 'Submit answer' }).click();
