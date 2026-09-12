@@ -169,14 +169,14 @@ test('the rendered base ocean is visibly blue', async ({ page }) => {
 test('neutral ocean and first-attempt land colors remain stable outside World', async ({
   page,
 }) => {
-  await page.goto(diagnosticsUrl('non-un:abkhazia', 'non-un'));
+  await page.goto(diagnosticsUrl('US-AK', 'us-states'));
   await expect(page.locator('rect.ocean')).toHaveCSS(
     'fill',
     'rgb(11, 94, 168)',
   );
   await expect(
     page
-      .locator('.active-fill path[data-location-id="non-un:abkhazia"]')
+      .locator('.active-fill path[data-location-id="US-AK"]')
       .first(),
   ).toHaveCSS('fill', 'rgb(52, 211, 153)');
 });
@@ -296,7 +296,7 @@ test('water hover, selected, and correct states retain water semantics', async (
   expect(box).not.toBeNull();
   await water.hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
   await expect(water).toHaveCSS('filter', 'brightness(1.2)');
-  await expect(water).toHaveCSS('fill', 'rgb(59, 130, 246)');
+  await expect(water).toHaveCSS('fill', 'rgb(52, 211, 153)');
   await page.getByLabel('Location name').fill('Indian Ocean');
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.getByText('Correct. Next location.')).toBeVisible();
