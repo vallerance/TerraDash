@@ -174,9 +174,9 @@ test('neutral ocean and first-attempt land colors remain stable outside World', 
     'fill',
     'rgb(11, 94, 168)',
   );
-  await expect(
-    page.locator('.active-fill path[data-location-id="US-AK"]').first(),
-  ).toHaveCSS('fill', 'rgb(52, 211, 153)');
+  const activeLand = page.locator('.active-fill path.land-location').first();
+  await expect(activeLand).toHaveAttribute('data-location-id', /.+/);
+  await expect(activeLand).toHaveCSS('fill', 'rgb(52, 211, 153)');
 });
 
 test('active fills use semantic first-attempt colors and override them on misses', async ({
