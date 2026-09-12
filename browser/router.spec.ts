@@ -17,7 +17,10 @@ test('navbar navigation is same-document and preserves deep-link history', async
   expect(loadCount).toBe(initialLoadCount);
 
   await page.getByRole('button', { name: 'Countries', exact: true }).click();
-  await page.getByRole('menu').getByRole('menuitem', { name: 'World' }).click();
+  await page
+    .getByRole('menu')
+    .getByRole('menuitem', { name: 'World UN Countries' })
+    .click();
   await expect(page).toHaveURL(/\/TerraDash\/\?quiz=world&select=1$/);
   await expect(
     page.getByRole('dialog', { name: 'World UN Countries' }),

@@ -21,7 +21,6 @@ const options: QuizOption[] = [
     id: 'world',
     name: 'World UN Countries',
     description: 'World',
-    menuLabel: 'World',
     thumbnailViewBox: '0 0 1440 720',
     locationIds: [],
   },
@@ -29,7 +28,6 @@ const options: QuizOption[] = [
     id: 'asia',
     name: 'Asia UN Countries',
     description: 'Asia',
-    menuLabel: 'Asia',
     thumbnailViewBox: '0 0 1440 720',
     locationIds: [],
   },
@@ -232,7 +230,6 @@ describe('shared quiz category contract', () => {
         id: 'frontier',
         name: 'Frontier quiz',
         description: 'A fixture category',
-        menuLabel: 'Frontier',
         thumbnailViewBox: '0 0 1 1',
         category: 'frontier',
         locationIds: [],
@@ -281,7 +278,7 @@ describe('shared quiz category contract', () => {
     );
     const frontierMenu = host.querySelector('.quiz-menu-popover');
     expect(frontierMenu?.querySelector(':scope > a')?.textContent).toBe(
-      'Frontier',
+      'Frontier quiz',
     );
     expect(frontierMenu?.querySelector(':scope > button')).toBeNull();
   });

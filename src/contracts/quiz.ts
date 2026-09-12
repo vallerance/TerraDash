@@ -47,7 +47,6 @@ const quizCategoryDefinitions: readonly Omit<QuizCategory, 'options'>[] = [
 export type QuizOption = QuizDefinition & {
   name: string;
   description: string;
-  menuLabel: string;
   thumbnailViewBox: string;
   category?: QuizCategoryId;
   map?: QuizMapInput;
@@ -57,7 +56,6 @@ type QuizInput = {
   id: string;
   name: string;
   description: string;
-  menuLabel: string;
   thumbnailViewBox: string;
   category?: QuizCategoryId;
   locationIds: string[];
@@ -70,7 +68,6 @@ export const quizOptions: QuizOption[] = configuredQuizOptions.map((quiz) => ({
   id: quiz.id,
   name: quiz.name,
   description: quiz.description,
-  menuLabel: quiz.menuLabel,
   thumbnailViewBox: quiz.thumbnailViewBox,
   category: quiz.category,
   map: quiz.map,

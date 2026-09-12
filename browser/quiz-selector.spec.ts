@@ -18,10 +18,10 @@ const quizNames = [
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
 const islandDestinations = [
-  { label: 'Top 100 by Landmass', count: 17 },
-  { label: 'Top 100 by Population', count: 15 },
-  { label: 'Top 500 by Landmass', count: 27 },
-  { label: 'Top 500 by Population', count: 36 },
+  { label: 'Top 100 Islands by Landmass', count: 17 },
+  { label: 'Top 100 Islands by Population', count: 15 },
+  { label: 'Top 500 Islands by Landmass', count: 27 },
+  { label: 'Top 500 Islands by Population', count: 36 },
 ];
 
 for (const fixture of [
@@ -100,12 +100,10 @@ test('top-level category menus expose destinations and enter the selected quiz',
   const menu = page.getByRole('menu');
   const countryMenu = menu;
   await expect(countryMenu.getByRole('menuitem')).toHaveText(
-    quizNames
-      .map((name) => name.replace(' UN Countries', ''))
-      .concat(nonUnTitle),
+    quizNames.concat(nonUnTitle),
   );
   await expect(
-    countryMenu.getByRole('menuitem', { name: 'World' }),
+    countryMenu.getByRole('menuitem', { name: 'World UN Countries' }),
   ).toHaveAttribute('aria-current', 'page');
   const globalQuizCount = quizDefinitions.filter(
     (quiz: { category?: string }) => !quiz.category,
@@ -197,7 +195,7 @@ test('top-level category menus expose destinations and enter the selected quiz',
     const islandMenu = page.getByRole('menu');
     await islandMenu.getByRole('menuitem', { name: destination.label }).click();
     const islandDialog = page.getByRole('dialog', {
-      name: new RegExp(destination.label.replace(' by ', ' Islands by ')),
+      name: new RegExp(destination.label),
     });
     await expect(islandDialog).toBeVisible();
     await expect(
@@ -208,7 +206,10 @@ test('top-level category menus expose destinations and enter the selected quiz',
       .click();
   }
   await trigger.click();
-  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
+  await page
+    .getByRole('menu')
+    .getByRole('menuitem', { name: 'Asia UN Countries' })
+    .click();
   await expect(page).toHaveURL(/\?quiz=asia&select=1$/);
   const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(dialog).toBeVisible();
@@ -216,9 +217,12 @@ test('top-level category menus expose destinations and enter the selected quiz',
   await trigger.click();
   await expect(page.getByRole('menu')).toBeVisible();
   await expect(
-    page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }),
+    page.getByRole('menu').getByRole('menuitem', { name: 'Asia UN Countries' }),
   ).toHaveAttribute('aria-current', 'page');
-  await page.getByRole('menu').getByRole('menuitem', { name: 'Asia' }).click();
+  await page
+    .getByRole('menu')
+    .getByRole('menuitem', { name: 'Asia UN Countries' })
+    .click();
   await expect(page.getByRole('button', { name: 'Start quiz' })).toHaveCount(0);
   const asiaDialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
   await expect(asiaDialog).toBeVisible();
@@ -258,7 +262,7 @@ for (const destination of [
     await page.getByRole('button', { name: 'Countries', exact: true }).click();
     await page
       .getByRole('menu')
-      .getByRole('menuitem', { name: 'Asia' })
+      .getByRole('menuitem', { name: 'Asia UN Countries' })
       .click();
     const dialog = page.getByRole('dialog', { name: 'Asia UN Countries' });
     await expect(dialog).toBeVisible();

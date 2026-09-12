@@ -3,7 +3,6 @@
     "id": "world",
     "name": "World UN Countries",
     "description": "All UN Member and UN Observer states",
-    "menuLabel": "World",
     "thumbnailViewBox": "0 0 1440 720",
     "locationIds": [
       "iso:AFG",
@@ -207,7 +206,6 @@
     "id": "africa",
     "name": "Africa UN Countries",
     "description": "UN Member and UN Observer states in Africa",
-    "menuLabel": "Africa",
     "thumbnailViewBox": "600 140 380 430",
     "locationIds": [
       "iso:DZA",
@@ -270,7 +268,6 @@
     "id": "asia",
     "name": "Asia UN Countries",
     "description": "UN Member and UN Observer states in Asia",
-    "menuLabel": "Asia",
     "thumbnailViewBox": "780 80 500 380",
     "locationIds": [
       "iso:AFG",
@@ -327,7 +324,6 @@
     "id": "europe",
     "name": "Europe UN Countries",
     "description": "UN Member and UN Observer states in Europe",
-    "menuLabel": "Europe",
     "thumbnailViewBox": "600 70 330 260",
     "locationIds": [
       "iso:ALB",
@@ -380,7 +376,6 @@
     "id": "north-america",
     "name": "North America UN Countries",
     "description": "UN Member and UN Observer states in North America",
-    "menuLabel": "North America",
     "thumbnailViewBox": "250 80 500 360",
     "locationIds": [
       "iso:BLZ",
@@ -399,7 +394,6 @@
     "id": "south-america",
     "name": "South America UN Countries",
     "description": "UN Member and UN Observer states in South America",
-    "menuLabel": "South America",
     "thumbnailViewBox": "420 300 300 360",
     "locationIds": [
       "iso:ARG",
@@ -420,7 +414,6 @@
     "id": "oceania",
     "name": "Oceania UN Countries",
     "description": "UN Member and UN Observer states in Oceania",
-    "menuLabel": "Oceania",
     "thumbnailViewBox": "1030 330 360 270",
     "locationIds": [
       "iso:AUS",
@@ -443,7 +436,6 @@
     "id": "caribbean",
     "name": "Caribbean UN Countries",
     "description": "UN Member and UN Observer states in Caribbean",
-    "menuLabel": "Caribbean",
     "thumbnailViewBox": "430 220 300 190",
     "locationIds": [
       "iso:ATG",
@@ -465,7 +457,6 @@
     "id": "non-un",
     "name": "Non-UN Countries, Independent Territories, and Autonomous Regions",
     "description": "Non-UN countries and regions listed in ISO 3166-1, UN M49, Natural Earth's admin-0 under countries or breakaway territories, or ISO 3166-2 under select categories.",
-    "menuLabel": "Non-UN Countries, Independent Territories, and Autonomous Regions",
     "thumbnailViewBox": "0 0 1440 720",
     "locationIds": [
       "non-un:abkhazia",
@@ -563,7 +554,6 @@
     "id": "us-states",
     "name": "US States",
     "description": "The 50 U.S. states and the District of Columbia.",
-    "menuLabel": "US States",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "regional",
     "locationIds": [
@@ -687,7 +677,6 @@
     "id": "canadian-provinces",
     "name": "Canadian Provinces",
     "description": "Canada's 10 provinces, excluding all territories.",
-    "menuLabel": "Canadian Provinces",
     "thumbnailViewBox": "145 35 410 180",
     "category": "regional",
     "locationIds": [
@@ -736,7 +725,6 @@
     "id": "mexican-states",
     "name": "Mexican States",
     "description": "Mexico's 32 first-level federal entities, including Mexico City.",
-    "menuLabel": "Mexican States",
     "thumbnailViewBox": "198 216 224 98",
     "category": "regional",
     "locationIds": [
@@ -829,7 +817,6 @@
     "id": "china-provinces",
     "name": "China Provinces",
     "description": "China's 22 mainland provinces and 4 direct-administered municipalities represented by stable CN-* source identities; autonomous regions, Hong Kong, Macau, Taiwan, and Paracel remain non-playable geography.",
-    "menuLabel": "China Provinces",
     "thumbnailViewBox": "920 125 432.72727272727275 190.1",
     "category": "regional",
     "locationIds": [
@@ -915,7 +902,6 @@
     "id": "islands-top-100-landmass",
     "name": "Top 100 Islands by Landmass",
     "description": "The top 100 islands by land area represented in TerraDash's canonical geography.",
-    "menuLabel": "Top 100 by Landmass",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "islands",
     "locationIds": [
@@ -942,7 +928,6 @@
     "id": "islands-top-100-population",
     "name": "Top 100 Islands by Population",
     "description": "The top 100 islands by population represented in TerraDash's canonical geography.",
-    "menuLabel": "Top 100 by Population",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "islands",
     "locationIds": [
@@ -967,7 +952,6 @@
     "id": "islands-top-500-landmass",
     "name": "Top 500 Islands by Landmass",
     "description": "The top 500 islands by land area represented in TerraDash's canonical geography.",
-    "menuLabel": "Top 500 by Landmass",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "islands",
     "locationIds": [
@@ -1004,7 +988,6 @@
     "id": "islands-top-500-population",
     "name": "Top 500 Islands by Population",
     "description": "The top 500 islands by population represented in TerraDash's canonical geography.",
-    "menuLabel": "Top 500 by Population",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "islands",
     "locationIds": [
@@ -1050,7 +1033,6 @@
     "id": "continents-and-oceans",
     "name": "Continents and Oceans",
     "description": "The seven continents and five oceans",
-    "menuLabel": "Continents and Oceans",
     "thumbnailViewBox": "0 0 1440 720",
     "category": "world",
     "map": {

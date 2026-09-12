@@ -83,7 +83,10 @@ test('cross-page quiz dialog retains the same backdrop contract', async ({
   await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto('/TerraDash/diagnostics.html');
   await page.getByRole('button', { name: 'Countries', exact: true }).click();
-  await page.getByRole('menu').getByRole('menuitem', { name: 'World' }).click();
+  await page
+    .getByRole('menu')
+    .getByRole('menuitem', { name: 'World UN Countries' })
+    .click();
   await expectDialogOverlay(page);
   await page.screenshot({
     path: testInfo.outputPath('dialog-overlay-diagnostics.png'),

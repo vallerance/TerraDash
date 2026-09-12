@@ -82,7 +82,7 @@ test('deployed Pages dropdown opens every quiz details dialog', async ({
 for (const pageName of ['diagnostics.html', '?page=high-scores']) {
   test(`deployed ${pageName} returns to a quiz dialog`, async ({ page }) => {
     await page.goto(`${liveBase}/${pageName}`);
-    await openQuizFromCategory(page, 'Countries', 'Asia');
+    await openQuizFromCategory(page, 'Countries', 'Asia UN Countries');
     await expect(
       page.getByRole('dialog', { name: 'Asia UN Countries' }),
     ).toBeVisible();

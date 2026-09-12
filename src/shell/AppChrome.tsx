@@ -81,7 +81,7 @@ function CategoryMenu({
         navigate(event.currentTarget.href);
       }}
     >
-      {quiz.menuLabel}
+      {quiz.name}
     </a>
   );
   return (

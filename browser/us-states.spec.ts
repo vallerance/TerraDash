@@ -11,7 +11,7 @@ const regionalMenuLabels = JSON.parse(
   readFileSync(new URL('../data/quizzes.json', import.meta.url), 'utf8'),
 )
   .filter((quiz: { category?: string }) => quiz.category === 'regional')
-  .map((quiz: { menuLabel: string }) => quiz.menuLabel);
+  .map((quiz: { name: string }) => quiz.name);
 const expectedContextFeatureCount =
   generatedMap.sourceFeatureIds.length -
   (usQuiz.map.contextFeatureExclusions?.length ?? 0);
