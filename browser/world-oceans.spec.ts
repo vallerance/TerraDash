@@ -175,9 +175,7 @@ test('neutral ocean and first-attempt land colors remain stable outside World', 
     'rgb(11, 94, 168)',
   );
   await expect(
-    page
-      .locator('.active-fill path[data-location-id="US-AK"]')
-      .first(),
+    page.locator('.active-fill path[data-location-id="US-AK"]').first(),
   ).toHaveCSS('fill', 'rgb(52, 211, 153)');
 });
 
