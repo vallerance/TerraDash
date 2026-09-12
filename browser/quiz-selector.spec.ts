@@ -18,10 +18,10 @@ const quizNames = [
 const nonUnTitle =
   'Non-UN Countries, Independent Territories, and Autonomous Regions';
 const islandDestinations = [
-  { label: 'Top 100 by Landmass', count: 17 },
-  { label: 'Top 100 by Population', count: 15 },
-  { label: 'Top 500 by Landmass', count: 27 },
-  { label: 'Top 500 by Population', count: 36 },
+  { label: 'Top 100 Islands by Landmass', count: 17 },
+  { label: 'Top 100 Islands by Population', count: 15 },
+  { label: 'Top 500 Islands by Landmass', count: 27 },
+  { label: 'Top 500 Islands by Population', count: 36 },
 ];
 
 for (const fixture of [
