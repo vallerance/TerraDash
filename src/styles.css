@@ -912,13 +912,11 @@ h2 {
   --attempt-color: #facc15;
   --attempt-color-soft: #facc1555;
   --attempt-outline: #fef08a;
-  --active-fill-color: var(--attempt-color);
 }
 .active-player.attempts-remaining-1 {
   --attempt-color: #f87171;
   --attempt-color-soft: #f8717155;
   --attempt-outline: #fecaca;
-  --active-fill-color: var(--attempt-color);
 }
 .attempts-remaining-label {
   color: var(--attempt-color);
@@ -1285,13 +1283,13 @@ input {
   stroke: none;
 }
 .active-fill path {
-  fill: var(--active-fill-color, #f59e0b);
+  fill: var(--attempt-color, #f59e0b);
 }
 .active-fill path.land-location {
-  fill: var(--active-fill-color, #34d399);
+  fill: var(--attempt-color, #34d399);
 }
 .active-fill path.water-location {
-  fill: var(--active-fill-color, #3b82f6);
+  fill: var(--attempt-color, #3b82f6);
 }
 .active-fill path[data-location-id] {
   pointer-events: auto;
