@@ -165,9 +165,7 @@ describe('canonical quiz presentation contract', () => {
       quizOptions.length,
     );
     expect(
-      islands.every(
-        ({ name, thumbnailViewBox }) => name && thumbnailViewBox,
-      ),
+      islands.every(({ name, thumbnailViewBox }) => name && thumbnailViewBox),
     ).toBe(true);
   });
 
