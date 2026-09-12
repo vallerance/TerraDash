@@ -270,6 +270,7 @@ describe('shared quiz category contract', () => {
         button.textContent?.replace('▾', '').trim(),
       ),
     ).toEqual(labels);
+    expect(host.querySelector('.quiz-submenu')).toBeNull();
     const frontierTrigger = [
       ...host.querySelectorAll('.quiz-menu-trigger'),
     ].find((button) => button.textContent?.includes('Frontier'));
@@ -278,8 +279,10 @@ describe('shared quiz category contract', () => {
         new MouseEvent('click', { bubbles: true }),
       ),
     );
-    expect(host.querySelector('.quiz-menu-popover a')?.textContent).toBe(
+    const frontierMenu = host.querySelector('.quiz-menu-popover');
+    expect(frontierMenu?.querySelector(':scope > a')?.textContent).toBe(
       'Frontier',
     );
+    expect(frontierMenu?.querySelector(':scope > button')).toBeNull();
   });
 });
