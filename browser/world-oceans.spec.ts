@@ -306,9 +306,7 @@ test('water callout selected paths keep semantic color through misses', async ({
   page,
 }) => {
   await page.goto(diagnosticsUrl('indian-ocean'));
-  const mainWater = page
-    .locator('.active-fill path.water-location')
-    .first();
+  const mainWater = page.locator('.active-fill path.water-location').first();
   const calloutWater = page
     .locator('.callout-inset .callout-selected.water-location path')
     .first();
