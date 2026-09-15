@@ -187,7 +187,7 @@ test('active fills use semantic first-attempt colors and override them on misses
   const ocean = page
     .locator('.active-fill path[data-location-id="world:pacific-ocean"]')
     .first();
-  await expect(ocean).toHaveCSS('fill', 'rgb(52, 211, 153)');
+  await expect(ocean).toHaveCSS('fill', 'rgb(59, 130, 246)');
 
   await page.getByLabel('Location name').fill('Africa');
   await page.getByRole('button', { name: 'Submit answer' }).click();
@@ -293,11 +293,32 @@ test('water hover, selected, and correct states retain water semantics', async (
   expect(box).not.toBeNull();
   await water.hover({ position: { x: box!.width / 2, y: box!.height / 2 } });
   await expect(water).toHaveCSS('filter', 'brightness(1.2)');
-  await expect(water).toHaveCSS('fill', 'rgb(52, 211, 153)');
+  await expect(water).toHaveCSS('fill', 'rgb(59, 130, 246)');
   await page.getByLabel('Location name').fill('Indian Ocean');
   await page.getByRole('button', { name: 'Submit answer' }).click();
   await expect(page.getByText('Correct. Next location.')).toBeVisible();
   await expect(page.locator('.active-player')).toHaveClass(
     /attempts-remaining-3/,
   );
+});
+
+test('water callout selected paths keep semantic color through misses', async ({
+  page,
+}) => {
+  await page.goto('/TerraDash/diagnostics.html?location=US-RI');
+  const calloutGroup = page.locator('.callout-inset .callout-selected').first();
+  await expect(calloutGroup).toBeVisible();
+  await calloutGroup.evaluate((element) =>
+    element.classList.add('water-location'),
+  );
+  const calloutWater = calloutGroup.locator('path').first();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(59, 130, 246)');
+
+  await page.getByLabel('Location name').fill('Alaska');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(250, 204, 21)');
+
+  await page.getByLabel('Location name').fill('Alaska');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(248, 113, 113)');
 });
