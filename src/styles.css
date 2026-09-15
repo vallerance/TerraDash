@@ -912,11 +912,13 @@ h2 {
   --attempt-color: #facc15;
   --attempt-color-soft: #facc1555;
   --attempt-outline: #fef08a;
+  --active-fill-color: var(--attempt-color);
 }
 .active-player.attempts-remaining-1 {
   --attempt-color: #f87171;
   --attempt-color-soft: #f8717155;
   --attempt-outline: #fecaca;
+  --active-fill-color: var(--attempt-color);
 }
 .attempts-remaining-label {
   color: var(--attempt-color);
@@ -1283,13 +1285,13 @@ input {
   stroke: none;
 }
 .active-fill path {
-  fill: var(--attempt-color, #f59e0b);
+  fill: var(--active-fill-color, #f59e0b);
 }
 .active-fill path.land-location {
-  fill: var(--attempt-color, #34d399);
+  fill: var(--active-fill-color, #34d399);
 }
 .active-fill path.water-location {
-  fill: var(--attempt-color, #3b82f6);
+  fill: var(--active-fill-color, #3b82f6);
 }
 .active-fill path[data-location-id] {
   pointer-events: auto;
@@ -1318,13 +1320,13 @@ input {
   stroke: var(--attempt-outline, #fff);
 }
 .callout-selected path {
-  fill: var(--attempt-color, #34d399);
+  fill: var(--active-fill-color, #34d399);
   stroke: var(--attempt-outline, #fff);
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
 }
 .callout-selected.water-location path {
-  fill: var(--attempt-color, #3b82f6);
+  fill: var(--active-fill-color, #3b82f6);
 }
 .callout-inset {
   pointer-events: none;
@@ -1339,12 +1341,18 @@ input {
   stroke-width: 0.7;
 }
 .callout-inset .callout-selected path {
-  fill: var(--attempt-color, #f59e0b);
+  fill: var(--active-fill-color, #34d399);
   stroke: none;
 }
+.callout-inset .callout-selected.water-location path {
+  fill: var(--active-fill-color, #3b82f6);
+}
 .callout-inset .callout-selected .inset-selected-dot {
-  fill: var(--attempt-color, #f59e0b);
+  fill: var(--active-fill-color, #34d399);
   stroke: none;
+}
+.callout-inset .callout-selected.water-location .inset-selected-dot {
+  fill: var(--active-fill-color, #3b82f6);
 }
 .callout-inset .callout-selected .inset-selected-artifact,
 .callout-inset .callout-selected .inset-selected-degenerate {

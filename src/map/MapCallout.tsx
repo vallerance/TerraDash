@@ -122,7 +122,7 @@ export function MapCallout({
             </g>
           </g>
           {insetDot && insetDotCenter && (
-            <g className="callout-selected">
+            <g className={`callout-selected ${locationKind}-location`}>
               <circle
                 className="inset-selected-dot"
                 cx={insetDotCenter[0]}
