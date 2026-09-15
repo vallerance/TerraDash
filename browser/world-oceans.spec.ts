@@ -152,28 +152,27 @@ test('continent coastlines are rendered without authored mask seams', async ({
   }
 });
 
-test('the rendered base ocean is visibly blue', async ({ page }) => {
-  await page.goto(diagnosticsUrl('africa'));
-  const ocean = page.locator('rect.ocean');
-  await expect(ocean).toBeVisible();
-  const color = await ocean.evaluate(
-    (element) => getComputedStyle(element).fill,
-  );
-  const channels = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
-  expect(channels).not.toBeNull();
-  const [, red, green, blue] = channels!.map(Number);
-  expect(blue).toBeGreaterThan(red);
-  expect(blue).toBeGreaterThan(green);
+test('the ordinary ocean background keeps its canonical default across quizzes', async ({
+  page,
+}) => {
+  for (const url of [
+    diagnosticsUrl('africa'),
+    diagnosticsUrl('US-AK', 'us-states'),
+  ]) {
+    await page.goto(url);
+    await expect(page.locator('rect.ocean')).toBeVisible();
+    await expect(page.locator('rect.ocean')).toHaveCSS(
+      'fill',
+      'rgb(16, 35, 60)',
+    );
+  }
 });
 
 test('neutral ocean and first-attempt land colors remain stable outside World', async ({
   page,
 }) => {
   await page.goto(diagnosticsUrl('US-AK', 'us-states'));
-  await expect(page.locator('rect.ocean')).toHaveCSS(
-    'fill',
-    'rgb(11, 94, 168)',
-  );
+  await expect(page.locator('rect.ocean')).toHaveCSS('fill', 'rgb(16, 35, 60)');
   const activeLand = page.locator('.active-fill path.land-location').first();
   await expect(activeLand).toHaveAttribute('data-location-id', /.+/);
   await expect(activeLand).toHaveCSS('fill', 'rgb(52, 211, 153)');
@@ -184,7 +183,7 @@ test('active fills use semantic first-attempt colors and override them on misses
 }) => {
   await page.goto(diagnosticsUrl('pacific-ocean'));
   const baseOcean = page.locator('rect.ocean');
-  await expect(baseOcean).toHaveCSS('fill', 'rgb(11, 94, 168)');
+  await expect(baseOcean).toHaveCSS('fill', 'rgb(16, 35, 60)');
   const ocean = page
     .locator('.active-fill path[data-location-id="world:pacific-ocean"]')
     .first();
