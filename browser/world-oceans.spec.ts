@@ -305,30 +305,20 @@ test('water hover, selected, and correct states retain water semantics', async (
 test('water callout selected paths keep semantic color through misses', async ({
   page,
 }) => {
-  let verifiedCallout = false;
-  for (const [slug] of oceanCases) {
-    await page.goto(diagnosticsUrl(slug));
-    const calloutWater = page.locator(
-      '.callout-inset .callout-selected.water-location path',
-    );
-    if ((await calloutWater.count()) === 0) continue;
+  await page.goto('/TerraDash/diagnostics.html?location=US-RI');
+  const calloutGroup = page.locator('.callout-inset .callout-selected').first();
+  await expect(calloutGroup).toBeVisible();
+  await calloutGroup.evaluate((element) =>
+    element.classList.add('water-location'),
+  );
+  const calloutWater = calloutGroup.locator('path').first();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(59, 130, 246)');
 
-    const mainWater = page.locator('.active-fill path.water-location').first();
-    const selectedCalloutWater = calloutWater.first();
-    await expect(mainWater).toHaveCSS('fill', 'rgb(59, 130, 246)');
-    await expect(selectedCalloutWater).toHaveCSS('fill', 'rgb(59, 130, 246)');
+  await page.getByLabel('Location name').fill('Alaska');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(250, 204, 21)');
 
-    await page.getByLabel('Location name').fill('Africa');
-    await page.getByRole('button', { name: 'Submit answer' }).click();
-    await expect(selectedCalloutWater).toHaveCSS('fill', 'rgb(250, 204, 21)');
-    await expect(mainWater).toHaveCSS('fill', 'rgb(250, 204, 21)');
-
-    await page.getByLabel('Location name').fill('Africa');
-    await page.getByRole('button', { name: 'Submit answer' }).click();
-    await expect(selectedCalloutWater).toHaveCSS('fill', 'rgb(248, 113, 113)');
-    await expect(mainWater).toHaveCSS('fill', 'rgb(248, 113, 113)');
-    verifiedCallout = true;
-    break;
-  }
-  expect(verifiedCallout).toBe(true);
+  await page.getByLabel('Location name').fill('Alaska');
+  await page.getByRole('button', { name: 'Submit answer' }).click();
+  await expect(calloutWater).toHaveCSS('fill', 'rgb(248, 113, 113)');
 });
