@@ -1,0 +1,27 @@
+{
+  "natural_earth_land": {
+    "layer": "ne_10m_land",
+    "version": "5.1.1",
+    "license": "public domain",
+    "sha256": "e547d749445eaa0964aba76738090ec88f5e63c4585122170f98c67a7ea922dc"
+  },
+  "natural_earth_minor_islands": {
+    "layer": "ne_10m_minor_islands",
+    "version": "4.1.0",
+    "license": "public domain",
+    "sha256": "47c0b3ce26df7b4dbabdb251023918cb2f5c83462a426288f1f253da7284db2"
+  },
+  "gshhg": {
+    "archive": "gshhg-shp-2.3.7.zip",
+    "version": "2.3.7",
+    "layers": ["GSHHS_h_L1", "GSHHS_h_L3"],
+    "license": "LGPL-3.0-or-later plus archive notice",
+    "sha256": "8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41"
+  },
+  "usgs_global_islands": {
+    "arcgis_item": "885a860af66d4833887dcce735a521a7",
+    "modified": 1737496596000,
+    "license": "USGS public domain",
+    "sha256": "7e7f2b5be5bfaac049fb6319b687f1b8099830b62243521a3d1bd2cbd21474d1"
+  }
+}
