@@ -6,6 +6,8 @@ A self-contained command-line tool that materializes a queryable global-islands 
 
 - **USGS Global Islands** (public domain): canonical island enumeration, names, geodesic area, and geometry. The official USGS ArcGIS File Geodatabase item is downloaded once and cached locally.
 - **Natural Earth 1:10m admin-0 map subunits** (public domain): sovereign state, country, map unit, map subunit, UN-style region/subregion, and Natural Earth association.
+- **Natural Earth physical land 5.1.1 + minor islands 4.1.0** (public domain): preferred exported physical-island geometry references. Each archive is SHA-256 pinned independently because these two physical layers are published at different Natural Earth release versions.
+- **GSHHG 2.3.7 high-resolution shoreline polygons** (LGPL-3.0-or-later plus the archive notice): secondary physical-island geometry references only when Natural Earth does not uniquely own the island coordinate. GSHHG-derived references are a separately licensed data component; TerraDash application code remains MIT.
 - **Marine Regions World EEZ v12** (CC BY 4.0): fallback jurisdiction for tiny islands omitted by Natural Earth generalized land polygons.
 - **WorldPop Global2 R2025A 1 km population** (CC BY 4.0): population estimate, downloaded and aggregated only when a query requires population (or `build --population` is requested).
 - **USGS GNIS** (public domain): official U.S. and dependent-area island names.
@@ -89,9 +91,32 @@ The source USGS coastline geometry is much higher resolution than the 1 km popul
 
 ## Output columns
 
-`id`, `usgs_id`, `name`, `alternate_names`, `name_source`, `name_source_id`, `name_match_method`, `area_km2`, `population`, `population_year`, `population_source`, `population_method`, `latitude`, `longitude`, `ne_feature_id`, `ne_name`, `sovereign_state`, `country`, `map_unit`, `map_subunit`, `region`, `subregion`.
+The existing administrative columns remain unchanged: `id`, `usgs_id`, `name`, `alternate_names`, `name_source`, `name_source_id`, `name_match_method`, `area_km2`, `population`, `population_year`, `population_source`, `population_method`, `latitude`, `longitude`, `ne_feature_id`, `ne_name`, `sovereign_state`, `country`, `map_unit`, `map_subunit`, `region`, `subregion`. `ne_feature_id` is still administrative compatibility metadata and is **not** a physical-island geometry key.
 
-The flattened Natural Earth fields represent the jurisdiction with the greatest island-area overlap. All overlaps are retained in the internal `jurisdictions` table with `area_fraction` so filters remain correct for divided islands.
+Every exported row also carries an explicit physical-geometry contract: `geometry_source`, `geometry_feature_id`, `geometry_source_version`, `geometry_source_checksum`, `geometry_layer`, `geometry_component`, `geometry_level`, `geometry_parent_id`, `geometry_sibling_id`, `geometry_ancestor_id`, `geometry_source_detail`, `geometry_resolution_method`, `geometry_resolution_status`, and `geometry_resolution_fallback_reason`.
+
+Resolution is deterministic and fail-closed. The supplied island coordinate must be covered by one uniquely owned Natural Earth polygon component; otherwise the resolver tries the pinned GSHHG high-resolution land/island levels using exact point-in-polygon containment. Shared source polygons are rejected as duplicate ownership rather than silently collapsing distinct island identities. If GSHHG also cannot uniquely represent an island, the resolver uses the pinned public-domain USGS Global Islands canonical source row already responsible for that island ID and representative coordinate. Missing final ownership aborts export.
+
+The flattened Natural Earth administrative fields represent the jurisdiction with the greatest island-area overlap. All overlaps are retained in the internal `jurisdictions` table with `area_fraction` so filters remain correct for divided islands.
+
+## Reproducible geometry-source pins
+
+The physical geometry sources are checksum pinned in `islands_db/sources.py`:
+
+- Natural Earth `ne_10m_land` 5.1.1: `e547d749445eaa0964aba76738090ec88f5e63c4585122170f98c67a7ea922dc`
+- Natural Earth `ne_10m_minor_islands` 4.1.0: `47c0b3ce26df7b4dbabdb251023918cb2f5c83462a426288f1f253da7284db2`
+- GSHHG shapefiles 2.3.7: `8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41`
+- USGS Global Islands ArcGIS item `885a860af66d4833887dcce735a521a7`, modified `1737496596000`: `7e7f2b5be5bfaac049fb6319b687f1b8099830b62243521a3d1bd2cbd21474d1`
+
+GSHHG 2.3.7's archive states that GSHHG is distributed under LGPL version 3 or later and includes an additional permission/notice. The exact archive notices are preserved in `licenses/GSHHG-2.3.7/`. The generated CSV/JSON rows contain only source identifiers and provenance metadata; if GSHHG-derived geometry itself is redistributed later, retain the applicable GSHHG notices and modification information with that data component. Natural Earth and USGS inputs are public-domain sources.
+
+Regenerate all four committed ranking pairs (100/500 by landmass and population) from the cache with:
+
+```bash
+./islands export-adhoc
+```
+
+The command resolves the union once, refuses to write on unresolved/duplicate final ownership, then writes CSV and JSON with identical field order. Running it twice against the same pinned inputs must produce byte-identical exports.
 
 ## Tests
 

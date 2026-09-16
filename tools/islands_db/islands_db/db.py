@@ -1,11 +1,13 @@
 from __future__ import annotations
 import csv, json, sqlite3, sys
 from pathlib import Path
+from .geometry_refs import GEOMETRY_FIELDS
 
 FIELDS = [
     "id","usgs_id","name","alternate_names","name_source","name_source_id","name_match_method","area_km2","population","population_year","population_source","population_method",
     "latitude","longitude","ne_feature_id","ne_name","sovereign_state","country","map_unit","map_subunit","region","subregion"
 ]
+OUTPUT_FIELDS = FIELDS + GEOMETRY_FIELDS
 SORTABLE = set(FIELDS)
 FILTERABLE = set(FIELDS) | {"jurisdiction"}
 OPS = {"eq":"=","ne":"!=","gt":">","gte":">=","lt":"<","lte":"<=","like":"LIKE"}
@@ -84,6 +86,7 @@ def query(c, filters, sort, direction, skip, length):
     return c.execute(sql,args).fetchall()
 
 def emit(rows, fmt, out=sys.stdout):
+    normalized=[{field:dict(r).get(field) for field in OUTPUT_FIELDS} for r in rows]
     if fmt=="json":
-        json.dump([dict(r) for r in rows],out,ensure_ascii=False,indent=2); out.write("\n"); return
-    w=csv.DictWriter(out,fieldnames=FIELDS); w.writeheader(); w.writerows(dict(r) for r in rows)
+        json.dump(normalized,out,ensure_ascii=False,indent=2); out.write("\n"); return
+    w=csv.DictWriter(out,fieldnames=OUTPUT_FIELDS); w.writeheader(); w.writerows(normalized)
